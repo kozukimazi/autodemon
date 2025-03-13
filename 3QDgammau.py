@@ -499,27 +499,31 @@ for ev in eVs0:
     Nds.append(Nd0)
     eVs.append(ev*betal)
 
-plt.plot(eVs,Ql,linestyle='--', dashes=(5, 9), color='red',label = r'$\dot{Q}_{L}$')
-plt.plot(eVs,Qr,linestyle='--', dashes=(5, 9), color='blue', label = r'$\dot{Q}_{R}$') 
-plt.plot(eVs,Qd,linestyle='--', dashes=(5, 9), color='green',label = r'$\dot{Q}_{d}$')
+plt.plot(eVs,Ql,linestyle='--', dashes=(5, 9), color='red',label = r'$J_{L}$')
+plt.plot(eVs,Qr,linestyle='--', dashes=(5, 9), color='blue', label = r'$J_{R}$') 
+plt.plot(eVs,Qd,linestyle='--', dashes=(5, 9), color='green',label = r'$J_{d}$')
 #plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$')
 #plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$') 
 #plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$')
 #plt.xscale("log")
 plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.ylabel("Heat current",fontsize = 20)
-plt.legend()
+plt.ylabel(r'$J_{\alpha}$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)  # Y-axis tick labels
+plt.legend(fontsize=15) 
 plt.show()   
 
-plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$', color = 'b')
-plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$', color = 'r') 
-plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$', color = 'k')
+plt.plot(eVs,Nls,linestyle='--', dashes=(5, 9), color='red',label = r'$\dot{N}_{L}$')
+plt.plot(eVs,Nrs,linestyle='--', dashes=(5, 9), color='blue', label = r'$\dot{N}_{R}$') 
+plt.plot(eVs,Nds,linestyle='--', dashes=(5, 9), color='green',label = r'$\dot{N}_{d}$')
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)  # Y-axis tick labels
 #plt.xscale("log")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
-#plt.ylabel("Particle current",fontsize = 20)
-plt.legend()
+plt.ylabel(r'$\dot{N}_{\alpha}$',fontsize = 20)
+plt.legend(loc = "lower left",fontsize=15) 
 plt.show()  
 
 plt.plot(eVs,Qlr, label = r'$\dot{Q}_{rl}$', color = 'b')
