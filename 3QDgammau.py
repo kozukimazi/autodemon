@@ -416,6 +416,7 @@ Sls = []
 Srs = []
 Sds = []
 Slr = []
+entropf = []
 Isl = []
 Id = []
 Els = []
@@ -442,6 +443,7 @@ Nds = []
 cohev = []
 concv = []
 eVs = []
+auxff = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -498,7 +500,8 @@ for ev in eVs0:
     Nrs.append(Nr0)
     Nds.append(Nd0)
     eVs.append(ev*betal)
-
+    entropf.append( -betal*(Ql0+Qr0) )
+    auxff.append(0)
 plt.plot(eVs,Ql,linestyle='--', dashes=(5, 9), color='red',lw = 4,label = r'$J_{L}$')
 plt.plot(eVs,Qr,linestyle='--', dashes=(5, 9), color='blue', lw=4,label = r'$J_{R}$') 
 plt.plot(eVs,Qd,linestyle='--', dashes=(5, 9), color='black',lw=4,label = r'$J_{d}$')
@@ -661,6 +664,15 @@ plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15)
+plt.show()
+
+plt.plot(eVs,entropf,linestyle='--', dashes=(5, 9), color = 'black',lw = 3)
+plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
+plt.xlabel(r'$eV/T$',fontsize = 20) 
+plt.ylabel(r'$\dot{\sigma}^{o}_{LR}$',fontsize=20)    
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+##plt.legend(fontsize=15)
 plt.show()
 
 
