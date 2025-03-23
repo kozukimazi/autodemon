@@ -559,7 +559,8 @@ plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
 plt.show()   
 
-plt.plot(eVs,Slr)
+plt.plot(eVs,Slr,linestyle='--', dashes=(5, 9), color = 'black',lw = 3)
+plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
 plt.ylabel(r'$\dot{\sigma}_{LR}$',fontsize = 20)
 plt.xlabel(r'$eV/T$', fontsize = 20)
 #plt.legend(fontsize = 15)
