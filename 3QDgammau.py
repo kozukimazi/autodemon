@@ -607,10 +607,10 @@ plt.legend(fontsize=15)
 plt.show()
 
 
-plt.plot(eVs,Erl,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{E}_{rl}$')
+plt.plot(eVs,Erl,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{E}_{LR}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-plt.plot(eVs,Flr,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{F}_{rl}$')
-plt.plot(eVs,Tisl,label = r'$T\dot{I}_{rl}$', color = 'g',lw=2)
+plt.plot(eVs,Flr,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{F}_{LR}$')
+plt.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$', color = 'g',lw=2)
 plt.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=2)
 plt.plot(eVs,Qlr,label = r'$J_{LR}$',color = 'gray',lw=2)
 plt.xlabel(r'$eV/T$',fontsize = 20)
