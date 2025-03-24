@@ -249,14 +249,15 @@ plt.show()
 
 
 Num = 200
-eVs = np.linspace(0,1000,Num)
+eVs0 = np.linspace(0,800,Num)
+eVs = []
 Je = []
 Jem = []
 Si = []
 Is = []
 Ism = []
 Siy = []
-for ev in eVs:
+for ev in eVs0:
     U = 40
     mud0 = 2
     gamma0 = 1/50
@@ -271,7 +272,7 @@ for ev in eVs:
     Is.append(-valI)
     Ism.append(valI)
     Siy.append(-valSiy)
-
+    eVs.append(ev/TL)
 
 
 plt.plot(eVs,Je, label = r'$\mathcal{J}_{e}$')

@@ -36,13 +36,13 @@ for item in [data.split()[2] for data in nuevo0]:
     Iqm_data.append(float(item))   
 nuevo0.close()
 
-plt.scatter(eV_data,Jclas_data,s = 1, label = r'$\mathcal{J}_{cl}$')
-plt.scatter(eV_data,Jqm_data,s = 1, label = r'$\mathcal{J}_{qm}$')
+plt.plot(eV_data,Jclas_data,linestyle='--', dashes=(5, 9), color='red',lw = 4, label = r'$\mathcal{J}_{cl}$')
+plt.plot(eV_data,Jqm_data,linestyle='--', dashes=(5, 9), color='blue',lw = 4, label = r'$\mathcal{J}_{qm}$')
 plt.legend()
 plt.show()
 
-plt.scatter(eV_data,Iclas_data,s = 0.5, label = r'$\mathcal{I}_{cl}$')
-plt.scatter(eV_data,Iqm_data,s=0.5, label = r'$\mathcal{I}_{qm}$')
+plt.plot(eV_data,Iclas_data,linestyle='--', dashes=(5, 9), color='red',lw = 4, label = r'$\mathcal{I}_{cl}$')
+plt.plot(eV_data,Iqm_data,linestyle='--', dashes=(5, 9), color='blue',lw = 4, label = r'$\mathcal{I}_{qm}$')
 plt.legend()
 plt.show()
 

@@ -513,7 +513,7 @@ plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$J_{\alpha}$',fontsize = 20)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)  # Y-axis tick labels
-plt.legend(fontsize=15) 
+plt.legend(loc = "lower left",fontsize=15) 
 plt.show()   
 
 plt.plot(eVs,Nls,linestyle='--', dashes=(5, 9), color='red',lw=4,label = r'$\dot{N}_{L}$')
