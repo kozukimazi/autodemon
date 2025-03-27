@@ -326,7 +326,7 @@ plt.show()
     
 Ufs = np.linspace(7,40,100)
 Us = np.linspace(1,6,50)
-Num = 5000
+Num = 8000
 g0s = np.linspace(0,1,Num)
 Ql = []
 Qr = []
@@ -373,7 +373,6 @@ for g0f in g0s:
     #Ed0 = 1
     Ed0 = mud0 -U00/2
     Uf0 = 500 #50
-    #Probar condicion (U00/E0)<<1,Strasberg
     E0 = 4
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
     H0 = Hamiltonian(E0,Ed0,U00,Uf0,g0f)
