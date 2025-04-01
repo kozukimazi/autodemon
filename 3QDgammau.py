@@ -265,17 +265,16 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     return Ql.real, Qr.real, Qd.real, Sl.real, Sr.real,Sd.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real
 
 
-E = 0
-Ed = 0.
+E = 4
 U0 = 40.
 Uf = 500
 g0 = 5/1000
 
-eV = 6.5
+eV = 600
 mul1 = eV/2
 mur1 = -eV/2
-mud1 = 2*eV
-
+mud1 = 2
+Ed = mud1-U0/2
 #betar,betad,betal = 1/50,1/20,1/50
 #comportamiento raro
 #betar,betad,betal = 1/10,1/5,1/10
@@ -288,12 +287,12 @@ mud1 = 2*eV
 #transport
 betar,betad,betal = 1/100,1/2,1/100
 
-gr,grU = (1/100)*(1/6), 1/100
-gl,glU = 1/100, (1/100)*(1/6)
-gd,gdU = 1/50,1/50 
-#gr,grU = (1/100), 1/100
-#gl,glU = 1/100, (1/100)
-#gd,gdU = 1/100,1/100 
+#gr,grU = (1/100)*(1/6), 1/100
+#gl,glU = 1/100, (1/100)*(1/6)
+#gd,gdU = 1/50,1/50 
+gr,grU = (1/100), 1/100
+gl,glU = 1/100, (1/100)
+gd,gdU = 1/100,1/100 
 #al crecer gd,gdu mayor a las gls y grs
 # se aumenta el rango de eV en el que hay rompimiento aparente 
 #segunda ley
@@ -339,7 +338,7 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
 
 
 
-times = np.linspace(0,1600,1000)
+times = np.linspace(0,4000,2000)
 Probnt1 = []
 Probnt2 = []
 Probnt3 = []
@@ -675,6 +674,16 @@ plt.xticks(fontsize=17)
 plt.yticks(fontsize=17)
 ##plt.legend(fontsize=15)
 plt.show()
+
+plt.plot(eVs,Wt,linestyle='--', dashes=(5, 9), color = 'black',lw = 3)
+plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
+plt.xlabel(r'$eV/T$',fontsize = 20) 
+plt.ylabel(r'$\dot{W}_{LR}$',fontsize=20)    
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+##plt.legend(fontsize=15)
+plt.show()
+
 
 
 archivo = open("lindbladgamU","w")
