@@ -85,8 +85,8 @@ def Dl(E,U,Uf,mul,betal,gammal,gammalU):
     auxl4 = np.sqrt( (1-fermi(E+U,mul,betal))*gammalU )*np.matmul(np.matmul((np.eye(d)-nr) ,nd),dl)
     auxl5 = np.sqrt( fermi(E+Uf,mul,betal)*gammal )*np.matmul( np.matmul((np.eye(d)-nd) ,nr),dldag )
     auxl6 = np.sqrt( (1-fermi(E+Uf,mul,betal))*gammal )*np.matmul(np.matmul((np.eye(d)-nd) ,nr),dl)
-    auxl7 = np.sqrt( fermi(E+U+Uf,mul,betal)*gammalU )*np.matmul( np.matmul(nr,nd),dldag )
-    auxl8 = np.sqrt( (1-fermi(E+U+Uf,mul,betal))*gammalU )*np.matmul(np.matmul(nr,nd),dl)
+    auxl7 = np.sqrt( fermi(E+U+Uf,mul,betal)*gammal )*np.matmul( np.matmul(nr,nd),dldag )
+    auxl8 = np.sqrt( (1-fermi(E+U+Uf,mul,betal))*gammal )*np.matmul(np.matmul(nr,nd),dl)
 
     return [auxl1,auxl2,auxl3,auxl4,auxl5,auxl6,auxl7,auxl8]
 #operadores del disipador dr
@@ -98,8 +98,8 @@ def Dr(E,U,Uf,mur,betar,gammar,gammarU):
     auxr4 = np.sqrt( (1-fermi(E+U,mur,betar))*gammarU )*np.matmul(np.matmul((np.eye(d)-nl) ,nd),dr)
     auxr5 = np.sqrt( fermi(E+Uf,mur,betar)*gammar )*np.matmul( np.matmul((np.eye(d)-nd) ,nl),drdag )
     auxr6 = np.sqrt( (1-fermi(E+Uf,mur,betar))*gammar )*np.matmul(np.matmul((np.eye(d)-nd) ,nl),dr)
-    auxr7 = np.sqrt( fermi(E+U+Uf,mur,betar)*gammarU )*np.matmul( np.matmul( nl,nd),drdag )
-    auxr8 = np.sqrt( (1-fermi(E+U+Uf,mur,betar))*gammarU )*np.matmul(np.matmul(nl ,nd),dr)
+    auxr7 = np.sqrt( fermi(E+U+Uf,mur,betar)*gammar )*np.matmul( np.matmul( nl,nd),drdag )
+    auxr8 = np.sqrt( (1-fermi(E+U+Uf,mur,betar))*gammar )*np.matmul(np.matmul(nl ,nd),dr)
 
     return [auxr1,auxr2,auxr3,auxr4,auxr5,auxr6,auxr7,auxr8]
 
