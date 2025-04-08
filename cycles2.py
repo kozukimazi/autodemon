@@ -232,7 +232,7 @@ class rates:
 prob = [1,0,0,0]
 #TL,TR,TD,muL,muR,muD,ex,ey,gamma,gamma1L,gamma0L,gamma1R,gamma0R,U,prob
 TL, TR, TD = 100,100,2
-muL, muR,muD = 1.1,0.9, 0.2
+muL, muR,muD = 50,.9, 0.2
 ex,ey = 1,1
 gamma,gamma1L,gamma0L,gamma1R,gamma0R = 100,0.5,1.5,1.5,0.5
 t,solution = rates.rate(TL,TR,TD,  muL,muR,muD,  ex,ey, gamma,gamma1L,gamma0L,gamma1R,gamma0R, 0.1,prob)

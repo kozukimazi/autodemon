@@ -270,7 +270,7 @@ U0 = 40.
 Uf = 500
 g0 = 5/1000
 
-eV = 600
+eV = 100
 mul1 = eV/2
 mur1 = -eV/2
 mud1 = 2
@@ -287,12 +287,12 @@ Ed = mud1-U0/2
 #transport
 betar,betad,betal = 1/100,1/2,1/100
 
-#gr,grU = (1/100)*(1/6), 1/100
-#gl,glU = 1/100, (1/100)*(1/6)
-#gd,gdU = 1/50,1/50 
-gr,grU = (1/100), 1/100
-gl,glU = 1/100, (1/100)
-gd,gdU = 1/100,1/100 
+gr,grU = (1/100)*(1/6), 1/100
+gl,glU = 1/100, (1/100)*(1/6)
+gd,gdU = 1/50,1/50 
+#gr,grU = (1/100), 1/100
+#gl,glU = 1/100, (1/100)
+#gd,gdU = 1/100,1/100 
 #al crecer gd,gdu mayor a las gls y grs
 # se aumenta el rango de eV en el que hay rompimiento aparente 
 #segunda ley
