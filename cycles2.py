@@ -232,10 +232,11 @@ class rates:
 prob = [1,0,0,0]
 #TL,TR,TD,muL,muR,muD,ex,ey,gamma,gamma1L,gamma0L,gamma1R,gamma0R,U,prob
 TL, TR, TD = 100,100,2
-muL, muR,muD = 50,.9, 0.2
-ex,ey = 1,1
+muL, muR,muD = 50,-50, 2
+U0 = 40
+ex,ey = muD-U0/2,4
 gamma,gamma1L,gamma0L,gamma1R,gamma0R = 100,0.5,1.5,1.5,0.5
-t,solution = rates.rate(TL,TR,TD,  muL,muR,muD,  ex,ey, gamma,gamma1L,gamma0L,gamma1R,gamma0R, 0.1,prob)
+t,solution = rates.rate(TL,TR,TD,  muL,muR,muD,  ex,ey, gamma,gamma1L,gamma0L,gamma1R,gamma0R, U0,prob)
 
 plt.plot(t,solution[:,0])
 plt.plot(t,solution[:,1])
