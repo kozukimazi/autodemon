@@ -270,7 +270,7 @@ U0 = 40.
 Uf = 500
 g0 = 5/1000
 
-eV = 100
+eV = 240
 mul1 = eV/2
 mur1 = -eV/2
 mud1 = 2
@@ -338,7 +338,7 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
 
 
 
-times = np.linspace(0,4000,2000)
+times = np.linspace(0,2000,2000)
 Probnt1 = []
 Probnt2 = []
 Probnt3 = []
@@ -376,15 +376,18 @@ for ts in times:
     #cal2 = DistR(H,Ls,Lr,Ll,rho0,ts,-2)
     #Probnt2.append(cal2.real)
 
-plt.plot(times,Probnt1,label = "3 ocupados")
-plt.plot(times,Probnt2, label = "ocupado r y l")
-plt.plot(times,Probnt3, label = "ocupado l y d")
-plt.plot(times,Probnt4, label = "ocupado l")
-plt.scatter(times,Probnt5, label = "ocupado r y d")
-plt.plot(times,Probnt6, label = "ocupado r")
-plt.plot(times,Probnt7, label = "ocupado d")
-plt.plot(times,Probnt8, label = "vacio total")
-plt.legend()
+plt.plot(times,Probnt1,label = r'$\rho_{111}$')
+plt.plot(times,Probnt2, label = r'$\rho_{110}$')
+plt.plot(times,Probnt3, label = r'$\rho_{101}$')
+plt.plot(times,Probnt4, label = r'$\rho_{100}$')
+plt.plot(times,Probnt5, label = r'$\rho_{011}$')
+plt.plot(times,Probnt6, label = r'$\rho_{010}$')
+plt.plot(times,Probnt7, label = r'$\rho_{001}$')
+plt.plot(times,Probnt8, label = r'$\rho_{000}$')
+plt.legend(loc = "upper right",fontsize=15)
+plt.xlabel(r'$t$',fontsize=25)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
 plt.show()
 
 
