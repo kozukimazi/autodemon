@@ -415,6 +415,7 @@ el,er =4.,4.
 g = 5/1000
 U,Uf = 40,500
 ed=mud-(U/2)
+
 gl1 = [gl,gl,glu,glu,gl,gl,glu,glu]
 gr1 = [gr,gr,gru,gru,gr,gr,gru,gru]
 #gl1 = [gl,gl,glu,glu,gl,gl,gl,gl]
