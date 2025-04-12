@@ -265,12 +265,12 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     return Ql.real, Qr.real, Qd.real, Sl.real, Sr.real,Sd.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real
 
 
-E = 4
+E = 0
 U0 = 40.
 Uf = 500
 g0 = 5/1000
 
-eV = 240
+eV = 450
 mul1 = eV/2
 mur1 = -eV/2
 mud1 = 2
@@ -338,7 +338,7 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
 
 
 
-times = np.linspace(0,2000,2000)
+times = np.linspace(0,2600,2000)
 Probnt1 = []
 Probnt2 = []
 Probnt3 = []
@@ -456,7 +456,7 @@ for ev in eVs0:
     Ed0 = mud0 -U00/2
     Uf0 = 500 #50
     #Probar condicion (U00/E0)<<1,Strasberg
-    E0 = 4
+    E0 = 0
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
     H0 = Hamiltonian(E0,Ed0,U00,Uf0,g0)
     superop0 = Liouvillian(H0,Ls0)
@@ -710,6 +710,8 @@ plt.xticks(fontsize=17)
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15, loc = "upper left")
 plt.show()
+
+
 
 archivo = open("lindbladgamU","w")
 decimal_places = 7
