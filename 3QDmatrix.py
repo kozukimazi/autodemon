@@ -409,43 +409,22 @@ plt.show()
     
 Ufs = np.linspace(7,40,100)
 Us = np.linspace(1,6,50)
-Num = 200
+Num = 80
 eVs0 = np.linspace(0,800,Num)
-Ql = []
-Qr = []
-Qd = []
-Sls = []
-Srs = []
-Sds = []
-Slr = []
-entropf = []
-Isl = []
-Id = []
-Els = []
-Ers = []
-Eds = []
-Erl = []
-Qlr = []
-Wl = []
-Wr = []
-Wd = []
-Wt = []
-Flr = []
-Tisl = []
-cohes = []
-Wdf = []
-Qdf = []
-Tid = []
-Fd = []
-Ilf = []
-Irf = []
-Nls = []
-Nrs = []
-Nds = []
-cohev = []
-concv = []
+
+
+Probnt1f = []
+Probnt2f = []
+Probnt3f = []
+Probnt4f = []
+Probnt5f = []
+Probnt6f = []
+Probnt7f = []
+Probnt8f = []
+trazaf = []
+cohef = []
+concuf = []
 eVs = []
-auxff = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -465,266 +444,44 @@ for ev in eVs0:
     Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
     Htd0 =  Htd(E0,Ed0,U00,Uf0)
     rhof = Propagate(rho0,superop0,40000)
-    Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0 = currents(Htd0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,40000)
-    Ql.append(Ql0)
-    Qr.append(Qr0)
-    Qd.append(Qd0)
-    #cohev.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
-    concv.append(concu0)    
-    sigmal = Sl0 - betal*Ql0
-    sigmar = Sr0 - betar*Qr0
-    Sls.append(Sl0 - betal*Ql0)
-    Srs.append(Sr0 - betar*Qr0)
-    Sds.append(Sd0 - betad*Qd0)
-    Slr.append( sigmal + sigmar )
-    Isl0 = -Sl0 - Sr0
-    Id0 = -Sd0
-    Il0 = -Sl0
-    Ir0 = -Sr0
-    Isl.append(Isl0)
-    Id.append(-Sd0)
-    Els.append(El0)
-    Ers.append(Er0)
-    Eds.append(Ed0)
-    Erl.append(El0 + Er0 )
-    Qlr.append(Ql0+Qr0 )
-    Flr.append(El0 + Er0 + (1/betal)*Isl0 )
-    Tisl.append((1/betal)*Isl0  )
-    Wt.append(Wl0 + Wr0 )
-    Wdf.append(Wd0)
-    Qdf.append(Qd0)
-    Fd.append(Ed0 + (1/betad)*Id0 )
-    Tid.append((1/betad)*Id0  )
-    cohes.append(cohe0)
-    Ilf.append(-Sl0)
-    Irf.append(-Sr0) 
-    Nls.append(Nl0)
-    Nrs.append(Nr0)
-    Nds.append(Nd0)
+    trazaf.append(tot)
+    Probnt1f.append(rhof[0,0].real )
+    Probnt2f.append(rhof[1,1].real )
+    Probnt3f.append(rhof[2,2].real )
+    Probnt4f.append(rhof[3,3].real )
+    Probnt5f.append(rhof[4,4].real )
+    Probnt6f.append(rhof[5,5].real )
+    Probnt7f.append(rhof[6,6].real ) 
+    Probnt8f.append(rhof[7,7].real ) 
+    cohef.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
+    cohesumf = abs(rhof[5,3] + rhof[4,2])
+    PDf = rhof[0,0].real + rhof[1,1].real 
+    P0f = rhof[7,7].real + rhof[6,6].real 
+    concurrencef = 2*cohesumf - 2*np.sqrt(P0f*PDf) 
+    concuf.append(concurrencef)
     eVs.append(ev*betal)
-    entropf.append( -betal*(Ql0+Qr0) )
-    auxff.append(0)
-plt.plot(eVs,Ql,linestyle='--', dashes=(5, 9), color='red',lw = 4,label = r'$J_{L}$')
-plt.plot(eVs,Qr,linestyle='--', dashes=(5, 9), color='blue', lw=4,label = r'$J_{R}$') 
-plt.plot(eVs,Qd,linestyle='--', dashes=(5, 9), color='black',lw=4,label = r'$J_{d}$')
-#plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$')
-#plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$') 
-#plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$')
-#plt.xscale("log")
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.ylabel(r'$J_{\alpha}$',fontsize = 20)
-plt.xticks(fontsize=17)  # X-axis tick labels
-plt.yticks(fontsize=17)  # Y-axis tick labels
-plt.legend(loc = "lower left",fontsize=15) 
-plt.show()   
 
-plt.plot(eVs,Nls,linestyle='--', dashes=(5, 9), color='red',lw=4,label = r'$\dot{N}_{L}$')
-plt.plot(eVs,Nrs,linestyle='--', dashes=(5, 9), color='blue',lw=4, label = r'$\dot{N}_{R}$') 
-plt.plot(eVs,Nds,linestyle='--', dashes=(5, 9), color='black',lw=4,label = r'$\dot{N}_{d}$')
-plt.xticks(fontsize=17)  # X-axis tick labels
-plt.yticks(fontsize=17)  # Y-axis tick labels
-#plt.xscale("log")
-plt.xlabel(r'$eV/T$',fontsize = 20)
-#plt.ylim(-0.0018, 0.0018) 
-#plt.legend(loc='upper left')  
-plt.ylabel(r'$\dot{N}_{\alpha}$',fontsize = 20)
-plt.legend(loc = "lower left",fontsize=15) 
-plt.show()  
-
-plt.plot(eVs,Qlr, label = r'$\dot{Q}_{rl}$', color = 'b')
-plt.plot(eVs,Qd,label = r'$\dot{Q}_{d}$', color = 'r')
-plt.legend(fontsize = 15)
-plt.xticks(fontsize=17)  # X-axis tick labels
+plt.plot(eVs,Probnt1f,linestyle='--', dashes=(5, 9), color='green',lw = 4,label = r'$\rho_{111}$')
+plt.plot(eVs,Probnt2f, color='green',lw = 4,label = r'$\rho_{110}$')
+plt.plot(eVs,Probnt3f,linestyle='--', dashes=(5, 9), color='black',lw=3,label = r'$\rho_{101}$')
+plt.plot(eVs,Probnt4f, color='black',lw = 4, label = r'$\rho_{100}$')
+plt.plot(eVs,Probnt5f,color = 'orange',lw = 4, label = r'$\rho_{011}$')
+plt.plot(eVs,Probnt6f, color='red',lw = 4, label = r'$\rho_{010}$')
+plt.plot(eVs,Probnt7f, color='blue',lw = 4, label = r'$\rho_{001}$')
+plt.plot(eVs,Probnt8f,color = 'm', lw = 4,label = r'$\rho_{000}$')
+plt.legend(loc = "upper right",fontsize=15)
+plt.xlabel(r'$eV/T$',fontsize=25)
+plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
-#plt.xscale("log")
 plt.show()
 
 
-plt.plot(eVs,Qd,label = r'$\dot{Q}_{d}$', color = 'b')
-plt.plot(eVs,Id, label = r'$\dot{I}_{d}$', color = 'r')
-plt.plot(eVs,Sds,label = r'$\dot{\sigma}_{d}$', color = 'k')
-#plt.xscale("log")
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-#plt.ylabel("Heat current",fontsize = 20)
-plt.legend(fontsize=15)
-plt.show()   
-
-plt.plot(eVs,Sls,linestyle='--', dashes=(5, 9), color='red',lw=2,label = r'$\dot{\sigma}_{L}$')
-plt.plot(eVs,Srs,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{\sigma}_{R}$') 
-plt.plot(eVs,Sds,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{\sigma}_{d}$')
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.ylabel(r'$\dot{\sigma}_{\alpha}$',fontsize = 20)
-plt.legend(fontsize = 15)
-plt.xticks(fontsize=17)  # X-axis tick labels
-plt.yticks(fontsize=17)
-plt.show()   
-
-plt.plot(eVs,Slr,linestyle='--', dashes=(5, 9), color = 'black',lw = 3)
-plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
-plt.ylabel(r'$\dot{\sigma}_{LR}$',fontsize = 20)
+plt.plot(eVs,cohef)
 plt.xlabel(r'$eV/T$', fontsize = 20)
-#plt.legend(fontsize = 15)
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.show()
-
-
-plt.plot(eVs,Isl, label = r'$\dot{I}_{LR}$', color = 'b')
-#plt.plot(eVs,Coher, label = r'$\mathcal{I}_{cohel}$')
-#plt.plot(eVs,Cohel, label = r'$\mathcal{I}_{coher}$')
-#plt.plot(eVs,Classl, label = r'$\mathcal{I}_{classL}$')
-#plt.plot(eVs,Classr, label = r'$\mathcal{I}_{classR}$')
-#plt.plot(eVs,cohesum, label = r'$\mathcal{I}_{coheLR}$')
-#plt.plot(eVs, sumtot, linestyle='--', color='blue')
-plt.plot(eVs,Id, label = r'$\dot{I}_{d}$', color = 'r')
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.legend(fontsize = 15)
-plt.xticks(fontsize=17)  # X-axis tick labels
-plt.yticks(fontsize=17)
-#plt.xscale("log")
-plt.legend()
-plt.show()
-
-
-plt.plot(eVs,Ers,linestyle='--', dashes=(5, 9), color='blue',lw=3, label = r'$\dot{E}_{R}$')
-plt.plot(eVs,Els,linestyle='--', dashes=(5, 9), color='red',lw=3, label = r'$\dot{E}_{L}$')
-plt.plot(eVs,Eds,linestyle='--', dashes=(5, 9), color='black',lw=3, label = r'$\dot{E}_{d}$')
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.ylabel(r'$\dot{E}_{\alpha}$',fontsize = 20)
-#plt.xscale("log")
-plt.legend(fontsize = 15)
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.show()
-
-plt.plot(eVs,Erl, label = r'$\dot{E}_{rl}$')
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.plot(eVs,Qlr, label = r'$\dot{Q}_{rl}$')
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15)
-#plt.xscale("log")
-plt.show()
-
-
-plt.plot(eVs,Erl,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{E}_{LR}$')
-#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-plt.plot(eVs,Flr,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{\mathcal{F}}_{LR}$')
-plt.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$', color = 'g',lw=2)
-plt.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=2)
-plt.plot(eVs,Qlr,linestyle='--', dashes=(5, 9), color='red',lw = 2,label = r'$J_{LR}$')
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15)
-#plt.xscale("log")
-plt.show()
-
-plt.plot(eVs,Eds,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{E}_{d}$')
-#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-plt.plot(eVs,Fd,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{\mathcal{F}}_{d}$')
-plt.plot(eVs,Tid,label = r'$T_{d}\dot{I}_{d}$', color = 'g',lw=2)
-plt.plot(eVs,Wdf,label = r'$\dot{W}_{d}$', color = 'm',lw=2)
-#plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15,loc = "lower left")
-#plt.xscale("log")
-plt.show()
-
-
-plt.plot(eVs,cohes, color = 'b')
-#plt.plot(eVs,Isl, label = r'$\dot{I}_{rl}$')
-#plt.plot(eVs,Coher, label = r'$\mathcal{I}_{cohel}$')
-#plt.plot(eVs,Cohel, label = r'$\mathcal{I}_{coher}$')
 plt.ylabel(r'$\mathcal{C}_{l_{1}}$', fontsize = 20)
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-#plt.legend(fontsize=15) 
-#plt.xscale("log")
 plt.show()
-
-#ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
-#mientras que al superar esa vara L empieza a medir 
-plt.plot(eVs,Id,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{I}_{d}$')
-plt.plot(eVs,Ilf,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{l}$')
-plt.plot(eVs,Irf,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{I}_{r}$')
-plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.ylabel(r'$\dot{I}_{i}$',fontsize = 20)
-plt.xticks(fontsize=17)  # X-axis tick labels
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15)
-#plt.xscale("log")
+#plt.scatter(times,Probnt2,label = "Baño_d")
+plt.plot(eVs,concuf)
+plt.xlabel(r'$eV/T$', fontsize = 20)
+plt.ylabel(r'$\mathcal{C}_{on}$', fontsize = 20)
 plt.show()
-
-plt.plot(eVs,cohes,linestyle='--', dashes=(5, 9),label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 2)
-plt.plot(eVs,concv,linestyle='--', dashes=(5, 9), label = r'$\mathcal{C}_{on}$', color = 'r',lw=2)  
-plt.xlabel(r'$eV/T$',fontsize = 20)   
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15)
-plt.show()
-
-plt.plot(eVs,entropf,linestyle='--', dashes=(5, 9), color = 'black',lw = 3)
-plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
-plt.xlabel(r'$eV/T$',fontsize = 20) 
-plt.ylabel(r'$\dot{\sigma}^{o}_{LR}$',fontsize=20)    
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-##plt.legend(fontsize=15)
-plt.show()
-
-plt.plot(eVs,Wt,linestyle='--', dashes=(5, 9),label = r'$\dot{W}_{LR}$', color = 'black',lw = 3)
-plt.plot(eVs,Wdf,linestyle='--', dashes=(5, 9),label = r'$\dot{W}_{d}$', color = 'red',lw = 3)
-#plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
-plt.xlabel(r'$eV/T$',fontsize = 20) 
-plt.ylabel(r'$\dot{W}_{\alpha}$',fontsize=20)    
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15, loc = "upper left")
-plt.show()
-
-
-plt.plot(eVs,Erl,linestyle='--', dashes=(5, 9),label = r'$\dot{E}_{LR}$', color = 'black',lw = 3)
-plt.plot(eVs,Eds,linestyle='--', dashes=(5, 9),label = r'$\dot{E}_{d}$', color = 'red',lw = 3)
-#plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
-plt.xlabel(r'$eV/T$',fontsize = 20) 
-plt.ylabel(r'$\dot{E}_{\alpha}$',fontsize=20)    
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15, loc = "upper left")
-plt.show()
-
-
-
-plt.plot(eVs,Qlr,linestyle='--', dashes=(5, 9),label = r'$J_{LR}$', color = 'black',lw = 3)
-plt.plot(eVs,Qdf,linestyle='--', dashes=(5, 9),label = r'$J_{d}$', color = 'red',lw = 3)
-#plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
-plt.xlabel(r'$eV/T$',fontsize = 20) 
-plt.ylabel(r'$J_{\alpha}$',fontsize=20)    
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15, loc = "upper left")
-plt.show()
-
-
-
-archivo = open("lindbladgamU","w")
-decimal_places = 7
-total_width = 8
-format_str = f"{{:.{decimal_places}f}}" 
-#format_str = f"{{:{total_width}.{decimal_places}f}}"
-for i in range(Num):
-    archivo.write( format_str.format(eVs[i])) #guarda el grado del nodo
-    #archivo.write(str(xs[i])) 
-    archivo.write(" ") 
-    #archivo.write(str(ys[i]))
-    archivo.write( format_str.format(Nls[i]))
-    archivo.write(" ") 
-    #archivo.write(str(ys[i]))
-    archivo.write( format_str.format(Id[i]))
-    archivo.write("\n")
