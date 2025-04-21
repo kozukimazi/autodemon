@@ -62,7 +62,7 @@ ns = np.matmul(dsdag,dd)
 #perturbation superoperator
 
 def pert(V,hbar=1):
-    d = np.shape(V)[0]
+    d = len(V)
     superH = (-1j/hbar) * (np.kron(np.eye(d), V ) - np.kron(V.T,  np.eye(d))  ) 
     return superH
 
@@ -74,12 +74,18 @@ def Vectorization(rho0):
     vec_rho =  np.reshape(rho0,(d**2,1))
     return vec_rho
 
+#vectorization back to matrix
+def vecback(rhovec0,d):
+    
+    rhoff = np.reshape(rhovec0,(d,d))
+    return rhoff
 #Here we vectorize the principal Part, rho0 is the vectorization
 def Prin(rho0,basis):
     d=len(rho0)
     n = len(basis)
     P = np.zeros((d**2,d**2),dtype=np.complex_)
     for i in range(n):
+        #print((basis[i].T))
         coef = (np.kron(basis[i].conj(),basis[i]))
         coef2 = (np.kron(basis[i].T,basis[i].conj().T))
         P += np.matmul(coef,coef2)
@@ -167,39 +173,32 @@ def Drazinspectral(L0,tol):
 
     return L0_D
 
-#########################################
-##############revisar disipacion local###
-#############sininteractuar##############
 
-def Ds(E,U,mus,betas,gammas):
+##########################################
+##############parteespcificadelsistema####
+##########################################
+##########################################
+
+def Ds(E,mus,betas,gammas):
     Ns = np.matmul(dsdag,ds)
-    Nd = np.matmul(dddag,dd)
-    d = len(Ns)
-    auxs1 = np.sqrt( fermi(E,mus,betas)*gammas )*np.matmul( (np.eye(d)-Nd),dsdag )
-    auxs2 = np.sqrt( (1-fermi(E,mus,betas))*gammas )*np.matmul( (np.eye(d)-Nd),ds)
-    auxs3 = np.sqrt( fermi(E+U,mus,betas)*gammas )*np.matmul( Nd,dsdag )
-    auxs4 = np.sqrt( (1-fermi(E+U,mus,betas))*gammas )*np.matmul( Nd,ds)
-
-    return [auxs1,auxs2,auxs3,auxs4]
+    auxs1 = np.sqrt( fermi(E,mus,betas)*gammas )*dsdag 
+    auxs2 = np.sqrt( (1-fermi(E,mus,betas))*gammas )*ds
+    return [auxs1,auxs2]
 
 ####################################################
 ##############aquitmbn##############################
 ####################################################
 
-def Dd(E,U,mud,betad,gammad):
-    Ns = np.matmul(dsdag,ds)
-    d = len(Ns)
-    auxd1 = np.sqrt( fermi(E,mud,betad)*gammad )*np.matmul( (np.eye(d)-Ns),dddag )
-    auxd2 = np.sqrt( (1-fermi(E,mud,betad))*gammad )*np.matmul( (np.eye(d)-Ns),dd )
-    auxd3 = np.sqrt( fermi(E+U,mud,betad)*gammad )*np.matmul( Ns,dddag )
-    auxd4 = np.sqrt( (1-fermi(E+U,mud,betad))*gammad )*np.matmul( Ns,dd)   
+def Dd(E,mud,betad,gammad):
+    auxd1 = np.sqrt( fermi(E,mud,betad)*gammad )*dddag
+    auxd2 = np.sqrt( (1-fermi(E,mud,betad))*gammad )*dd  
 
-    return [auxd1,auxd2,auxd3,auxd4]
+    return [auxd1,auxd2]
 
 
-def Dissipator(E,U,mus,mud,betas,betad,gammas,gammad):
-    DS = Ds(E,U,mus,betas,gammas)
-    DD = Dd(E,U,mud,betad,gammad)
+def Dissipator(E,mus,mud,betas,betad,gammas,gammad):
+    DS = Ds(E,mus,betas,gammas)
+    DD = Dd(E,mud,betad,gammad)
 
     tot = []
     for s in DS:
@@ -209,10 +208,9 @@ def Dissipator(E,U,mus,mud,betas,betad,gammas,gammad):
 
     return tot
 
-def Hamiltonian(E,U):
+def Hamiltonian(E):
     a1 = E*ns + E*nd
-    a3 = U*np.matmul(ns,nd) 
-    return a1+a3
+    return a1
 
 def Inte(g):
     a2 = g*( np.matmul(dsdag,dd) + np.matmul(dddag,ds) )
@@ -220,7 +218,8 @@ def Inte(g):
 
 #########################################################
 ####################evolutio for time independt things###
-##########################################################
+#########################################################
+#######################(thisisgeneral)###################
 
 def classic(L0,L0draz,P,Q,V,rho0,t):
     #armar PVQLOdrazQVP
@@ -250,18 +249,19 @@ g0 = 0.005
 eV = 6.5
 mus1 = eV/2
 mud1 = -eV/2
-mul = 0
 
-betas,betad,betal = 1,1,1
-gs,gd,gl = 1/100,1/100,0
+betas,betad = 1,1
+gs,gd= 1/100,1/100
 
 rho0 = np.array([[1/4,0,0,0],
-                 [0,1/4,0.,0],
-                 [0,0.,1/4,0],
+                 [0,1/4,-0.1j,0],
+                 [0,0.1j,1/4,0],
                  [0,0,0,1/4]])
 
-Ls = Dissipator(0,U0,mus1,mud1,betas,betad,gs,gd)
-H = Hamiltonian(0,U0)
+rhovec = Vectorization(rho0)
+
+Ls = Dissipator(0,mus1,mud1,betas,betad,gs,gd)
+H = Hamiltonian(0)
 L0f = Liouvillian(H,Ls)
 #print(len(L0f))
 tole = 1E-5
@@ -271,14 +271,17 @@ P0 = Prin(rho0,basis)
 Q0 = Qpart(rho0,P0)
 
 
-gss = np.linspace(0.,1,2000)
+#rhof = Q0@rhovec
+#print(vecback(rhof,4))
+
+gss = np.linspace(0.,10,20000)
 gaux = []
 Il = []
 #I2l = []
 #Nss = 3
-Wl0 = fermi(0,mus1,betas)*gl
-Wdr = fermi(0,mus1,betas)*gl
-W0l = (1-fermi(0,mus1,betas))*gl
+Wl0 = fermi(0,mus1,betas)*gs
+Wdr = fermi(0,mus1,betas)*gs
+W0l = (1-fermi(0,mus1,betas))*gs
 Wrd = W0l
 
 p00 = []
@@ -304,10 +307,10 @@ for g in gss:
     p01.append(pr)
     p11.append(pdd)
     
-print(v00.T)
-print(v10.T)
-print(v01.T)
-print(v11.T)
+#print(v00.T)
+#print(v10.T)
+#print(v01.T)
+#print(v11.T)
 
 plt.plot( gaux,Il)
 plt.ylabel(r'$I_{L}/\gamma$',fontsize = 20)     
