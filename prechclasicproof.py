@@ -175,7 +175,7 @@ def Drazinspectral(L0,tol):
 
 
 ##########################################
-##############parteespcificadelsistema####
+##############parteespecificadelsistema###
 ##########################################
 ##########################################
 
@@ -229,7 +229,7 @@ def classic(L0,L0draz,P,Q,V,rho0,t):
     paso4 = np.matmul(Q,paso3)
     paso5 = np.matmul(V,paso4)
     paso6 = np.matmul(P,paso5)
-    Final = (L0 - paso6)
+    Final = (L0 - paso6)    
     d = len(rho0)
     vec_rho =  np.reshape(rho0,(d**2,1))
     propagator = expm (Final *t)
@@ -239,6 +239,17 @@ def classic(L0,L0draz,P,Q,V,rho0,t):
 
     return np.reshape(final,(d,d))
 
+def ratem(L0,L0draz,P,Q,V):
+    #armar PVQLOdrazQVP
+    paso1 = np.matmul(V,P)
+    paso2 = np.matmul(Q,paso1)
+    paso3 = np.matmul(L0draz,paso2)
+    paso4 = np.matmul(Q,paso3)
+    paso5 = np.matmul(V,paso4)
+    paso6 = np.matmul(P,paso5)
+    Final = (L0 - paso6)    
+     
+    return Final 
 
 
 
@@ -277,6 +288,7 @@ Q0 = Qpart(rho0,P0)
 gss = np.linspace(0.,10,20000)
 gaux = []
 Il = []
+Ilx = []
 #I2l = []
 #Nss = 3
 Wl0 = fermi(0,mus1,betas)*gs
@@ -296,23 +308,27 @@ for g in gss:
     Vnu = pert(V0)
     gaux.append(gau)
     tot = classic(L0f,Draz0,P0,Q0,Vnu,rho0,t)
+    W = ratem(L0f,Draz0,P0,Q0,Vnu)
     #print(Il0/gs)  
     #print(g)
     p0,pl,pr,pdd = tot[3,3].real,tot[1,1].real,tot[2,2].real,tot[0,0].real
     Il0 = Wl0*p0 - W0l*pl + Wdr*pr - Wrd*pdd
+    Ilxx = W[5,15].real*p0 - W[15,5].real*pl + W[0,10].real*pr - W[10,0].real*pdd
     Il.append(Il0/gs)
+    Ilx.append(Ilxx)
     #Il.append(tot[0,0].real)
     p00.append(p0)
     p10.append(pl)
     p01.append(pr)
     p11.append(pdd)
     
-#print(v00.T)
-#print(v10.T)
-#print(v01.T)
-#print(v11.T)
+print(np.kron(v00,v00).T)
+print(np.kron(v10,v10).T.real)
+print(np.kron(v01,v01).T.real)
+print(np.kron(v11,v11).T.real)
 
 plt.plot( gaux,Il)
+#plt.scatter(gaux,Ilx)
 plt.ylabel(r'$I_{L}/\gamma$',fontsize = 20)     
 plt.xlabel(r'$g/\gamma$',fontsize = 20)
 plt.xscale("log")
@@ -325,10 +341,16 @@ plt.show()
 
 
 V0f = Inte(0.005)
-Vnu0 = pert(V0)
+Vnu0 = pert(V0f)
 values =  classic(L0f,Draz,P0,Q0,Vnu0,rho0,8000)
 
+W0 = ratem(L0f,Draz0,P0,Q0,Vnu0)
+
 plt.imshow(values.real)
+plt.colorbar()
+plt.show()
+
+plt.imshow(W0.real)
 plt.colorbar()
 plt.show()
     
