@@ -9,8 +9,8 @@ Iclas_data = []
 Jqm_data = []
 Iqm_data = []
 
-datos = 'stochastic'
-fichero = open("stochastic")
+datos = 'classic'
+fichero = open("classic")
 for item in [data.split()[0] for data in fichero]: #saca la columna 0
     eV_data.append(float(item))
 fichero.close()
@@ -36,13 +36,13 @@ for item in [data.split()[2] for data in nuevo0]:
     Iqm_data.append(float(item))   
 nuevo0.close()
 
-plt.plot(eV_data,Jclas_data,linestyle='--', dashes=(5, 9), color='red',lw = 4, label = r'$\mathcal{J}_{cl}$')
-plt.plot(eV_data,Jqm_data,linestyle='--', dashes=(5, 9), color='blue',lw = 4, label = r'$\mathcal{J}_{qm}$')
+plt.plot(eV_data,Jclas_data, color='red',lw = 4, label = r'$\mathcal{J}_{cl}$')
+plt.plot(eV_data,Jqm_data, color='blue',lw = 4, label = r'$\mathcal{J}_{qm}$')
 plt.legend()
 plt.show()
 
-plt.plot(eV_data,Iclas_data,linestyle='--', dashes=(5, 9), color='red',lw = 4, label = r'$\mathcal{I}_{cl}$')
-plt.plot(eV_data,Iqm_data,linestyle='--', dashes=(5, 9), color='blue',lw = 4, label = r'$\mathcal{I}_{qm}$')
+plt.plot(eV_data,Iclas_data, color='red',lw = 4, label = r'$\mathcal{I}_{cl}$')
+plt.plot(eV_data,Iqm_data, color='blue',lw = 4, label = r'$\mathcal{I}_{qm}$')
 plt.legend()
 plt.show()
 

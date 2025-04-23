@@ -347,7 +347,7 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,1/8,0],
                  [0,0,0,0,0,0,0,1/8]])
 
-Num = 100
+Num = 200
 eVs0 = np.linspace(0,800,Num)
 g0 = 0.005
 
@@ -467,9 +467,9 @@ for i in range(Num):
     #archivo.write(str(xs[i])) 
     archivo.write(" ") 
     #archivo.write(str(ys[i]))
-    archivo.write( format_str.format(curr[i]))
+    archivo.write( format_str.format(-curr[i]))
     archivo.write(" ") 
     #archivo.write(str(ys[i]))
-    archivo.write( format_str.format(If[i]))
+    archivo.write( format_str.format(-If[i]))
     archivo.write("\n")
 
