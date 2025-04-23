@@ -326,8 +326,8 @@ def ratelr(Wl,Wr,Wlr):
 
     return Wl+Wr+Wlr
 
-def infoflow(W,p,logp):
-    return logp.T@W@p
+def vecflow(W,p,Jn):
+    return Jn.T@W@p
 
 
 
@@ -347,20 +347,22 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,1/8,0],
                  [0,0,0,0,0,0,0,1/8]])
 
-Num = 10
+Num = 100
 eVs0 = np.linspace(0,800,Num)
 g0 = 0.005
 
-print(v00.T)
-print(v100.T.real)
-print(v010.T.real)
-print(v001.T.real)
-print(v110.T.real)
-print(v011.T.real)
-print(v101.T.real)
-print(v111.T.real)
+print("p000",v00.T)
+print("p100",v100.T.real)
+print("p010",v010.T.real)
+print("p001",v001.T.real)
+print("p110",v110.T.real)
+print("p011",v011.T.real)
+print("p101",v101.T.real)
+print("p111",v111.T.real)
 
-
+If = []
+eVs = []
+curr = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -395,6 +397,7 @@ for ev in eVs0:
                 [p011],
                 [p101],
                 [p111]])
+    #informationvecto
     logps = np.array([[np.log(p000)],
                 [np.log(p100)],
                 [np.log(p010)],
@@ -404,5 +407,69 @@ for ev in eVs0:
                 [np.log(p101)],
                 [np.log(p111)]])
     
-            
+    #numbervector 
+    N = np.array([[0],
+                [1],
+                [1],
+                [1],
+                [2],
+                [2],
+                [2],
+                [3]])
+    
+    W0l,Wl0,Wluf,Wufl = W[63,27].real,W[27,63].real,W[45,9].real,W[9,45].real
+    Wlu,Wul,Wlu2,Wu2l = W[54,18].real,W[18,54].real,W[36,0].real,W[0,36].real
+
+    W0r,Wr0,Wruf,Wufr = W[63,45].real,W[45,63].real,W[27,9].real,W[9,27].real
+    Wru,Wur,Wru2,Wu2r = W[54,36].real,W[36,54].real,W[18,0].real,W[0,18].real
+
+    Wlr,Wrl,Wlru,Wrlu = W[27,45].real,W[45,27].real,W[18,36].real,W[36,18].real
+    Wl = ratel(W0l,Wl0,Wluf,Wufl,Wlu,Wul,Wu2l,Wlu2)
+    Wr = rater(W0r,Wr0,Wruf,Wufr,Wru,Wur,Wu2r,Wru2)
+    WLR = rateg(Wlr,Wrl,Wlru,Wrlu)
+    Wfs = Wl+WLR
+    Wf = ratelr(Wl,Wr,WLR)
+
+    curre = vecflow(Wfs,ps,N)
+    infos = vecflow(Wf,ps,logps)
+    eVs.append(ev*betal)
+    If.append(infos[0][0])
+    curr.append(curre[0][0])
+
+
+plt.plot(eVs,curr,label = r'$\dot{N}_{L}$', color = 'b')
+#plt.xscale("log")
+plt.xlabel(r'$eV$',fontsize = 20)
+#plt.ylim(-0.0018, 0.0018) 
+#plt.legend(loc='upper left')  
+#plt.ylabel("Particle current",fontsize = 20)
+plt.legend()
+plt.show()             
+
+plt.plot(eVs,If,label = r'$\dot{I}_{LR}$', color = 'b')
+#plt.xscale("log")
+plt.xlabel(r'$eV$',fontsize = 20)
+#plt.ylim(-0.0018, 0.0018) 
+#plt.legend(loc='upper left')  
+#plt.ylabel("Particle current",fontsize = 20)
+plt.legend()
+plt.show()   
+
+
+archivo = open("classic","w")
+decimal_places = 7
+total_width = 8
+format_str = f"{{:.{decimal_places}f}}" 
+#format_str = f"{{:{total_width}.{decimal_places}f}}"
+for i in range(Num):
+    #print(curr[i])
+    archivo.write( format_str.format(eVs[i])) #guarda el grado del nodo
+    #archivo.write(str(xs[i])) 
+    archivo.write(" ") 
+    #archivo.write(str(ys[i]))
+    archivo.write( format_str.format(curr[i]))
+    archivo.write(" ") 
+    #archivo.write(str(ys[i]))
+    archivo.write( format_str.format(If[i]))
+    archivo.write("\n")
 
