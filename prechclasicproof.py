@@ -79,6 +79,7 @@ def vecback(rhovec0,d):
     
     rhoff = np.reshape(rhovec0,(d,d))
     return rhoff
+
 #Here we vectorize the principal Part, rho0 is the vectorization
 def Prin(rho0,basis):
     d=len(rho0)
@@ -275,7 +276,7 @@ Ls = Dissipator(0,mus1,mud1,betas,betad,gs,gd)
 H = Hamiltonian(0)
 L0f = Liouvillian(H,Ls)
 #print(len(L0f))
-tole = 1E-5
+tole = 1E-8
 Draz = Drazinalg(L0f,tole)
 Draz0 = Drazinspectral(L0f,tole)
 P0 = Prin(rho0,basis)
@@ -311,11 +312,13 @@ for g in gss:
     W = ratem(L0f,Draz0,P0,Q0,Vnu)
     #print(Il0/gs)  
     #print(g)
+    #print(Wl0,W0l)
+    #print(W[0,10].real,W[10,0].real)
     p0,pl,pr,pdd = tot[3,3].real,tot[1,1].real,tot[2,2].real,tot[0,0].real
     Il0 = Wl0*p0 - W0l*pl + Wdr*pr - Wrd*pdd
     Ilxx = W[5,15].real*p0 - W[15,5].real*pl + W[0,10].real*pr - W[10,0].real*pdd
     Il.append(Il0/gs)
-    Ilx.append(Ilxx)
+    Ilx.append(Ilxx/gs)
     #Il.append(tot[0,0].real)
     p00.append(p0)
     p10.append(pl)
@@ -328,7 +331,7 @@ print(np.kron(v01,v01).T.real)
 print(np.kron(v11,v11).T.real)
 
 plt.plot( gaux,Il)
-#plt.scatter(gaux,Ilx)
+plt.scatter(gaux,Ilx)
 plt.ylabel(r'$I_{L}/\gamma$',fontsize = 20)     
 plt.xlabel(r'$g/\gamma$',fontsize = 20)
 plt.xscale("log")
