@@ -8,7 +8,8 @@ Iclas_data = []
 
 Jqm_data = []
 Iqm_data = []
-
+aux0 = []
+#aqui se abre el archivo de datos que quiero usar para comparar
 datos = 'classic'
 fichero = open("classic")
 for item in [data.split()[0] for data in fichero]: #saca la columna 0
@@ -18,6 +19,7 @@ fichero.close()
 nuevo = open(datos)
 for item in [data.split()[1] for data in nuevo]:  
     Jclas_data.append(-float(item))   
+    aux0.append(0)
 nuevo.close()
         
 nuevo = open(datos)
@@ -38,6 +40,7 @@ nuevo0.close()
 
 plt.plot(eV_data,Jclas_data, color='red',lw = 4, label = r'$\mathcal{J}_{cl}$')
 plt.plot(eV_data,Jqm_data, color='blue',lw = 4, label = r'$\mathcal{J}_{qm}$')
+plt.plot(eV_data,aux0)
 plt.legend()
 plt.show()
 
