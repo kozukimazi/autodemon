@@ -363,6 +363,14 @@ print("p111",v111.T.real)
 If = []
 eVs = []
 curr = []
+Probnt1f = []
+Probnt2f = []
+Probnt3f = []
+Probnt4f = []
+Probnt5f = []
+Probnt6f = []
+Probnt7f = []
+Probnt8f = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -424,6 +432,14 @@ for ev in eVs0:
     Wru,Wur,Wru2,Wu2r = W[54,36].real,W[36,54].real,W[18,0].real,W[0,18].real
 
     Wlr,Wrl,Wlru,Wrlu = W[27,45].real,W[45,27].real,W[18,36].real,W[36,18].real
+    Probnt1f.append(p111)
+    Probnt2f.append(p110)
+    Probnt3f.append(p101)
+    Probnt4f.append(p100)
+    Probnt5f.append(p011)
+    Probnt6f.append(p010)
+    Probnt7f.append(p001)
+    Probnt8f.append(p000)
     Wl = ratel(W0l,Wl0,Wluf,Wufl,Wlu,Wul,Wu2l,Wlu2)
     Wr = rater(W0r,Wr0,Wruf,Wufr,Wru,Wur,Wu2r,Wru2)
     WLR = rateg(Wlr,Wrl,Wlru,Wrlu)
@@ -436,6 +452,21 @@ for ev in eVs0:
     If.append(infos[0][0])
     curr.append(curre[0][0])
 
+
+
+plt.plot(eVs,Probnt1f,linestyle='--', dashes=(5, 9), color='green',lw = 4,label = r'$\rho_{111}$')
+plt.plot(eVs,Probnt2f, color='green',lw = 4,label = r'$\rho_{110}$')
+plt.plot(eVs,Probnt3f,linestyle='--', dashes=(5, 9), color='black',lw=3,label = r'$\rho_{101}$')
+plt.plot(eVs,Probnt4f, color='black',lw = 4, label = r'$\rho_{100}$')
+plt.plot(eVs,Probnt5f,color = 'orange',lw = 4, label = r'$\rho_{011}$')
+plt.plot(eVs,Probnt6f, color='red',lw = 4, label = r'$\rho_{010}$')
+plt.plot(eVs,Probnt7f, color='blue',lw = 4, label = r'$\rho_{001}$')
+plt.plot(eVs,Probnt8f,color = 'm', lw = 4,label = r'$\rho_{000}$')
+plt.legend(loc = "upper right",fontsize=15)
+plt.xlabel(r'$eV/T$',fontsize=25)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.show()
 
 plt.plot(eVs,curr,label = r'$\dot{N}_{L}$', color = 'b')
 #plt.xscale("log")
