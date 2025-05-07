@@ -381,7 +381,7 @@ for ev in eVs0:
     Ed0 = mud0 -U00/2
     Uf0 = 500 #50
     #Probar condicion (U00/E0)<<1,Strasberg
-    E0 = 0
+    E0 = 4
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
     H0 = Htd(E0,Ed0,U00,Uf0)
     L0 = Liouvillian(H0,Ls0)
@@ -497,8 +497,22 @@ for i in range(Num):
     archivo.write( format_str.format(eVs[i])) #guarda el grado del nodo
     #archivo.write(str(xs[i])) 
     archivo.write(" ") 
+    archivo.write(" ") 
     #archivo.write(str(ys[i]))
     archivo.write( format_str.format(-curr[i]))
+    archivo.write(" ") 
+    archivo.write(" ") 
+    archivo.write( format_str.format(Probnt3f[i]))
+    archivo.write(" ") 
+    archivo.write(" ") 
+    archivo.write( format_str.format(Probnt4f[i]))
+    archivo.write(" ") 
+    archivo.write(" ") 
+    archivo.write( format_str.format(Probnt5f[i]))
+    archivo.write(" ") 
+    archivo.write(" ") 
+    archivo.write( format_str.format(Probnt6f[i]))
+    archivo.write(" ") 
     archivo.write(" ") 
     #archivo.write(str(ys[i]))
     archivo.write( format_str.format(-If[i]))
