@@ -348,7 +348,7 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,1/8]])
 
 Num = 200
-eVs0 = np.linspace(0,800,Num)
+eVs0 = np.linspace(0,400,Num)
 g0 = 0.005
 
 print("p000",v00.T)
@@ -484,6 +484,7 @@ plt.xlabel(r'$eV$',fontsize = 20)
 #plt.legend(loc='upper left')  
 #plt.ylabel("Particle current",fontsize = 20)
 plt.legend()
+plt.xscale("log")
 plt.show()   
 
 

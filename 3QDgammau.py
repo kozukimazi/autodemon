@@ -410,7 +410,7 @@ plt.show()
 Ufs = np.linspace(7,40,100)
 Us = np.linspace(1,6,50)
 Num = 200
-eVs0 = np.linspace(0,800,Num)
+eVs0 = np.linspace(0,400,Num)
 Ql = []
 Qr = []
 Qd = []
