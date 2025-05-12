@@ -410,7 +410,7 @@ plt.show()
 Ufs = np.linspace(7,40,100)
 Us = np.linspace(1,6,50)
 Num = 200
-eVs0 = np.linspace(0,400,Num)
+eVs0 = np.linspace(0,800,Num)
 Ql = []
 Qr = []
 Qd = []
@@ -450,6 +450,8 @@ Probnt30 = []
 Probnt40 = []
 Probnt50 = []
 Probnt60 = []
+Probnt70 = []
+Probnt80 = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -512,6 +514,8 @@ for ev in eVs0:
     Probnt40.append(rhof[3,3].real )
     Probnt50.append(rhof[4,4].real )
     Probnt60.append(rhof[5,5].real )
+    Probnt70.append(rhof[6,6].real )
+    Probnt80.append(rhof[7,7].real )
 
 plt.plot(eVs,Ql,linestyle='--', dashes=(5, 9), color='red',lw = 4,label = r'$J_{L}$')
 plt.plot(eVs,Qr,linestyle='--', dashes=(5, 9), color='blue', lw=4,label = r'$J_{R}$') 
@@ -752,6 +756,10 @@ for i in range(Num):
     archivo.write( format_str.format(Probnt50[i]))
     archivo.write(" ")  
     archivo.write( format_str.format(Probnt60[i]))
+    archivo.write(" ")  
+    archivo.write( format_str.format(Probnt70[i]))
+    archivo.write(" ")  
+    archivo.write( format_str.format(Probnt80[i]))
     archivo.write(" ")  
     #archivo.write(str(ys[i]))
     archivo.write( format_str.format(Id[i]))

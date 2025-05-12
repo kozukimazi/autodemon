@@ -8,6 +8,8 @@ Prob3clas = []
 Prob4clas = []
 Prob5clas = []
 Prob6clas = []
+Prob7clas = []
+Prob8clas = []
 Iclas_data = []
 
 
@@ -16,6 +18,8 @@ Prob3qm = []
 Prob4qm = []
 Prob5qm = []
 Prob6qm = []
+Prob7qm = []
+Prob8qm = []
 Iqm_data = []
 aux0 = []
 #aqui se abre el archivo de datos que quiero usar para comparar
@@ -53,6 +57,16 @@ nuevo.close()
 
 nuevo = open(datos)
 for item in [data.split()[6] for data in nuevo]:  
+    Prob7clas.append(float(item))   
+nuevo.close()
+
+nuevo = open(datos)
+for item in [data.split()[7] for data in nuevo]:  
+    Prob8clas.append(float(item))   
+nuevo.close()
+
+nuevo = open(datos)
+for item in [data.split()[8] for data in nuevo]:  
     Iclas_data.append(float(item))   
 nuevo.close()
 
@@ -85,6 +99,16 @@ nuevo0.close()
 
 nuevo0 = open(datos0)
 for item in [data.split()[6] for data in nuevo0]:  
+    Prob7qm.append(float(item))   
+nuevo0.close()
+
+nuevo0 = open(datos0)
+for item in [data.split()[7] for data in nuevo0]:  
+    Prob8qm.append(float(item))   
+nuevo0.close()
+
+nuevo0 = open(datos0)
+for item in [data.split()[8] for data in nuevo0]:  
     Iqm_data.append(float(item))   
 nuevo0.close()
 
@@ -130,6 +154,24 @@ plt.plot(eV_data,Prob6clas, color='red',lw = 4, label = "classic")
 plt.plot(eV_data,Prob6qm, color='blue',lw = 4, label = "quantum")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$\rho_{010}$',fontsize = 25)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15)
+plt.show()
+
+plt.plot(eV_data,Prob7clas, color='red',lw = 4, label = "classic")
+plt.plot(eV_data,Prob7qm, color='blue',lw = 4, label = "quantum")
+plt.xlabel(r'$eV/T$',fontsize = 20)
+plt.ylabel(r'$\rho_{001}$',fontsize = 25)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15)
+plt.show()
+
+plt.plot(eV_data,Prob8clas, color='red',lw = 4, label = "classic")
+plt.plot(eV_data,Prob8qm, color='blue',lw = 4, label = "quantum")
+plt.xlabel(r'$eV/T$',fontsize = 20)
+plt.ylabel(r'$\rho_{000}$',fontsize = 25)
 plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15)

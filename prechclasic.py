@@ -348,7 +348,7 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,1/8]])
 
 Num = 200
-eVs0 = np.linspace(0,400,Num)
+eVs0 = np.linspace(0,800,Num)
 g0 = 0.005
 
 print("p000",v00.T)
@@ -508,6 +508,10 @@ for i in range(Num):
     archivo.write( format_str.format(Probnt5f[i]))
     archivo.write(" ") 
     archivo.write( format_str.format(Probnt6f[i]))
+    archivo.write(" ") 
+    archivo.write( format_str.format(Probnt7f[i]))
+    archivo.write(" ") 
+    archivo.write( format_str.format(Probnt8f[i]))
     archivo.write(" ") 
     #archivo.write(str(ys[i]))
     archivo.write( format_str.format(-If[i]))
