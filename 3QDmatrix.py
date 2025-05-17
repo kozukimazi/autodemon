@@ -182,44 +182,20 @@ def arctanaux(x,y):
     else:
         return np.arctan(x/y)
 
-def Logaritm(rho):
-    po,p1,p2,p3 = rho[0,0],rho[1,1],rho[2,2],rho[3,3]
-    p4,p5,p6,p7 = rho[4,4],rho[5,5], rho[6,6], rho[7,7]
-    bet,alp = rho[2,4],rho[3,5]   
+def Logaritm(p10i,p01i,cohei):
+     
+    lamb1p = (p10i+p01i)/2 + (np.sqrt( (p10i-p01i)**2 + 4*(abs(cohei)**2) ))/2
+    lamb1m = (p10i+p01i)/2 - (np.sqrt( (p10i-p01i)**2 + 4*(abs(cohei)**2) ))/2
+    delt0 = (p10i-p01i)/2
+    costh = abs(cohei)/np.sqrt( delt0**2 + abs(cohei)**2 )
+    ##cos(\theta/2)
+    costh2 = np.sqrt( (1+ costh)/2 )
+    fase = cohei/abs(cohei)
+    a = (costh2**2)*np.log(lamb1p) + (1-(costh2**2))*np.log(lamb1m) 
+    b = (1-(costh2**2))*np.log(lamb1p) + (costh2**2)*np.log(lamb1m)
+    ci = (np.sqrt(1-costh**2)/2)*fase*(np.log(lamb1p) - np.log(lamb1m) )
 
-    p00,p11,p66,p77 = np.log(po),np.log(p1),np.log(p6),np.log(p7)
-    lamb1p = (p2+p3)/2 + (np.sqrt( (p2-p3)**2 + 4*(abs(alp)**2) ))/2
-    lamb1m = (p2+p3)/2 - (np.sqrt( (p2-p3)**2 + 4*(abs(alp)**2) ))/2
-    delt1 = (p2-p3)/2 
-    lamb0p = (p4+p5)/2 + (np.sqrt( (p4-p5)**2 + 4*(abs(bet)**2) ))/2
-    lamb0m = (p4+p5)/2 - (np.sqrt( (p4-p5)**2 + 4*(abs(bet)**2) ))/2
-    delt0 = (p4-p5)/2
-    #if (abs(delt)< 1E-10):
-     #   th = np.pi/2
-    #else:    
-    th1=arctanaux(abs(alp)/delt1)
-    fase1 = cmath.phase(alp)
-    fase = np.exp(1j*fase1)
-    th0=arctanaux(abs(bet)/delt0)
-    fase0 = cmath.phase(bet)
-    fase00 = np.exp(1j*fase0)
-    #if (abs(alp) > 0 ):
-     #   fase += alp/abs(alp)
-    alp1 = (np.cos(th1/2)**2)*np.log(lamb1p) + (np.sin(th1/2)**2)*np.log(lamb1m)
-    bet1 = (np.sin(th1/2)**2)*np.log(lamb1p) + (np.cos(th1/2)**2)*np.log(lamb1m)   
-    c1 =  np.cos(th1/2)*np.sin(th1/2)*(fase)*(np.log(lamb1p) - np.log(lamb1m) )
-    
-    alp0 = (np.cos(th0/2)**2)*np.log(lamb0p) + (np.sin(th0/2)**2)*np.log(lamb0m)
-    bet0 = (np.sin(th0/2)**2)*np.log(lamb0p) + (np.cos(th0/2)**2)*np.log(lamb0m)   
-    c0 =  np.cos(th0/2)*np.sin(th0/2)*(fase00)*(np.log(lamb0p) - np.log(lamb0m) )
-
-    matrix = np.zeros((8,8), dtype = np.complex_)
-    matrix[0,0],matrix[1,1],matrix[6,6],matrix[7,7] = p00,p11,p66,p77
-    matrix[2,2],matrix[3,3],matrix[4,4],matrix[5,5] = alp1,bet1,alp0,bet0
-    matrix[2,4],matrix[4,2] = c1,c1.conj()
-    matrix[3,5],matrix[5,3] = c0,c0.conj()
-
-    return matrix 
+    return a,b,ci
     
 def currents(Htd,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     Nop = nl + nr + nd
@@ -371,6 +347,8 @@ for ts in times:
     P0 = cal1[7,7].real + cal1[6,6].real 
     concurrence = 2*cohesum - 2*np.sqrt(P0*PD) 
     concu.append(concurrence)
+
+    
     #print(cal1[4,2])
     #print(cal1[2,4])
     #cal2 = DistR(H,Ls,Lr,Ll,rho0,ts,-2)
@@ -410,7 +388,7 @@ plt.show()
 Ufs = np.linspace(7,40,100)
 Us = np.linspace(1,6,50)
 Num = 80
-eVs0 = np.linspace(0,800,Num)
+eVs0 = np.linspace(0,1800,Num)
 
 
 Probnt1f = []
@@ -425,6 +403,15 @@ trazaf = []
 cohef = []
 concuf = []
 eVs = []
+a0s = []
+b0s = []
+c0s = []
+a1s = []
+b1s = []
+c1s = []
+Realp = []
+Rebet = []
+infoqm = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -445,6 +432,14 @@ for ev in eVs0:
     Htd0 =  Htd(E0,Ed0,U00,Uf0)
     rhof = Propagate(rho0,superop0,40000)
     trazaf.append(tot)
+
+    p100,p010,alp = rhof[3,3].real,rhof[5,5].real,rhof[3,5]
+    p101,p011,bet = rhof[2,2].real,rhof[4,4].real,rhof[2,4]
+    a0,b0,c0 = Logaritm(p100,p010,alp)
+    a1,b1,c1 = Logaritm(p101,p011,bet)
+    Realp.append((alp*c0.conj()).real )
+    Rebet.append((bet.conj()*c1).real )
+    infoqm.append(grU*(1-fermi(0,-ev/2,betar))*(bet.conj()*c1).real )
     Probnt1f.append(rhof[0,0].real )
     Probnt2f.append(rhof[1,1].real )
     Probnt3f.append(rhof[2,2].real )
@@ -460,6 +455,12 @@ for ev in eVs0:
     concurrencef = 2*cohesumf - 2*np.sqrt(P0f*PDf) 
     concuf.append(concurrencef)
     eVs.append(ev*betal)
+    a0s.append(a0)
+    b0s.append(b0)
+    c0s.append(abs(c0))
+    a1s.append(a1)
+    b1s.append(b1)
+    c1s.append(abs(c1))
 
 plt.plot(eVs,Probnt1f,linestyle='--', dashes=(5, 9), color='green',lw = 4,label = r'$\rho_{111}$')
 plt.plot(eVs,Probnt2f, color='green',lw = 4,label = r'$\rho_{110}$')
@@ -484,4 +485,32 @@ plt.show()
 plt.plot(eVs,concuf)
 plt.xlabel(r'$eV/T$', fontsize = 20)
 plt.ylabel(r'$\mathcal{C}_{on}$', fontsize = 20)
+plt.show()
+
+
+
+plt.plot(eVs,a0s,label=r'$a_{0}$')
+plt.plot(eVs,b0s,label = r'$b_{0}$')
+plt.plot(eVs,c0s,label = r'$c_{0}$')
+plt.xlabel(r'$eV/T$', fontsize = 20)
+plt.legend()
+plt.show()
+#plt.scatter(times,Probnt2,label = "Baño_d")
+plt.plot(eVs,a1s,label=r'$a_{1}$')
+plt.plot(eVs,b1s,label = r'$b_{1}$')
+plt.plot(eVs,c1s,label = r'$c_{1}$')
+plt.xlabel(r'$eV/T$', fontsize = 20)
+plt.legend()
+plt.show()
+
+
+plt.plot(eVs,Realp,label=r'$Re(\alpha c^{*}_{0})$')
+plt.plot(eVs,Rebet,label = r'$Re(\beta^{*}c_{1})$')
+plt.xlabel(r'$eV/T$', fontsize = 20)
+plt.legend()
+plt.show()
+
+plt.plot(eVs,infoqm,label=r'$I_{qm}$')
+plt.xlabel(r'$eV/T$', fontsize = 20)
+plt.legend()
 plt.show()
