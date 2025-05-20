@@ -349,7 +349,7 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
 
 Num = 200
 eVs0 = np.linspace(0,800,Num)
-g0 = 0.005
+g0 = 5/1000
 
 print("p000",v00.T)
 print("p100",v100.T.real)
