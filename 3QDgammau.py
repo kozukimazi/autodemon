@@ -401,7 +401,7 @@ plt.xlabel(r'$t$', fontsize = 20)
 plt.ylabel(r'$\mathcal{C}_{on}$', fontsize = 20)
 plt.show()
 
-values =  Propagate(rho0,superop,3000)
+values = Propagate(rho0,superop,3000)
 
 plt.imshow(values.imag)
 plt.colorbar()
@@ -446,6 +446,8 @@ cohev = []
 concv = []
 eVs = []
 auxff = []
+Probnt10 = []
+Probnt20 = []
 Probnt30 = []
 Probnt40 = []
 Probnt50 = []
@@ -510,6 +512,8 @@ for ev in eVs0:
     eVs.append(ev*betal)
     entropf.append( -betal*(Ql0+Qr0) )
     auxff.append(0)
+    Probnt10.append(rhof[0,0].real )
+    Probnt20.append(rhof[1,1].real )
     Probnt30.append(rhof[2,2].real )
     Probnt40.append(rhof[3,3].real )
     Probnt50.append(rhof[4,4].real )
@@ -749,6 +753,10 @@ for i in range(Num):
     archivo.write( format_str.format(Nls[i]))
     archivo.write(" ")  
     #archivo.write(str(ys[i]))
+    archivo.write( format_str.format(Probnt10[i]))
+    archivo.write(" ") 
+    archivo.write( format_str.format(Probnt20[i]))
+    archivo.write(" ") 
     archivo.write( format_str.format(Probnt30[i]))
     archivo.write(" ") 
     archivo.write( format_str.format(Probnt40[i]))
