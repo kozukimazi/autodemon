@@ -331,6 +331,7 @@ def vecflow(W,p,Jn):
 
 
 
+
 betar,betad,betal = 1/100,1/2,1/100
 
 gr,grU = (1/100)*(1/6), 1/100

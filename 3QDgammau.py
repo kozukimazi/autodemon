@@ -269,7 +269,7 @@ E = 0
 U0 = 40.
 Uf = 500
 g0 = 5/1000
-
+#g0 = 0.0001
 eV = 450
 mul1 = eV/2
 mur1 = -eV/2
@@ -454,6 +454,8 @@ Probnt50 = []
 Probnt60 = []
 Probnt70 = []
 Probnt80 = []
+resta = []
+cohesex = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -520,6 +522,8 @@ for ev in eVs0:
     Probnt60.append(rhof[5,5].real )
     Probnt70.append(rhof[6,6].real )
     Probnt80.append(rhof[7,7].real )
+    resta.append(abs( rhof[3,3].real - rhof[5,5].real ))
+    cohesex.append(abs( rhof[3,5]).real)
 
 plt.plot(eVs,Ql,linestyle='--', dashes=(5, 9), color='red',lw = 4,label = r'$J_{L}$')
 plt.plot(eVs,Qr,linestyle='--', dashes=(5, 9), color='blue', lw=4,label = r'$J_{R}$') 
@@ -738,6 +742,11 @@ plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15, loc = "upper left")
+plt.show()
+
+plt.plot(eVs,resta, label = r'$|\rho_{100}-\rho_{010}|$')
+plt.plot(eVs,cohesex, label = r'$|\alpha|$')
+plt.legend()
 plt.show()
 
 archivo = open("lindbladgamU","w")
