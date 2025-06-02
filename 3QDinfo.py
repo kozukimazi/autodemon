@@ -6,14 +6,6 @@ from scipy import integrate
 import cmath
 import os
 
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.linalg import expm
-from scipy.linalg import logm 
-from scipy import integrate
-import cmath
-import os
-
 def anticonmutador(A,B):
     return np.matmul(A,B) + np.matmul(B,A)
 
@@ -237,21 +229,21 @@ def info(E,U,Uf,gl,gr,glu,gru,mul,mur,betal,betar,rho):
     delta0 = (p100-p010)/2
     delta1 = (p101-p011)/2
     bet = rho[2,4]
-    a0,b0 = np.log(p100) + abs(alp)**2/(p100*(p100-p010)) ,np.log(p010) + abs(alp)**2/(p010*(p100-p010))
-    a1,b1 = np.log(p101) + abs(bet)**2/(p101*(p101-p011)) ,np.log(p011) + abs(bet)**2/(p011*(p101-p011))
-    Re0= (abs(alp)**2)/(2*np.sqrt(delta0**2 + abs(alp)**2))*(np.log(p100)-np.log(p010)) 
-    Re1 = (abs(bet)**2)/(2*np.sqrt(delta1**2 + abs(bet)**2))*(np.log(p101)-np.log(p011)) 
+    a0,b0 = np.log(p100) + 0*abs(alp)**2/(p100*(p100-p010)) ,np.log(p010) - 0*abs(alp)**2/(p010*(p100-p010))
+    a1,b1 = np.log(p101) + 0*abs(bet)**2/(p101*(p101-p011)) ,np.log(p011) - 0*abs(bet)**2/(p011*(p101-p011))
+    Re0= 0*(abs(alp)**2)/(2*np.sqrt(delta0**2 + abs(alp)**2))*abs(np.log(p100)-np.log(p010)) 
+    Re1 = 0*(abs(bet)**2)/(2*np.sqrt(delta1**2 + abs(bet)**2))*abs(np.log(p101)-np.log(p011)) 
 
 
-    contl1 = gl*(fermi(E,mul,betal)*(a0*p000-p000*np.log(p000)) - (1-fermi(E,mul,betal))*(p100*np.log(p000)-a0*np.log(p100))  )
-    contl2 = glu*(fermi(E+U,mul,betal)*(a1*p001-p001*np.log(p001)) - (1-fermi(E+U,mul,betal))*(p101*np.log(p001)-a1*np.log(p101) -Re1  )  )
-    contl3 = gl*(fermi(E+Uf,mul,betal)*(p010*np.log(p110)-b0*p010 - Re0) - (1-fermi(E+Uf,mul,betal))*(b0*np.log(p110)-p110*np.log(p110))  )
-    contl4 = gl*(fermi(E+U+Uf,mul,betal)*(p011*np.log(p111)-b1*p011) - (1-fermi(E+U+Uf,mul,betal))*(b1*p111-p111*np.log(p111))  )
+    contl1 = gl*(fermi(E,mul,betal)*(a0*p000-p000*np.log(p000)) + (1-fermi(E,mul,betal))*(p100*np.log(p000)-a0*np.log(p100))  )
+    contl2 = glu*(fermi(E+U,mul,betal)*(a1*p001-p001*np.log(p001)) + (1-fermi(E+U,mul,betal))*(p101*np.log(p001)-a1*np.log(p101) -Re1  )  )
+    contl3 = gl*(fermi(E+Uf,mul,betal)*(p010*np.log(p110)-b0*p010 - Re0) + (1-fermi(E+Uf,mul,betal))*(b0*np.log(p110)-p110*np.log(p110))  )
+    contl4 = gl*(fermi(E+U+Uf,mul,betal)*(p011*np.log(p111)-b1*p011) + (1-fermi(E+U+Uf,mul,betal))*(b1*p111-p111*np.log(p111))  )
 
-    contr1 = gr*(fermi(E,mur,betar)*(b0*p000-p000*np.log(p000)) - (1-fermi(E,mur,betar))*(p010*np.log(p000)-b0*np.log(p010))  )
-    contr2 = gru*(fermi(E+U,mur,betar)*(b1*p001-p001*np.log(p001)) - (1-fermi(E+U,mur,betar))*(p011*np.log(p001)-a1*np.log(p011) -Re1  )  )
-    contr3 = gr*(fermi(E+Uf,mur,betar)*(p100*np.log(p110)-a0*p100 - Re0) - (1-fermi(E+Uf,mur,betar))*(a0*np.log(p110)-p110*np.log(p110))  )
-    contr4 = gr*(fermi(E+U+Uf,mur,betar)*(p101*np.log(p111)-a1*p101) - (1-fermi(E+U+Uf,mur,betar))*(a1*p111-p111*np.log(p111))  )
+    contr1 = gr*(fermi(E,mur,betar)*(b0*p000-p000*np.log(p000)) + (1-fermi(E,mur,betar))*(p010*np.log(p000)-b0*np.log(p010))  )
+    contr2 = gru*(fermi(E+U,mur,betar)*(b1*p001-p001*np.log(p001)) + (1-fermi(E+U,mur,betar))*(p011*np.log(p001)-a1*np.log(p011) -Re1  )  )
+    contr3 = gr*(fermi(E+Uf,mur,betar)*(p100*np.log(p110)-a0*p100 - Re0) + (1-fermi(E+Uf,mur,betar))*(a0*np.log(p110)-p110*np.log(p110))  )
+    contr4 = gr*(fermi(E+U+Uf,mur,betar)*(p101*np.log(p111)-a1*p101) + (1-fermi(E+U+Uf,mur,betar))*(a1*p111-p111*np.log(p111))  )
     
 
     Il = contl1 + contl2 + contl3 + contl4
@@ -307,8 +299,8 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
 E = 0
 U0 = 40.
 Uf = 500
-g0 = 5/1000
-#g0 = 0.0001
+#g0 = 5/1000
+g0 = 0.000001
 eV = 450
 mul1 = eV/2
 mur1 = -eV/2
@@ -495,6 +487,8 @@ Probnt70 = []
 Probnt80 = []
 resta = []
 cohesex = []
+infolapr = []
+inforapr = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -513,8 +507,10 @@ for ev in eVs0:
     Lr0 = Dr(E0,U00,Uf0,-ev/2,betar,gr,grU)
     Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
     Htd0 =  Htd(E0,Ed0,U00,Uf0)
-    rhof = Propagate(rho0,superop0,40000)
-    Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0 = currents(Htd0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,40000)
+    t=40000
+    rhof = Propagate(rho0,superop0,t)
+    il,ir = info(E0,U00,Uf0,gl,gr,glU,grU,ev/2,-ev/2,betal,betar,rhof)
+    Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0 = currents(Htd0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,t)
     Ql.append(Ql0)
     Qr.append(Qr0)
     Qd.append(Qd0)
@@ -546,7 +542,9 @@ for ev in eVs0:
     Tid.append((1/betad)*Id0  )
     cohes.append(cohe0)
     Ilf.append(-Sl0)
-    Irf.append(-Sr0) 
+    Irf.append(-Sr0)
+    infolapr.append(il)
+    inforapr.append(ir) 
     Nls.append(Nl0)
     Nrs.append(Nr0)
     Nds.append(Nd0)
@@ -787,6 +785,17 @@ plt.plot(eVs,resta, label = r'$|\rho_{100}-\rho_{010}|$')
 plt.plot(eVs,cohesex, label = r'$|\alpha|$')
 plt.legend()
 plt.show()
+
+plt.plot(eVs,Ilf, label = r'$I_{ltotal}$')
+plt.plot(eVs,infolapr, label = r'$I_{laprox}$')
+plt.legend()
+plt.show()
+
+plt.plot(eVs,Irf, label = r'$I_{rtotal}$')
+plt.plot(eVs,inforapr, label = r'$I_{raprox}$')
+plt.legend()
+plt.show()
+
 
 
 
