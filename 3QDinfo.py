@@ -197,10 +197,10 @@ def Logaritm(rho):
     #if (abs(delt)< 1E-10):
      #   th = np.pi/2
     #else:    
-    th1=arctanaux(abs(alp)/delt1)
+    th1=arctanaux(abs(alp),delt1)
     fase1 = cmath.phase(alp)
     fase = np.exp(1j*fase1)
-    th0=arctanaux(abs(bet)/delt0)
+    th0=arctanaux(abs(bet),delt0)
     fase0 = cmath.phase(bet)
     fase00 = np.exp(1j*fase0)
     #if (abs(alp) > 0 ):
@@ -229,10 +229,29 @@ def info(E,U,Uf,gl,gr,glu,gru,mul,mur,betal,betar,rho):
     delta0 = (p100-p010)/2
     delta1 = (p101-p011)/2
     bet = rho[2,4]
-    a0,b0 = np.log(p100) + 0*abs(alp)**2/(p100*(p100-p010)) ,np.log(p010) - 0*abs(alp)**2/(p010*(p100-p010))
-    a1,b1 = np.log(p101) + 0*abs(bet)**2/(p101*(p101-p011)) ,np.log(p011) - 0*abs(bet)**2/(p011*(p101-p011))
-    Re0= 0*(abs(alp)**2)/(2*np.sqrt(delta0**2 + abs(alp)**2))*abs(np.log(p100)-np.log(p010)) 
-    Re1 = 0*(abs(bet)**2)/(2*np.sqrt(delta1**2 + abs(bet)**2))*abs(np.log(p101)-np.log(p011)) 
+    th0=arctanaux(abs(alp),delta0)
+    fase0 = cmath.phase(alp)
+    fase = np.exp(1j*fase0)
+    th1=arctanaux(abs(bet),delta1)
+    fase1 = cmath.phase(bet)
+    fase00 = np.exp(1j*fase1)
+    lambp1 = ((p101+p011)/2) + np.sqrt((p101-p011)**2 + 4*abs(bet)**2  )/2
+    lambm1 = ((p101+p011)/2) - np.sqrt((p101-p011)**2 + 4*abs(bet)**2  )/2
+    lambp0 = ((p100+p010)/2) + np.sqrt((p100-p010)**2 + 4*abs(alp)**2  )/2
+    lambm0 = ((p100+p010)/2) - np.sqrt((p100-p010)**2 + 4*abs(alp)**2  )/2
+
+    aux0 = (abs(alp)**2)/(2*np.sqrt(delta0**2 + abs(alp)**2))
+    aux1 = (abs(bet)**2)/(2*np.sqrt(delta1**2 + abs(bet)**2))
+    #a0,b0 = np.log(p100) + 0*(abs(alp)**2/(p100*(p100-p010))) ,np.log(p010) - 0*(abs(alp)**2/(p010*(p100-p010)))
+    #a1,b1 = np.log(p101) + 0*(abs(bet)**2/(p101*(p101-p011))) ,np.log(p011) - 0*(abs(bet)**2/(p011*(p101-p011)))
+    #Re0= 0*aux0*abs(np.log(p100)-np.log(p010)) 
+    #Re1 = 0*aux1*abs(np.log(p101)-np.log(p011)) 
+    a0 = (np.cos(th0/2)**2)*np.log(lambp0) + (np.sin(th0/2)**2)*np.log(lambm0)
+    b0 = (np.cos(th0/2)**2)*np.log(lambm0) + (np.sin(th0/2)**2)*np.log(lambp0)
+    a1 = (np.cos(th1/2)**2)*np.log(lambp1) + (np.sin(th1/2)**2)*np.log(lambm1)
+    b1 = (np.cos(th1/2)**2)*np.log(lambm1) + (np.sin(th1/2)**2)*np.log(lambp1)
+    Re0 = aux0*(np.log(lambp0) - np.log(lambm0) )
+    Re1 = aux1*(np.log(lambp1) - np.log(lambm1) )
 
 
     contl1 = gl*(fermi(E,mul,betal)*(a0*p000-p000*np.log(p000)) + (1-fermi(E,mul,betal))*(p100*np.log(p000)-a0*np.log(p100))  )
@@ -249,7 +268,7 @@ def info(E,U,Uf,gl,gr,glu,gru,mul,mur,betal,betar,rho):
     Il = contl1 + contl2 + contl3 + contl4
     Ir = contr1 + contr2 + contr3 + contr4
 
-    return Il,Ir
+    return Il.real,Ir.real
 
     
 def currents(Htd,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
@@ -299,8 +318,8 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
 E = 0
 U0 = 40.
 Uf = 500
-#g0 = 5/1000
-g0 = 0.000001
+g0 = 5/1000
+#g0 = 0.000001
 eV = 450
 mul1 = eV/2
 mur1 = -eV/2
