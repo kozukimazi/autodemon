@@ -6,6 +6,11 @@ from scipy import integrate
 import cmath
 import os
 
+#####################################################################
+#############codigoquetieneelflujodeinfoteorico######################
+#####################################################################
+#####################################################################
+
 def anticonmutador(A,B):
     return np.matmul(A,B) + np.matmul(B,A)
 
