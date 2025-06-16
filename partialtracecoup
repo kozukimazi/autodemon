@@ -268,8 +268,7 @@ Ed = mud1-U0/2
 #betar,betad,betal = 1/100,10,1/100
 #transport
 betar,betad,betal = 1/100,1/2,1/100
-
-n=3
+n=4
 gr,grU = (1/100)*(1/n), 1/100
 gl,glU = 1/100, (1/100)*(1/n)
 gd,gdU = 1/50,1/50 
@@ -287,8 +286,9 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,1/8,0],
                  [0,0,0,0,0,0,0,1/8]])
 
-Num = 200
-eVs0 = np.linspace(0,800,Num)
+
+Num = 80000
+g0s = np.linspace(0,1,Num)
 Ql = []
 Qr = []
 Qd = []
@@ -324,44 +324,34 @@ cohev = []
 concv = []
 eVs = []
 auxff = []
-Probnt10 = []
-Probnt20 = []
-Probnt30 = []
-Probnt40 = []
-Probnt50 = []
-Probnt60 = []
-Probnt70 = []
-Probnt80 = []
-resta = []
-cohesex = []
+g0m = []
 infolrU = []
 infolrdis = []
 infosum = []
-for ev in eVs0:
+for g0f in g0s:
+    ev = 100
     mud0 = 2
     U00 = 40 #10
     #mud0 = 1-U00/2
     #Con Ed0 = mud0 -U00/2,E0=4 hay flujo de energia pero un orden menor al de
     #flujo de informacion
     #Ed0 = 1
-    Ed0 = mud0 -U00/2
+    Ed0 = mud0-U00/2
     Uf0 = 500 #50
-    #Probar condicion (U00/E0)<<1,Strasberg
-    E0 = 0
+    E0 = 4
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
-    H0 = Hamiltonian(E0,Ed0,U00,Uf0,g0)
+    H0 = Hamiltonian(E0,Ed0,U00,Uf0,g0f)
     superop0 = Liouvillian(H0,Ls0)
     Ll0 = Dl(E0,U00,Uf0,ev/2,betal,gl,glU)
     Lr0 = Dr(E0,U00,Uf0,-ev/2,betar,gr,grU)
     Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
     Htd0 =  Htd(E0,Ed0,U00,Uf0)
-    t=40000
-    rhof = Propagate(rho0,superop0,t)
-    Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,ilru,ilrdis = currentsnew(Htd0,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,t)
+    rhof = Propagate(rho0,superop0,40000)
+    Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,ilru,ilrdis = currentsnew(Htd0,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,40000)
     Ql.append(Ql0)
     Qr.append(Qr0)
     Qd.append(Qd0)
-    #cohev.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
+    
     concv.append(concu0)    
     sigmal = Sl0 - betal*Ql0
     sigmar = Sr0 - betar*Qr0
@@ -389,42 +379,28 @@ for ev in eVs0:
     Tid.append((1/betad)*Id0  )
     cohes.append(cohe0)
     Ilf.append(-Sl0)
-    Irf.append(-Sr0)
+    Irf.append(-Sr0) 
     Nls.append(Nl0)
     Nrs.append(Nr0)
     Nds.append(Nd0)
-    eVs.append(ev*betal)
-    entropf.append( -betal*(Ql0+Qr0) )
-    auxff.append(0)
-    Probnt10.append(rhof[0,0].real )
-    Probnt20.append(rhof[1,1].real )
-    Probnt30.append(rhof[2,2].real )
-    Probnt40.append(rhof[3,3].real )
-    Probnt50.append(rhof[4,4].real )
-    Probnt60.append(rhof[5,5].real )
-    Probnt70.append(rhof[6,6].real )
-    Probnt80.append(rhof[7,7].real )
     infolrU.append(ilru.real)
     infolrdis.append(ilrdis.real)
-    infosum.append(ilrdis.real + ilru.real)
-    resta.append(abs( rhof[3,3].real - rhof[5,5].real ))
-    cohesex.append(abs( rhof[3,5]).real)
+    infosum.append(ilru.real + ilrdis.real)
+    #eVs.append(ev*betal)
+    entropf.append( -betal*(Ql0+Qr0) )
+    auxff.append(0)
+    g0m.append(g0f/gl)
 
-
-plt.plot(eVs,infolrU,linestyle='--', dashes=(5, 9), color='red',lw = 4,label = r'$\dot{I}^{U}_{LR}$')
-plt.plot(eVs,infolrdis,linestyle='--', dashes=(5, 9), color='blue', lw=4,label = r'$\dot{I}^{D}_{LR}$') 
-#plt.plot(eVs,infosum,linestyle='--', dashes=(5, 9), color='black',lw=4,label = r'$\dot{I}_{LR}$')
-#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='green',lw=4,label = r'$\dot{I}_{LRori}$')
+plt.plot(g0m,infolrU,linestyle='--', dashes=(5, 9), color='red',lw = 4,label = r'$\dot{I}^{U}_{LR}$')
+plt.plot(g0m,infolrdis,linestyle='--', dashes=(5, 9), color='blue', lw=4,label = r'$\dot{I}^{D}_{LR}$') 
+plt.plot(g0m,infosum,linestyle='--', dashes=(5, 9), color='black',lw=4,label = r'$\dot{I}_{LR}$')
 #plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$')
 #plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$') 
 #plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$')
-#plt.xscale("log")
-plt.xlabel(r'$eV/T$',fontsize = 20)
+plt.xscale("log")
+plt.xlabel(r'$g/\gamma_{L}$',fontsize = 20)
 #plt.ylabel(r'$J_{\alpha}$',fontsize = 20)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)  # Y-axis tick labels
 plt.legend(loc = "lower left",fontsize=15) 
 plt.show()   
-
-
-
