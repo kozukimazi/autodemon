@@ -246,6 +246,7 @@ U0 = 40.
 Uf = 500
 g0 = 5/1000
 #g0 =1/1000 puede ser mejor
+
 eV = 450
 mul1 = eV/2
 mur1 = -eV/2
