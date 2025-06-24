@@ -245,7 +245,7 @@ E = 0
 U0 = 40.
 Uf = 500
 g0 = 5/1000
-
+#g0 =1/1000 puede ser mejor
 eV = 450
 mul1 = eV/2
 mur1 = -eV/2
@@ -412,6 +412,8 @@ c1s = []
 Realp = []
 Rebet = []
 infoqm = []
+imalp = []
+imbet = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -448,6 +450,8 @@ for ev in eVs0:
     Probnt6f.append(rhof[5,5].real )
     Probnt7f.append(rhof[6,6].real ) 
     Probnt8f.append(rhof[7,7].real ) 
+    imalp.append(rhof[3,5].imag)
+    imbet.append(rhof[2,4].imag)
     cohef.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
     cohesumf = abs(rhof[5,3] + rhof[4,2])
     PDf = rhof[0,0].real + rhof[1,1].real 
@@ -513,4 +517,12 @@ plt.show()
 plt.plot(eVs,infoqm,label=r'$I_{qm}$')
 plt.xlabel(r'$eV/T$', fontsize = 20)
 plt.legend()
+plt.show()
+
+plt.plot(eVs,imalp,lw = 4,label=r'$\text{Im}(\alpha)$')
+plt.plot(eVs,imbet,lw = 4,label=r'$\text{Im}(\beta)$')
+plt.xlabel(r'$eV/T$', fontsize = 20)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.legend(fontsize = 15)
 plt.show()
