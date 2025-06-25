@@ -314,12 +314,13 @@ def rater(W0r,Wr0,Wruf,Wufr,Wru,Wur,Wu2r,Wru2):
     Wr[6,6],Wr[6,7],Wr[7,6],Wr[7,7] = -Wu2r,Wru2,Wu2r,-Wru2
     return Wr
 
+
 def rateg(Wlr,Wrl,Wlru,Wrlu):
     Wcoup = np.zeros((8,8))
     #Wlr
     Wcoup[1,1],Wcoup[1,2],Wcoup[2,1],Wcoup[2,2] = -Wrl,Wlr,Wrl,-Wlr
     #Wlru
-    Wcoup[7,7],Wcoup[7,6],Wcoup[6,7],Wcoup[6,6] = -Wrlu,Wlru,Wrlu,-Wlru
+    Wcoup[6,6],Wcoup[6,5],Wcoup[5,6],Wcoup[5,5] = -Wrlu,Wlru,Wrlu,-Wlru
     return Wcoup
 
 def ratelr(Wl,Wr,Wlr):
@@ -447,8 +448,10 @@ for ev in eVs0:
     Wfs = Wl+WLR
     Wf = ratelr(Wl,Wr,WLR)
 
-    curre = vecflow(Wfs,ps,N)
-    infos = vecflow(Wf,ps,logps)
+    #curre = vecflow(Wfs,ps,N)
+    #infos = vecflow(Wf,ps,logps)
+    curre = vecflow(Wl,ps,N)
+    infos = vecflow(Wl+Wr,ps,logps)
     eVs.append(ev*betal)
     If.append(infos[0][0])
     curr.append(curre[0][0])
