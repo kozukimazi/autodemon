@@ -175,7 +175,7 @@ def Drazinspectral(L0,tol):
         #print(w[i])
         if (abs(w[i])>tol):
             #print(type(w[i]))            
-            L0_D += np.outer(eigenr[:, i], eigenl[:, i])/w[i]
+            L0_D += np.outer(eigenr[:, i], eigenl[:, i].conj())/w[i]
 
     return L0_D
 
@@ -450,6 +450,7 @@ for ev in eVs0:
 
     #curre = vecflow(Wfs,ps,N)
     #infos = vecflow(Wf,ps,logps)
+    #this is the correct form
     curre = vecflow(Wl,ps,N)
     infos = vecflow(Wl+Wr,ps,logps)
     eVs.append(ev*betal)
