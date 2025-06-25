@@ -396,6 +396,7 @@ for ev in eVs0:
     Vnu = pert(V0)
     tot = classic(L0,Draz0,P0,Q0,Vnu,rho0,t)
     W = ratem(L0,Draz0,P0,Q0,Vnu)
+    #print(W)
     p000,p100,p010,p001 = tot[7,7].real,tot[3,3].real,tot[5,5].real,tot[6,6].real
     p110,p011,p101 = tot[1,1].real,tot[4,4].real,tot[2,2].real
     p111 = tot[0,0].real
