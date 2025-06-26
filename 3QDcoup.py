@@ -562,9 +562,9 @@ plt.show()
 
 #ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
 #mientras que al superar esa vara L empieza a medir 
-plt.plot(g0m,Id,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{I}_{d}$')
-plt.plot(g0m,Ilf,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{l}$')
-plt.plot(g0m,Irf,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{I}_{r}$')
+plt.plot(g0m,Id, color='red',lw=3, label = r'$\dot{I}_{d}$')
+plt.plot(g0m,Ilf, color='black',lw=3, label = r'$\dot{I}_{l}$')
+plt.plot(g0m,Irf, color='blue',lw=3, label = r'$\dot{I}_{r}$')
 plt.xlabel(r'$g/\gamma_{L}$',fontsize = 20)
 plt.ylabel(r'$\dot{I}_{i}$',fontsize = 20)
 plt.xticks(fontsize=17)  # X-axis tick labels

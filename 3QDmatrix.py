@@ -388,8 +388,8 @@ plt.show()
     
 Ufs = np.linspace(7,40,100)
 Us = np.linspace(1,6,50)
-Num = 80
-eVs0 = np.linspace(0,1800,Num)
+Num = 200
+eVs0 = np.linspace(0,800,Num)
 
 
 Probnt1f = []
@@ -467,14 +467,14 @@ for ev in eVs0:
     b1s.append(b1)
     c1s.append(abs(c1))
 
-plt.plot(eVs,Probnt1f,linestyle='--', dashes=(5, 9), color='green',lw = 4,label = r'$\rho_{111}$')
-plt.plot(eVs,Probnt2f, color='green',lw = 4,label = r'$\rho_{110}$')
-plt.plot(eVs,Probnt3f,linestyle='--', dashes=(5, 9), color='black',lw=3,label = r'$\rho_{101}$')
-plt.plot(eVs,Probnt4f, color='black',lw = 4, label = r'$\rho_{100}$')
-plt.plot(eVs,Probnt5f,color = 'orange',lw = 4, label = r'$\rho_{011}$')
-plt.plot(eVs,Probnt6f, color='red',lw = 4, label = r'$\rho_{010}$')
-plt.plot(eVs,Probnt7f, color='blue',lw = 4, label = r'$\rho_{001}$')
-plt.plot(eVs,Probnt8f,color = 'm', lw = 4,label = r'$\rho_{000}$')
+#plt.plot(eVs,Probnt1f,linestyle='--', dashes=(5, 9), color='green',lw = 4,label = r'$\rho_{111}$')
+plt.plot(eVs,Probnt2f, color='green',lw = 3,label = r'$\rho_{110}$')
+plt.plot(eVs,Probnt3f, color='black',lw=3,label = r'$\rho_{101}$')
+plt.plot(eVs,Probnt4f, color='black',lw = 3, label = r'$\rho_{100}$')
+plt.plot(eVs,Probnt5f,color = 'orange',lw = 3, label = r'$\rho_{011}$')
+plt.plot(eVs,Probnt6f, color='red',lw = 3, label = r'$\rho_{010}$')
+plt.plot(eVs,Probnt7f, color='blue',lw = 3, label = r'$\rho_{001}$')
+#plt.plot(eVs,Probnt8f,color = 'm', lw = 3,label = r'$\rho_{000}$')
 plt.legend(loc = "upper right",fontsize=15)
 plt.xlabel(r'$eV/T$',fontsize=25)
 plt.xticks(fontsize=17)  
