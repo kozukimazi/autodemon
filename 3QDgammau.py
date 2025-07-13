@@ -287,11 +287,11 @@ Ed = mud1-U0/2
 #transport
 betar,betad,betal = 1/100,1/2,1/100
 
-gr,grU = (1/100)*(1/6), 1/100
-gl,glU = 1/100, (1/100)*(1/6)
+#gr,grU = (1/100)*(1/6), 1/100
+#gl,glU = 1/100, (1/100)*(1/6)
 gd,gdU = 1/50,1/50 
-#gr,grU = (1/100), 1/100
-#gl,glU = 1/100, (1/100)
+gr,grU = (1/100), 1/100
+gl,glU = 1/100, (1/100)
 #gd,gdU = 1/100,1/100 
 #al crecer gd,gdu mayor a las gls y grs
 # se aumenta el rango de eV en el que hay rompimiento aparente 
@@ -630,12 +630,12 @@ plt.legend(fontsize=15)
 plt.show()
 
 
-plt.plot(eVs,Erl,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{E}_{LR}$')
+plt.plot(eVs,Erl,color='blue',lw=3, label = r'$\dot{E}_{LR}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-plt.plot(eVs,Flr,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{\mathcal{F}}_{LR}$')
-plt.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$', color = 'g',lw=2)
-plt.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=2)
-plt.plot(eVs,Qlr,linestyle='--', dashes=(5, 9), color='red',lw = 2,label = r'$J_{LR}$')
+plt.plot(eVs,Flr,color='black',lw=3, label = r'$\dot{\mathcal{F}}_{LR}$')
+plt.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$', color = 'g',lw=3)
+plt.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=3)
+plt.plot(eVs,Qlr, color='red',lw = 3,label = r'$J_{LR}$')
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
@@ -643,11 +643,11 @@ plt.legend(fontsize=15)
 #plt.xscale("log")
 plt.show()
 
-plt.plot(eVs,Eds,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{E}_{d}$')
+plt.plot(eVs,Eds, color='blue',lw=3, label = r'$\dot{E}_{d}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-plt.plot(eVs,Fd,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{\mathcal{F}}_{d}$')
-plt.plot(eVs,Tid,label = r'$T_{d}\dot{I}_{d}$', color = 'g',lw=2)
-plt.plot(eVs,Wdf,label = r'$\dot{W}_{d}$', color = 'm',lw=2)
+plt.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{\mathcal{F}}_{d}$')
+plt.plot(eVs,Tid,label = r'$T_{d}\dot{I}_{d}$', color = 'g',lw=3)
+plt.plot(eVs,Wdf,label = r'$\dot{W}_{d}$', color = 'm',lw=3)
 #plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.xticks(fontsize=17)  
@@ -717,7 +717,7 @@ plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$\dot{E}_{\alpha}$',fontsize=20)    
 plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
-plt.legend(fontsize=15, loc = "upper left")
+plt.legend(fontsize=15, loc = "center left")
 plt.show()
 
 
@@ -729,7 +729,7 @@ plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$J_{\alpha}$',fontsize=20)    
 plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
-plt.legend(fontsize=15, loc = "upper left")
+plt.legend(fontsize=15, loc = "lower left")
 plt.show()
 
 
