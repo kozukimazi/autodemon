@@ -269,7 +269,8 @@ E = 0
 U0 = 40.
 Uf = 500
 g0 = 5/1000
-#g0 = 0.0001
+
+#g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
 eV = 450
 mul1 = eV/2
 mur1 = -eV/2
@@ -287,11 +288,11 @@ Ed = mud1-U0/2
 #transport
 betar,betad,betal = 1/100,1/2,1/100
 
-#gr,grU = (1/100)*(1/6), 1/100
-#gl,glU = 1/100, (1/100)*(1/6)
+gr,grU = (1/100)*(1/6), 1/100
+gl,glU = 1/100, (1/100)*(1/6)
 gd,gdU = 1/50,1/50 
-gr,grU = (1/100), 1/100
-gl,glU = 1/100, (1/100)
+#gr,grU = (1/100), 1/100
+#gl,glU = 1/100, (1/100)
 #gd,gdU = 1/100,1/100 
 #al crecer gd,gdu mayor a las gls y grs
 # se aumenta el rango de eV en el que hay rompimiento aparente 
@@ -549,7 +550,7 @@ plt.xlabel(r'$eV/T$',fontsize = 20)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
 plt.ylabel(r'$\dot{N}_{\alpha}$',fontsize = 20)
-plt.legend(loc = "lower left",fontsize=15) 
+plt.legend(bbox_to_anchor=(0., 0.65), loc="center left",fontsize=15) 
 plt.show()  
 
 plt.plot(eVs,Qlr,lw=3, label = r'$\dot{Q}_{rl}$', color = 'black')
@@ -652,7 +653,7 @@ plt.plot(eVs,Wdf,label = r'$\dot{W}_{d}$', color = 'm',lw=3)
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
-plt.legend(fontsize=15,loc = "lower left")
+plt.legend(fontsize=15,loc = "center left")
 #plt.xscale("log")
 plt.show()
 
@@ -748,6 +749,46 @@ plt.plot(eVs,resta, label = r'$|\rho_{100}-\rho_{010}|$')
 plt.plot(eVs,cohesex, label = r'$|\alpha|$')
 plt.legend()
 plt.show()
+
+
+##############################
+######graficosdobles##########
+##############################
+
+# Create subplots (1 row, 2 columns)
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(4, 9))  # 1 row, 2 columns
+
+ax1.plot(eVs,Ql, color='black',lw = 4,label = r'$J_{L}$')
+ax1.plot(eVs,Qr, color='blue', lw=4,label = r'$J_{R}$') 
+ax1.plot(eVs,Qd, color='red',lw=4,label = r'$J_{d}$')
+#plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$')
+#plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$') 
+#plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$')
+#plt.xscale("log")
+#ax1.set_xlabel(r'$eV/T$',fontsize = 20)
+ax1.set_ylabel(r'$J_{\alpha}$',fontsize = 20)
+#ax1.xticks(fontsize=17)  # X-axis tick labels
+#ax1.set_yticks(fontsize=17)  # Y-axis tick labels
+ax1.legend(loc = "lower left",fontsize=13) 
+ax1.tick_params(labelbottom=False,labelsize = 14)
+
+ax2.plot(eVs,Nls, color='black',lw=4,label = r'$\dot{N}_{L}$')
+ax2.plot(eVs,Nrs, color='blue',lw=4, label = r'$\dot{N}_{R}$') 
+ax2.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{d}$')
+#ax2.xticks(fontsize=17)  # X-axis tick labels
+#ax2.yticks(fontsize=17)  # Y-axis tick labels
+#plt.xscale("log")
+ax2.set_xlabel(r'$eV/T$',fontsize = 20)
+#plt.ylim(-0.0018, 0.0018) 
+#plt.legend(loc='upper left')  
+ax2.set_ylabel(r'$\dot{N}_{\alpha}$',fontsize = 20)
+ax2.legend(bbox_to_anchor=(0., 0.65), loc="center left",fontsize=13) 
+ax2.tick_params(labelsize=14)  # font size of tick labels 
+
+plt.tight_layout()  # Avoids overlapping labels
+plt.show()
+
+
 
 archivo = open("lindbladgamU","w")
 decimal_places = 7
