@@ -756,7 +756,7 @@ plt.show()
 ##############################
 
 # Create subplots (1 row, 2 columns)
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(4, 9))  # 1 row, 2 columns
+fig, (ax1, ax2) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
 
 ax1.plot(eVs,Ql, color='black',lw = 4,label = r'$J_{L}$')
 ax1.plot(eVs,Qr, color='blue', lw=4,label = r'$J_{R}$') 
@@ -769,8 +769,10 @@ ax1.plot(eVs,Qd, color='red',lw=4,label = r'$J_{d}$')
 ax1.set_ylabel(r'$J_{\alpha}$',fontsize = 20)
 #ax1.xticks(fontsize=17)  # X-axis tick labels
 #ax1.set_yticks(fontsize=17)  # Y-axis tick labels
-ax1.legend(loc = "lower left",fontsize=13) 
+ax1.legend(loc = "lower left",fontsize=12) 
 ax1.tick_params(labelbottom=False,labelsize = 14)
+ax1.text(0.9, 0.95, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+
 
 ax2.plot(eVs,Nls, color='black',lw=4,label = r'$\dot{N}_{L}$')
 ax2.plot(eVs,Nrs, color='blue',lw=4, label = r'$\dot{N}_{R}$') 
@@ -782,11 +784,52 @@ ax2.set_xlabel(r'$eV/T$',fontsize = 20)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
 ax2.set_ylabel(r'$\dot{N}_{\alpha}$',fontsize = 20)
-ax2.legend(bbox_to_anchor=(0., 0.65), loc="center left",fontsize=13) 
+ax2.legend(bbox_to_anchor=(0., 0.68), loc="center left",fontsize=12) 
 ax2.tick_params(labelsize=14)  # font size of tick labels 
+ax2.text(0.9, 0.95, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
 
+
+#plt.subplots_adjust(left=0.05) 
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
+
+
+# Create subplots (1 row, 2 columns)
+fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
+
+ax10.plot(eVs,Erl,color='blue',lw=3, label = r'$\dot{E}_{LR}$')
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+ax10.plot(eVs,Flr,color='black',lw=3, label = r'$\dot{\mathcal{F}}_{LR}$')
+ax10.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$', color = 'g',lw=3)
+ax10.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=3)
+ax10.plot(eVs,Qlr, color='red',lw = 3,label = r'$J_{LR}$')
+#ax10.xticks(fontsize=17)  
+#ax10.yticks(fontsize=17)
+ax10.legend(fontsize=10,loc = "upper left")
+ax10.tick_params(labelbottom=False,labelsize = 14)
+ax10.text(0.9, 0.96, '(a)', transform=ax10.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+
+
+ax20.plot(eVs,Eds, color='blue',lw=3, label = r'$\dot{E}_{d}$')
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+ax20.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{\mathcal{F}}_{d}$')
+ax20.plot(eVs,Tid,label = r'$T_{d}\dot{I}_{d}$', color = 'g',lw=3)
+ax20.plot(eVs,Wdf,label = r'$\dot{W}_{d}$', color = 'm',lw=3)
+#plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
+#ax2.xticks(fontsize=17)  # X-axis tick labels
+#ax2.yticks(fontsize=17)  # Y-axis tick labels
+#plt.xscale("log")
+ax20.set_xlabel(r'$eV/T$',fontsize = 20)
+#plt.ylim(-0.0018, 0.0018) 
+#plt.legend(loc='upper left')  
+ax20.legend(fontsize=10,loc = "center left")
+ax20.tick_params(labelsize=14)  # font size of tick labels 
+ax20.text(0.9, 0.96, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+
+#plt.subplots_adjust(left=0.05) 
+plt.tight_layout()  # Avoids overlapping labels
+plt.show()
+
 
 
 
