@@ -692,7 +692,7 @@ plt.legend(fontsize=15)
 plt.show()
 
 plt.plot(eVs,entropf, color = 'black',lw = 3)
-plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
+plt.plot(eVs,auxff, color = 'red',lw = 3)
 plt.xlabel(r'$eV/T$',fontsize = 20) 
 plt.ylabel(r'$\dot{\sigma}^{o}_{LR}$',fontsize=20)    
 plt.xticks(fontsize=17)  
