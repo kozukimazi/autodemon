@@ -374,7 +374,7 @@ for g0f in g0s:
     #Ed0 = 1
     Ed0 = mud0-U00/2
     Uf0 = 500 #50
-    E0 = 4
+    E0 = 0
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
     H0 = Hamiltonian(E0,Ed0,U00,Uf0,g0f)
     superop0 = Liouvillian(H0,Ls0)
@@ -592,3 +592,67 @@ plt.yticks(fontsize=17)
 plt.xscale("log")
 plt.show()
 
+##############################
+######graficosdobles##########
+##############################
+
+# Create subplots (1 row, 2 columns)
+fig, (ax1, ax2) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
+
+
+
+
+ax1.plot(g0m,Erl,color='blue',lw=3, label = r'$\dot{E}_{LR}$')
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+ax1.plot(g0m,Flr,color='black',lw=3, label = r'$\dot{\mathcal{F}}_{LR}$')
+ax1.plot(g0m,Tisl,label = r'$T\dot{I}_{LR}$', color = 'g',lw=3)
+ax1.plot(g0m,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=3)
+ax1.plot(g0m,Qlr, color='red',lw = 3,label = r'$J_{LR}$')
+ax1.legend(fontsize=15)
+ax1.set_xscale('log')  
+ax1.tick_params(labelbottom=False,labelsize = 14)
+ax1.text(0.9, 0.95, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+
+
+ax2.plot(g0m,Eds, color='blue',lw=3, label = r'$\dot{E}_{d}$')
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+ax2.plot(g0m,Fd, color='black',lw=3, label = r'$\dot{\mathcal{F}}_{d}$')
+ax2.plot(g0m,Tid,label = r'$T_{d}\dot{I}_{d}$', color = 'g',lw=3)
+ax2.plot(g0m,Wdf,label = r'$\dot{W}_{d}$', color = 'm',lw=3)
+#plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
+ax2.set_xlabel(r'$g/\gamma_{L}$',fontsize = 20)
+ax2.tick_params(labelsize=14)  # font size of tick labels 
+ax2.text(0.9, 0.95, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax2.set_xscale('log')  
+
+#plt.subplots_adjust(left=0.05) 
+plt.tight_layout()  # Avoids overlapping labels
+plt.show()
+
+
+# Create subplots (1 row, 2 columns)
+fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
+
+#ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
+#mientras que al superar esa vara L empieza a medir 
+ax10.plot(g0m,Id, color='red',lw=3, label = r'$\dot{I}_{d}$')
+ax10.plot(g0m,Ilf, color='black',lw=3, label = r'$\dot{I}_{l}$')
+ax10.plot(g0m,Irf, color='blue',lw=3, label = r'$\dot{I}_{r}$')
+ax10.set_ylabel(r'$\dot{I}_{i}$',fontsize = 20)
+ax10.legend(fontsize=15)
+ax10.set_xscale('log')  
+ax10.tick_params(labelbottom=False,labelsize = 14)
+ax10.text(0.9, 0.95, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+
+
+ax20.plot(g0m,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 3)
+ax20.plot(g0m,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3)  
+ax20.set_xlabel(r'$g/\gamma_{L}$',fontsize = 20)   
+ax20.set_xscale("log")
+ax20.legend(fontsize=15, loc = "upper left") 
+ax2.tick_params(labelsize=14)  # font size of tick labels 
+ax2.text(0.9, 0.95, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+
+
+plt.tight_layout()  # Avoids overlapping labels
+plt.show()
