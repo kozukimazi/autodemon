@@ -327,6 +327,7 @@ plt.show()
 Ufs = np.linspace(7,40,100)
 Us = np.linspace(1,6,50)
 Num = 80000
+#Num = 10
 g0s = np.linspace(0,1,Num)
 Ql = []
 Qr = []
@@ -366,6 +367,7 @@ auxff = []
 g0m = []
 for g0f in g0s:
     ev = 100
+    print(g0f)
     mud0 = 2
     U00 = 40 #10
     #mud0 = 1-U00/2
@@ -608,10 +610,10 @@ ax1.plot(g0m,Flr,color='black',lw=3, label = r'$\dot{\mathcal{F}}_{LR}$')
 ax1.plot(g0m,Tisl,label = r'$T\dot{I}_{LR}$', color = 'g',lw=3)
 ax1.plot(g0m,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=3)
 ax1.plot(g0m,Qlr, color='red',lw = 3,label = r'$J_{LR}$')
-ax1.legend(fontsize=15)
+ax1.legend(fontsize=12,loc = "center left")
 ax1.set_xscale('log')  
 ax1.tick_params(labelbottom=False,labelsize = 14)
-ax1.text(0.9, 0.95, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax1.text(0.9, 0.94, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
 
 
 ax2.plot(g0m,Eds, color='blue',lw=3, label = r'$\dot{E}_{d}$')
@@ -622,9 +624,9 @@ ax2.plot(g0m,Wdf,label = r'$\dot{W}_{d}$', color = 'm',lw=3)
 #plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
 ax2.set_xlabel(r'$g/\gamma_{L}$',fontsize = 20)
 ax2.tick_params(labelsize=14)  # font size of tick labels 
-ax2.text(0.9, 0.95, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax2.text(0.9, 0.92, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
 ax2.set_xscale('log')  
-
+ax2.legend(fontsize=12)
 #plt.subplots_adjust(left=0.05) 
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
@@ -638,20 +640,20 @@ fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_la
 ax10.plot(g0m,Id, color='red',lw=3, label = r'$\dot{I}_{d}$')
 ax10.plot(g0m,Ilf, color='black',lw=3, label = r'$\dot{I}_{l}$')
 ax10.plot(g0m,Irf, color='blue',lw=3, label = r'$\dot{I}_{r}$')
-ax10.set_ylabel(r'$\dot{I}_{i}$',fontsize = 20)
-ax10.legend(fontsize=15)
+#ax10.set_ylabel(r'$\dot{I}_{i}$',fontsize = 20)
+ax10.legend(fontsize=13,loc = "center left")
 ax10.set_xscale('log')  
 ax10.tick_params(labelbottom=False,labelsize = 14)
-ax10.text(0.9, 0.95, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
 
 
 ax20.plot(g0m,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 3)
 ax20.plot(g0m,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3)  
 ax20.set_xlabel(r'$g/\gamma_{L}$',fontsize = 20)   
 ax20.set_xscale("log")
-ax20.legend(fontsize=15, loc = "upper left") 
-ax2.tick_params(labelsize=14)  # font size of tick labels 
-ax2.text(0.9, 0.95, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax20.legend(fontsize=13, loc = "upper left") 
+ax20.tick_params(labelsize=14)  # font size of tick labels 
+ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
 
 
 plt.tight_layout()  # Avoids overlapping labels
