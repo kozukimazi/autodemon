@@ -374,6 +374,7 @@ Probnt5f = []
 Probnt6f = []
 Probnt7f = []
 Probnt8f = []
+energyf = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -401,6 +402,15 @@ for ev in eVs0:
     p000,p100,p010,p001 = tot[7,7].real,tot[3,3].real,tot[5,5].real,tot[6,6].real
     p110,p011,p101 = tot[1,1].real,tot[4,4].real,tot[2,2].real
     p111 = tot[0,0].real
+    Es = np.array([[0],
+                [E0],
+                [E0],
+                [Ed0],
+                [2*E0 + Uf0],
+                [E0 + Ed0 + U00],
+                [E0 + Ed0 + U00],
+                [2*E0 + Ed0 + Uf0 +U00]])
+    
     ps = np.array([[p000],
                 [p100],
                 [p010],
@@ -409,6 +419,7 @@ for ev in eVs0:
                 [p011],
                 [p101],
                 [p111]])
+    
     #informationvecto
     logps = np.array([[np.log(p000)],
                 [np.log(p100)],
@@ -455,9 +466,11 @@ for ev in eVs0:
     #this is the correct form
     curre = vecflow(Wl,ps,N)
     infos = vecflow(Wl+Wr,ps,logps)
+    ener = vecflow(Wl+Wr,ps,Es)
     eVs.append(ev*betal)
     If.append(infos[0][0])
     curr.append(curre[0][0])
+    energyf.append(ener[0][0])
 
 
 
@@ -482,7 +495,16 @@ plt.xlabel(r'$eV$',fontsize = 20)
 #plt.legend(loc='upper left')  
 #plt.ylabel("Particle current",fontsize = 20)
 plt.legend()
-plt.show()             
+plt.show()  
+
+plt.plot(eVs,energyf,label = r'$\dot{E}_{LR}$', color = 'b')
+#plt.xscale("log")
+plt.xlabel(r'$eV$',fontsize = 20)
+#plt.ylim(-0.0018, 0.0018) 
+#plt.legend(loc='upper left')  
+#plt.ylabel("Particle current",fontsize = 20)
+plt.legend()
+plt.show()     
 
 plt.plot(eVs,If,label = r'$\dot{I}_{LR}$', color = 'b')
 #plt.xscale("log")

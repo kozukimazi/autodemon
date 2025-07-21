@@ -310,7 +310,7 @@ plt.show()
 
 
 ############four plot#############
-fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, figsize=(8, 10), sharex=True, constrained_layout=True)
+fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, figsize=(7, 8), sharex=True, constrained_layout=True)
 
 ax1.plot(eV_data,Prob3clas, color='red',lw = 4, label = "classic")
 ax1.plot(eV_data,Prob3qm, color='blue',lw = 4, label = "quantum")
@@ -350,7 +350,7 @@ plt.tight_layout()
 # Show the plots
 plt.show()
 
-fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, figsize=(8, 10), sharex=True, constrained_layout=True)
+fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, figsize=(7, 8), sharex=True, constrained_layout=True)
 
 ax1.plot(eV_data,Prob4clas, color='red',lw = 4, label = "classic")
 ax1.plot(eV_data,Prob4qm, color='blue',lw = 4, label = "quantum")
