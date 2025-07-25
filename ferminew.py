@@ -95,7 +95,7 @@ def Ct(Nk,ck,vk,t):
         tot += ck[i]*np.exp(-vk[i]*t)
     return tot.real, tot.imag    
 
-E = 4
+E = 0
 U = 40
 omega0 = E+U
 
