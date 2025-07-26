@@ -71,6 +71,14 @@ beta = 1. / T
 mu_L = 10
 mu_R = -10
 
+mu_L0 = 2
+mu_R0 = -2
+mu_L1 = 100
+mu_R1 = -100
+
+mu_L2 = 300
+mu_R2 = -300
+
 kappa, epsilon = kappa_epsilon(Nk)
 
 # Phew, we made it to function that calculates the coefficients for the
@@ -93,7 +101,7 @@ def Ct(Nk,ck,vk,t):
     tot = 0
     for i in range(Nk+1):
         tot += ck[i]*np.exp(-vk[i]*t)
-    return tot.real, tot.imag    
+    return tot.real, tot.imag, abs(tot)    
 
 E = 0
 U = 40
@@ -104,6 +112,26 @@ ck_minus_L, vk_minus_L = C(-1.0, mu_L,E, Nk)  # C_-, left bath
 
 ck_plus_R, vk_plus_R = C(1.0, mu_R,E+U, Nk)  # C_+, right bath
 ck_minus_R, vk_minus_R = C(-1.0, mu_R,E+U, Nk)  # C_-, right bath
+
+ck_plus_L0, vk_plus_L0 = C(1.0, mu_L0,E, Nk)  # C_+, left bath
+ck_minus_L0, vk_minus_L0 = C(-1.0, mu_L0,E, Nk)  # C_-, left bath
+
+ck_plus_R0, vk_plus_R0 = C(1.0, mu_R0,E+U, Nk)  # C_+, right bath
+ck_minus_R0, vk_minus_R0 = C(-1.0, mu_R0,E+U, Nk)  # C_-, right bath
+
+ck_plus_L1, vk_plus_L1 = C(1.0, mu_L1,E, Nk)  # C_+, left bath
+ck_minus_L1, vk_minus_L1 = C(-1.0, mu_L1,E, Nk)  # C_-, left bath
+
+ck_plus_R1, vk_plus_R1 = C(1.0, mu_R1,E+U, Nk)  # C_+, right bath
+ck_minus_R1, vk_minus_R1 = C(-1.0, mu_R1,E+U, Nk)  # C_-, right bath
+
+ck_plus_L2, vk_plus_L2 = C(1.0, mu_L2,E, Nk)  # C_+, left bath
+ck_minus_L2, vk_minus_L2 = C(-1.0, mu_L2,E, Nk)  # C_-, left bath
+
+ck_plus_R2, vk_plus_R2 = C(1.0, mu_R2,E+U, Nk)  # C_+, right bath
+ck_minus_R2, vk_minus_R2 = C(-1.0, mu_R2,E+U, Nk)  # C_-, right bath
+
+
 
 #Nk0 = 8
 #ck_plus_L0, vk_plus_L0 = C(1.0, mu_L, Nk0)  # C_+, left bath
@@ -117,16 +145,40 @@ csre = []
 csimag = []
 csreR = []
 csimagR = []
+csabs = []
+csabsR = []
+csabs0 = []
+csabsR0 = []
+csabs1 = []
+csabsR1 = []
+csabs2 = []
+csabsR2 = []
+
 for t in ts:
     #cre,cim = Ct(Nk,ck_plus_L,vk_plus_L,t)
     #creR,cimR = Ct(Nk,ck_plus_R,vk_plus_R,t)
-    cre,cim = Ct(Nk,ck_minus_L,vk_minus_L,t)
-    creR,cimR = Ct(Nk,ck_minus_R,vk_minus_R,t)
+    cre,cim,cabs = Ct(Nk,ck_minus_L,vk_minus_L,t)
+    creR,cimR,cabsR = Ct(Nk,ck_minus_R,vk_minus_R,t)
+    cre0,cim0,cabs0 = Ct(Nk,ck_minus_L0,vk_minus_L0,t)
+    creR0,cimR0,cabsR0 = Ct(Nk,ck_minus_R0,vk_minus_R0,t)
+    cre1,cim1,cabs1 = Ct(Nk,ck_minus_L1,vk_minus_L1,t)
+    creR1,cimR1,cabsR1 = Ct(Nk,ck_minus_R1,vk_minus_R1,t)
+    cre2,cim2,cabs2 = Ct(Nk,ck_minus_L2,vk_minus_L2,t)
+    creR2,cimR2,cabsR2 = Ct(Nk,ck_minus_R2,vk_minus_R2,t)
     #cre0,cim0 = Ct(Nk0,ck_plus_L0,vk_plus_L0,t)
     csre.append(cre)
     csimag.append(cim)
     csreR.append(creR)
     csimagR.append(cimR)
+    csabs.append(cabs)
+    csabsR.append(cabsR)
+    csabs0.append(cabs0)
+    csabsR0.append(cabsR0)
+    csabs1.append(cabs1)
+    csabsR1.append(cabsR1)
+    csabs2.append(cabs2)
+    csabsR2.append(cabsR2)
+
     #csre0.append(cre0)
     #csimag0.append(cim0)
 
@@ -148,3 +200,55 @@ plt.yticks(fontsize=17)
 plt.legend(fontsize=15,loc = "upper left")
 #plt.xscale("log")
 plt.show()   
+
+
+plt.plot(ts,csabs, color='blue',lw=3,label = r'$|C^{-}_{fL}(t)|$')
+plt.plot(ts,csabsR, color='red',lw=3,label = r'$|C^{-}_{fR}(t)|$')
+#plt.plot(ts,csimag0)
+plt.xlabel(r'$t$',fontsize=25)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper left")
+#plt.xscale("log")
+plt.show()   
+
+plt.plot(ts,csabs, color='blue',lw=3,label = r'$|C^{-}_{fL}(t)|$')
+plt.plot(ts,csabsR, color='red',lw=3,label = r'$|C^{-}_{fR}(t)|$')
+#plt.plot(ts,csimag0)
+plt.xlabel(r'$t$',fontsize=25)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper left")
+#plt.xscale("log")
+plt.show()   
+
+plt.plot(ts,csabs0, color='blue',lw=3,label = r'$|C^{-}_{fL}(t)|$')
+plt.plot(ts,csabsR0, color='red',lw=3,label = r'$|C^{-}_{fR}(t)|$')
+#plt.plot(ts,csimag0)
+plt.xlabel(r'$t$',fontsize=25)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper left")
+#plt.xscale("log")
+plt.show()   
+
+plt.plot(ts,csabs1, color='blue',lw=3,label = r'$|C^{-}_{fL}(t)|$')
+plt.plot(ts,csabsR1, color='red',lw=3,label = r'$|C^{-}_{fR}(t)|$')
+#plt.plot(ts,csimag0)
+plt.xlabel(r'$t$',fontsize=25)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper left")
+#plt.xscale("log")
+plt.show()   
+
+plt.plot(ts,csabs2, color='blue',lw=3,label = r'$|C^{-}_{fL}(t)|$')
+plt.plot(ts,csabsR2, color='red',lw=3,label = r'$|C^{-}_{fR}(t)|$')
+#plt.plot(ts,csimag0)
+plt.xlabel(r'$t$',fontsize=25)
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper left")
+#plt.xscale("log")
+plt.show()   
+
