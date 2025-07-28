@@ -247,9 +247,22 @@ Uf = 500
 g0 = 5/1000
 #g0 =1/1000 puede ser mejor
 
-eV = 450
-mul1 = eV/2
-mur1 = -eV/2
+eV0 = 4
+mul0 = eV0/2
+mur0 = -eV0/2
+
+eV = 20 
+mul = eV/2
+mur = -eV/2
+
+eV1 = 200
+mul1 = eV1/2
+mur1 = -eV1/2
+
+eV2 = 600
+mul2 = eV2/2
+mur2 = -eV2/2
+
 mud1 = 2
 Ed = mud1-U0/2
 #betar,betad,betal = 1/50,1/20,1/50
@@ -279,16 +292,23 @@ gd,gdU = 1/50,1/50
 #gr,gd,gl = 1/100,1/300,1/100
 #gr,gd,gl = 1/100,0,1/100
 
-Ll = Dl(E,U0,Uf,mul1,betal,gl,glU)
-Lr = Dr(E,U0,Uf,mur1,betar,gr,grU)
+Ll0 = Dl(E,U0,Uf,mul0,betal,gl,glU)
+Lr0 = Dr(E,U0,Uf,mur0,betar,gr,grU)
 Ld = Dd(Ed,U0,mud1,betad,gd,gdU)
 
 
 
-Ls = Dissipator(E,Ed,U0,Uf,mul1,mur1,mud1,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
+Ls0 = Dissipator(E,Ed,U0,Uf,mul0,mur0,mud1,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
+Ls = Dissipator(E,Ed,U0,Uf,mul,mur,mud1,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
+Ls1 = Dissipator(E,Ed,U0,Uf,mul1,mur1,mud1,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
+Ls2 = Dissipator(E,Ed,U0,Uf,mul2,mur2,mud1,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
+
 H = Hamiltonian(E,Ed,U0,Uf,g0)
 
+superop0 = Liouvillian(H,Ls0)
 superop = Liouvillian(H,Ls)
+superop1 = Liouvillian(H,Ls1)
+superop2 = Liouvillian(H,Ls2)
 
 #revisar la base
 #|1,1,1>,|1,1,0>,|1,0,1>,|1,0,0>,|0,1,1>,|0,1,0>,|0,0,1>,|0,0,0>
@@ -316,58 +336,95 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
 
 
 times = np.linspace(0,2600,2000)
-Probnt1 = []
-Probnt2 = []
-Probnt3 = []
+Probnt10 = []
+Probnt20 = []
+Probnt30 = []
+Probnt40 = []
+Probnt50 = []
+Probnt60 = []
+Probnt70 = []
+Probnt80 = []
 Probnt4 = []
-Probnt5 = []
+Probnt41 = []
+Probnt42 = []
 Probnt6 = []
-Probnt7 = []
-Probnt8 = []
+Probnt61 = []
+Probnt62 = []
 traza = []
 cohe = []
 concu = []
 for ts in times:
-    cal1 = Propagate(rho0,superop,ts)
+    cal0 = Propagate(rho0,superop0,ts)
+    cal = Propagate(rho0,superop,ts)
+    cal1 = Propagate(rho0,superop1,ts)
+    cal2 = Propagate(rho0,superop2,ts)
     auxp = np.matmul(dldag,dr)
-    alp = np.trace( np.matmul(auxp,cal1) )
-    tot = np.trace(cal1)
+    alp = np.trace( np.matmul(auxp,cal0) )
+    tot = np.trace(cal0)
     
     traza.append(tot)
-    Probnt1.append(cal1[0,0].real )
-    Probnt2.append(cal1[1,1].real )
-    Probnt3.append(cal1[2,2].real )
-    Probnt4.append(cal1[3,3].real )
-    Probnt5.append(cal1[4,4].real )
-    Probnt6.append(cal1[5,5].real )
-    Probnt7.append(cal1[6,6].real ) 
-    Probnt8.append(cal1[7,7].real ) 
-    cohe.append(abs(cal1[5,3]) + abs(cal1[4,2]) )
-    cohesum = abs(cal1[5,3] + cal1[4,2])
-    PD = cal1[0,0].real + cal1[1,1].real 
-    P0 = cal1[7,7].real + cal1[6,6].real 
+    Probnt10.append(cal0[0,0].real )
+    Probnt20.append(cal0[1,1].real )
+    Probnt30.append(cal0[2,2].real )
+    Probnt40.append(cal0[3,3].real )
+    Probnt50.append(cal0[4,4].real )
+    Probnt60.append(cal0[5,5].real )
+    Probnt70.append(cal0[6,6].real ) 
+    Probnt80.append(cal0[7,7].real ) 
+    cohe.append(abs(cal0[5,3]) + abs(cal0[4,2]) )
+    cohesum = abs(cal0[5,3] + cal0[4,2])
+    PD = cal0[0,0].real + cal0[1,1].real 
+    P0 = cal0[7,7].real + cal0[6,6].real 
     concurrence = 2*cohesum - 2*np.sqrt(P0*PD) 
     concu.append(concurrence)
-
-    
+    Probnt4.append(cal[3,3].real )
+    Probnt41.append(cal1[3,3].real )
+    Probnt42.append(cal2[3,3].real )
+    Probnt6.append(cal[5,5].real )
+    Probnt61.append(cal1[5,5].real )
+    Probnt62.append(cal2[5,5].real )
     #print(cal1[4,2])
     #print(cal1[2,4])
     #cal2 = DistR(H,Ls,Lr,Ll,rho0,ts,-2)
     #Probnt2.append(cal2.real)
 
-plt.plot(times,Probnt1,label = r'$\rho_{111}$')
-plt.plot(times,Probnt2, label = r'$\rho_{110}$')
-plt.plot(times,Probnt3, label = r'$\rho_{101}$')
-plt.plot(times,Probnt4, label = r'$\rho_{100}$')
-plt.plot(times,Probnt5, label = r'$\rho_{011}$')
-plt.plot(times,Probnt6, label = r'$\rho_{010}$')
-plt.plot(times,Probnt7, label = r'$\rho_{001}$')
-plt.plot(times,Probnt8, label = r'$\rho_{000}$')
+plt.plot(times,Probnt10,label = r'$\rho_{111}$')
+plt.plot(times,Probnt20, label = r'$\rho_{110}$')
+plt.plot(times,Probnt30, label = r'$\rho_{101}$')
+plt.plot(times,Probnt40, label = r'$\rho_{100}$')
+plt.plot(times,Probnt50, label = r'$\rho_{011}$')
+plt.plot(times,Probnt60, label = r'$\rho_{010}$')
+plt.plot(times,Probnt70, label = r'$\rho_{001}$')
+plt.plot(times,Probnt80, label = r'$\rho_{000}$')
 plt.legend(loc = "upper right",fontsize=15)
 plt.xlabel(r'$t$',fontsize=25)
 plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
 plt.show()
+# Create a figure with two subplots (1 row, 2 columns)
+fig, (ax1, ax2) = plt.subplots(2,1,sharex=True, figsize=(4, 9),constrained_layout=True)
+
+ax1.plot(times,Probnt40,lw = 2.5, label = r'$eV/T=0.04$')
+ax1.plot(times,Probnt4,lw=2.5, label = r'$eV/T=0.2$')
+ax1.plot(times,Probnt41,lw=2.5, label = r'$eV/T=2$')
+ax1.plot(times,Probnt42,lw=2.5, label = r'$eV/T=6$')
+#ax1.xlabel(r'$t$', fontsize = 20)
+ax1.set_ylabel(r'$\rho_{100}$', fontsize = 20)
+ax1.tick_params(labelbottom=False,labelsize = 14)
+ax1.legend(fontsize=14,loc = 'lower right')
+
+ax2.plot(times,Probnt60,lw=2.5)
+ax2.plot(times,Probnt6,lw=2.5)
+ax2.plot(times,Probnt61,lw=2.5)
+ax2.plot(times,Probnt62,lw=2.5)
+ax2.set_xlabel(r'$t$', fontsize = 20)
+ax2.set_ylabel(r'$\rho_{010}$', fontsize = 20)
+ax2.tick_params(labelsize = 14)
+#ax1.legend(fontsize=14,loc = 'lower right')
+
+plt.tight_layout()
+plt.show()
+
 
 
 plt.plot(times,cohe)

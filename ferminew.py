@@ -57,7 +57,7 @@ def kappa_epsilon(Nk):
     return kappa, epsilon
 
 # Number of expansion terms to retain:
-Nk = 12
+Nk = 20
 # Shared bath properties:
 ep0 = 1/800
 alp0 = 5/600
@@ -145,6 +145,18 @@ csre = []
 csimag = []
 csreR = []
 csimagR = []
+csre0 = []
+csimag0 = []
+csreR0 = []
+csimagR0 = []
+csre1 = []
+csimag1 = []
+csreR1 = []
+csimagR1 = []
+csre2 = []
+csimag2 = []
+csreR2 = []
+csimagR2 = []
 csabs = []
 csabsR = []
 csabs0 = []
@@ -157,19 +169,32 @@ csabsR2 = []
 for t in ts:
     #cre,cim = Ct(Nk,ck_plus_L,vk_plus_L,t)
     #creR,cimR = Ct(Nk,ck_plus_R,vk_plus_R,t)
-    cre,cim,cabs = Ct(Nk,ck_minus_L,vk_minus_L,t)
-    creR,cimR,cabsR = Ct(Nk,ck_minus_R,vk_minus_R,t)
-    cre0,cim0,cabs0 = Ct(Nk,ck_minus_L0,vk_minus_L0,t)
-    creR0,cimR0,cabsR0 = Ct(Nk,ck_minus_R0,vk_minus_R0,t)
-    cre1,cim1,cabs1 = Ct(Nk,ck_minus_L1,vk_minus_L1,t)
-    creR1,cimR1,cabsR1 = Ct(Nk,ck_minus_R1,vk_minus_R1,t)
-    cre2,cim2,cabs2 = Ct(Nk,ck_minus_L2,vk_minus_L2,t)
-    creR2,cimR2,cabsR2 = Ct(Nk,ck_minus_R2,vk_minus_R2,t)
+    cre,cim,cabs = Ct(Nk,ck_plus_L,vk_plus_L,t)
+    creR,cimR,cabsR = Ct(Nk,ck_plus_R,vk_plus_R,t)
+    cre0,cim0,cabs0 = Ct(Nk,ck_plus_L0,vk_plus_L0,t)
+    creR0,cimR0,cabsR0 = Ct(Nk,ck_plus_R0,vk_plus_R0,t)
+    cre1,cim1,cabs1 = Ct(Nk,ck_plus_L1,vk_plus_L1,t)
+    creR1,cimR1,cabsR1 = Ct(Nk,ck_plus_R1,vk_plus_R1,t)
+    cre2,cim2,cabs2 = Ct(Nk,ck_plus_L2,vk_plus_L2,t)
+    creR2,cimR2,cabsR2 = Ct(Nk,ck_plus_R2,vk_plus_R2,t)
     #cre0,cim0 = Ct(Nk0,ck_plus_L0,vk_plus_L0,t)
     csre.append(cre)
     csimag.append(cim)
     csreR.append(creR)
     csimagR.append(cimR)
+    csre0.append(cre0)
+    csimag0.append(cim0)
+    csreR0.append(creR0)
+    csimagR0.append(cimR0)
+    csre1.append(cre1)
+    csimag1.append(cim1)
+    csreR1.append(creR1)
+    csimagR1.append(cimR1)
+    csre2.append(cre2)
+    csimag2.append(cim2)
+    csreR2.append(creR2)
+    csimagR2.append(cimR2)
+    ##################################
     csabs.append(cabs)
     csabsR.append(cabsR)
     csabs0.append(cabs0)
@@ -182,14 +207,60 @@ for t in ts:
     #csre0.append(cre0)
     #csimag0.append(cim0)
 
-plt.plot(ts,csre, color='blue',lw=3,label = r'$\text{Re}[C^{-}_{fL}(t)]$')
-plt.plot(ts,csreR, color='red',lw=3,label = r'$\text{Re}[C^{-}_{fR}(t)]$')
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.xlabel(r'$t$',fontsize=25)
-plt.legend(fontsize=15,loc = "upper left")
+# Create a figure with two subplots (1 row, 2 columns)
+fig, (ax1, ax2) = plt.subplots(2,1,sharex=True, figsize=(4, 9),constrained_layout=True)
+
+
+ax1.plot(ts,csre0, color='blue',lw=3,label = r'$eV/T=0.04$')
+ax1.plot(ts,csre, color='red',lw=3,label = r'$eV/T=0.2$')
+ax1.plot(ts,csre1, color='black',lw=3,label = r'$eV/T=2$')
+ax1.plot(ts,csre2, color='green',lw=3,label = r'$eV/T=6$')
+ax1.tick_params(labelbottom=False,labelsize = 14)
+ax1.legend(fontsize=14,loc = 'upper right')
+ax1.text(0.75, 0.96, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+
+
+
+ax2.plot(ts,csreR0, color='blue',lw=3)
+ax2.plot(ts,csreR, color='red',lw=3)
+ax2.plot(ts,csreR1, color='black',lw=3)
+ax2.plot(ts,csreR2, color='green',lw=3)
+ax2.tick_params(labelsize = 14)
+ax2.text(0.75, 0.96, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+ax2.set_xlabel(r'$t$',fontsize = 20)
+#Adjust layout to prevent overlap
+plt.tight_layout()
 #plt.xscale("log")
 plt.show()   
+
+# Create a figure with two subplots (1 row, 2 columns)
+fig, (ax10, ax20) = plt.subplots(2,1,sharex=True, figsize=(4, 9),constrained_layout=True)
+
+
+ax10.plot(ts,csimag0, color='blue',lw=3,label = r'$eV/T=0.04$')
+ax10.plot(ts,csimag, color='red',lw=3,label = r'$eV/T=0.2$')
+ax10.plot(ts,csimag1, color='black',lw=3,label = r'$eV/T=2$')
+ax10.plot(ts,csimag2, color='green',lw=3,label = r'$eV/T=6$')
+ax10.tick_params(labelbottom=False,labelsize = 14)
+ax10.legend(fontsize=14,loc = 'lower right')
+ax10.text(0.75, 0.9, '(a)', transform=ax10.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+
+
+
+ax20.plot(ts,csimagR0, color='blue',lw=3)
+ax20.plot(ts,csimagR, color='red',lw=3)
+ax20.plot(ts,csimagR1, color='black',lw=3)
+ax20.plot(ts,csimagR2, color='green',lw=3)
+ax20.tick_params(labelsize = 14)
+ax20.text(0.75, 0.9, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+ax20.set_xlabel(r'$t$',fontsize = 20)
+#Adjust layout to prevent overlap
+plt.tight_layout()
+#plt.xscale("log")
+plt.show()   
+
+
+
 
 plt.plot(ts,csimag, color='blue',lw=3,label = r'$\text{Im}[C^{-}_{fL}(t)]$')
 plt.plot(ts,csimagR, color='red',lw=3,label = r'$\text{Im}[C^{-}_{fR}(t)]$')
