@@ -288,12 +288,12 @@ Ed = mud1-U0/2
 #transport
 betar,betad,betal = 1/100,1/2,1/100
 
-gr,grU = (1/100)*(1/6), 1/100
-gl,glU = 1/100, (1/100)*(1/6)
-gd,gdU = 1/50,1/50 
-#gr,grU = (1/100), 1/100
-#gl,glU = 1/100, (1/100)
-#gd,gdU = 1/100,1/100 
+#gr,grU = (1/100)*(1/6), 1/100
+#gl,glU = 1/100, (1/100)*(1/6)
+#gd,gdU = 1/50,1/50 
+gr,grU = (1/100), 1/100
+gl,glU = 1/100, (1/100)
+gd,gdU = 1/100,1/100 
 #al crecer gd,gdu mayor a las gls y grs
 # se aumenta el rango de eV en el que hay rompimiento aparente 
 #segunda ley
@@ -529,7 +529,7 @@ for ev in eVs0:
 
 plt.plot(eVs,Ql, color='black',lw = 4,label = r'$J_{L}$')
 plt.plot(eVs,Qr, color='blue', lw=4,label = r'$J_{R}$') 
-plt.plot(eVs,Qd, color='red',lw=4,label = r'$J_{d}$')
+plt.plot(eVs,Qd, color='red',lw=4,label = r'$J_{D}$')
 #plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$')
 #plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$') 
 #plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$')
@@ -543,7 +543,7 @@ plt.show()
 
 plt.plot(eVs,Nls, color='black',lw=4,label = r'$\dot{N}_{L}$')
 plt.plot(eVs,Nrs, color='blue',lw=4, label = r'$\dot{N}_{R}$') 
-plt.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{d}$')
+plt.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{D}$')
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)  # Y-axis tick labels
 #plt.xscale("log")
@@ -551,11 +551,11 @@ plt.xlabel(r'$eV/T$',fontsize = 20)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
 plt.ylabel(r'$\dot{N}_{\alpha}$',fontsize = 20)
-plt.legend(bbox_to_anchor=(0., 0.65), loc="center left",fontsize=15) 
+plt.legend(bbox_to_anchor=(0., 0.65), loc="lower left",fontsize=15) 
 plt.show()  
 
-plt.plot(eVs,Qlr,lw=3, label = r'$\dot{Q}_{rl}$', color = 'black')
-plt.plot(eVs,Qd,lw=3,label = r'$\dot{Q}_{d}$', color = 'red')
+plt.plot(eVs,Qlr,lw=3, label = r'$J_{LR}$', color = 'black')
+plt.plot(eVs,Qd,lw=3,label = r'$J_{D}$', color = 'red')
 plt.legend(fontsize = 15)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
@@ -563,9 +563,9 @@ plt.yticks(fontsize=17)
 plt.show()
 
 
-plt.plot(eVs,Qd,label = r'$\dot{Q}_{d}$', color = 'b')
-plt.plot(eVs,Id, label = r'$\dot{I}_{d}$', color = 'r')
-plt.plot(eVs,Sds,label = r'$\dot{\sigma}_{d}$', color = 'k')
+plt.plot(eVs,Qd,label = r'$J_{D}$', color = 'b')
+plt.plot(eVs,Id, label = r'$\dot{I}_{D}$', color = 'r')
+plt.plot(eVs,Sds,label = r'$\dot{\sigma}_{D}$', color = 'k')
 #plt.xscale("log")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.xticks(fontsize=17)  
@@ -576,7 +576,7 @@ plt.show()
 
 plt.plot(eVs,Sls,linestyle='--', dashes=(5, 9), color='red',lw=2,label = r'$\dot{\sigma}_{L}$')
 plt.plot(eVs,Srs,linestyle='--', dashes=(5, 9), color='blue',lw=2, label = r'$\dot{\sigma}_{R}$') 
-plt.plot(eVs,Sds,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{\sigma}_{d}$')
+plt.plot(eVs,Sds,linestyle='--', dashes=(5, 9), color='black',lw=2, label = r'$\dot{\sigma}_{D}$')
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$\dot{\sigma}_{\alpha}$',fontsize = 20)
 plt.legend(fontsize = 15)
@@ -601,7 +601,7 @@ plt.plot(eVs,Isl,lw = 3, label = r'$\dot{I}_{LR}$', color = 'black')
 #plt.plot(eVs,Classr, label = r'$\mathcal{I}_{classR}$')
 #plt.plot(eVs,cohesum, label = r'$\mathcal{I}_{coheLR}$')
 #plt.plot(eVs, sumtot, linestyle='--', color='blue')
-plt.plot(eVs,Id, lw = 3,label = r'$\dot{I}_{d}$', color = 'red')
+plt.plot(eVs,Id, lw = 3,label = r'$\dot{I}_{D}$', color = 'red')
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.legend(fontsize = 15)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -613,7 +613,7 @@ plt.show()
 
 plt.plot(eVs,Ers,linestyle='--', dashes=(5, 9), color='blue',lw=3, label = r'$\dot{E}_{R}$')
 plt.plot(eVs,Els,linestyle='--', dashes=(5, 9), color='red',lw=3, label = r'$\dot{E}_{L}$')
-plt.plot(eVs,Eds,linestyle='--', dashes=(5, 9), color='black',lw=3, label = r'$\dot{E}_{d}$')
+plt.plot(eVs,Eds,linestyle='--', dashes=(5, 9), color='black',lw=3, label = r'$\dot{E}_{D}$')
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$\dot{E}_{\alpha}$',fontsize = 20)
 #plt.xscale("log")
@@ -622,9 +622,9 @@ plt.xticks(fontsize=17)
 plt.yticks(fontsize=17)
 plt.show()
 
-plt.plot(eVs,Erl, label = r'$\dot{E}_{rl}$')
+plt.plot(eVs,Erl, label = r'$\dot{E}_{LR}$')
 plt.xlabel(r'$eV/T$',fontsize = 20)
-plt.plot(eVs,Qlr, label = r'$\dot{Q}_{rl}$')
+plt.plot(eVs,Qlr, label = r'$J_{LR}$')
 plt.xticks(fontsize=17)  
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15)
@@ -645,11 +645,11 @@ plt.legend(fontsize=15)
 #plt.xscale("log")
 plt.show()
 
-plt.plot(eVs,Eds, color='blue',lw=3, label = r'$\dot{E}_{d}$')
+plt.plot(eVs,Eds, color='blue',lw=3, label = r'$\dot{E}_{D}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-plt.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{\mathcal{F}}_{d}$')
-plt.plot(eVs,Tid,label = r'$T_{d}\dot{I}_{d}$', color = 'g',lw=3)
-plt.plot(eVs,Wdf,label = r'$\dot{W}_{d}$', color = 'm',lw=3)
+plt.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{\mathcal{F}}_{D}$')
+plt.plot(eVs,Tid,label = r'$T_{d}\dot{I}_{D}$', color = 'g',lw=3)
+plt.plot(eVs,Wdf,label = r'$\dot{W}_{D}$', color = 'm',lw=3)
 #plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.xticks(fontsize=17)  
@@ -673,9 +673,9 @@ plt.show()
 
 #ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
 #mientras que al superar esa vara L empieza a medir 
-plt.plot(eVs,Id, color='red',lw=3, label = r'$\dot{I}_{d}$')
-plt.plot(eVs,Ilf, color='black',lw=3, label = r'$\dot{I}_{l}$')
-plt.plot(eVs,Irf, color='blue',lw=3, label = r'$\dot{I}_{r}$')
+plt.plot(eVs,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
+plt.plot(eVs,Ilf, color='black',lw=3, label = r'$\dot{I}_{L}$')
+plt.plot(eVs,Irf, color='blue',lw=3, label = r'$\dot{I}_{R}$')
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$\dot{I}_{i}$',fontsize = 20)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -702,7 +702,7 @@ plt.yticks(fontsize=17)
 plt.show()
 
 plt.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'black',lw = 3)
-plt.plot(eVs,Wdf,label = r'$\dot{W}_{d}$', color = 'red',lw = 3)
+plt.plot(eVs,Wdf,label = r'$\dot{W}_{D}$', color = 'red',lw = 3)
 #plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
 plt.xlabel(r'$eV/T$',fontsize = 20) 
 plt.ylabel(r'$\dot{W}_{\alpha}$',fontsize=20)    
@@ -713,7 +713,7 @@ plt.show()
 
 
 plt.plot(eVs,Erl,label = r'$\dot{E}_{LR}$', color = 'black',lw = 3)
-plt.plot(eVs,Eds,label = r'$\dot{E}_{d}$', color = 'red',lw = 3)
+plt.plot(eVs,Eds,label = r'$\dot{E}_{D}$', color = 'red',lw = 3)
 #plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
 plt.xlabel(r'$eV/T$',fontsize = 20) 
 plt.ylabel(r'$\dot{E}_{\alpha}$',fontsize=20)    
@@ -725,7 +725,7 @@ plt.show()
 
 
 plt.plot(eVs,Qlr,label = r'$J_{LR}$', color = 'black',lw = 3)
-plt.plot(eVs,Qdf,label = r'$J_{d}$', color = 'red',lw = 3)
+plt.plot(eVs,Qdf,label = r'$J_{D}$', color = 'red',lw = 3)
 #plt.plot(eVs,auxff,linestyle='--', dashes=(5, 9), color = 'red',lw = 3)
 plt.xlabel(r'$eV/T$',fontsize = 20) 
 plt.ylabel(r'$J_{\alpha}$',fontsize=20)    
@@ -761,7 +761,7 @@ fig, (ax1, ax2) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layo
 
 ax1.plot(eVs,Ql, color='black',lw = 4,label = r'$J_{L}$')
 ax1.plot(eVs,Qr, color='blue', lw=4,label = r'$J_{R}$') 
-ax1.plot(eVs,Qd, color='red',lw=4,label = r'$J_{d}$')
+ax1.plot(eVs,Qd, color='red',lw=4,label = r'$J_{D}$')
 #plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$')
 #plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$') 
 #plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$')
@@ -777,7 +777,7 @@ ax1.text(0.9, 0.95, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bol
 
 ax2.plot(eVs,Nls, color='black',lw=4,label = r'$\dot{N}_{L}$')
 ax2.plot(eVs,Nrs, color='blue',lw=4, label = r'$\dot{N}_{R}$') 
-ax2.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{d}$')
+ax2.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{D}$')
 #ax2.xticks(fontsize=17)  # X-axis tick labels
 #ax2.yticks(fontsize=17)  # Y-axis tick labels
 #plt.xscale("log")
@@ -811,11 +811,11 @@ ax10.tick_params(labelbottom=False,labelsize = 14)
 ax10.text(0.9, 0.96, '(a)', transform=ax10.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
 
-ax20.plot(eVs,Eds, color='blue',lw=3, label = r'$\dot{E}_{d}$')
+ax20.plot(eVs,Eds, color='blue',lw=3, label = r'$\dot{E}_{D}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax20.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{\mathcal{F}}_{d}$')
-ax20.plot(eVs,Tid,label = r'$T_{d}\dot{I}_{d}$', color = 'g',lw=3)
-ax20.plot(eVs,Wdf,label = r'$\dot{W}_{d}$', color = 'm',lw=3)
+ax20.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{\mathcal{F}}_{D}$')
+ax20.plot(eVs,Tid,label = r'$T_{D}\dot{I}_{D}$', color = 'g',lw=3)
+ax20.plot(eVs,Wdf,label = r'$\dot{W}_{D}$', color = 'm',lw=3)
 #plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
 #ax2.xticks(fontsize=17)  # X-axis tick labels
 #ax2.yticks(fontsize=17)  # Y-axis tick labels
