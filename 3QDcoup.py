@@ -366,6 +366,7 @@ eVs = []
 auxff = []
 g0m = []
 for g0f in g0s:
+    #aqui hay funciones que no deberian estar para optimizarlo
     ev = 100
     print(g0f)
     mud0 = 2
@@ -377,6 +378,7 @@ for g0f in g0s:
     Ed0 = mud0-U00/2
     Uf0 = 500 #50
     E0 = 0
+    #aca, podria estar afuera
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
     H0 = Hamiltonian(E0,Ed0,U00,Uf0,g0f)
     superop0 = Liouvillian(H0,Ls0)
@@ -610,10 +612,10 @@ ax1.plot(g0m,Flr,color='black',lw=3, label = r'$\dot{\mathcal{F}}_{LR}$')
 ax1.plot(g0m,Tisl,label = r'$T\dot{I}_{LR}$', color = 'g',lw=3)
 ax1.plot(g0m,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=3)
 ax1.plot(g0m,Qlr, color='red',lw = 3,label = r'$J_{LR}$')
-ax1.legend(fontsize=12,loc = "center left")
+ax1.legend(fontsize=13,loc = "center left")
 ax1.set_xscale('log')  
-ax1.tick_params(labelbottom=False,labelsize = 14)
-ax1.text(0.9, 0.94, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax1.tick_params(labelbottom=False,labelsize = 18)
+ax1.text(0.9, 0.94, '(a)', transform=ax1.transAxes, fontsize=15, fontweight='bold', va='top', ha='left')
 
 
 ax2.plot(g0m,Eds, color='blue',lw=3, label = r'$\dot{E}_{D}$')
@@ -622,11 +624,11 @@ ax2.plot(g0m,Fd, color='black',lw=3, label = r'$\dot{\mathcal{F}}_{D}$')
 ax2.plot(g0m,Tid,label = r'$T_{D}\dot{I}_{D}$', color = 'g',lw=3)
 ax2.plot(g0m,Wdf,label = r'$\dot{W}_{D}$', color = 'm',lw=3)
 #plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
-ax2.set_xlabel(r'$g/\kappa_{L}$',fontsize = 20)
-ax2.tick_params(labelsize=14)  # font size of tick labels 
-ax2.text(0.9, 0.92, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax2.set_xlabel(r'$g/\kappa_{L}$',fontsize = 22)
+ax2.tick_params(labelsize=18)  # font size of tick labels 
+ax2.text(0.9, 0.92, '(b)', transform=ax2.transAxes, fontsize=15, fontweight='bold', va='top', ha='left')
 ax2.set_xscale('log')  
-ax2.legend(fontsize=12)
+ax2.legend(fontsize=13)
 #plt.subplots_adjust(left=0.05) 
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
@@ -641,19 +643,19 @@ ax10.plot(g0m,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
 ax10.plot(g0m,Ilf, color='black',lw=3, label = r'$\dot{I}_{L}$')
 ax10.plot(g0m,Irf, color='blue',lw=3, label = r'$\dot{I}_{R}$')
 #ax10.set_ylabel(r'$\dot{I}_{i}$',fontsize = 20)
-ax10.legend(fontsize=13,loc = "center left")
+ax10.legend(fontsize=17,loc = "center left")
 ax10.set_xscale('log')  
-ax10.tick_params(labelbottom=False,labelsize = 14)
-ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax10.tick_params(labelbottom=False,labelsize = 18)
+ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
 
 
 ax20.plot(g0m,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 3)
 ax20.plot(g0m,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3)  
 ax20.set_xlabel(r'$g/\kappa_{L}$',fontsize = 20)   
 ax20.set_xscale("log")
-ax20.legend(fontsize=13, loc = "upper left") 
-ax20.tick_params(labelsize=14)  # font size of tick labels 
-ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax20.legend(fontsize=17, loc = "upper left") 
+ax20.tick_params(labelsize=18)  # font size of tick labels 
+ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
 
 
 plt.tight_layout()  # Avoids overlapping labels
