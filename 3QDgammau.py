@@ -288,12 +288,12 @@ Ed = mud1-U0/2
 #transport
 betar,betad,betal = 1/100,1/2,1/100
 
-#gr,grU = (1/100)*(1/6), 1/100
-#gl,glU = 1/100, (1/100)*(1/6)
-#gd,gdU = 1/50,1/50 
-gr,grU = (1/100), 1/100
-gl,glU = 1/100, (1/100)
-gd,gdU = 1/100,1/100 
+gr,grU = (1/100)*(1/6), 1/100
+gl,glU = 1/100, (1/100)*(1/6)
+gd,gdU = 1/50,1/50 
+#gr,grU = (1/100), 1/100
+#gl,glU = 1/100, (1/100)
+#gd,gdU = 1/100,1/100 
 #al crecer gd,gdu mayor a las gls y grs
 # se aumenta el rango de eV en el que hay rompimiento aparente 
 #segunda ley
@@ -586,7 +586,7 @@ plt.show()
 
 plt.plot(eVs,Slr, color = 'black',lw = 3)
 plt.plot(eVs,auxff, color = 'red',lw = 3)
-plt.ylabel(r'$\dot{\sigma}_{LR}$',fontsize = 20)
+plt.ylabel(r'$\dot{\sigma}_{LR}$',fontsize = 22)
 plt.xlabel(r'$eV/T$', fontsize = 22)
 #plt.legend(fontsize = 15)
 plt.xticks(fontsize=21)  
@@ -767,11 +767,11 @@ ax1.plot(eVs,Qd, color='red',lw=4,label = r'$J_{D}$')
 #plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$')
 #plt.xscale("log")
 #ax1.set_xlabel(r'$eV/T$',fontsize = 20)
-ax1.set_ylabel(r'$J_{\alpha}$',fontsize = 20)
+ax1.set_ylabel(r'$J_{\alpha}$',fontsize = 22)
 #ax1.xticks(fontsize=17)  # X-axis tick labels
 #ax1.set_yticks(fontsize=17)  # Y-axis tick labels
 ax1.legend(loc = "lower left",fontsize=12) 
-ax1.tick_params(labelbottom=False,labelsize = 14)
+ax1.tick_params(labelbottom=False,labelsize = 18)
 ax1.text(0.9, 0.95, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
 
 
@@ -781,12 +781,12 @@ ax2.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{D}$')
 #ax2.xticks(fontsize=17)  # X-axis tick labels
 #ax2.yticks(fontsize=17)  # Y-axis tick labels
 #plt.xscale("log")
-ax2.set_xlabel(r'$eV/T$',fontsize = 20)
+ax2.set_xlabel(r'$eV/T$',fontsize = 22)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
-ax2.set_ylabel(r'$\dot{N}_{\alpha}$',fontsize = 20)
-ax2.legend(bbox_to_anchor=(0., 0.68), loc="center left",fontsize=12) 
-ax2.tick_params(labelsize=14)  # font size of tick labels 
+ax2.set_ylabel(r'$\dot{N}_{\alpha}$',fontsize = 22)
+ax2.legend(bbox_to_anchor=(-0.005, 0.68), loc="center left",fontsize=12) 
+ax2.tick_params(labelsize=18)  # font size of tick labels 
 ax2.text(0.9, 0.95, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
 
 
@@ -807,7 +807,7 @@ ax10.plot(eVs,Qlr, color='red',lw = 3,label = r'$J_{LR}$')
 #ax10.xticks(fontsize=17)  
 #ax10.yticks(fontsize=17)
 ax10.legend(fontsize=10,loc = "upper left")
-ax10.tick_params(labelbottom=False,labelsize = 14)
+ax10.tick_params(labelbottom=False,labelsize = 20)
 ax10.text(0.9, 0.96, '(a)', transform=ax10.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
 
@@ -824,7 +824,7 @@ ax20.set_xlabel(r'$eV/T$',fontsize = 20)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
 ax20.legend(fontsize=10,loc = "center left")
-ax20.tick_params(labelsize=14)  # font size of tick labels 
+ax20.tick_params(labelsize=18)  # font size of tick labels 
 ax20.text(0.9, 0.96, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
 #plt.subplots_adjust(left=0.05) 

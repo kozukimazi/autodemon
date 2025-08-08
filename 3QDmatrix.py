@@ -532,10 +532,10 @@ plt.plot(eVs,Probnt5f,color = 'orange',lw = 3, label = r'$\rho_{011}$')
 plt.plot(eVs,Probnt6f, color='red',lw = 3, label = r'$\rho_{010}$')
 plt.plot(eVs,Probnt7f, color='blue',lw = 3, label = r'$\rho_{001}$')
 plt.plot(eVs,Probnt8f,linestyle='--', dashes=(5, 9),color = 'blue', lw = 3,label = r'$\rho_{000}$')
-plt.legend(loc = "center left",fontsize=15)
+plt.legend(loc = "center left",fontsize=17)
 plt.xlabel(r'$eV/T$',fontsize=25)
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
+plt.xticks(fontsize=21)  
+plt.yticks(fontsize=21)
 plt.show()
 
 
