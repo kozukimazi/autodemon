@@ -26,12 +26,17 @@ for es in eps:
     gaux2.append(c)
 
 
-plt.plot(eps,g1,color='red',lw = 4, label = r'$\gamma_{R}(\epsilon)$')
-plt.plot(eps,g2,color='blue',lw = 4, label = r'$\gamma_{L}(\epsilon)$')
+plt.plot(eps,g1,color='red',lw = 4, label = r'$\kappa_{R}(\epsilon)$')
+plt.plot(eps,g2,color='blue',lw = 4, label = r'$\kappa_{L}(\epsilon)$')
 plt.plot(eps,gaux,color='black',lw = 4)
 plt.plot(eps,gaux2,linestyle='--', dashes=(5, 9),color='black',lw = 4)
 plt.xticks([])  # X-axis tick labels
 plt.yticks([])
-plt.legend(fontsize = 15)
+# Use axis coordinates (0-1 relative to axes)
+plt.text(0.02, 0.05, "0", transform=plt.gca().transAxes, fontsize=30)
+plt.rcParams['mathtext.fontset'] = 'cm' 
+plt.text(0.26, 0.28, r'$\epsilon$', transform=plt.gca().transAxes, fontsize=35)
+plt.text(0.68, 0.28, r'$\epsilon + U$', transform=plt.gca().transAxes, fontsize=35)
+plt.legend(fontsize = 25)
 plt.show()    
 

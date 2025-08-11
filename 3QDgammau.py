@@ -407,6 +407,11 @@ values = Propagate(rho0,superop,3000)
 plt.imshow(values.imag)
 plt.colorbar()
 plt.show()
+
+plt.imshow(values.real)
+plt.colorbar()
+plt.show()
+
     
 Ufs = np.linspace(7,40,100)
 Us = np.linspace(1,6,50)
