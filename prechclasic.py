@@ -462,10 +462,10 @@ for ev in eVs0:
     Wf = ratelr(Wl,Wr,WLR)
 
     #curre = vecflow(Wfs,ps,N)
-    #infos = vecflow(Wf,ps,logps)
+    infos = vecflow(Wf,ps,logps)
     #this is the correct form
     curre = vecflow(Wl,ps,N)
-    infos = vecflow(Wl+Wr,ps,logps)
+    #infos = vecflow(Wl+Wr,ps,logps)
     ener = vecflow(Wl+Wr,ps,Es)
     eVs.append(ev*betal)
     If.append(infos[0][0])

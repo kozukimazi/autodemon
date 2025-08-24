@@ -549,14 +549,14 @@ plt.show()
 plt.plot(eVs,Nls, color='black',lw=4,label = r'$\dot{N}_{L}$')
 plt.plot(eVs,Nrs, color='blue',lw=4, label = r'$\dot{N}_{R}$') 
 plt.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{D}$')
-plt.xticks(fontsize=21)  # X-axis tick labels
-plt.yticks(fontsize=21)  # Y-axis tick labels
+plt.xticks(fontsize=20)  # X-axis tick labels
+plt.yticks(fontsize=20)  # Y-axis tick labels
 #plt.xscale("log")
-plt.xlabel(r'$eV/T$',fontsize = 22)
+plt.xlabel(r'$eV/T$',fontsize = 20)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
-plt.ylabel(r'$\dot{N}_{\alpha}$',fontsize = 22)
-plt.legend(bbox_to_anchor=(0., 0.66), loc="lower left",fontsize=22) 
+plt.ylabel(r'$\dot{N}_{\alpha}$',fontsize = 19)
+plt.legend(bbox_to_anchor=(0., 0.49), loc="lower left",fontsize=20) 
 plt.show()  
 
 plt.plot(eVs,Qlr,lw=3, label = r'$J_{LR}$', color = 'black')
