@@ -290,7 +290,8 @@ betar,betad,betal = 1/100,1/2,1/100
 
 gr,grU = (1/100)*(1/6), 1/100
 gl,glU = 1/100, (1/100)*(1/6)
-gd,gdU = 1/50,1/50 
+gd,gdU = 1/50,1/50
+#gd,gdU = 1/400,1/400  
 #gr,grU = (1/100), 1/100
 #gl,glU = 1/100, (1/100)
 #gd,gdU = 1/100,1/100 
@@ -376,6 +377,8 @@ for ts in times:
     #print(cal1[2,4])
     #cal2 = DistR(H,Ls,Lr,Ll,rho0,ts,-2)
     #Probnt2.append(cal2.real)
+
+
 
 plt.plot(times,Probnt1,label = r'$\rho_{111}$')
 plt.plot(times,Probnt2, label = r'$\rho_{110}$')
@@ -761,6 +764,10 @@ plt.show()
 ######graficosdobles##########
 ##############################
 
+###mejorar formato############
+#plt.rcParams["text.usetex"] = True
+#plt.rcParams["font.family"] = "serif" 
+
 # Create subplots (1 row, 2 columns)
 fig, (ax1, ax2) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
 
@@ -805,21 +812,21 @@ fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_la
 
 ax10.plot(eVs,Erl,color='blue',lw=3, label = r'$\dot{E}_{LR}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax10.plot(eVs,Flr,color='black',lw=3, label = r'$\dot{\mathcal{F}}_{LR}$')
-ax10.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$', color = 'g',lw=3)
+ax10.plot(eVs,Flr,color='black',lw=3, label = r'$\dot{F}_{LR}$')
+ax10.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$',linestyle='--', dashes=(5, 3), color = 'r',lw=3)
 ax10.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=3)
 ax10.plot(eVs,Qlr, color='red',lw = 3,label = r'$J_{LR}$')
 #ax10.xticks(fontsize=17)  
 #ax10.yticks(fontsize=17)
-ax10.legend(fontsize=10,loc = "upper left")
+ax10.legend(fontsize=15,loc = "upper left", ncol = 2)
 ax10.tick_params(labelbottom=False,labelsize = 20)
 ax10.text(0.9, 0.96, '(a)', transform=ax10.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
 
 ax20.plot(eVs,Eds, color='blue',lw=3, label = r'$\dot{E}_{D}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax20.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{\mathcal{F}}_{D}$')
-ax20.plot(eVs,Tid,label = r'$T_{D}\dot{I}_{D}$', color = 'g',lw=3)
+ax20.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{F}_{D}$')
+ax20.plot(eVs,Tid,label = r'$T_{D}\dot{I}_{D}$', linestyle='--', dashes=(5, 3),color = 'r',lw=3)
 ax20.plot(eVs,Wdf,label = r'$\dot{W}_{D}$', color = 'm',lw=3)
 #plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
 #ax2.xticks(fontsize=17)  # X-axis tick labels
@@ -828,7 +835,7 @@ ax20.plot(eVs,Wdf,label = r'$\dot{W}_{D}$', color = 'm',lw=3)
 ax20.set_xlabel(r'$eV/T$',fontsize = 20)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
-ax20.legend(fontsize=10,loc = "center left")
+ax20.legend(bbox_to_anchor=(-0.005, 0.66), fontsize=15, loc = "center left", ncol = 2)
 ax20.tick_params(labelsize=18)  # font size of tick labels 
 ax20.text(0.9, 0.96, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
