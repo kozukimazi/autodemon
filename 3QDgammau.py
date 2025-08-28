@@ -535,6 +535,11 @@ for ev in eVs0:
     resta.append(abs( rhof[3,3].real - rhof[5,5].real ))
     cohesex.append(abs( rhof[3,5]).real)
 
+###mejorar formato############
+plt.rcParams["text.usetex"] = True
+plt.rcParams["font.family"] = "serif" 
+
+
 plt.plot(eVs,Ql, color='black',lw = 4,label = r'$J_{L}$')
 plt.plot(eVs,Qr, color='blue', lw=4,label = r'$J_{R}$') 
 plt.plot(eVs,Qd, color='red',lw=4,label = r'$J_{D}$')
@@ -839,6 +844,7 @@ ax20.legend(bbox_to_anchor=(-0.005, 0.66), fontsize=15, loc = "center left", nco
 ax20.tick_params(labelsize=18)  # font size of tick labels 
 ax20.text(0.9, 0.96, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
+fig.supylabel("Cantidades termodinámicas", fontsize=22)
 #plt.subplots_adjust(left=0.05) 
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()

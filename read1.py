@@ -220,13 +220,17 @@ plt.yticks(fontsize=17)
 plt.legend(fontsize=15)
 plt.show()
 
+###mejorar formato############
+#plt.rcParams["text.usetex"] = True
+#plt.rcParams["font.family"] = "serif" 
+
 plt.plot(eV_data,Iclas_data, color='red',lw = 4, label = "classic")
 plt.plot(eV_data,Iqm_data, color='blue',lw = 4, label = "quantum")
-plt.xlabel(r'$eV/T$',fontsize = 20)
+plt.xlabel(r'$eV/T$',fontsize = 22)
 plt.ylabel(r'$\dot{I}_{D}$',fontsize = 25)
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15)
+plt.xticks(fontsize=20)  
+plt.yticks(fontsize=20)
+plt.legend(fontsize=20)
 plt.show()
 
 
