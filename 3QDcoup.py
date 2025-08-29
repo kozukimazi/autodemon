@@ -633,6 +633,9 @@ ax2.legend(fontsize=13)
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
+###mejorar formato############
+plt.rcParams["text.usetex"] = True
+plt.rcParams["font.family"] = "serif" 
 
 # Create subplots (1 row, 2 columns)
 fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
@@ -642,7 +645,7 @@ fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_la
 ax10.plot(g0m,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
 ax10.plot(g0m,Ilf, color='black',lw=3, label = r'$\dot{I}_{L}$')
 ax10.plot(g0m,Irf, color='blue',lw=3, label = r'$\dot{I}_{R}$')
-#ax10.set_ylabel(r'$\dot{I}_{i}$',fontsize = 20)
+ax10.set_ylabel(r'$\dot{I}_{i}$',fontsize = 22)
 ax10.legend(fontsize=17,loc = "center left")
 ax10.set_xscale('log')  
 ax10.tick_params(labelbottom=False,labelsize = 18)
@@ -654,6 +657,7 @@ ax20.plot(g0m,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3)
 ax20.set_xlabel(r'$g/\kappa_{L}$',fontsize = 20)   
 ax20.set_xscale("log")
 ax20.legend(fontsize=17, loc = "upper left") 
+ax20.set_ylabel("Coherencia y entrelazamiento",fontsize = 22)
 ax20.tick_params(labelsize=18)  # font size of tick labels 
 ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
 
