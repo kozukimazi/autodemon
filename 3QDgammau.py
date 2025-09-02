@@ -473,7 +473,9 @@ for ev in eVs0:
     #Con Ed0 = mud0 -U00/2,E0=4 hay flujo de energia pero un orden menor al de
     #flujo de informacion
     #Ed0 = 1
-    Ed0 = mud0 -U00/2
+    eps = 0.5
+    Ed0 = mud0 - (1-eps)*U00
+    #Ed0 = mud0 -U00/2
     Uf0 = 500 #50
     #Probar condicion (U00/E0)<<1,Strasberg
     E0 = 0
@@ -536,8 +538,8 @@ for ev in eVs0:
     cohesex.append(abs( rhof[3,5]).real)
 
 ###mejorar formato############
-plt.rcParams["text.usetex"] = True
-plt.rcParams["font.family"] = "serif" 
+#plt.rcParams["text.usetex"] = True
+#plt.rcParams["font.family"] = "serif" 
 
 
 plt.plot(eVs,Ql, color='black',lw = 4,label = r'$J_{L}$')
