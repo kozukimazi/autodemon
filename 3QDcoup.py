@@ -577,13 +577,19 @@ plt.legend(fontsize=15,loc = "upper left")
 plt.xscale("log")
 plt.show()
 
+###mejorar formato############
+plt.rcParams["text.usetex"] = True
+plt.rcParams["font.family"] = "serif" 
+
+
 plt.plot(g0m,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 2)
 plt.plot(g0m,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=2)  
-plt.xlabel(r'$g/\kappa_{L}$',fontsize = 20)   
+plt.xlabel(r'$g/\kappa_{L}$',fontsize = 22)   
+plt.ylabel("Coherencia y entrelazamiento",fontsize = 22) 
 plt.xscale("log")
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15,loc = "upper left")
+plt.xticks(fontsize=22)  
+plt.yticks(fontsize=22)
+plt.legend(fontsize=19,loc = "upper left")
 plt.show()
 
 plt.plot(g0m,entropf,linestyle='--', dashes=(5, 9), color = 'black',lw = 3)
@@ -634,8 +640,8 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 ###mejorar formato############
-plt.rcParams["text.usetex"] = True
-plt.rcParams["font.family"] = "serif" 
+#plt.rcParams["text.usetex"] = True
+#plt.rcParams["font.family"] = "serif" 
 
 # Create subplots (1 row, 2 columns)
 fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
