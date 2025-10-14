@@ -123,6 +123,8 @@ def twolevel(el,er,g):
     dmindag =  np.cos(theta/2)*drdag - np.sin(theta/2)*dldag 
     return dup,dupdag,dmin,dmindag
 
+
+#construimos los operadores de salto para redfield
 def ladderup(el,er,g,Uf,U):
     dup,dupdag,dmin,dmindag = twolevel(el,er,g)
     Delta = (el-er)/2
@@ -183,6 +185,7 @@ def laddermin(el,er,g,Uf,U):
     enerd2 = [e1d,e2d,e3d,e4d]
     return listd1,enerd1,listd2,enerd2
 
+##aca empezamos a construir los disipadores L y R en funcion de d+ y d-
 def ladderl(el,er,g,Uf,U):
     Delta = (el-er)/2
     if (Delta**2 + g**2>1E-9):
@@ -195,6 +198,7 @@ def ladderl(el,er,g,Uf,U):
     listmin1,e1min,listmin2,e2min=  laddermin(el,er,g,Uf,U)
     al = np.cos(theta/2)
     bl = -np.sin(theta/2)
+    #aqui se le asigna cada operador en la lista su respectiva frecuencia de bohr
     list1 = [al*listup1[0],al*listup1[1],al*listup1[2],al*listup1[3],bl*listmin1[0],bl*listmin1[1],bl*listmin1[2],bl*listmin1[3]]
     ener1 = [e1up[0],e1up[1],e1up[2],e1up[3],e1min[0],e1min[1],e1min[2],e1min[3]]
     list2 = [al*listup2[0],al*listup2[1],al*listup2[2],al*listup2[3],bl*listmin2[0],bl*listmin2[1],bl*listmin2[2],bl*listmin2[3]]
@@ -243,6 +247,7 @@ def ladderd(ed,el,er,g,U):
     ener2 = [e1d,e2d,e3d]
     return list1,ener1,list2,ener2
 
+###aqui se emplean los disipadores
 def Dl(betal,mul,gl,el,er,g,Uf,U):
     list1,ener1,list2,ener2 = ladderl(el,er,g,Uf,U)
     Num = len(list1)
@@ -411,8 +416,9 @@ gd=1/50
 #gr,gru = (1/100)*(1/6),1/100
 gl,glu = 1/100,(1/100)*(1/6)
 gr,gru = (1/100)*(1/6),1/100
-el,er =4.,4.
-g = 5/1000
+el,er =0.,0
+#g = 5/1000
+g = 150
 U,Uf = 40,500
 ed=mud-(U/2)
 
@@ -569,13 +575,17 @@ plt.show()
 #######################################
 ########compararcodigos################
 #######################################
-
-eVs = np.linspace(0,1000,10000)
+Num = 200
+eVs = np.linspace(0,800,Num)
 Nls = []
 Nrs = []
+Jls = []
+Jrs = []
+Jlrs = []
 cohev = []
 concuv = []
 for ev in eVs:
+    print(ev)
     mud0 = 2
     U00 = 40#40
     #mud0 = 1-U00/2
@@ -585,9 +595,11 @@ for ev in eVs:
     Ed0 = mud0 -U00/2
     Uf0 = 500
     #Probar condicion (U00/E0)<<1,Strasberg
-    E0l = 4#4
-    E0r = 4#4
+    E0l = 0#4
+    E0r = 0#4
     Ld = Dd(betad,mud,gd,Ed0,E0l,E0r,g,U00)
+    mul = ev/2
+    mur = -ev/2
     Ll = Dlgen(betal,ev/2,gl1,E0l,E0r,g,Uf0,U00)
     Lr = Drgen(betar,-ev/2,gr1,E0l,E0r,g,Uf0,U00)
     Ham = Hamiltonian(el,er,ed,U00,Uf,g)
@@ -604,10 +616,19 @@ for ev in eVs:
     else:
         concuv.append(0)
 
+    #Hopl = Htd - mul*Nop
+    #Hopr = Htd - mur*Nop
+    Hopl = Ham - mul*Nop
+    Hopr = Ham - mur*Nop
     nl0 = propcurrent(cal1f,Ll,Nop)
     nr0 = propcurrent(cal1f,Lr,Nop)
-    Nls.append(nl0)
-    Nrs.append(nr0)
+    ql0 = propcurrent(cal1f,Ll,Hopl)
+    qr0 = propcurrent(cal1f,Lr,Hopr)
+    Nls.append(nl0.real)
+    Nrs.append(nr0.real)
+    Jls.append(ql0.real)
+    Jrs.append(qr0.real)
+    Jlrs.append(ql0.real+qr0.real)
 
 plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$',color = 'b')
 plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$', color = 'r')     
@@ -620,4 +641,30 @@ plt.plot(eVs,concuv, label = r'$\mathcal{C}_{on}$', color = 'r')
 plt.xlabel(r'$eV$',fontsize = 20)   
 plt.legend()
 plt.show()
+
+
+
+archivo = open("redfieldstrongg","w")
+decimal_places = 7
+total_width = 8
+format_str = f"{{:.{decimal_places}f}}" 
+#format_str = f"{{:{total_width}.{decimal_places}f}}"
+for i in range(Num):
+    archivo.write( format_str.format(eVs[i])) #guarda el grado del nodo
+    #archivo.write(str(xs[i])) 
+    archivo.write(" ") 
+    #archivo.write(str(ys[i]))
+    archivo.write( format_str.format(Nls[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Jls[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Jrs[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Jlrs[i]))
+    archivo.write(" ")   
+    #archivo.write(str(ys[i]))
+    archivo.write( format_str.format(concuv[i]))
+    archivo.write(" ") 
+    archivo.write( format_str.format(cohev[i]))
+    archivo.write("\n")
 

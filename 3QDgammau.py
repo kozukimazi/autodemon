@@ -268,8 +268,8 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
 E = 0
 U0 = 40.
 Uf = 500
-g0 = 5/1000
-
+#g0 = 5/1000
+g0 = 150
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
 eV = 450
 mul1 = eV/2
@@ -852,8 +852,6 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-
-
 archivo = open("lindbladgamU","w")
 decimal_places = 7
 total_width = 8
@@ -885,4 +883,29 @@ for i in range(Num):
     archivo.write(" ")  
     #archivo.write(str(ys[i]))
     archivo.write( format_str.format(Id[i]))
+    archivo.write("\n")
+
+
+archivo = open("parcialstrongg","w")
+decimal_places = 7
+total_width = 8
+format_str = f"{{:.{decimal_places}f}}" 
+#format_str = f"{{:{total_width}.{decimal_places}f}}"
+for i in range(Num):
+    archivo.write( format_str.format(eVs[i])) #guarda el grado del nodo
+    #archivo.write(str(xs[i])) 
+    archivo.write(" ") 
+    #archivo.write(str(ys[i]))
+    archivo.write( format_str.format(Nls[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Ql[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Qr[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Qlr[i]))
+    archivo.write(" ")   
+    #archivo.write(str(ys[i]))
+    archivo.write( format_str.format(concv[i]))
+    archivo.write(" ") 
+    archivo.write( format_str.format(cohes[i]))
     archivo.write("\n")
