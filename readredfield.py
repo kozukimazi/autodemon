@@ -16,6 +16,13 @@ JlRred = []
 cohered = []
 concured = []
 
+Nglobal = []
+Jlglobal = []
+Jrglobal = []
+JlRglobal = []
+coheglobal = []
+concuglobal = []
+
 #######################################
 ########compararcodigos################
 #datos = 'parcialweakg'
@@ -89,12 +96,41 @@ for item in [data.split()[6] for data in fichero0]: #saca la columna 0|
     concured.append(float(item))
 fichero0.close()        
 
+datosf = 'globalstrongg'
+#datosf = 'globalweakg'
 
+ficherof = open(datosf)
+for item in [data.split()[1] for data in ficherof]: #saca       
+    Nglobal.append(-float(item))
+ficherof.close()
+ficherof = open(datosf)
+for item in [data.split()[2] for data in ficherof]: #saca       
+    Jlglobal.append(float(item))
+ficherof.close()
+
+ficherof = open(datosf)
+for item in [data.split()[3] for data in ficherof]: #saca    
+    Jrglobal.append(float(item))
+ficherof.close()
+ficherof = open(datosf)
+for item in [data.split()[4] for data in ficherof]: #saca    
+    JlRglobal.append(float(item))
+ficherof.close()
+ficherof = open(datosf)
+for item in [data.split()[5] for data in ficherof]: #saca    
+    coheglobal.append(float(item))
+ficherof.close()
+
+ficherof = open(datosf)
+for item in [data.split()[6] for data in ficherof]: #saca    
+    concuglobal.append(float(item))
+ficherof.close()
 
 
 
 plt.plot(eV_data,Nparcial, color='red',lw = 4, label = "parcial")
 plt.plot(eV_data,Nred, color='blue',lw = 4, label = "redfield")
+plt.plot(eV_data,Nglobal, linestyle='--',color='black',lw = 4, label = "global")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$\dot{N}_{L}$',fontsize = 25)
 plt.xticks(fontsize=17)  
@@ -104,6 +140,7 @@ plt.show()
 
 plt.plot(eV_data,Jlparcial, color='red',lw = 4, label = "parcial")
 plt.plot(eV_data,Jlred, color='blue',lw = 4, label = "redfield")
+plt.plot(eV_data,Jlglobal, linestyle='--', color='black',lw = 4, label = "global")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$J_{L}$',fontsize = 25)
 plt.xticks(fontsize=17)  
@@ -113,6 +150,7 @@ plt.show()
 
 plt.plot(eV_data,Jrparcial, color='red',lw = 4, label = "parcial")
 plt.plot(eV_data,Jrred, color='blue',lw = 4, label = "redfield")
+plt.plot(eV_data,Jrglobal,linestyle='--', color='black',lw = 4, label = "global")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$J_{R}$',fontsize = 25)
 plt.xticks(fontsize=17)  
@@ -122,6 +160,7 @@ plt.show()
 
 plt.plot(eV_data,JlRparcial, color='red',lw = 4, label = "parcial")
 plt.plot(eV_data,JlRred, color='blue',lw = 4, label = "redfield")
+plt.plot(eV_data,JlRglobal,linestyle='--', color='black',lw = 4, label = "global")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$J_{LR}$',fontsize = 25)
 plt.xticks(fontsize=17)  
@@ -131,6 +170,7 @@ plt.show()
 
 plt.plot(eV_data,coheparcial, color='red',lw = 4, label = "parcial")
 plt.plot(eV_data,cohered, color='blue',lw = 4,  label = "redfield")
+plt.plot(eV_data,coheglobal,linestyle='--', color='black',lw = 4, label = "global")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$C$',fontsize = 25)
 plt.xticks(fontsize=17)
@@ -140,6 +180,7 @@ plt.show()
 
 plt.plot(eV_data,concuparcial, color='red',lw = 4, label = "parcial")
 plt.plot(eV_data,concured, color='blue',lw = 4, label = "redfield")
+plt.plot(eV_data,concuglobal,linestyle='--', color='black',lw = 4, label = "global")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 plt.ylabel(r'$Concu$',fontsize = 25)
 plt.xticks(fontsize=17)

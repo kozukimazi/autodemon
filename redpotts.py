@@ -218,6 +218,7 @@ def ladderr(el,er,g,Uf,U):
     listmin1,e1min,listmin2,e2min=  laddermin(el,er,g,Uf,U)
     al = np.sin(theta/2)
     bl = np.cos(theta/2)
+    #aqui la lista de los operadores posibles
     list1 = [al*listup1[0],al*listup1[1],al*listup1[2],al*listup1[3],bl*listmin1[0],bl*listmin1[1],bl*listmin1[2],bl*listmin1[3]]
     ener1 = [e1up[0],e1up[1],e1up[2],e1up[3],e1min[0],e1min[1],e1min[2],e1min[3]]
     list2 = [al*listup2[0],al*listup2[1],al*listup2[2],al*listup2[3],bl*listmin2[0],bl*listmin2[1],bl*listmin2[2],bl*listmin2[3]]
@@ -317,7 +318,7 @@ def Dd(betad,mud,gd,ed,el,er,g,U):
             P3 = gd*((fermi(ener2[j],mud,betad))/2)*(np.kron(np.matmul(list2[jprim].transpose(), list2[j].conjugate()),np.eye(dim) ))
             superD2 += (P1-P2-P3)
     return superD1+superD2
-
+##le entrego una lista de gammas que coinciden con las energias 
 def Dlgen(betal,mul,gl1,el,er,g,Uf,U):
     list1,ener1,list2,ener2 = ladderl(el,er,g,Uf,U)
     Num = len(list1)
@@ -418,14 +419,14 @@ gl,glu = 1/100,(1/100)*(1/6)
 gr,gru = (1/100)*(1/6),1/100
 el,er =0.,0
 #g = 5/1000
-g = 150
+g = 600
 U,Uf = 40,500
 ed=mud-(U/2)
-
-gl1 = [gl,gl,glu,glu,gl,gl,glu,glu]
-gr1 = [gr,gr,gru,gru,gr,gr,gru,gru]
-#gl1 = [gl,gl,glu,glu,gl,gl,gl,gl]
-#gr1 = [gr,gr,gru,gru,gr,gr,gr,gr]
+#esta lista entrega un kappa por cada operador de salto de dl (son 8)
+#gl1 = [gl,gl,glu,glu,gl,gl,glu,glu]
+#gr1 = [gr,gr,gru,gru,gr,gr,gru,gru]
+gl1 = [gl,gl,glu,gl,gl,gl,glu,gl]
+gr1 = [gr,gr,gru,gr,gr,gr,gru,gr]
 #Ld = Dd(betad,mud,gd,ed,el,er,g,U)
 #Ll = Dl(betal,mul,gl,el,er,g,Uf,U)
 #Lr = Dr(betar,mur,gr,el,er,g,Uf,U)

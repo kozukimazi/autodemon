@@ -60,15 +60,9 @@ dr = np.kron(aux,np.eye(2))
 dddag = np.kron(auxd,sigmaup)
 dd = np.kron(auxd,sigmadown)
 
-##primer error
-dp = (1/np.sqrt(2))*(dl + dr)
-dm = (1/np.sqrt(2))*(dr - dl)
-dpdag = (1/np.sqrt(2))*(dldag + drdag)
-dmdag = (1/np.sqrt(2))*(drdag - dldag)
 
 nd = np.matmul(dddag,dd)
-np0 = np.matmul(dpdag,dp)
-nm = np.matmul(dmdag,dm)
+
 
 
 def twolevel(el,er,g):
@@ -104,7 +98,10 @@ def Liouvillian( H,Ls, hbar = 1):
     return superH + superL
 
 #operadores del disipador dd
-def Dd(E,U,mud,betad,gammad):
+def Dd(El,Er,g,E,U,mud,betad,gammad):
+    dup,dupdag,dmin,dmindag = twolevel(El,Er,g)
+    nm = np.matmul(dmindag,dmin)
+    np0 = np.matmul(dupdag,dup)
     d = 8
     auxd1 = np.sqrt( fermi(E,mud,betad)*gammad )*np.matmul( np.matmul((np.eye(d)-np0),(np.eye(d)-nm)),dddag )
     auxd2 = np.sqrt( (1-fermi(E,mud,betad))*gammad )*np.matmul( np.matmul((np.eye(d)-np0),(np.eye(d)-nm)),dd)
@@ -152,7 +149,7 @@ def Dm(Emin,g,U,Uf,mul,betal,mur,betar,gl,glU,gr,grU,dmin,dmindag,dup,dupdag,the
     d = 8
     Em = Emin
     np0 = np.matmul(dupdag,dup)
-    Cl = np.sin(theta/2)
+    Cl = -np.sin(theta/2)
     Cr = np.cos(theta/2)
     auxl1 = np.sqrt( fermi(Em,mul,betal)*gl )*np.matmul( np.matmul((np.eye(d)-np0),(np.eye(d)-nd)),dmindag )
     auxl2 = np.sqrt( (1-fermi(Em,mul,betal))*gl )*np.matmul( np.matmul((np.eye(d)-np0),(np.eye(d)-nd)),dmin)
@@ -186,7 +183,7 @@ def Dissipator(El,Er,g,Ed,U,Uf,mul,mur,mud,betal,betar,betad,gl,glU,gr,grU,gamma
     DLP,DRP = Dp(Eup,g,U,Uf,mul,betal,mur,betar,gl,glU,gr,grU,dup,dupdag,dmin,dmindag,theta)
     DLM,DRM = Dm(Emin,g,U,Uf,mul,betal,mur,betar,gl,glU,gr,grU,dmin,dmindag,dup,dupdag,theta)
    
-    DD = Dd(Ed,U,mud,betad,gammad)
+    DD = Dd(El,Er,g,Ed,U,mud,betad,gammad)
 
     tot = []
     for l in DLP:
@@ -240,7 +237,10 @@ def Hamiltonian(El,Er,Ed,U,Uf,g):
     a3 = U* (np.matmul(np0,nd) +  np.matmul(nm,nd) ) + Uf*np.matmul(np0,nm) 
     return a1+a3
 
-def currents(Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
+def currents(El,Er,g,Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
+    dup,dupdag,dmin,dmindag = twolevel(El,Er,g)
+    nm = np.matmul(dmindag,dmin)
+    np0 = np.matmul(dupdag,dup)
     Nop = np0 + nm + nd
     rhof = Propagate(rho0,superop,t)
 
@@ -256,6 +256,10 @@ def currents(Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     Qr = np.trace( np.matmul( Dr,Qopr  ) )
     Qd = np.trace( np.matmul( Dd,Qopd  ) )
 
+    Nl = np.trace( np.matmul( Dl,Nop  ) )
+    Nr = np.trace( np.matmul( Dr,Nop  ) )
+    Nd = np.trace( np.matmul( Dd,Nop  ) )
+
     Sl = -np.trace( np.matmul(Dl,aux) )
     Sr = -np.trace( np.matmul(Dr,aux) )
     Sd = -np.trace( np.matmul(Dd,aux) )
@@ -264,7 +268,7 @@ def currents(Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     Er = np.trace( np.matmul( Dr,Hs  ) )
     Ed = np.trace( np.matmul(Dd,Hs))
 
-    return Ql.real, Qr.real, Qd.real, Sl.real, Sr.real,Sd.real, El.real, Er.real, Ed.real
+    return Nl.real, Ql.real, Qr.real, Qd.real, Sl.real, Sr.real,Sd.real, El.real, Er.real, Ed.real
 
 
 E = 0
@@ -278,9 +282,9 @@ mul1 = eV/2
 mur1 = -eV/2
 mud1 = 2
 
-betar,betad,betal = 1,1,1
-gr,gd,gl = 1/100,1/300,1/100
-glU,grU = gl,gr
+betar,betad,betal = 1/100,1/2,1/100
+gr,gd,gl = 1/100*(1/6),1/50,1/100
+glU,grU = 1/100*(1/6),1/100
 #gr,gd,gl = 1/100,0,1/100
 
 #Ll = Dp(E,g0,U0,Uf,mul1,betal,gl) +  Dm(E,g0,U0,Uf,mul1,betal,gl)
@@ -408,8 +412,8 @@ Qd = []
 #plt.plot(times,Qr, label = r'$\dot{Q}_{R}$') 
 #plt.plot(times,Qd,label = r'$\dot{Q}_{d}$')
 #plt.show()   
-
-eVs = np.linspace(0,50,500)
+Num = 200
+eVs = np.linspace(0,800,Num)
 Sls = []
 Srs = []
 Sds = []
@@ -420,36 +424,70 @@ Els = []
 Ers = []
 Eds = []
 Erl = []
-
+cohev = []
+concuv = []
+Nls = []
+Qlr = []
+#gf = 5/1000
+gf = 600
 for ev in eVs:
     mud0 = 2
-    U00 = 3
+    U00 = 40
     #mud0 = 1-U00/2
-    Ed0 = 1
-    Uf0 = 20
-    Delta,g,theta =energy(El,Er,g0)
-    Eup = (El+Er)/2 + np.sqrt(Delta**2 + g**2)
-    Emin = (El+Er)/2 - np.sqrt(Delta**2 + g**2)
-    dup,dupdag,dmin,dmindag = twolevel(El,Er,g0)
+    eps = 0.5
+    Ed0f = mud0 - (1-eps)*U00    
+    Uf0 = 500
+    Elf = Erf = 0
+    Delta,g,theta =energy(Elf,Erf,gf)
+    Eup = (Elf+Erf)/2 + np.sqrt(Delta**2 + g**2)
+    Emin = (Elf+Erf)/2 - np.sqrt(Delta**2 + g**2)
+    dup,dupdag,dmin,dmindag = twolevel(Elf,Erf,g)
     
-    Ls0 = Dissipator(El,Er,g0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd)
-    H0 = Hamiltonian(El,Er,Ed0,U00,Uf0,g0)
+    Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd)
+    H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g)
     superop0 = Liouvillian(H0,Ls0)
+    cal1f = Propagate(rho0,superop,4000) 
     #Ll0 = Dp(E,g0,U00,Uf0,ev/2,betal,gl) + Dm(E,g0,U00,Uf0,ev/2,betal,gl)
     #Lr0 = Dp(E,g0,U00,Uf0,-ev/2,betar,gr) + Dm(E,g0,U00,Uf0,-ev/2,betar,gr)
     #Ld0 = Dd(Ed0,U00,mud0,betad,gd)
     #Hs0 = Hamiltonian(E,g0,Ed0,U00,Uf0)
-    DLP,DRP = Dp(Eup,g0,U00,Uf,ev/2,betal,-ev/2,betar,gl,glU,gr,grU,dup,dupdag,dmin,dmindag,theta)
-    DLM,DRM = Dm(Emin,g0,U00,Uf,ev/2,betal,-ev/2,betar,gl,glU,gr,grU,dmin,dmindag,dup,dupdag,theta)
-   
-    DD = Dd(Ed,U00,mud0,betad,gd)
-    Ll0 = DLP +DLM
-    Lr0 = DRP + DRM
+    DLP,DRP = Dp(Eup,g,U00,Uf0,ev/2,betal,-ev/2,betar,gl,glU,gr,grU,dup,dupdag,dmin,dmindag,theta)
+    DLM,DRM = Dm(Emin,g,U00,Uf0,ev/2,betal,-ev/2,betar,gl,glU,gr,grU,dmin,dmindag,dup,dupdag,theta)
+    
+    Laux = []
+    Raux = []
+    for l in DLP:
+        Laux.append(l)
+    for l in DLM:   
+        Laux.append(l) 
+
+    for r in DRP:
+        Raux.append(r)
+    for r in DRM:   
+        Raux.append(r)
+
+    DD = Dd(Elf,Erf,g,Ed0f,U00,mud0,betad,gd)
+    Ll0 = Laux
+    Lr0 = Raux
     Ld0 = DD
-    Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0 = currents(H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,30000)
+    Nl0,Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0 = currents(Elf,Erf,g,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,30000)
+    
+    #hay que medir de otra forma la coherencia 
+    #elegir bien como medir coherencia y entrelazamiento
+    cohev.append(abs(cal1f[5,3]) + abs(cal1f[4,2]) )
+    cohesum = abs(cal1f[5,3] + cal1f[4,2])
+    PD = cal1f[0,0].real + cal1f[1,1].real 
+    P0 = cal1f[7,7].real + cal1f[6,6].real 
+    concurrencef = 2*cohesum - 2*np.sqrt(P0*PD)
+    if (concurrencef > 0):
+        concuv.append(concurrencef)
+    else:
+        concuv.append(0)
+    Nls.append(Nl0)
     Ql.append(Ql0)
     Qr.append(Qr0)
     Qd.append(Qd0)
+    Qlr.append(Ql0 + Qr0)
     sigmal = Sl0 - betal*Ql0
     sigmar = Sr0 - betar*Qr0
     Sls.append((Sl0 - betal*Ql0))
@@ -458,8 +496,8 @@ for ev in eVs:
     Slr.append( sigmal + sigmar )
     Isl.append(-Sl0 - Sr0)
     Id.append(-Sd0)
-    Els.append(El0/2)
-    Ers.append(Er0/2)
+    Els.append(El0)
+    Ers.append(Er0)
     Eds.append(Ed0)
     Erl.append(El0 + Er0)
 
@@ -507,3 +545,29 @@ plt.plot(eVs,Erl, label = r'$\dot{E}_{d}$')
 plt.xlabel(r'$eV$',fontsize = 20)
 plt.xscale("log")
 plt.show()
+
+
+archivo = open("globalstrongg","w")
+decimal_places = 7
+total_width = 8
+format_str = f"{{:.{decimal_places}f}}" 
+#format_str = f"{{:{total_width}.{decimal_places}f}}"
+for i in range(Num):
+    archivo.write( format_str.format(eVs[i])) #guarda el grado del nodo
+    #archivo.write(str(xs[i])) 
+    archivo.write(" ") 
+    #archivo.write(str(ys[i]))
+    archivo.write( format_str.format(Nls[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Ql[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Qr[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Qlr[i]))
+    archivo.write(" ")   
+    #archivo.write(str(ys[i]))
+    archivo.write( format_str.format(concuv[i]))
+    archivo.write(" ") 
+    archivo.write( format_str.format(cohev[i]))
+    archivo.write("\n")
+
