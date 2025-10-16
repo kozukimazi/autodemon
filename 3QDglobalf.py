@@ -571,3 +571,4 @@ for i in range(Num):
     archivo.write( format_str.format(cohev[i]))
     archivo.write("\n")
 
+###ideas: calcular <100|\rho|010> y <101|\rho|011> 
