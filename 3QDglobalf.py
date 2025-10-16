@@ -63,6 +63,27 @@ dd = np.kron(auxd,sigmadown)
 
 nd = np.matmul(dddag,dd)
 
+##definir base con objetivo de calcular coherencias
+v00 = np.array([[0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [1]])
+
+v100 = dldag @ v00
+v010 = -drdag @ v00
+v001 = dddag @ v00
+totrl = np.matmul(drdag,dldag)
+totdl = np.matmul(dddag,dldag)
+totdr = np.matmul(dddag,drdag)
+totf = np.matmul(dddag,totrl )
+v110 = totrl @ v00
+v101 = -totdl @ v00
+v011 = totdr @ v00
+v111 = totf @ v00
 
 
 def twolevel(el,er,g):
@@ -446,7 +467,7 @@ for ev in eVs:
     Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g)
     superop0 = Liouvillian(H0,Ls0)
-    cal1f = Propagate(rho0,superop,4000) 
+    cal1f = Propagate(rho0,superop0,4000) 
     #Ll0 = Dp(E,g0,U00,Uf0,ev/2,betal,gl) + Dm(E,g0,U00,Uf0,ev/2,betal,gl)
     #Lr0 = Dp(E,g0,U00,Uf0,-ev/2,betar,gr) + Dm(E,g0,U00,Uf0,-ev/2,betar,gr)
     #Ld0 = Dd(Ed0,U00,mud0,betad,gd)
@@ -473,12 +494,16 @@ for ev in eVs:
     Nl0,Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0 = currents(Elf,Erf,g,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,30000)
     
     #hay que medir de otra forma la coherencia 
-    #elegir bien como medir coherencia y entrelazamiento
-    cohev.append(abs(cal1f[5,3]) + abs(cal1f[4,2]) )
-    cohesum = abs(cal1f[5,3] + cal1f[4,2])
-    PD = cal1f[0,0].real + cal1f[1,1].real 
-    P0 = cal1f[7,7].real + cal1f[6,6].real 
-    concurrencef = 2*cohesum - 2*np.sqrt(P0*PD)
+    #elegir bien como medir coherencia y entrelazamient
+    #alp0 = np.trace( np.matmul( np.matmul(dldag,dr),cal1f) )
+    alp0 = v100.conjugate().T @ cal1f @ v010
+    alp1 = v101.conjugate().T @ cal1f @ v011
+    #print(alp0[0,0],alp1[0,0])
+    P0 = v00.conjugate().T @ cal1f @ v00 + v001.conjugate().T @ cal1f @ v001
+    PD = v110.conjugate().T @ cal1f @ v110 + v111.conjugate().T @ cal1f @ v111
+    cohev.append(abs(alp0[0,0]) + abs(alp1[0,0]) )
+    cohesum = abs(alp0[0,0] + alp1[0,0])
+    concurrencef = 2*cohesum - 2*np.sqrt(abs(P0[0,0]*PD[0,0]))
     if (concurrencef > 0):
         concuv.append(concurrencef)
     else:
