@@ -670,3 +670,18 @@ ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='b
 
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
+
+
+archivo = open("semicoup","w")
+decimal_places = 7
+total_width = 8
+format_str = f"{{:.{decimal_places}f}}" 
+#format_str = f"{{:{total_width}.{decimal_places}f}}"
+for i in range(Num):
+    archivo.write( format_str.format(g0m[i])) #guarda el grado del nodo
+    #archivo.write(str(xs[i])) 
+    archivo.write(" ") 
+    archivo.write( format_str.format(concv[i]))
+    archivo.write(" ") 
+    archivo.write( format_str.format(cohes[i]))
+    archivo.write("\n")
