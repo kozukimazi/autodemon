@@ -382,8 +382,10 @@ gl1 = [gl,gl,glu,gl,gl,gl,glu,gl]
 gr1 = [gr,gr,gru,gr,gr,gr,gru,gr]
 
 
-Num = 80000
-g0s = np.linspace(0,1,Num)
+#Num = 80000
+#g0s = np.linspace(0,1,Num)
+Num = 5000
+g0s = np.logspace(-6,3,Num)
 cohev = []
 concuv = []
 g0m = []
@@ -421,7 +423,7 @@ for g0 in g0s:
     g0m.append(g0/gl)
 
 
-archivo = open("redcoup","w")
+archivo = open("redcouplarge","w")
 decimal_places = 7
 total_width = 8
 format_str = f"{{:.{decimal_places}f}}" 

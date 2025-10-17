@@ -886,7 +886,7 @@ for i in range(Num):
     archivo.write("\n")
 
 
-archivo = open("parcialstrongg","w")
+archivo = open("parcialexample","w")
 decimal_places = 7
 total_width = 8
 format_str = f"{{:.{decimal_places}f}}" 

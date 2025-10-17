@@ -312,9 +312,11 @@ cohev = []
 concuv = []
 g0m = []
 
-Num = 80000
+#Num = 80000
 #Num = 10
-g0s = np.linspace(0,1,Num)
+#g0s = np.linspace(0,1,Num)
+Num = 5000
+g0s = np.logspace(-6,3,Num)
 for g0f in g0s:
     #aqui hay funciones que no deberian estar para optimizarlo
     ev = 100
@@ -334,7 +336,7 @@ for g0f in g0s:
     Ls0 = Dissipator(Elf,Erf,g0f,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g0f)
     superop0 = Liouvillian(H0,Ls0)
-    cal1f = Propagate(rho0,superop0,4000) 
+    cal1f = Propagate(rho0,superop0,10000) 
     #Ll0 = Dp(E,g0,U00,Uf0,ev/2,betal,gl) + Dm(E,g0,U00,Uf0,ev/2,betal,gl)
     #Lr0 = Dp(E,g0,U00,Uf0,-ev/2,betar,gr) + Dm(E,g0,U00,Uf0,-ev/2,betar,gr)
     #Ld0 = Dd(Ed0,U00,mud0,betad,gd)
@@ -376,7 +378,7 @@ for g0f in g0s:
         concuv.append(0)
     g0m.append(g0f/gl)    
 
-archivo = open("globalcoup","w")
+archivo = open("globalcouplarge","w")
 decimal_places = 7
 total_width = 8
 format_str = f"{{:.{decimal_places}f}}" 

@@ -326,9 +326,11 @@ plt.show()
     
 Ufs = np.linspace(7,40,100)
 Us = np.linspace(1,6,50)
-Num = 80000
+#Num = 80000
 #Num = 10
-g0s = np.linspace(0,1,Num)
+#g0s = np.linspace(0,1,Num)
+Num = 5000
+g0s = np.logspace(-6,3,Num)
 Ql = []
 Qr = []
 Qd = []
@@ -672,7 +674,7 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-archivo = open("semicoup","w")
+archivo = open("semicouplarge","w")
 decimal_places = 7
 total_width = 8
 format_str = f"{{:.{decimal_places}f}}" 
