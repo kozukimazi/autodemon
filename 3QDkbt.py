@@ -341,7 +341,7 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
 
 
 Num = 200
-eps0 = np.linspace(0,0.5,Num)
+eps0 = np.linspace(0,1,Num)
 #eVs0 = np.linspace(0,2000,Num)
 Ql = []
 Qr = []
@@ -471,12 +471,24 @@ plt.plot(eps0,Eds, color='red',lw=4,label = r'$E_{D}$')
 #plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$') 
 #plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$')
 #plt.xscale("log")
-plt.xlabel(r'$\epsilon$',fontsize = 20)
+plt.xlabel(r'$\epsilon(\epsilon_{D} = \mu_{D} - (1-\epsilon)U),\mu_{D} =2,U=40,T_{D}=2$',fontsize = 20)
+
 #plt.ylabel(r'$J_{\alpha}$',fontsize = 20)
 plt.xticks(fontsize=21)  # X-axis tick labels
 plt.yticks(fontsize=21)  # Y-axis tick labels
 plt.legend(loc = "lower left",fontsize=22) 
+plt.text(5, 0, r'$\epsilon_{D} = \mu_{D} - (1-\epsilon)U$', fontsize=14, color='blue')
 plt.show()   
 
 
+plt.plot(eps0,Probnt30,lw = 4,label = r'$\rho_{101}$')
+#plt.plot(eps0,Probnt40, label = r'$\rho_{100}$')
+plt.plot(eps0,Probnt50,linestyle='--', dashes=(5, 9),lw = 4,label = r'$\rho_{011}$')
+#plt.plot(eps0,Probnt60, label = r'$\rho_{010}$')
+plt.xlabel(r'$\epsilon(\epsilon_{D} = \mu_{D} - (1-\epsilon)U),\mu_{D} =2,U=40,T_{D}=2$',fontsize = 20)
 
+#plt.ylabel(r'$J_{\alpha}$',fontsize=20)    
+plt.xticks(fontsize=17)  
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15, loc = "upper left")
+plt.show()
