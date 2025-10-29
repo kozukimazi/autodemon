@@ -198,9 +198,36 @@ def Dm(Emin,g,U,Uf,mul,betal,mur,betar,gl,glU,gr,grU,dmin,dmindag,dup,dupdag,the
 #####################################################
 ############phononsection############################
 #####################################################
-def gammaph(omega,betaph):
+def bose(omega,betaph):
 
-    return 2
+    n = 1/(np.exp(omega*betaph) - 1)
+    return n
+
+def Jph(omega,omegac,J0):
+    if (omega < 0):
+        return -J0*omega*np.exp(-abs(omega)/omegac)
+    else:
+        return J0*omega*np.exp(-abs(omega)/omegac)
+
+def gammaph(omega,betaph):
+    omegac = 1E-2
+    gamma0 = 1
+    J0 = 2
+    
+    if (abs(omega) > 1E-7):
+        
+        n = bose(omega,betaph)
+        #print("aqui tmbn")
+        if (omega > 0):
+        
+            rate =  Jph(omega,omegac,J0)*(n+1)
+        else:
+            rate = abs(Jph(abs(omega),omegac,J0)*n)
+        return rate
+        
+    else:
+        print("valor:")
+        return J0/betaph 
 
 def Dphonon(El,Er,g,betaph):
     Delta, g, theta = energy(El,Er,g)
@@ -210,12 +237,16 @@ def Dphonon(El,Er,g,betaph):
     dup,dupdag,dmin,dmindag = twolevel(El,Er,g)
     nup = np.matmul(dupdag,dup)
     nmin = np.matmul(dmindag,dmin)
+    #print("la energia E- - E+ es:")
+    print(Emin-Eup)
+    print(gammaph(Emin-Eup,betaph))
     auxl1 = np.cos(theta)*np.sqrt( gammaph(Eup-Emin,betaph) )*np.matmul( dupdag,dmin )
     auxl2 = np.cos(theta)*np.sqrt( gammaph(Emin-Eup,betaph) )*np.matmul( dmindag,dup )
-    auxl3 = np.sin(theta)*np.sqrt( gammaph(0,betaph) )*np.matmul( nup-nmin )
+    auxl3 = np.sin(theta)*np.sqrt( gammaph(0,betaph) )*(nup-nmin) 
     return [auxl1,auxl2,auxl3]
 
-def Dissipator(El,Er,g,Ed,U,Uf,mul,mur,mud,betal,betar,betad,gl,glU,gr,grU,gammad):
+
+def Dissipator(El,Er,g,Ed,U,Uf,mul,mur,mud,betal,betar,betad,betaph,gl,glU,gr,grU,gammad):
     Delta, g, theta = energy(El,Er,g)
     eps = (El+Er)/2
     Eup, Emin = eps + np.sqrt(Delta**2 + g**2), eps - np.sqrt(Delta**2 + g**2)
@@ -225,6 +256,7 @@ def Dissipator(El,Er,g,Ed,U,Uf,mul,mur,mud,betal,betar,betad,gl,glU,gr,grU,gamma
     DLM,DRM = Dm(Emin,g,U,Uf,mul,betal,mur,betar,gl,glU,gr,grU,dmin,dmindag,dup,dupdag,theta)
    
     DD = Dd(El,Er,g,Ed,U,mud,betad,gammad)
+    Dph = Dphonon(El,Er,g,betaph)
 
     tot = []
     for l in DLP:
@@ -237,6 +269,8 @@ def Dissipator(El,Er,g,Ed,U,Uf,mul,mur,mud,betal,betar,betad,gl,glU,gr,grU,gamma
         tot.append(r)
     for d in DD:
         tot.append(d)    
+    for dph in Dph:
+        tot.append(dph)    
 
     return tot
 
@@ -273,12 +307,13 @@ def Hamiltonian(El,Er,Ed,U,Uf,g):
     dup,dupdag,dmin,dmindag = twolevel(El,Er,g)
     nm = np.matmul(dmindag,dmin)
     np0 = np.matmul(dupdag,dup)
+    #lo diagonalizo aqui
     a1 = Eup*np0 + Emin*nm + Ed*nd
     #a2 = g*( np.matmul(dldag,dr) + np.matmul(drdag,dl) )
     a3 = U* (np.matmul(np0,nd) +  np.matmul(nm,nd) ) + Uf*np.matmul(np0,nm) 
     return a1+a3
 
-def currents(El,Er,g,Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
+def currents(El,Er,g,Hs,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     dup,dupdag,dmin,dmindag = twolevel(El,Er,g)
     nm = np.matmul(dmindag,dmin)
     np0 = np.matmul(dupdag,dup)
@@ -288,14 +323,18 @@ def currents(El,Er,g,Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     Dl = Dissipate(Hs,Ll,rhof)
     Dr = Dissipate(Hs,Lr,rhof)
     Dd = Dissipate(Hs,Ld,rhof)
-
+    Dphf = Dissipate(Hs,Dph,rhof)
     Qopl = (Hs - mul*Nop)
     Qopr = (Hs - mur*Nop)
     Qopd = (Hs - mud*Nop)
+
+    
     aux = logm(rhof)
     Ql = np.trace( np.matmul( Dl,Qopl  ) )
     Qr = np.trace( np.matmul( Dr,Qopr  ) )
     Qd = np.trace( np.matmul( Dd,Qopd  ) )
+    Qphlr = np.trace( np.matmul( Dphf,Hs  ) )
+
 
     Nl = np.trace( np.matmul( Dl,Nop  ) )
     Nr = np.trace( np.matmul( Dr,Nop  ) )
@@ -304,12 +343,13 @@ def currents(El,Er,g,Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     Sl = -np.trace( np.matmul(Dl,aux) )
     Sr = -np.trace( np.matmul(Dr,aux) )
     Sd = -np.trace( np.matmul(Dd,aux) )
+    Sph = -np.trace( np.matmul(Dphf,aux) )
 
     El = np.trace( np.matmul( Dl,Hs  ) )
     Er = np.trace( np.matmul( Dr,Hs  ) )
     Ed = np.trace( np.matmul(Dd,Hs))
 
-    return Nl.real, Ql.real, Qr.real, Qd.real, Sl.real, Sr.real,Sd.real, El.real, Er.real, Ed.real
+    return Nl.real, Ql.real, Qr.real, Qd.real, Qphlr.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real
 
 
 E = 0
@@ -323,6 +363,7 @@ mul1 = eV/2
 mur1 = -eV/2
 mud1 = 2
 
+betaph = 1/300
 betar,betad,betal = 1/100,1/2,1/100
 gr,gd,gl = 1/100*(1/6),1/50,1/100
 glU,grU = 1/100*(1/6),1/100
@@ -333,7 +374,7 @@ glU,grU = 1/100*(1/6),1/100
 #Ld = Dd(Ed,U0,mud1,betad,gd)
 
 El =Er = E
-Ls = Dissipator(El,Er,g0,Ed,U0,Uf,mul1,mur1,mud1,betal,betar,betad,gl,glU,gr,grU,gd)
+Ls = Dissipator(El,Er,g0,Ed,U0,Uf,mul1,mur1,mud1,betal,betar,betad,betaph,gl,glU,gr,grU,gd)
 H = Hamiltonian(El,Er,Ed,U0,Uf,g0)
 
 superop = Liouvillian(H,Ls)
@@ -410,17 +451,6 @@ plt.ylabel(r'$\mathcal{C}_{l_{1}}$', fontsize = 20)
 plt.show()
 #plt.scatter(times,Probnt2,label = "Baño_d")
 
-values =  Propagate(rho0,superop,3000)
-
-plt.imshow(values.imag)
-plt.colorbar()
-plt.show()
-    
-Ufs = np.linspace(7,40,100)
-Us = np.linspace(1,6,50)
-
-coheUf = []
-coheU = []
 
 
 #for Uff in Ufs:
@@ -468,6 +498,8 @@ Erl = []
 cohev = []
 concuv = []
 Nls = []
+Qphlist = []
+Sphlist = []
 Qlr = []
 #gf = 5/1000
 gf = 600
@@ -484,7 +516,7 @@ for ev in eVs:
     Emin = (Elf+Erf)/2 - np.sqrt(Delta**2 + g**2)
     dup,dupdag,dmin,dmindag = twolevel(Elf,Erf,g)
     
-    Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd)
+    Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g)
     superop0 = Liouvillian(H0,Ls0)
     cal1f = Propagate(rho0,superop0,4000) 
@@ -508,10 +540,11 @@ for ev in eVs:
         Raux.append(r)
 
     DD = Dd(Elf,Erf,g,Ed0f,U00,mud0,betad,gd)
+    Dph0 = Dphonon(Elf,Erf,g,betaph)
     Ll0 = Laux
     Lr0 = Raux
     Ld0 = DD
-    Nl0,Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0 = currents(Elf,Erf,g,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,30000)
+    Nl0,Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sph0,El0,Er0,Ed0 = currents(Elf,Erf,g,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Dph0,superop0,rho0,30000)
     
     #hay que medir de otra forma la coherencia 
     #elegir bien como medir coherencia y entrelazamient
@@ -532,13 +565,18 @@ for ev in eVs:
     Ql.append(Ql0)
     Qr.append(Qr0)
     Qd.append(Qd0)
+    Qphlist.append(Qph0)
+
     Qlr.append(Ql0 + Qr0)
     sigmal = Sl0 - betal*Ql0
     sigmar = Sr0 - betar*Qr0
+    sigmaph = Sph0 - betaph*Qph0
+    
     Sls.append((Sl0 - betal*Ql0))
     Srs.append((Sr0 - betar*Qr0))
     Sds.append(Sd0 - betad*Qd0)
     Slr.append( sigmal + sigmar )
+    Sphlist.append( sigmaph )
     Isl.append(-Sl0 - Sr0)
     Id.append(-Sd0)
     Els.append(El0)
