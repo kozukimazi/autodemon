@@ -268,8 +268,8 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
 E = 0
 U0 = 40.
 Uf = 500
-#g0 = 5/1000
-g0 = 600
+g0 = 5/1000
+#g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
 eV = 450
 mul1 = eV/2
@@ -846,11 +846,44 @@ ax20.legend(bbox_to_anchor=(-0.005, 0.66), fontsize=15, loc = "center left", nco
 ax20.tick_params(labelsize=18)  # font size of tick labels 
 ax20.text(0.9, 0.96, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
-fig.supylabel("Cantidades termodinámicas", fontsize=22)
+#fig.supylabel("Cantidades termodinámicas", fontsize=22)
 #plt.subplots_adjust(left=0.05) 
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
+
+# Create subplots (1 row, 2 columns)
+fig, (ax11, ax21) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
+
+ax11.plot(eVs,Nls,color='blue',lw=3, label = r'$\dot{N}_{L}$')
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+ax11.plot(eVs,Nrs,color='black',lw=3, label = r'$\dot{N}_{R}$')
+ax11.plot(eVs,Nds, color='red',lw = 3,label = r'$\dot{N}_{D}$')
+#ax10.xticks(fontsize=17)  
+#ax10.yticks(fontsize=17)
+ax11.legend(bbox_to_anchor=(0.20, 0.98),fontsize=15,loc = "upper left", ncol = 2)
+ax11.tick_params(labelbottom=False,labelsize = 20)
+ax11.text(0.9, 0.96, '(a)', transform=ax11.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+
+
+ax21.plot(eVs,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 3)
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+ax21.plot(eVs,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3) 
+#plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
+#ax2.xticks(fontsize=17)  # X-axis tick labels
+#ax2.yticks(fontsize=17)  # Y-axis tick labels
+#plt.xscale("log")
+ax21.set_xlabel(r'$eV/T$',fontsize = 20)
+#plt.ylim(-0.0018, 0.0018) 
+#plt.legend(loc='upper left')  
+ax21.legend(bbox_to_anchor=(0.20, 0.98), fontsize=17, loc = "upper left")
+ax21.tick_params(labelsize=18)  # font size of tick labels 
+ax21.text(0.9, 0.96, '(b)', transform=ax21.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+
+#fig.supylabel("Cantidades termodinámicas", fontsize=22)
+#plt.subplots_adjust(left=0.05) 
+plt.tight_layout()  # Avoids overlapping labels
+plt.show()
 
 archivo = open("lindbladgamU","w")
 decimal_places = 7

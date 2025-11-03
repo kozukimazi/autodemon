@@ -209,10 +209,10 @@ def Jph(omega,omegac,J0):
     else:
         return J0*omega*np.exp(-abs(omega)/omegac)
 
-def gammaph(omega,betaph):
-    omegac = 1E-2
-    gamma0 = 1
-    J0 = 2
+def gammaph(omega,omegac,J0,betaph):
+    #omegac = 1E-2
+    #gamma0 = 1
+    #J0 = 2
     
     if (abs(omega) > 1E-7):
         
@@ -226,10 +226,10 @@ def gammaph(omega,betaph):
         return rate
         
     else:
-        print("valor:")
+        #print("valor:")
         return J0/betaph 
 
-def Dphonon(El,Er,g,betaph):
+def Dphonon(El,Er,g,betaph,J0,omegac):
     Delta, g, theta = energy(El,Er,g)
     eps = (El+Er)/2
     Eup, Emin = eps + np.sqrt(Delta**2 + g**2), eps - np.sqrt(Delta**2 + g**2)
@@ -239,14 +239,14 @@ def Dphonon(El,Er,g,betaph):
     nmin = np.matmul(dmindag,dmin)
     #print("la energia E- - E+ es:")
     print(Emin-Eup)
-    print(gammaph(Emin-Eup,betaph))
-    auxl1 = np.cos(theta)*np.sqrt( gammaph(Eup-Emin,betaph) )*np.matmul( dupdag,dmin )
-    auxl2 = np.cos(theta)*np.sqrt( gammaph(Emin-Eup,betaph) )*np.matmul( dmindag,dup )
-    auxl3 = np.sin(theta)*np.sqrt( gammaph(0,betaph) )*(nup-nmin) 
+    print(gammaph(Emin-Eup,omegac,J0,betaph))
+    auxl1 = np.cos(theta)*np.sqrt( gammaph(Eup-Emin,omegac,J0,betaph) )*np.matmul( dupdag,dmin )
+    auxl2 = np.cos(theta)*np.sqrt( gammaph(Emin-Eup,omegac,J0,betaph) )*np.matmul( dmindag,dup )
+    auxl3 = np.sin(theta)*np.sqrt( gammaph(0,omegac,J0,betaph) )*(nup-nmin) 
     return [auxl1,auxl2,auxl3]
 
 
-def Dissipator(El,Er,g,Ed,U,Uf,mul,mur,mud,betal,betar,betad,betaph,gl,glU,gr,grU,gammad):
+def Dissipator(El,Er,g,Ed,U,Uf,mul,mur,mud,betal,betar,betad,betaph,gl,glU,gr,grU,gammad,J0,omegac):
     Delta, g, theta = energy(El,Er,g)
     eps = (El+Er)/2
     Eup, Emin = eps + np.sqrt(Delta**2 + g**2), eps - np.sqrt(Delta**2 + g**2)
@@ -256,7 +256,7 @@ def Dissipator(El,Er,g,Ed,U,Uf,mul,mur,mud,betal,betar,betad,betaph,gl,glU,gr,gr
     DLM,DRM = Dm(Emin,g,U,Uf,mul,betal,mur,betar,gl,glU,gr,grU,dmin,dmindag,dup,dupdag,theta)
    
     DD = Dd(El,Er,g,Ed,U,mud,betad,gammad)
-    Dph = Dphonon(El,Er,g,betaph)
+    Dph = Dphonon(El,Er,g,betaph,J0,omegac)
 
     tot = []
     for l in DLP:
@@ -345,8 +345,8 @@ def currents(El,Er,g,Hs,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Sd = -np.trace( np.matmul(Dd,aux) )
     Sph = -np.trace( np.matmul(Dphf,aux) )
 
-    El = np.trace( np.matmul( Dl,Hs  ) )
-    Er = np.trace( np.matmul( Dr,Hs  ) )
+    El = np.trace( np.matmul( Dl,Hs ) )
+    Er = np.trace( np.matmul( Dr,Hs ) )
     Ed = np.trace( np.matmul(Dd,Hs))
 
     return Nl.real, Ql.real, Qr.real, Qd.real, Qphlr.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real
@@ -374,7 +374,9 @@ glU,grU = 1/100*(1/6),1/100
 #Ld = Dd(Ed,U0,mud1,betad,gd)
 
 El =Er = E
-Ls = Dissipator(El,Er,g0,Ed,U0,Uf,mul1,mur1,mud1,betal,betar,betad,betaph,gl,glU,gr,grU,gd)
+J00 = 0.5
+omegac0 = 1E-2
+Ls = Dissipator(El,Er,g0,Ed,U0,Uf,mul1,mur1,mud1,betal,betar,betad,betaph,gl,glU,gr,grU,gd,J00,omegac0)
 H = Hamiltonian(El,Er,Ed,U0,Uf,g0)
 
 superop = Liouvillian(H,Ls)
@@ -515,8 +517,9 @@ for ev in eVs:
     Eup = (Elf+Erf)/2 + np.sqrt(Delta**2 + g**2)
     Emin = (Elf+Erf)/2 - np.sqrt(Delta**2 + g**2)
     dup,dupdag,dmin,dmindag = twolevel(Elf,Erf,g)
-    
-    Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd)
+    J0 = 0.01
+    omegac = 1E-2
+    Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,J0,omegac)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g)
     superop0 = Liouvillian(H0,Ls0)
     cal1f = Propagate(rho0,superop0,4000) 
@@ -540,7 +543,7 @@ for ev in eVs:
         Raux.append(r)
 
     DD = Dd(Elf,Erf,g,Ed0f,U00,mud0,betad,gd)
-    Dph0 = Dphonon(Elf,Erf,g,betaph)
+    Dph0 = Dphonon(Elf,Erf,g,betaph,J0,omegac)
     Ll0 = Laux
     Lr0 = Raux
     Ld0 = DD
@@ -567,7 +570,7 @@ for ev in eVs:
     Qd.append(Qd0)
     Qphlist.append(Qph0)
 
-    Qlr.append(Ql0 + Qr0)
+    Qlr.append(Ql0 + Qr0 + Qph0)
     sigmal = Sl0 - betal*Ql0
     sigmar = Sr0 - betar*Qr0
     sigmaph = Sph0 - betaph*Qph0
@@ -649,6 +652,8 @@ for i in range(Num):
     archivo.write(" ")
     archivo.write( format_str.format(Qlr[i]))
     archivo.write(" ")   
+    archivo.write( format_str.format(Qphlist[i]))
+    archivo.write(" ")
     #archivo.write(str(ys[i]))
     archivo.write( format_str.format(concuv[i]))
     archivo.write(" ") 

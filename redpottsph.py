@@ -5,12 +5,45 @@ from scipy.linalg import expm
 from scipy import integrate
 from scipy.linalg import eigh, eig
 
+
 ######################################
 ###########funciones##################
 ######################################
 
 def fermi(E,mu,beta):
     return 1/(np.exp((E-mu)*beta) + 1)
+
+
+def bose(omega,betaph):
+
+    n = 1/(np.exp(omega*betaph) - 1)
+    return n
+
+def Jph(omega,omegac,J0):
+    if (omega < 0):
+        return -J0*omega*np.exp(-abs(omega)/omegac)
+    else:
+        return J0*omega*np.exp(-abs(omega)/omegac)
+
+def gammaph(omega,omegac,J0,betaph):
+    #omegac = 1E-2
+    #gamma0 = 1
+    
+    
+    if (abs(omega) > 1E-7):
+        
+        n = bose(omega,betaph)
+        #print("aqui tmbn")
+        if (omega > 0):
+        
+            rate =  Jph(omega,omegac,J0)*(n+1)
+        else:
+            rate = abs(Jph(abs(omega),omegac,J0)*n)
+        return rate
+        
+    else:
+        #print("valor:")
+        return J0/betaph 
 
 #######################################
 ###########JordanWigner################
@@ -248,6 +281,28 @@ def ladderd(ed,el,er,g,U):
     ener2 = [e1d,e2d,e3d]
     return list1,ener1,list2,ener2
 
+def ladderph(el,er,g):
+    Delta = (el-er)/2
+    if (Delta**2 + g**2>1E-9):
+        aux = Delta/np.sqrt( Delta**2 + g**2)
+        theta = math.acos(aux)
+    else:
+        theta = math.acos(1) 
+    al0 = np.sin(theta)
+    bl0 = np.cos(theta)
+    Ep = (el+er)/2 + np.sqrt(Delta**2 + g**2)
+    Em = (el+er)/2 - np.sqrt(Delta**2 + g**2)
+
+    dup,dupdag,dmin,dmindag = twolevel(el,er,g)
+    nup = np.matmul(dupdag,dup)
+    nmin = np.matmul(dmindag,dmin)
+    op1 = np.matmul(dupdag,dmin)
+    op2 = np.matmul(dmindag,dup)
+    op3 = (nup-nmin)
+    listph = [bl0*op1,bl0*op2,al0*op3] 
+    enerph = [Ep - Em, Em - Ep,0]
+
+    return listph,enerph
 ###aqui se emplean los disipadores
 def Dl(betal,mul,gl,el,er,g,Uf,U):
     list1,ener1,list2,ener2 = ladderl(el,er,g,Uf,U)
@@ -366,7 +421,22 @@ def Drgen(betar,mur,gr1,el,er,g,Uf,U):
             superR2 += (P1-P2-P3)
     return superR1+superR2
 
+def Dphgen(betaph,J0,omegac,el,er,g):
+    listph,enerph = ladderph(el,er,g)
+    Num = len(listph)
+    dim = len(nl)
+    superph = np.zeros((dim**2,dim**2) , dtype = np.complex_)
 
+    for j in range(Num):
+        for jprim in range(Num):
+            gammaj = gammaph(enerph[j],omegac,J0,betaph)
+            gammajprim = gammaph(enerph[jprim],omegac,J0,betaph)
+            consta = (gammaj + gammajprim)
+            P1 = (consta/2)*(np.kron(listph[j].conjugate(), listph[jprim]))
+            P2 = gammajprim*((1/2)*(np.kron(np.eye(dim),np.matmul(listph[j].transpose().conjugate(), listph[jprim]))))
+            P3 = gammaj*((1/2)*(np.kron(np.matmul(listph[jprim].transpose(), listph[j].conjugate()),np.eye(dim) )))
+            superph += (P1-P2-P3)
+    return superph
 
 def superH( H, hbar = 1):
     d = len(H)
@@ -374,9 +444,9 @@ def superH( H, hbar = 1):
     
     return superH 
 
-def supertotal(H,Ll,Lr,Ld):
+def supertotal(H,Ll,Lr,Ld,Lph):
     supH = superH(H)
-    return supH + Ll+Lr+Ld
+    return supH + Ll+Lr+Ld + Lph
 
 def Propagate(rho0,superop,t):
     d = len(rho0)
@@ -407,176 +477,17 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
                  [0,0,0,-b,0,-c,1/8,0],
                  [0,0,0,0,0,0,0,1/8]])
 
-#betal,betar,betad = 1/100,1/100,5/10
+
 betal,betar,betad =1/100,1/100,1/2
-eV = 245
-mul,mur,mud = eV/2,-eV/2,2
-gd=1/50
-#gd = 1/100
-#gl,glu = 1/100,(1/100)*(1/6)
-#gr,gru = (1/100)*(1/6),1/100
+betaph = 1/100
+
+g = 600
 gl,glu = 1/100,(1/100)*(1/6)
 gr,gru = (1/100)*(1/6),1/100
-el,er =0.,0
-#g = 5/1000
-g = 600
-U,Uf = 40,500
-ed=mud-(U/2)
-#esta lista entrega un kappa por cada operador de salto de dl (son 8)
-#gl1 = [gl,gl,glu,glu,gl,gl,glu,glu]
-#gr1 = [gr,gr,gru,gru,gr,gr,gru,gru]
+gd = 1/50
 gl1 = [gl,gl,glu,gl,gl,gl,glu,gl]
 gr1 = [gr,gr,gru,gr,gr,gr,gru,gr]
-#Ld = Dd(betad,mud,gd,ed,el,er,g,U)
-#Ll = Dl(betal,mul,gl,el,er,g,Uf,U)
-#Lr = Dr(betar,mur,gr,el,er,g,Uf,U)
-Ld = Dd(betad,mud,gd,ed,el,er,g,U)
-Ll = Dlgen(betal,mul,gl1,el,er,g,Uf,U)
-Lr = Drgen(betar,mur,gr1,el,er,g,Uf,U)
-Ham = Hamiltonian(el,er,ed,U,Uf,g)
-Htd = Hamiltonianthermo(el,er,ed,U,Uf,g)
-Superop =  supertotal(Ham,Ll,Lr,Ld)
 
-
-times = np.linspace(0,3000,1000)
-Probnt1 = []
-Probnt2 = []
-Probnt3 = []
-Probnt4 = []
-Probnt5 = []
-Probnt6 = []
-Probnt7 = []
-Probnt8 = []
-p000s = []
-p100s = []
-p010s = []
-p001s = []
-p110s = []
-p101s = []
-p011s = []
-p111s = []
-p000f = []
-p100f = []
-p010f = []
-p001f = []
-p110f = []
-p101f = []
-p011f = []
-p111f = []
-traza = []
-cohe = []
-concu = []
-alp = []
-bet = []
-alpim = []
-betim = []
-for ts in times:
-    cal1 = Propagate(rho0,Superop,ts)
-    tot = np.trace(cal1)
-    traza.append(tot)
-    Probnt1.append(cal1[0,0].real )
-    Probnt2.append(cal1[1,1].real )
-    Probnt3.append(cal1[2,2].real )
-    Probnt4.append(cal1[3,3].real )
-    Probnt5.append(cal1[4,4].real )
-    Probnt6.append(cal1[5,5].real )
-    Probnt7.append(cal1[6,6].real ) 
-    Probnt8.append(cal1[7,7].real ) 
-    #print(np.trace(cal1))
-    p000,p100,p010,p001,p110,p101,p011,p111 = thermal(Htd,betad) 
-    p000h,p100h,p010h,p001h,p110h,p101h,p011h,p111h = thermal(Ham,betad)
-    p000s.append(p000)
-    p100s.append(p100)
-    p010s.append(p010)
-    p001s.append(p001)
-    p110s.append(p110)
-    p101s.append(p101)
-    p011s.append(p011)
-    p111s.append(p111)
-    p000f.append(p000h)
-    p100f.append(p100h)
-    p010f.append(p010h)
-    p001f.append(p001h)
-    p110f.append(p110h)
-    p101f.append(p101h)
-    p011f.append(p011h)
-    p111f.append(p111h) 
-    cohe.append(abs(cal1[5,3]) + abs(cal1[4,2]) )
-    cohesum = abs(cal1[5,3] + cal1[4,2])
-    PD = cal1[0,0].real + cal1[1,1].real 
-    P0 = cal1[7,7].real + cal1[6,6].real 
-    concurrence = 2*cohesum - 2*np.sqrt(P0*PD) 
-    concu.append(concurrence)
-    alp.append(abs(cal1[5,3]) )
-    bet.append(abs(cal1[4,2]) )
-    alpim.append(cal1[5,3].imag )
-    betim.append(cal1[4,2].imag )
-
-    #cal2 = DistR(H,Ls,Lr,Ll,rho0,ts,-2)
-    #Probnt2.append(cal2.real)
-
-plt.plot(times,Probnt1,label = "3 ocupados")
-plt.plot(times,Probnt2, label = "ocupado r y l")
-plt.plot(times,Probnt3, label = "ocupado l y d")
-plt.plot(times,Probnt4, label = "ocupado l")
-plt.scatter(times,Probnt5, label = "ocupado r y d")
-plt.plot(times,Probnt6, label = "ocupado r")
-plt.plot(times,Probnt7, label = "ocupado d")
-plt.plot(times,Probnt8, label = "vacio total")
-#plt.plot(times,p000f,marker = '^',linestyle='-',label = r'$p_{000}$')
-#plt.plot(times,p100f,marker = '^',linestyle='-',label = r'$p_{100}$')
-#plt.plot(times,p010f, marker = '^',linestyle='-',label = r'$p_{010}$')
-#plt.plot(times,p001f, marker = '^',linestyle='-',label = r'$p_{001}$')
-#plt.plot(times,p101f, marker = '^',linestyle='-',label = r'$p_{101}$')
-#plt.plot(times,p110f,marker = '^',linestyle='-',label = r'$p_{110}$')
-#plt.plot(times,p011f, marker = '^',linestyle='-',label = r'$p_{011}$')
-#plt.plot(times,p111f, marker = '^',linestyle='-',label = r'$p_{111}$')
-plt.legend()
-plt.show()
-
-
-#plt.plot(times,p000s,marker = '^',linestyle='-',label = r'$p_{000}$')
-#plt.plot(times,p100s,marker = '^',linestyle='-',label = r'$p_{100}$')
-#plt.plot(times,p010s, marker = '^',linestyle='-',label = r'$p_{010}$')
-#plt.plot(times,p001s, marker = '^',linestyle='-',label = r'$p_{001}$')
-#plt.plot(times,p110s,marker = '^',linestyle='-',label = r'$p_{110}$')
-#plt.plot(times,p101s,marker = '^',linestyle='-',label = r'$p_{101}$')
-#plt.plot(times,p011s, marker = '^',linestyle='-',label = r'$p_{011}$')
-#plt.plot(times,p111s, marker = '^',linestyle='-',label = r'$p_{111}$')
-#plt.plot(times,p000f,marker = 'D',linestyle='-',label = r'$p_{000f}$')
-#plt.plot(times,p100f,marker = 'D',linestyle='-',label = r'$p_{100f}$')
-#plt.plot(times,p010f, marker = 'D',linestyle='-',label = r'$p_{010f}$')
-#plt.plot(times,p001f, marker = 'D',linestyle='-',label = r'$p_{001f}$')
-#plt.plot(times,p110f,marker = 'D',linestyle='-',label = r'$p_{110f}$')
-#plt.plot(times,p101f,marker = 'D',linestyle='-',label = r'$p_{101f}$')
-#plt.plot(times,p011f, marker = 'D',linestyle='-',label = r'$p_{011f}$')
-#plt.plot(times,p111f, marker = 'D',linestyle='-',label = r'$p_{111f}$')
-#plt.legend()
-#plt.show()
-
-
-plt.plot(times,cohe, marker = 'D',linestyle='-',label = r'$\mathcal{C}_{l_{1}}$')
-plt.legend()
-plt.show()
-
-plt.plot(times,alp, marker = 'D',linestyle='-',label = r'$\alpha$')
-plt.plot(times,bet, marker = 'D',linestyle='-',label = r'$\beta$')
-plt.legend()
-plt.show()
-
-plt.plot(times,alpim, marker = 'D',linestyle='-',label = r'$\alpha_{im}$')
-plt.plot(times,betim, marker = 'D',linestyle='-',label = r'$\beta_{im}$')
-plt.legend()
-plt.show()
-
-plt.plot(times,concu)
-plt.xlabel(r'$t$', fontsize = 20)
-plt.ylabel(r'$\mathcal{C}_{on}$', fontsize = 20)
-plt.show()
-
-#######################################
-########compararcodigos################
-#######################################
 Num = 200
 eVs = np.linspace(0,800,Num)
 Nls = []
@@ -586,10 +497,12 @@ Jrs = []
 Jlrs = []
 cohev = []
 concuv = []
+Jphs = []
 for ev in eVs:
     print(ev)
     mud0 = 2
     U00 = 40#40
+    
     #mud0 = 1-U00/2
     #Con Ed0 = mud0 -U00/2,E0=4 hay flujo de energia pero un orden menor al de
     #flujo de informacion
@@ -599,14 +512,17 @@ for ev in eVs:
     #Probar condicion (U00/E0)<<1,Strasberg
     E0l = 0#4
     E0r = 0#4
+    J0 = 0.01
+    omegac = 1E-2
     Ld = Dd(betad,mud0,gd,Ed0,E0l,E0r,g,U00)
     mul = ev/2
     mur = -ev/2
     Ll = Dlgen(betal,ev/2,gl1,E0l,E0r,g,Uf0,U00)
     Lr = Drgen(betar,-ev/2,gr1,E0l,E0r,g,Uf0,U00)
+    Lph = Dphgen(betaph,J0,omegac,E0l,E0r,g)
     Ham = Hamiltonian(E0l,E0r,Ed0,U00,Uf0,g)
     Htd = Hamiltonianthermo(E0l,E0r,Ed0,U00,Uf0,g)
-    Superop =  supertotal(Ham,Ll,Lr,Ld)
+    Superop =  supertotal(Ham,Ll,Lr,Ld,Lph)
     cal1f = Propagate(rho0,Superop,40000)
     cohev.append(abs(cal1f[5,3]) + abs(cal1f[4,2]) )
     cohesum = abs(cal1f[5,3] + cal1f[4,2])
@@ -622,15 +538,19 @@ for ev in eVs:
     #Hopr = Htd - mur*Nop
     Hopl = Ham - mul*Nop
     Hopr = Ham - mur*Nop
+    Hoph = Ham
     nl0 = propcurrent(cal1f,Ll,Nop)
     nr0 = propcurrent(cal1f,Lr,Nop)
     ql0 = propcurrent(cal1f,Ll,Hopl)
     qr0 = propcurrent(cal1f,Lr,Hopr)
+    qph = propcurrent(cal1f,Lph,Hoph)
     Nls.append(nl0.real)
     Nrs.append(nr0.real)
     Jls.append(ql0.real)
     Jrs.append(qr0.real)
-    Jlrs.append(ql0.real+qr0.real)
+    Jlrs.append(ql0.real+qr0.real + qph.real)
+    Jphs.append(qph.real)
+
 
 plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$',color = 'b')
 plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$', color = 'r')     
@@ -645,8 +565,7 @@ plt.legend()
 plt.show()
 
 
-
-archivo = open("redfieldstrongg","w")
+archivo = open("redfieldph","w")
 decimal_places = 7
 total_width = 8
 format_str = f"{{:.{decimal_places}f}}" 
@@ -664,9 +583,10 @@ for i in range(Num):
     archivo.write(" ")
     archivo.write( format_str.format(Jlrs[i]))
     archivo.write(" ")   
+    archivo.write( format_str.format(Jphs[i]))
+    archivo.write(" ")
     #archivo.write(str(ys[i]))
     archivo.write( format_str.format(concuv[i]))
     archivo.write(" ") 
     archivo.write( format_str.format(cohev[i]))
     archivo.write("\n")
-
