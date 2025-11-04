@@ -273,11 +273,15 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Nd = np.trace(np.matmul( Dd,Nop ))
     return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real
 
-
+###################################
+#############parametros##############
+###################################
 E = 0
 U0 = 40.
 Uf = 500
-g0 = 5/1000
+#caso solo fonones
+g0 = 0
+#g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
 eV = 450
@@ -296,7 +300,7 @@ Ed = mud1-U0/2
 #betar,betad,betal = 1/100,10,1/100
 #transport
 betar,betad,betal = 1/100,1/2,1/100
-betaph = 1/200
+betaph = 1/400
 J0, omegac = 0.01, 1E-2 
 gr,grU = (1/100)*(1/6), 1/100
 gl,glU = 1/100, (1/100)*(1/6)
@@ -349,85 +353,6 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,1/4]])
 
 
-
-times = np.linspace(0,2600,2000)
-Probnt1 = []
-Probnt2 = []
-Probnt3 = []
-Probnt4 = []
-Probnt5 = []
-Probnt6 = []
-Probnt7 = []
-Probnt8 = []
-traza = []
-cohe = []
-concu = []
-for ts in times:
-    cal1 = Propagate(rho0,superop,ts)
-    auxp = np.matmul(dldag,dr)
-    alp = np.trace( np.matmul(auxp,cal1) )
-    tot = np.trace(cal1)
-    
-    traza.append(tot)
-    Probnt1.append(cal1[0,0].real )
-    Probnt2.append(cal1[1,1].real )
-    Probnt3.append(cal1[2,2].real )
-    Probnt4.append(cal1[3,3].real )
-    Probnt5.append(cal1[4,4].real )
-    Probnt6.append(cal1[5,5].real )
-    Probnt7.append(cal1[6,6].real ) 
-    Probnt8.append(cal1[7,7].real ) 
-    cohe.append(abs(cal1[5,3]) + abs(cal1[4,2]) )
-    cohesum = abs(cal1[5,3] + cal1[4,2])
-    PD = cal1[0,0].real + cal1[1,1].real 
-    P0 = cal1[7,7].real + cal1[6,6].real 
-    concurrence = 2*cohesum - 2*np.sqrt(P0*PD) 
-    concu.append(concurrence)
-    #print(cal1[4,2])
-    #print(cal1[2,4])
-    #cal2 = DistR(H,Ls,Lr,Ll,rho0,ts,-2)
-    #Probnt2.append(cal2.real)
-
-
-
-plt.plot(times,Probnt1,label = r'$\rho_{111}$')
-plt.plot(times,Probnt2, label = r'$\rho_{110}$')
-plt.plot(times,Probnt3, label = r'$\rho_{101}$')
-plt.plot(times,Probnt4, label = r'$\rho_{100}$')
-plt.plot(times,Probnt5, label = r'$\rho_{011}$')
-plt.plot(times,Probnt6, label = r'$\rho_{010}$')
-plt.plot(times,Probnt7, label = r'$\rho_{001}$')
-plt.plot(times,Probnt8, label = r'$\rho_{000}$')
-plt.legend(loc = "upper right",fontsize=15)
-plt.xlabel(r'$t$',fontsize=25)
-plt.xticks(fontsize=17)  
-plt.yticks(fontsize=17)
-plt.show()
-
-
-plt.plot(times,cohe)
-plt.xlabel(r'$t$', fontsize = 20)
-plt.ylabel(r'$\mathcal{C}_{l_{1}}$', fontsize = 20)
-plt.show()
-#plt.scatter(times,Probnt2,label = "Baño_d")
-plt.plot(times,concu)
-plt.xlabel(r'$t$', fontsize = 20)
-plt.ylabel(r'$\mathcal{C}_{on}$', fontsize = 20)
-plt.show()
-
-values = Propagate(rho0,superop,3000)
-
-plt.imshow(values.imag)
-plt.colorbar()
-plt.show()
-
-plt.imshow(values.real)
-plt.colorbar()
-plt.show()
-
-    
-Ufs = np.linspace(7,40,100)
-Us = np.linspace(1,6,50)
 Num = 200
 eVs0 = np.linspace(0,800,Num)
 #eVs0 = np.linspace(0,2000,Num)
@@ -444,6 +369,7 @@ Sphf = []
 entropf = []
 Isl = []
 Id = []
+Iphs = []
 Els = []
 Ers = []
 Eds = []
@@ -462,6 +388,7 @@ Tid = []
 Fd = []
 Ilf = []
 Irf = []
+Ilrnew = []
 Nls = []
 Nrs = []
 Nds = []
@@ -479,6 +406,7 @@ Probnt70 = []
 Probnt80 = []
 resta = []
 cohesex = []
+Fph = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -492,7 +420,7 @@ for ev in eVs0:
     Uf0 = 500 #50
     #Probar condicion (U00/E0)<<1,Strasberg
     El0 = Er0 = E0 = 0
-    Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd,gdU)
+    Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0,omegac)
     H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0)
     superop0 = Liouvillian(H0,Ls0)
     Ll0 = Dl(E0,U00,Uf0,ev/2,betal,gl,glU)
@@ -520,14 +448,19 @@ for ev in eVs0:
     Id0 = -Sd0
     Il0 = -Sl0
     Ir0 = -Sr0
+    Iph0 = -Sphf0
     Isl.append(Isl0)
     Id.append(-Sd0)
+    Iphs.append(Iph0)
+    Ilrnew.append(Il0 + Ir0 + Iph0)
     Els.append(El0)
     Ers.append(Er0)
     Eds.append(Ed0)
     Erl.append(El0 + Er0 )
     Qlr.append(Ql0+Qr0 )
     Flr.append(El0 + Er0 + (1/betal)*Isl0 )
+    Fph0 = Qph0 + (1/betaph)*Iph0
+    Fph.append(Fph0)
     Tisl.append((1/betal)*Isl0  )
     Wt.append(Wl0 + Wr0 )
     Wdf.append(Wd0)
@@ -703,18 +636,6 @@ plt.yticks(fontsize=21)
 #plt.xscale("log")
 plt.show()
 
-#ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
-#mientras que al superar esa vara L empieza a medir 
-plt.plot(eVs,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
-plt.plot(eVs,Ilf, color='black',lw=3, label = r'$\dot{I}_{L}$')
-plt.plot(eVs,Irf, color='blue',lw=3, label = r'$\dot{I}_{R}$')
-plt.xlabel(r'$eV/T$',fontsize = 22)
-plt.ylabel(r'$\dot{I}_{i}$',fontsize = 22)
-plt.xticks(fontsize=21)  # X-axis tick labels
-plt.yticks(fontsize=21)
-plt.legend(fontsize=22)
-#plt.xscale("log")
-plt.show()
 
 plt.plot(eVs,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 3)
 plt.plot(eVs,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3)  
@@ -754,6 +675,17 @@ plt.yticks(fontsize=21)
 plt.legend(fontsize=22, loc = "center left")
 plt.show()
 
+plt.plot(eVs,Qphs,label = r'$J_{ph}$', color = 'black',lw = 3)
+plt.plot(eVs,Sphf,label = r'$\dot{\sigma}_{ph}$', color = 'red',lw = 3)
+plt.plot(eVs,Iphs,label = r'$\dot{I}_{ph}$', linestyle='--', color = 'blue',lw = 3)
+plt.plot(eVs,Ilrnew,label = r'$\dot{I}_{LR}$',linestyle='--', color = 'red',lw = 3)
+plt.plot(eVs,Fph,label = r'$\dot{\mathcal{F}}_{ph}$', linestyle='--', color = 'black',lw = 3)
+plt.xlabel(r'$eV/T$',fontsize = 22) 
+plt.ylabel('Phonon',fontsize=22)    
+plt.xticks(fontsize=21)  
+plt.yticks(fontsize=21)
+plt.legend(fontsize=22, loc = "center left")
+plt.show()
 
 
 plt.plot(eVs,Qlr,label = r'$J_{LR}$', color = 'black',lw = 3)
@@ -936,7 +868,7 @@ for i in range(Num):
     archivo.write("\n")
 
 
-archivo = open("semiph","w")
+archivo = open("semiphJ0","w")
 decimal_places = 7
 total_width = 8
 format_str = f"{{:.{decimal_places}f}}" 
@@ -960,4 +892,6 @@ for i in range(Num):
     archivo.write( format_str.format(concv[i]))
     archivo.write(" ") 
     archivo.write( format_str.format(cohes[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Id[i]))
     archivo.write("\n")
