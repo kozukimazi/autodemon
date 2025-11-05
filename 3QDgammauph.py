@@ -301,7 +301,7 @@ Ed = mud1-U0/2
 #transport
 betar,betad,betal = 1/100,1/2,1/100
 betaph = 1/400
-J0, omegac = 0.01, 1E-2 
+J0, omegac = 0.000005, 1E-2 
 gr,grU = (1/100)*(1/6), 1/100
 gl,glU = 1/100, (1/100)*(1/6)
 gd,gdU = 1/50,1/50
