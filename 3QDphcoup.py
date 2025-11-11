@@ -280,8 +280,8 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-#g0 = 0
-g0 = 5/1000
+g0 = 1/10
+#g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
 eV = 450
@@ -356,6 +356,7 @@ cohes = []
 concv = []
 Ilrnew = []
 Jof = []
+Nls = []
 for J0 in J0s:
     mud0 = 2
     U00 = 40 #10
@@ -398,11 +399,11 @@ for J0 in J0s:
     Ile.append(Il0)
     Ire.append(Ir0)
     cohes.append(cohe0)
-  
+    Nls.append(Nl0)
     Jof.append(J0/(betaph*gl))
     print(J0)
 
-#plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
+plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
 plt.plot(Jof,Iphs, color='orange',lw=3, label = r'$\dot{I}_{Ph}$')
 plt.plot(Jof,Ile, color='black',lw=3, label = r'$\dot{I}_{Le}$')
 plt.plot(Jof,Ire, color='blue',lw=3, label = r'$\dot{I}_{Re}$')
@@ -416,6 +417,14 @@ plt.show()
 
 plt.plot(Jof,concv, color='green',lw=3, label = 'Concurrence')
 plt.plot(Jof,cohes, color='purple',lw=3, label = 'Coherence')
+plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+plt.plot(Jof,Nls, color='green',lw=3, label = r'$\dot{N}_{L}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
@@ -451,3 +460,7 @@ ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='b
 
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
+
+
+np.savez("phonong=10^{-1}.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
+
