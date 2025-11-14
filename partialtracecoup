@@ -287,8 +287,8 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,1/8]])
 
 
-Num = 80000
-g0s = np.linspace(0,1,Num)
+Num = 800
+g0s = np.logspace(-9,3,Num)
 Ql = []
 Qr = []
 Qd = []
