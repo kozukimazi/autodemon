@@ -25,6 +25,25 @@ Jof6,Id6,Ile6,Ire6,Iphs6,cohes6,concv6,Nls6 = data6["Jof"], data6["Id"], data6["
 data7 = np.load("phonong=10^{-1}.npz")
 Jof7,Id7,Ile7,Ire7,Iphs7,cohes7,concv7,Nls7 = data7["Jof"], data7["Id"], data7["Ile"], data7["Ire"], data7["Iphs"], data7["cohes"], data7["concv"], data7["Nls"]
 
+Ilrt0 = []
+Ilrt1 = []
+Ilrt2 = []
+Ilrt3 = []
+Ilrt4 = []
+Ilrt5 = []
+Ilrt6 = []
+Ilrt7 = []
+
+for i in range(len(Jof0)):
+    Ilrt0.append(Ile0[i]+Ire0[i]+Iphs0[i])
+    Ilrt1.append(Ile1[i]+Ire1[i]+Iphs1[i])
+    Ilrt2.append(Ile2[i]+Ire2[i]+Iphs2[i])
+    Ilrt3.append(Ile3[i]+Ire3[i]+Iphs3[i])
+    Ilrt4.append(Ile4[i]+Ire4[i]+Iphs4[i])
+    Ilrt5.append(Ile5[i]+Ire5[i]+Iphs5[i])
+    Ilrt6.append(Ile6[i]+Ire6[i]+Iphs6[i])
+    Ilrt7.append(Ile7[i]+Ire7[i]+Iphs7[i])    
+
 plt.plot(Jof0,Nls0, color='blue',lw=3, label = r'$g=0$')
 plt.plot(Jof1,Nls1, color='orange',lw=3, label = r'$g=10^{-4}$')
 plt.plot(Jof2,Nls2, color='green',lw=3, label = r'$g=5\cdot10^{-4}$')
@@ -33,7 +52,7 @@ plt.plot(Jof4,Nls4, color='purple',lw=3, label = r'$g=5\cdot10^{-3}$')
 plt.plot(Jof5,Nls5, color='brown',lw=3, label = r'$g=10^{-2}$')
 plt.plot(Jof6,Nls6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
 plt.plot(Jof7,Nls7, color='gray',lw=3, label = r'$g=10^{-1}$')
-plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\dot{N}_{L}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
@@ -49,7 +68,7 @@ plt.plot(Jof4,Id4, color='purple',lw=3, label = r'$g=5\cdot10^{-3}$')
 plt.plot(Jof5,Id5, color='brown',lw=3, label = r'$g=10^{-2}$')
 plt.plot(Jof6,Id6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
 plt.plot(Jof7,Id7, color='gray',lw=3, label = r'$g=10^{-1}$')
-plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\dot{I}_{D}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
@@ -74,7 +93,7 @@ plt.plot(Jof6,Ile6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
 plt.plot(Jof6,Ire6, color='pink',linestyle = '--',lw=3)
 plt.plot(Jof7,Ile7, color='gray',lw=3, label = r'$g=10^{-1}$')
 plt.plot(Jof7,Ire7, color='gray',linestyle = '--',lw=3)
-plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\dot{I}_{le}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
@@ -91,7 +110,7 @@ plt.plot(Jof4,concv4, color='purple',lw=3, label = r'$g=5\cdot10^{-3}$')
 plt.plot(Jof5,concv5, color='brown',lw=3, label = r'$g=10^{-2}$')
 plt.plot(Jof6,concv6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
 plt.plot(Jof7,concv7, color='gray',lw=3, label = r'$g=10^{-1}$')
-plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\mathcal{C}_{on}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
@@ -107,10 +126,122 @@ plt.plot(Jof4,cohes4, color='purple',lw=3, label = r'$g=5\cdot10^{-3}$')
 plt.plot(Jof5,cohes5, color='brown',lw=3, label = r'$g=10^{-2}$')
 plt.plot(Jof6,cohes6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
 plt.plot(Jof7,cohes7, color='gray',lw=3, label = r'$g=10^{-1}$')
-plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\mathcal{C}_{l_{1}}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
+plt.show()
+
+plt.plot(Jof0,Iphs0, color='blue',lw=3, label = r'$g=0$')
+plt.plot(Jof1,Iphs1, color='orange',lw=3, label = r'$g=10^{-4}$')
+plt.plot(Jof2,Iphs2, color='green',lw=3, label = r'$g=5\cdot10^{-4}$')
+plt.plot(Jof3,Iphs3, color='red',lw=3, label = r'$g=10^{-3}$')
+plt.plot(Jof4,Iphs4, color='purple',lw=3, label = r'$g=5\cdot10^{-3}$')
+plt.plot(Jof5,Iphs5, color='brown',lw=3, label = r'$g=10^{-2}$')
+plt.plot(Jof6,Iphs6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
+plt.plot(Jof7,Iphs7, color='gray',lw=3, label = r'$g=10^{-1}$')
+plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
+plt.ylabel(r'$\dot{I}_{ph}$',fontsize = 25) 
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+plt.plot(Jof0,Ilrt0, color='blue',lw=3, label = r'$g=0$')
+plt.plot(Jof1,Ilrt1, color='orange',lw=3, label = r'$g=10^{-4}$')
+plt.plot(Jof2,Ilrt2, color='green',lw=3, label = r'$g=5\cdot10^{-4}$')
+plt.plot(Jof3,Ilrt3, color='red',lw=3, label = r'$g=10^{-3}$')
+plt.plot(Jof4,Ilrt4, color='purple',lw=3, label = r'$g=5\cdot10^{-3}$')
+plt.plot(Jof5,Ilrt5, color='brown',lw=3, label = r'$g=10^{-2}$')
+plt.plot(Jof6,Ilrt6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
+plt.plot(Jof7,Ilrt7, color='gray',lw=3, label = r'$g=10^{-1}$')
+plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
+plt.ylabel(r'$\dot{I}_{LRT}$',fontsize = 25)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+
+# Create subplots (1 row, 2 columns)
+fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
+
+
+#ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
+#mientras que al superar esa vara L empieza a medir 
+ax10.plot(Jof0,Nls0, color='blue',lw=3, label = r'$g=0$')
+ax10.plot(Jof1,Nls1, color='orange',lw=3, label = r'$g=10^{-4}$')
+ax10.plot(Jof2,Nls2, color='green',lw=3, label = r'$g=5\cdot10^{-4}$')
+ax10.plot(Jof3,Nls3, color='red',lw=3, label = r'$g=10^{-3}$')
+ax10.plot(Jof4,Nls4, color='purple',lw=3, label = r'$g=5\cdot10^{-3}$')
+ax10.plot(Jof5,Nls5, color='brown',lw=3, label = r'$g=10^{-2}$')
+ax10.plot(Jof6,Nls6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
+ax10.plot(Jof7,Nls7, color='gray',lw=3, label = r'$g=10^{-1}$')
+ax10.set_ylabel(r'$\dot{N}_{i}$',fontsize = 22)
+ax10.legend(fontsize=17,loc = "upper right")
+ax10.set_xscale('log')  
+ax10.tick_params(labelbottom=False,labelsize = 18)
+ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
+
+ax20.plot(Jof0,concv0, color='blue',lw=3, label = r'$g=0$')
+ax20.plot(Jof1,concv1, color='orange',linestyle = '--',lw=3, label = r'$g=10^{-4}$')
+ax20.plot(Jof2,concv2, color='green',lw=3, label = r'$g=5\cdot10^{-4}$')
+ax20.plot(Jof3,concv3, color='red',lw=3, label = r'$g=10^{-3}$')
+ax20.plot(Jof4,concv4, color='purple',lw=3,linestyle = '--', label = r'$g=5\cdot10^{-3}$')
+ax20.plot(Jof5,concv5, color='brown',lw=3, label = r'$g=10^{-2}$')
+ax20.plot(Jof6,concv6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
+ax20.plot(Jof7,concv7, color='gray',lw=3,linestyle = '--', label = r'$g=10^{-1}$') 
+ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
+ax20.set_xscale("log")
+#ax20.legend(fontsize=17, loc = "upper left") 
+ax20.set_ylabel("Coherencia y entrelazamiento",fontsize = 22)
+ax20.tick_params(labelsize=18)  # font size of tick labels 
+ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
+
+
+plt.tight_layout()  # Avoids overlapping labels
+plt.show()
+
+
+# Create subplots (1 row, 2 columns)
+fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
+
+
+#ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
+#mientras que al superar esa vara L empieza a medir 
+ax10.plot(Jof0,Nls0, color='blue',lw=3, label = r'$g=0$')
+ax10.plot(Jof1,Nls1, color='orange',lw=3, label = r'$g=10^{-4}$')
+ax10.plot(Jof2,Nls2, color='green',lw=3, label = r'$g=5\cdot10^{-4}$')
+ax10.plot(Jof3,Nls3, color='red',lw=3, label = r'$g=10^{-3}$')
+ax10.plot(Jof4,Nls4, color='purple',lw=3, label = r'$g=5\cdot10^{-3}$')
+ax10.plot(Jof5,Nls5, color='brown',lw=3, label = r'$g=10^{-2}$')
+ax10.plot(Jof6,Nls6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
+ax10.plot(Jof7,Nls7, color='gray',lw=3, label = r'$g=10^{-1}$')
+ax10.set_ylabel(r'$\dot{N}_{i}$',fontsize = 22)
+ax10.legend(fontsize=17,loc = "upper right")
+ax10.set_xscale('log')  
+ax10.tick_params(labelbottom=False,labelsize = 18)
+ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
+
+ax20.plot(Jof0,cohes0, color='blue',lw=3, label = r'$g=0$')
+ax20.plot(Jof1,cohes1, color='orange',linestyle = '--',lw=3, label = r'$g=10^{-4}$')
+ax20.plot(Jof2,cohes2, color='green',lw=3, label = r'$g=5\cdot10^{-4}$')
+ax20.plot(Jof3,cohes3, color='red',lw=3, label = r'$g=10^{-3}$')
+ax20.plot(Jof4,cohes4, color='purple',lw=3,linestyle = '--', label = r'$g=5\cdot10^{-3}$')
+ax20.plot(Jof5,cohes5, color='brown',lw=3, label = r'$g=10^{-2}$')
+ax20.plot(Jof6,cohes6, color='pink',lw=3, label = r'$g=5\cdot10^{-2}$')
+ax20.plot(Jof7,cohes7, color='gray',lw=3,linestyle = '--', label = r'$g=10^{-1}$') 
+ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
+ax20.set_xscale("log")
+#ax20.legend(fontsize=17, loc = "upper left") 
+ax20.set_ylabel("Coherencia",fontsize = 22)
+ax20.tick_params(labelsize=18)  # font size of tick labels 
+ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
+
+
+plt.tight_layout()  # Avoids overlapping labels
 plt.show()
