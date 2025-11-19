@@ -366,7 +366,7 @@ for J0 in J0s:
     #Ed0 = 1
     eps = 0.5
     Ed0 = mud0 - (1-eps)*U00
-    ev = 100
+    ev = 30
     #Ed0 = mud0 -U00/2
     Uf0 = 500 #50
     #Probar condicion (U00/E0)<<1,Strasberg
@@ -462,5 +462,5 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-np.savez("phonong=10^{-1}.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
+np.savez("phonong=10^{-1}_ev30.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
 
