@@ -280,7 +280,7 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-g0 = 1/10
+g0 = 7/1000
 #g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
@@ -462,5 +462,5 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-np.savez("phonong=10^{-1}_ev30.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
+np.savez("phonong=7_10^{-3}_ev30.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
 

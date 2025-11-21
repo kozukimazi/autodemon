@@ -25,6 +25,13 @@ Jof6,Id6,Ile6,Ire6,Iphs6,cohes6,concv6,Nls6 = data6["Jof"], data6["Id"], data6["
 data7 = np.load("phonong=10^{-1}.npz")
 Jof7,Id7,Ile7,Ire7,Iphs7,cohes7,concv7,Nls7 = data7["Jof"], data7["Id"], data7["Ile"], data7["Ire"], data7["Iphs"], data7["cohes"], data7["concv"], data7["Nls"]
 
+data8 = np.load("phonong=7_10^{-3}.npz")
+Jof8,Id8,Ile8,Ire8,Iphs8,cohes8,concv8,Nls8 = data8["Jof"], data8["Id"], data8["Ile"], data8["Ire"], data8["Iphs"], data8["cohes"], data8["concv"], data8["Nls"]
+
+data9 = np.load("phonong=3_10^{-3}.npz")
+Jof9,Id9,Ile9,Ire9,Iphs9,cohes9,concv9,Nls9 = data9["Jof"], data9["Id"], data9["Ile"], data9["Ire"], data9["Iphs"], data9["cohes"], data9["concv"], data9["Nls"]
+
+
 Ilrt0 = []
 Ilrt1 = []
 Ilrt2 = []
@@ -33,6 +40,8 @@ Ilrt4 = []
 Ilrt5 = []
 Ilrt6 = []
 Ilrt7 = []
+Ilrt8 = []
+Ilrt9 = []
 
 for i in range(len(Jof0)):
     Ilrt0.append(Ile0[i]+Ire0[i]+Iphs0[i])
@@ -42,7 +51,9 @@ for i in range(len(Jof0)):
     Ilrt4.append(Ile4[i]+Ire4[i]+Iphs4[i])
     Ilrt5.append(Ile5[i]+Ire5[i]+Iphs5[i])
     Ilrt6.append(Ile6[i]+Ire6[i]+Iphs6[i])
-    Ilrt7.append(Ile7[i]+Ire7[i]+Iphs7[i])    
+    Ilrt7.append(Ile7[i]+Ire7[i]+Iphs7[i])  
+    Ilrt8.append(Ile8[i]+Ire8[i]+Iphs8[i])  
+    Ilrt9.append(Ile9[i]+Ire9[i]+Iphs9[i])
 
 plt.plot(Jof0,Nls0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
 plt.plot(Jof1,Nls1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
@@ -52,6 +63,8 @@ plt.plot(Jof4,Nls4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot1
 plt.plot(Jof5,Nls5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 plt.plot(Jof6,Nls6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 plt.plot(Jof7,Nls7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+plt.plot(Jof8,Nls8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
+plt.plot(Jof9,Nls9, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\dot{N}_{L}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -68,6 +81,8 @@ plt.plot(Jof4,Id4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10
 plt.plot(Jof5,Id5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 plt.plot(Jof6,Id6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 plt.plot(Jof7,Id7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+plt.plot(Jof8,Id8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+plt.plot(Jof9,Id9, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\dot{I}_{D}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -93,6 +108,8 @@ plt.plot(Jof6,Ile6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^
 plt.plot(Jof6,Ire6, color='pink',linestyle = '--',lw=3)
 plt.plot(Jof7,Ile7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
 plt.plot(Jof7,Ire7, color='gray',linestyle = '--',lw=3)
+plt.plot(Jof8,Ile8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+plt.plot(Jof8,Ire8, color='black',linestyle = '--',lw=3)
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\dot{I}_{le}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -110,6 +127,9 @@ plt.plot(Jof4,concv4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdo
 plt.plot(Jof5,concv5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 plt.plot(Jof6,concv6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 plt.plot(Jof7,concv7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+plt.plot(Jof8,concv8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+plt.plot(Jof9,concv9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\mathcal{C}_{on}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -126,6 +146,9 @@ plt.plot(Jof4,cohes4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdo
 plt.plot(Jof5,cohes5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 plt.plot(Jof6,cohes6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 plt.plot(Jof7,cohes7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+plt.plot(Jof8,cohes8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+plt.plot(Jof9,cohes9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\mathcal{C}_{l_{1}}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -142,6 +165,9 @@ plt.plot(Jof4,Iphs4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot
 plt.plot(Jof5,Iphs5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 plt.plot(Jof6,Iphs6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 plt.plot(Jof7,Iphs7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+plt.plot(Jof8,Iphs8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
+plt.plot(Jof9,Iphs9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
+
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\dot{I}_{ph}$',fontsize = 25) 
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -158,6 +184,9 @@ plt.plot(Jof4,Ilrt4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot
 plt.plot(Jof5,Ilrt5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 plt.plot(Jof6,Ilrt6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 plt.plot(Jof7,Ilrt7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+plt.plot(Jof8,Ilrt8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
+plt.plot(Jof9,Ilrt9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
+
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\dot{I}_{LRT}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -181,6 +210,9 @@ ax10.plot(Jof4,Nls4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot
 ax10.plot(Jof5,Nls5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 ax10.plot(Jof6,Nls6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 ax10.plot(Jof7,Nls7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+ax10.plot(Jof8,Nls8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
+ax10.plot(Jof9,Nls9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
+
 ax10.set_ylabel(r'$\dot{N}_{i}$',fontsize = 22)
 ax10.legend(fontsize=17,loc = "upper right")
 ax10.set_xscale('log')  
@@ -195,6 +227,9 @@ ax20.plot(Jof4,concv4, color='purple',lw=3,linestyle = '--', label = r'$\frac{g}
 ax20.plot(Jof5,concv5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 ax20.plot(Jof6,concv6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 ax20.plot(Jof7,concv7, color='gray',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=10^{1}$') 
+ax20.plot(Jof8,concv8, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$') 
+ax20.plot(Jof9,concv9, color='black',lw=3,linestyle = ':', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$') 
+
 ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
 ax20.set_xscale("log")
 #ax20.legend(fontsize=17, loc = "upper left") 
@@ -221,6 +256,9 @@ ax10.plot(Jof4,Nls4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot
 ax10.plot(Jof5,Nls5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 ax10.plot(Jof6,Nls6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 ax10.plot(Jof7,Nls7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+ax10.plot(Jof8,Nls8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
+ax10.plot(Jof9,Nls9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
+
 ax10.set_ylabel(r'$\dot{N}_{i}$',fontsize = 22)
 ax10.legend(fontsize=17,loc = "upper right")
 ax10.set_xscale('log')  
@@ -235,6 +273,9 @@ ax20.plot(Jof4,cohes4, color='purple',lw=3,linestyle = '--', label = r'$\frac{g}
 ax20.plot(Jof5,cohes5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
 ax20.plot(Jof6,cohes6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
 ax20.plot(Jof7,cohes7, color='gray',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=10^{1}$') 
+ax20.plot(Jof8,cohes8, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$') 
+ax20.plot(Jof9,cohes9, color='black',lw=3,linestyle = ':', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$') 
+
 ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
 ax20.set_xscale("log")
 #ax20.legend(fontsize=17, loc = "upper left") 
