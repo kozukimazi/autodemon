@@ -44,16 +44,16 @@ Ilrt8 = []
 Ilrt9 = []
 
 for i in range(len(Jof0)):
-    Ilrt0.append(Ile0[i]+Ire0[i]+Iphs0[i])
-    Ilrt1.append(Ile1[i]+Ire1[i]+Iphs1[i])
-    Ilrt2.append(Ile2[i]+Ire2[i]+Iphs2[i])
-    Ilrt3.append(Ile3[i]+Ire3[i]+Iphs3[i])
-    Ilrt4.append(Ile4[i]+Ire4[i]+Iphs4[i])
-    Ilrt5.append(Ile5[i]+Ire5[i]+Iphs5[i])
-    Ilrt6.append(Ile6[i]+Ire6[i]+Iphs6[i])
-    Ilrt7.append(Ile7[i]+Ire7[i]+Iphs7[i])  
-    Ilrt8.append(Ile8[i]+Ire8[i]+Iphs8[i])  
-    Ilrt9.append(Ile9[i]+Ire9[i]+Iphs9[i])
+    Ilrt0.append(Ile0[i]+Ire0[i])
+    Ilrt1.append(Ile1[i]+Ire1[i])
+    Ilrt2.append(Ile2[i]+Ire2[i])
+    Ilrt3.append(Ile3[i]+Ire3[i])
+    Ilrt4.append(Ile4[i]+Ire4[i])
+    Ilrt5.append(Ile5[i]+Ire5[i])
+    Ilrt6.append(Ile6[i]+Ire6[i])
+    Ilrt7.append(Ile7[i]+Ire7[i])  
+    Ilrt8.append(Ile8[i]+Ire8[i])  
+    Ilrt9.append(Ile9[i]+Ire9[i])
 
 plt.plot(Jof0,Nls0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
 plt.plot(Jof1,Nls1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
@@ -276,6 +276,47 @@ ax20.plot(Jof7,cohes7, color='gray',lw=3,linestyle = '--', label = r'$\frac{g}{\
 ax20.plot(Jof8,cohes8, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$') 
 ax20.plot(Jof9,cohes9, color='black',lw=3,linestyle = ':', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$') 
 
+ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
+ax20.set_xscale("log")
+#ax20.legend(fontsize=17, loc = "upper left") 
+ax20.set_ylabel("Coherencia",fontsize = 22)
+ax20.tick_params(labelsize=18)  # font size of tick labels 
+ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
+
+
+plt.tight_layout()  # Avoids overlapping labels
+plt.show()
+
+# Create subplots (1 row, 2 columns)
+fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
+
+ax10.plot(Jof0,Iphs0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+ax10.plot(Jof1,Iphs1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+ax10.plot(Jof2,Iphs2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
+ax10.plot(Jof3,Iphs3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+ax10.plot(Jof4,Iphs4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
+ax10.plot(Jof5,Iphs5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
+ax10.plot(Jof6,Iphs6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
+ax10.plot(Jof7,Iphs7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+ax10.plot(Jof8,Iphs8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
+ax10.plot(Jof9,Iphs9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
+ax10.set_ylabel(r'$\dot{I}_{ph}$',fontsize = 22)
+ax10.legend(fontsize=17,loc = "upper right")
+ax10.set_xscale('log')  
+ax10.tick_params(labelbottom=False,labelsize = 18)
+ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
+
+
+ax20.plot(Jof0,cohes0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+ax20.plot(Jof1,cohes1, color='orange',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+ax20.plot(Jof2,cohes2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
+ax20.plot(Jof3,cohes3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+ax20.plot(Jof4,cohes4, color='purple',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
+ax20.plot(Jof5,cohes5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
+ax20.plot(Jof6,cohes6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
+ax20.plot(Jof7,cohes7, color='gray',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=10^{1}$') 
+ax20.plot(Jof8,cohes8, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$') 
+ax20.plot(Jof9,cohes9, color='black',lw=3,linestyle = ':', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$') 
 ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
 ax20.set_xscale("log")
 #ax20.legend(fontsize=17, loc = "upper left") 
