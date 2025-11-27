@@ -246,7 +246,7 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Qopl = (Htd - mul*Nop)
     Qopr = (Htd - mur*Nop)
     Qopd = (Htd - mud*Nop)
-   
+    A = np.matmul(dldag,dr) + np.matmul(drdag,dl)
 
     aux = logm(rhof)
     Ql = np.trace( np.matmul( Dl,Qopl  ) )
@@ -271,7 +271,8 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Nl = np.trace( np.matmul(Dl,Nop ) )
     Nr = np.trace(np.matmul(Dr,Nop ))
     Nd = np.trace(np.matmul( Dd,Nop ))
-    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real
+    Act = np.trace(np.matmul(A,np.matmul(rhof,A)))
+    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real,Act.real
 
 ###################################
 #############parametros##############
@@ -280,7 +281,7 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-g0 = 7/1000
+g0 = 1/10
 #g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
@@ -344,8 +345,8 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,1/4]])
 
-Num = 5000
-J0s = np.logspace(-9,3,Num)
+Num = 1800
+J0s = np.logspace(-8,-3,Num)
 
 Isl = []
 Id = []
@@ -357,6 +358,7 @@ concv = []
 Ilrnew = []
 Jof = []
 Nls = []
+Acts = []
 for J0 in J0s:
     mud0 = 2
     U00 = 40 #10
@@ -366,7 +368,7 @@ for J0 in J0s:
     #Ed0 = 1
     eps = 0.5
     Ed0 = mud0 - (1-eps)*U00
-    ev = 30
+    ev = 100
     #Ed0 = mud0 -U00/2
     Uf0 = 500 #50
     #Probar condicion (U00/E0)<<1,Strasberg
@@ -381,7 +383,7 @@ for J0 in J0s:
     Htd0 =  Htd(El0,Er0,Ed0,U00,Uf0)
     rhof = Propagate(rho0,superop0,40000)
     
-    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0 = currents(Htd0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
+    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0 = currents(Htd0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
     #cohev.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
     concv.append(concu0)    
     sigmal = Sl0 - betal*Ql0
@@ -401,6 +403,7 @@ for J0 in J0s:
     cohes.append(cohe0)
     Nls.append(Nl0)
     Jof.append(J0/(betaph*gl))
+    Acts.append(Act0)
     print(J0)
 
 plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
@@ -462,5 +465,5 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-np.savez("phonong=7_10^{-3}_ev30.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
+np.savez("phonong=10^{-1}zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts)
 
