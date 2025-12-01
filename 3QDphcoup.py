@@ -194,6 +194,12 @@ def Liouvillian( H,Ls, hbar = 1):
                                                       for L in Ls ] )    
     return superH + superL
 
+def adjLiouvillian( H,Ls, O,hbar = 1):
+    cohe = (1j/hbar)*(np.matmul(H,O) - np.matmul(O,H))
+    dissip = sum( [ np.matmul( L.transpose().conjugate(), np.matmul(O,L) ) - 1/2* anticonmutador( np.matmul(L.transpose().conjugate(),L), O )  for L in Ls ] )
+    return cohe + dissip
+    
+
 def Propagate(rho0,superop,t):
     d = len(rho0)
     propagator = expm (superop *t)
@@ -225,8 +231,9 @@ def arctanaux(x,y):
         return np.arctan(x/y)
 
 
-def currents(Htd,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
+def currents(Htd,g0,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Nop = nl + nr + nd
+    Iquantum = -1j*g0*(np.matmul(dldag,dr) - np.matmul(drdag,dl))
     rhof = Propagate(rho0,superop,t)
     cohe = abs(rhof[5,3]) + abs(rhof[4,2]) 
     cohesum = abs(rhof[5,3] + rhof[4,2])
@@ -254,6 +261,7 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Qd = np.trace( np.matmul( Dd,Qopd  ) )
     Qph = np.trace( np.matmul( Dph0,Htd  ) )
 
+    Nqm = np.trace( np.matmul( Iquantum, rhof ) )
 
     Sl = -np.trace( np.matmul(Dl,aux) )
     Sr = -np.trace( np.matmul(Dr,aux) )
@@ -272,7 +280,7 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Nr = np.trace(np.matmul(Dr,Nop ))
     Nd = np.trace(np.matmul( Dd,Nop ))
     Act = np.trace(np.matmul(A,np.matmul(rhof,A)))
-    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real,Act.real
+    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real,Act.real,Nqm.real
 
 ###################################
 #############parametros##############
@@ -281,7 +289,7 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-g0 = 1/10
+g0 = 0
 #g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
@@ -359,6 +367,18 @@ Ilrnew = []
 Jof = []
 Nls = []
 Acts = []
+Probnt10 = []
+Probnt20 = []
+Probnt30 = []
+Probnt40 = []
+Probnt50 = []
+Probnt60 = []
+Probnt70 = []
+Probnt80 = []
+Imalphg = []
+Imbetg = []
+Nqms = []
+Nltotal = []
 for J0 in J0s:
     mud0 = 2
     U00 = 40 #10
@@ -376,6 +396,8 @@ for J0 in J0s:
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0,omegac)
     H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0)
     superop0 = Liouvillian(H0,Ls0)
+    superop0adj = adjLiouvillian(H0,Ls0,nl)
+    Nlt = np.trace( np.matmul(superop0adj,rho0 ) )
     Ll0 = Dl(E0,U00,Uf0,ev/2,betal,gl,glU)
     Lr0 = Dr(E0,U00,Uf0,-ev/2,betar,gr,grU)
     Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
@@ -383,7 +405,7 @@ for J0 in J0s:
     Htd0 =  Htd(El0,Er0,Ed0,U00,Uf0)
     rhof = Propagate(rho0,superop0,40000)
     
-    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0 = currents(Htd0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
+    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0 = currents(Htd0,g0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
     #cohev.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
     concv.append(concu0)    
     sigmal = Sl0 - betal*Ql0
@@ -403,7 +425,19 @@ for J0 in J0s:
     cohes.append(cohe0)
     Nls.append(Nl0)
     Jof.append(J0/(betaph*gl))
-    Acts.append(Act0)
+    Acts.append(J0*Act0)
+    Probnt10.append(rhof[0,0].real )
+    Probnt20.append(rhof[1,1].real )
+    Probnt30.append(rhof[2,2].real )
+    Probnt40.append(rhof[3,3].real )
+    Probnt50.append(rhof[4,4].real )
+    Probnt60.append(rhof[5,5].real )
+    Probnt70.append(rhof[6,6].real )
+    Probnt80.append(rhof[7,7].real )
+    Imalphg.append(2*g0*rhof[5,3].imag)
+    Imbetg.append(2*g0*rhof[4,2].imag)
+    Nqms.append(Nq0)
+    Nltotal.append(Nlt)
     print(J0)
 
 plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
@@ -428,6 +462,22 @@ plt.xscale("log")
 plt.show()
 
 plt.plot(Jof,Nls, color='green',lw=3, label = r'$\dot{N}_{L}$')
+plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+plt.plot(Jof,Nqms, color='green',lw=3, label = r'$\hat{I}$')
+plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+plt.plot(Jof,Nltotal, color='green',lw=3, label = r'$\hat{I} + \hat{I}_{diss}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
@@ -465,5 +515,6 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-np.savez("phonong=10^{-1}zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts)
+np.savez("phonong=0zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nqms=Nqms,Nltotal=Nltotal)
 
+#np.savez("phonong=0prob.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
