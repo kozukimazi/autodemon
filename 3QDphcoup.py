@@ -194,11 +194,18 @@ def Liouvillian( H,Ls, hbar = 1):
                                                       for L in Ls ] )    
     return superH + superL
 
-def adjLiouvillian( H,Ls, O,hbar = 1):
-    cohe = (1j/hbar)*(np.matmul(H,O) - np.matmul(O,H))
-    dissip = sum( [ np.matmul( L.transpose().conjugate(), np.matmul(O,L) ) - 1/2* anticonmutador( np.matmul(L.transpose().conjugate(),L), O )  for L in Ls ] )
-    return cohe + dissip
+def adjLiouvillian( H,Ls,O,hbar = 1):
     
+    cohe = (1j/hbar)* (np.matmul(H,O ) - np.matmul(O,H))
+    dissip = sum([ np.matmul( L.conjugate().T,np.matmul(O,L) ) - 1/2*( anticonmutador( np.matmul(L.conjugate().T,L),O ) )  for L in Ls] )
+    return cohe + dissip
+
+def adjLiouvillianT( H,Ls,hbar = 1):
+    d = len(H)
+    cohe = (1j/hbar)* (np.kron(np.eye(d), H ) - np.kron(H.T,  np.eye(d)))
+    dissip = sum([ np.kron( L.transpose(),L.transpose().conjugate(), ) - 1/2*( np.kron((L.conjugate().transpose().dot(L)).T,np.eye(d)) + np.kron(np.eye(d),(L.conjugate().transpose().dot(L))) )  for L in Ls] )
+    return cohe + dissip    
+
 
 def Propagate(rho0,superop,t):
     d = len(rho0)
@@ -275,12 +282,12 @@ def currents(Htd,g0,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Wl = mul*np.trace(np.matmul( Dl, Nop ))
     Wr = mur*np.trace(np.matmul( Dr, Nop ))
     Wd = mud*np.trace(np.matmul( Dd, Nop ))
-
+    Wlr = Wl + Wr
     Nl = np.trace( np.matmul(Dl,Nop ) )
     Nr = np.trace(np.matmul(Dr,Nop ))
     Nd = np.trace(np.matmul( Dd,Nop ))
     Act = np.trace(np.matmul(A,np.matmul(rhof,A)))
-    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real,Act.real,Nqm.real
+    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real,Act.real,Nqm.real,Wlr.real
 
 ###################################
 #############parametros##############
@@ -289,7 +296,7 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-g0 = 0
+g0 = 7/1000
 #g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
@@ -379,6 +386,8 @@ Imalphg = []
 Imbetg = []
 Nqms = []
 Nltotal = []
+Nlqm = []
+Work = []
 for J0 in J0s:
     mud0 = 2
     U00 = 40 #10
@@ -394,18 +403,26 @@ for J0 in J0s:
     #Probar condicion (U00/E0)<<1,Strasberg
     El0 = Er0 = E0 = 0
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0,omegac)
+    Ls0p = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,0,0,0,0,0,0,J0,omegac)
     H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0)
+    H0f = Hamiltonian(El0,Er0,Ed0,U00,Uf0,0)
     superop0 = Liouvillian(H0,Ls0)
-    superop0adj = adjLiouvillian(H0,Ls0,nl)
-    Nlt = np.trace( np.matmul(superop0adj,rho0 ) )
+    superop0adj = adjLiouvillian(H0,Ls0p,nl)
+    superop1adj = adjLiouvillian(H0,0*Ls0p,nl)
+    superop0adj2 = adjLiouvillian(H0,Ls0,nr)
+    final = superop0adj + superop0adj2
+    adLin = adjLiouvillianT(H0,Ls0)
+    #nlt = Propagate(nl,adLin,40000)
     Ll0 = Dl(E0,U00,Uf0,ev/2,betal,gl,glU)
     Lr0 = Dr(E0,U00,Uf0,-ev/2,betar,gr,grU)
     Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
     Lph0 = Dphonon(betaph,J0,omegac)
     Htd0 =  Htd(El0,Er0,Ed0,U00,Uf0)
     rhof = Propagate(rho0,superop0,40000)
-    
-    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0 = currents(Htd0,g0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
+    Nlt = np.trace( np.matmul(superop0adj,rhof ) )
+    Nltqm = np.trace( np.matmul(superop1adj,rhof ) )
+    #Nlt = np.trace( np.matmul(nlt,rho0 ) )
+    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0,Wlr0 = currents(Htd0,g0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
     #cohev.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
     concv.append(concu0)    
     sigmal = Sl0 - betal*Ql0
@@ -438,6 +455,8 @@ for J0 in J0s:
     Imbetg.append(2*g0*rhof[4,2].imag)
     Nqms.append(Nq0)
     Nltotal.append(Nlt)
+    Nlqm.append(Nltqm)
+    Work.append(Wlr0)
     print(J0)
 
 plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
@@ -469,7 +488,8 @@ plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()
 
-plt.plot(Jof,Nqms, color='green',lw=3, label = r'$\hat{I}$')
+plt.plot(Jof,Nlqm, color='green',lw=3, label = r'$\hat{I}$')
+plt.plot(Jof,Nltotal, color='red',lw=3,linestyle = '--', label = r'$\hat{I} + \hat{I}_{diss}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
@@ -477,13 +497,7 @@ plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()
 
-plt.plot(Jof,Nltotal, color='green',lw=3, label = r'$\hat{I} + \hat{I}_{diss}$')
-plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
-plt.xticks(fontsize=17)  # X-axis tick labels
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15,loc = "upper right")
-plt.xscale("log")
-plt.show()
+
 
 # Create subplots (1 row, 2 columns)
 fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
@@ -515,6 +529,9 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-np.savez("phonong=0zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nqms=Nqms,Nltotal=Nltotal)
+
+
+
+np.savez("phonong=7_10^{-3}zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work)
 
 #np.savez("phonong=0prob.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
