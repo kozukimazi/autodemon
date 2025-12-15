@@ -296,7 +296,7 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-g0 = 7/1000
+g0 = 3/1000
 #g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
@@ -532,7 +532,7 @@ plt.show()
 
 
 
-np.savez("phonong=7_10^{-3}zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work)
+np.savez("phonong=3_10^{-3}zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work)
 
 #np.savez("phonong=0prob.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
 #volver a sacar 7_10^{-3}, 5_10^{-3}, 3_10^{-3}
