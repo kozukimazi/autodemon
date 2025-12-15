@@ -485,7 +485,7 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
 betal,betar,betad =1/100,1/100,1/2
 betaph = 1/400
 
-g = 50#1/10000
+g = 3/1000
 gl,glu = 1/100,(1/100)*(1/6)
 gr,gru = (1/100)*(1/6),1/100
 gd = 1/50
@@ -506,6 +506,7 @@ Imalphg = []
 Imbetg = []
 Jof = []
 Wlr = []
+Jphonon = []
 for J0 in J0s:
     print(J0)
     mud0 = 2
@@ -519,7 +520,7 @@ for J0 in J0s:
     
     Uf0 = 500
     #Probar condicion (U00/E0)<<1,Strasberg
-    E0l = 0#4
+    E0l = 4#4
     E0r = 0#4
     ev = 100
     omegac = 1E-2
@@ -564,6 +565,7 @@ for J0 in J0s:
     Imalphg.append(2*g*cal1f[5,3].imag)
     Imbetg.append(2*g*cal1f[4,2].imag)
     Jof.append(J0/(betaph*gl))
+    Jphonon.append(qph.real)
 
 plt.plot(Jof,Nls,lw = 3,label = r'$\dot{N}_{L}$',color = 'b')
 #plt.plot(Jof,Nrs, label = r'$\dot{N}_{R}$', color = 'r')     
@@ -597,6 +599,12 @@ plt.xscale("log")
 plt.legend()
 plt.show()
 
+plt.plot(Jof,Jphonon,lw = 3,label = r'$J_{phonon}$', color = 'b') 
+plt.xlabel(r'$\frac{J_{0}}{\beta_{ph} \kappa_{l}}$',fontsize = 20)   
+plt.xscale("log")
+plt.legend()
+plt.show()
+
 
 archivo = open("redfieldphxd","w")
 decimal_places = 7
@@ -624,4 +632,4 @@ for i in range(Num):
     archivo.write( format_str.format(cohev[i]))
     archivo.write("\n")
 
-np.savez("phonong=50red.npz", Jof=Jof,cohev=cohev, concuv = concuv, Nls = Nls,Jlrs=Jlrs,Wlr=Wlr,Jphs=Jphs,Imalphg=Imalphg,Imbetg=Imbetg)    
+np.savez("phonong=3_10^{-3}redEl_4.npz", Jof=Jof,cohev=cohev, concuv = concuv, Nls = Nls,Jlrs=Jlrs,Wlr=Wlr,Jphs=Jphs,Imalphg=Imalphg,Imbetg=Imbetg)    
