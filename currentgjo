@@ -296,7 +296,7 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-g0 = 3/1000
+
 #g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
@@ -360,8 +360,8 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,1/4]])
 
-Num = 1800
-J0s = np.logspace(-8,-3,Num)
+Num = 7000
+J0s = np.logspace(-9,5,Num)
 
 Isl = []
 Id = []
@@ -389,6 +389,7 @@ Nltotal = []
 Nlqm = []
 Work = []
 for J0 in J0s:
+    g0 = 0
     mud0 = 2
     U00 = 40 #10
     #mud0 = 1-U00/2
@@ -459,6 +460,79 @@ for J0 in J0s:
     Work.append(Wlr0)
     print(J0)
 
+Num = 7000
+g0fs = np.logspace(-9,5,Num)
+
+
+Islg = []
+Idg = []
+Iphsg = []
+Ileg = []
+Ireg = []
+cohesg = []
+concvg = []
+Ilrnewg = []
+gof1 = []
+Nlsg = []
+for g0fm in g0fs:
+    mud0 = 2
+    U00 = 40 #10
+    #mud0 = 1-U00/2
+    #Con Ed0 = mud0 -U00/2,E0=4 hay flujo de energia pero un orden menor al de
+    #flujo de informacion
+    #Ed0 = 1
+    eps = 0.5
+    Ed0 = mud0 - (1-eps)*U00
+    ev = 100
+    #Ed0 = mud0 -U00/2
+    Uf0 = 500 #50
+    #Probar condicion (U00/E0)<<1,Strasberg
+    El0 = Er0 = E0 = 0
+    J0 = 0*betaph*gl
+    Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0,omegac)
+    H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0fm)
+    superop0 = Liouvillian(H0,Ls0)
+    Ll0 = Dl(E0,U00,Uf0,ev/2,betal,gl,glU)
+    Lr0 = Dr(E0,U00,Uf0,-ev/2,betar,gr,grU)
+    Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
+    Lph0 = Dphonon(betaph,J0,omegac)
+    Htd0 =  Htd(El0,Er0,Ed0,U00,Uf0)
+    rhof = Propagate(rho0,superop0,40000)
+    
+    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0,Wlr0 = currents(Htd0,g0fm,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
+    #cohev.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
+    concvg.append(concu0)    
+    sigmal = Sl0 - betal*Ql0
+    sigmar = Sr0 - betar*Qr0
+
+    Isl0 = -Sl0 - Sr0
+    Id0 = -Sd0
+    Il0 = -Sl0
+    Ir0 = -Sr0
+    Iph0 = -Sphf0
+    Islg.append(Isl0)
+    Idg.append(-Sd0)
+    Iphsg.append(Iph0)
+    Ilrnewg.append(Il0 + Ir0 + Iph0)
+    Ileg.append(Il0)
+    Ireg.append(Ir0)
+    cohesg.append(cohe0)
+    Nlsg.append(Nl0)
+    gof1.append(g0fm/(gl))
+    print(g0fm)
+
+plt.plot(gof1,Idg, color='red',lw=3, label = r'$\dot{I}_{D}$')
+plt.plot(gof1,Iphsg, color='orange',lw=3, label = r'$\dot{I}_{Ph}$')
+plt.plot(gof1,Ileg, color='black',lw=3, label = r'$\dot{I}_{Le}$')
+plt.plot(gof1,Ireg, color='blue',lw=3, label = r'$\dot{I}_{Re}$')
+plt.xlabel(r'$g_{0}/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\dot{I}_{i}$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper left")
+plt.xscale("log")
+plt.show()
+
 plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
 plt.plot(Jof,Iphs, color='orange',lw=3, label = r'$\dot{I}_{Ph}$')
 plt.plot(Jof,Ile, color='black',lw=3, label = r'$\dot{I}_{Le}$')
@@ -471,14 +545,25 @@ plt.legend(fontsize=15,loc = "upper left")
 plt.xscale("log")
 plt.show()
 
-plt.plot(Jof,concv, color='green',lw=3, label = 'Concurrence')
-plt.plot(Jof,cohes, color='purple',lw=3, label = 'Coherence')
-plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.plot(gof1,concvg, color='green',lw=3, label = 'Concurrence')
+plt.plot(gof1,cohesg, color='purple',lw=3, label = 'Coherence')
+plt.xlabel(r'$g_{0}/\kappa_{L})$',fontsize = 20)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()
+
+
+
+plt.plot(gof1,Nlsg, color='green',lw=3, label = r'$\dot{N}_{L}$')
+plt.xlabel(r'$g_{0}/\kappa_{L}$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
 
 plt.plot(Jof,Nls, color='green',lw=3, label = r'$\dot{N}_{L}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
@@ -488,14 +573,6 @@ plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()
 
-plt.plot(Jof,Nlqm, color='green',lw=3, label = r'$\hat{I}$')
-plt.plot(Jof,Nltotal, color='red',lw=3,linestyle = '--', label = r'$\hat{I} + \hat{I}_{diss}$')
-plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
-plt.xticks(fontsize=17)  # X-axis tick labels
-plt.yticks(fontsize=17)
-plt.legend(fontsize=15,loc = "upper right")
-plt.xscale("log")
-plt.show()
 
 
 
@@ -505,22 +582,17 @@ fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_la
 
 #ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
 #mientras que al superar esa vara L empieza a medir 
-ax10.plot(Jof,Iphs, color='red',lw=3, label = r'$\dot{I}_{ph}$')
-ax10.plot(Jof,Ile, color='black',lw=3, label = r'$\dot{I}_{Le}$')
-ax10.plot(Jof,Ire, color='blue',lw=3, label = r'$\dot{I}_{Re}$')
-ax10.set_ylabel(r'$\dot{I}_{i}$',fontsize = 22)
+ax10.plot(Jof,Nls, color='red',lw=3, label = r'$\dot{N}_{l}$')
 ax10.legend(fontsize=17,loc = "center left")
 ax10.set_xscale('log')  
 ax10.tick_params(labelbottom=False,labelsize = 18)
 ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
+ax10.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)  
 
-
-ax20.plot(Jof,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 3)
-ax20.plot(Jof,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3)  
-ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
+ax20.plot(gof1,Nlsg,label = r'$\dot{N}_{Lg}$', color = 'b',lw = 3) 
+ax20.set_xlabel(r'$g_{0}/(\kappa_{L})$',fontsize = 20)   
 ax20.set_xscale("log")
 ax20.legend(fontsize=17, loc = "upper left") 
-ax20.set_ylabel("Coherencia y entrelazamiento",fontsize = 22)
 ax20.tick_params(labelsize=18)  # font size of tick labels 
 ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
 
@@ -529,10 +601,30 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
+plt.plot(gof1,Idg, color='red',lw=3, label = r'$\dot{I}_{D}$')
+plt.plot(gof1,Iphsg, color='orange',lw=3, label = r'$\dot{I}_{Ph}$')
+plt.plot(gof1,Ileg, color='black',lw=3, label = r'$\dot{I}_{Le}$')
+plt.plot(gof1,Ireg, color='blue',lw=3, label = r'$\dot{I}_{Re}$')
+plt.xlabel(r'$g_{0}/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\dot{I}_{i}$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper left")
+plt.xscale("log")
+plt.show()
+
+plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
+plt.plot(Jof,Iphs, color='orange',lw=3, label = r'$\dot{I}_{Ph}$')
+plt.plot(Jof,Ile, color='black',lw=3, label = r'$\dot{I}_{Le}$')
+plt.plot(Jof,Ire, color='blue',lw=3, label = r'$\dot{I}_{Re}$')
+plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.ylabel(r'$\dot{I}_{i}$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper left")
+plt.xscale("log")
+plt.show()
 
 
 
-np.savez("phonong=3_10^{-3}zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work)
 
-#np.savez("phonong=0prob.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
-#volver a sacar 3_10^{-3}(16/12/25)
