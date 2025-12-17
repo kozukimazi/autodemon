@@ -388,6 +388,9 @@ Nqms = []
 Nltotal = []
 Nlqm = []
 Work = []
+Qls = []
+Qrs = []
+Qds = []
 for J0 in J0s:
     mud0 = 2
     U00 = 40 #10
@@ -457,6 +460,9 @@ for J0 in J0s:
     Nltotal.append(Nlt)
     Nlqm.append(Nltqm)
     Work.append(Wlr0)
+    Qls.append(Ql0)
+    Qrs.append(Qr0) 
+    Qds.append(Qd0)
     print(J0)
 
 plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
@@ -496,6 +502,18 @@ plt.yticks(fontsize=17)
 plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()
+
+
+plt.plot(Jof,Qls, color='green',lw=3, label = r'$\dot{Q}_{L}$')
+plt.plot(Jof,Qrs, color='red',lw=3,linestyle = '--', label = r'$\dot{Q}_{R}$')
+plt.plot(Jof,Qds, color='blue',lw=3, label = r'$\dot{Q}_{D}$')
+plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
 
 
 

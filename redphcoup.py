@@ -485,15 +485,15 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
 betal,betar,betad =1/100,1/100,1/2
 betaph = 1/400
 
-g = 3/1000
+g = 30
 gl,glu = 1/100,(1/100)*(1/6)
 gr,gru = (1/100)*(1/6),1/100
 gd = 1/50
 gl1 = [gl,gl,glu,gl,gl,gl,glu,gl]
 gr1 = [gr,gr,gru,gr,gr,gr,gru,gr]
 
-Num = 1800
-J0s = np.logspace(-8,-3,Num)
+Num = 2000
+J0s = np.logspace(-8,1,Num)
 Nls = []
 Nrs = []
 Jls = []
@@ -520,7 +520,7 @@ for J0 in J0s:
     
     Uf0 = 500
     #Probar condicion (U00/E0)<<1,Strasberg
-    E0l = 4#4
+    E0l = 0#4
     E0r = 0#4
     ev = 100
     omegac = 1E-2
@@ -632,4 +632,5 @@ for i in range(Num):
     archivo.write( format_str.format(cohev[i]))
     archivo.write("\n")
 
-np.savez("phonong=3_10^{-3}redEl_4.npz", Jof=Jof,cohev=cohev, concuv = concuv, Nls = Nls,Jlrs=Jlrs,Wlr=Wlr,Jphs=Jphs,Imalphg=Imalphg,Imbetg=Imbetg)    
+#calcular 3_10^{-3}redEl_4.npz
+#np.savez("phonong=3_10^{-3}redEl_4.npz", Jof=Jof,cohev=cohev, concuv = concuv, Nls = Nls,Jlrs=Jlrs,Wlr=Wlr,Jphs=Jphs,Imalphg=Imalphg,Imbetg=Imbetg)    
