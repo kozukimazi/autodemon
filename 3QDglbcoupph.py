@@ -363,7 +363,7 @@ mul1 = eV/2
 mur1 = -eV/2
 mud1 = 2
 
-betaph = 1/300
+betaph = 1/400
 betar,betad,betal = 1/100,1/2,1/100
 gr,gd,gl = 1/100*(1/6),1/50,1/100
 glU,grU = 1/100*(1/6),1/100
@@ -485,8 +485,8 @@ Qd = []
 #plt.plot(times,Qr, label = r'$\dot{Q}_{R}$') 
 #plt.plot(times,Qd,label = r'$\dot{Q}_{d}$')
 #plt.show()   
-Num = 200
-eVs = np.linspace(0,800,Num)
+Num = 7000
+g0fs = np.logspace(-4,5,Num)
 Sls = []
 Srs = []
 Sds = []
@@ -504,12 +504,14 @@ Qphlist = []
 Sphlist = []
 Qlr = []
 #gf = 5/1000
-gf = 600
-for ev in eVs:
+gfss = []
+
+for gf in g0fs:
     mud0 = 2
     U00 = 40
     #mud0 = 1-U00/2
     eps = 0.5
+    ev = 100
     Ed0f = mud0 - (1-eps)*U00    
     Uf0 = 500
     Elf = Erf = 0
@@ -517,7 +519,7 @@ for ev in eVs:
     Eup = (Elf+Erf)/2 + np.sqrt(Delta**2 + g**2)
     Emin = (Elf+Erf)/2 - np.sqrt(Delta**2 + g**2)
     dup,dupdag,dmin,dmindag = twolevel(Elf,Erf,g)
-    J0 = 0.01
+    J0 = 5*0.1*betaph*gl
     omegac = 1E-2
     Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,J0,omegac)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g)
@@ -586,61 +588,65 @@ for ev in eVs:
     Ers.append(Er0)
     Eds.append(Ed0)
     Erl.append(El0 + Er0)
+    gfss.append(gf/gl)
 
 
-plt.plot(eVs,Ql,label = r'$\dot{Q}_{L}$')
-plt.plot(eVs,Qr, label = r'$\dot{Q}_{R}$') 
-plt.plot(eVs,Qd,label = r'$\dot{Q}_{d}$')
-plt.xlabel(r'$eV$',fontsize = 20)
+plt.plot(gfss,Ql,label = r'$\dot{Q}_{L}$')
+plt.plot(gfss,Qr, label = r'$\dot{Q}_{R}$') 
+plt.plot(gfss,Qd,label = r'$\dot{Q}_{d}$')
+plt.xlabel(r'$g/\kappa_L$',fontsize = 20)
 plt.ylabel("Heat current",fontsize = 20)
 plt.legend()
+plt.xscale("log")
 plt.show()   
 
 
-plt.plot(eVs,Sls,label = r'$\dot{\sigma}_{L}$')
-plt.plot(eVs,Srs, label = r'$\dot{\sigma}_{R}$') 
-plt.plot(eVs,Sds,label = r'$\dot{\sigma}_{d}$')
-plt.xlabel(r'$eV$',fontsize = 20)
+plt.plot(gfss,Sls,label = r'$\dot{\sigma}_{L}$')
+plt.plot(gfss,Srs, label = r'$\dot{\sigma}_{R}$') 
+plt.plot(gfss,Sds,label = r'$\dot{\sigma}_{d}$')
+plt.xlabel(r'$g/\kappa_L$',fontsize = 20)
 plt.ylabel("Entropy production",fontsize = 20)
+plt.xscale("log")
 plt.legend()
 plt.show()   
 
-plt.plot(eVs,Slr)
+plt.plot(gfss,Slr)
 plt.ylabel(r'$\dot{\sigma}_{LR}$',fontsize = 20)
-plt.xlabel(r'eV', fontsize = 20)
+plt.xlabel(r'$g/\kappa_L$', fontsize = 20)
+plt.xscale("log")
 plt.show()
 
 
-plt.plot(eVs,Isl, label = r'$\dot{I}_{LR}$')
-plt.plot(eVs,Id, label = r'$\dot{I}_{d}$')
-plt.xlabel(r'$eV$',fontsize = 20)
+plt.plot(gfss,Isl, label = r'$\dot{I}_{LR}$')
+plt.plot(gfss,Id, label = r'$\dot{I}_{d}$')
+plt.xlabel(r'$g/\kappa_L$',fontsize = 20)
 plt.xscale("log")
 plt.legend()
 plt.show()
 
 
-plt.plot(eVs,Ers, label = r'$\dot{E}_{R}$')
-plt.plot(eVs,Els, label = r'$\dot{E}_{L}$')
-plt.plot(eVs,Eds, label = r'$\dot{E}_{d}$')
-plt.xlabel(r'$eV$',fontsize = 20)
+plt.plot(gfss,Ers, label = r'$\dot{E}_{R}$')
+plt.plot(gfss,Els, label = r'$\dot{E}_{L}$')
+plt.plot(gfss,Eds, label = r'$\dot{E}_{d}$')
+plt.xlabel(r'$g/\kappa_L$',fontsize = 20)
 plt.xscale("log")
 plt.legend()
 plt.show()
 
-plt.plot(eVs,Erl, label = r'$\dot{E}_{d}$')
-plt.xlabel(r'$eV$',fontsize = 20)
+plt.plot(gfss,Erl, label = r'$\dot{E}_{d}$')
+plt.xlabel(r'$g/\kappa_L$',fontsize = 20)
 plt.xscale("log")
 plt.show()
 
 
 #archivo = open("globalstrongg","w")
-archivo = open("globalph","w")
+archivo = open("globalphJ05_10^{-1}","w")
 decimal_places = 7
 total_width = 8
 format_str = f"{{:.{decimal_places}f}}" 
 #format_str = f"{{:{total_width}.{decimal_places}f}}"
 for i in range(Num):
-    archivo.write( format_str.format(eVs[i])) #guarda el grado del nodo
+    archivo.write( format_str.format(gfss[i])) #guarda el grado del nodo
     #archivo.write(str(xs[i])) 
     archivo.write(" ") 
     #archivo.write(str(ys[i]))
