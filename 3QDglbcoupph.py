@@ -486,7 +486,7 @@ Qd = []
 #plt.plot(times,Qd,label = r'$\dot{Q}_{d}$')
 #plt.show()   
 Num = 7000
-g0fs = np.logspace(-4,5,Num)
+g0fs = np.logspace(-9,5,Num)
 Sls = []
 Srs = []
 Sds = []
@@ -505,7 +505,9 @@ Sphlist = []
 Qlr = []
 #gf = 5/1000
 gfss = []
-
+Ile = []
+Ire = []
+Iphs = []
 for gf in g0fs:
     mud0 = 2
     U00 = 40
@@ -519,7 +521,7 @@ for gf in g0fs:
     Eup = (Elf+Erf)/2 + np.sqrt(Delta**2 + g**2)
     Emin = (Elf+Erf)/2 - np.sqrt(Delta**2 + g**2)
     dup,dupdag,dmin,dmindag = twolevel(Elf,Erf,g)
-    J0 = 5*0.1*betaph*gl
+    J0 = 10*betaph*gl
     omegac = 1E-2
     Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,J0,omegac)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g)
@@ -589,6 +591,10 @@ for gf in g0fs:
     Eds.append(Ed0)
     Erl.append(El0 + Er0)
     gfss.append(gf/gl)
+    Iphs.append(-Sph0)
+    Ile.append(-Sl0)    
+    Ire.append(-Sr0)
+    print(gf/gl)
 
 
 plt.plot(gfss,Ql,label = r'$\dot{Q}_{L}$')
@@ -639,6 +645,13 @@ plt.xscale("log")
 plt.show()
 
 
+plt.plot(gfss,cohev, label = r'$\mathcal{C}_{l_{1}}$')
+plt.plot(gfss,concuv, label = r'$\mathcal{C}_{on}$')
+plt.xlabel(r'$g/\kappa_L$',fontsize = 20)
+plt.xscale("log")
+plt.show()
+
+
 #archivo = open("globalstrongg","w")
 archivo = open("globalphJ05_10^{-1}","w")
 decimal_places = 7
@@ -665,5 +678,7 @@ for i in range(Num):
     archivo.write(" ") 
     archivo.write( format_str.format(cohev[i]))
     archivo.write("\n")
+
+np.savez("phononJ0=10^{-1}bkglb.npz", gof1=gfss, Qlr = Qlr, Qphs = Qphlist,Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls)
 
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 

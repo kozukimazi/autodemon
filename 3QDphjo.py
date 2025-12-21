@@ -357,6 +357,8 @@ concv = []
 Ilrnew = []
 gof1 = []
 Nls = []
+Qlr = []
+Qphlist = []
 for g0fm in g0fs:
     mud0 = 2
     U00 = 40 #10
@@ -402,6 +404,8 @@ for g0fm in g0fs:
     cohes.append(cohe0)
     Nls.append(Nl0)
     gof1.append(g0fm/(gl))
+    Qphlist.append(Qph0)
+    Qlr.append(Ql0 + Qr0 + Qph0)
     print(g0fm)
 
 plt.plot(gof1,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
@@ -463,5 +467,5 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-np.savez("phononJ0=5_10^{-1}bk.npz", gof1=gof1, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
+np.savez("phononJ0=5_10^{-1}bk.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
 
