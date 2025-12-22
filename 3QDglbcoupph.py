@@ -521,7 +521,7 @@ for gf in g0fs:
     Eup = (Elf+Erf)/2 + np.sqrt(Delta**2 + g**2)
     Emin = (Elf+Erf)/2 - np.sqrt(Delta**2 + g**2)
     dup,dupdag,dmin,dmindag = twolevel(Elf,Erf,g)
-    J0 = 10*betaph*gl
+    J0 = betaph*gl
     omegac = 1E-2
     Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,J0,omegac)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g)
@@ -679,6 +679,6 @@ for i in range(Num):
     archivo.write( format_str.format(cohev[i]))
     archivo.write("\n")
 
-np.savez("phononJ0=10^{-1}bkglb.npz", gof1=gfss, Qlr = Qlr, Qphs = Qphlist,Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls)
+np.savez("phononJ0=bkglb.npz", gof1=gfss, Qlr = Qlr, Qphs = Qphlist,Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls)
 
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 
