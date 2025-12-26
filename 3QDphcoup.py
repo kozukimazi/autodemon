@@ -296,7 +296,7 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-g0 = 3/1000
+g0 =3/1000
 #g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
@@ -391,6 +391,8 @@ Work = []
 Qls = []
 Qrs = []
 Qds = []
+eff = []
+effph = []
 for J0 in J0s:
     mud0 = 2
     U00 = 40 #10
@@ -463,6 +465,8 @@ for J0 in J0s:
     Qls.append(Ql0)
     Qrs.append(Qr0) 
     Qds.append(Qd0)
+    eff.append( abs(Wlr0)/(Ql0+Qr0) )
+    effph.append( abs(Wlr0)/(Ql0+Qr0+Qph0) )
     print(J0)
 
 plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
@@ -514,7 +518,14 @@ plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()
 
-
+plt.plot(Jof,eff, color='green',lw=3, label = r'$\eta$')
+plt.plot(Jof,effph, color='red',lw=3, label = r'$\eta_{ph}$')
+plt.xlabel(r'$J_{0}/(\beta_{ph}\gamma_{L})$',fontsize = 20)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
 
 
 # Create subplots (1 row, 2 columns)
@@ -550,7 +561,7 @@ plt.show()
 
 
 
-np.savez("phonong=3_10^{-3}zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work)
+np.savez("phonong=3_10^{-3}zoom.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work, eff=eff,effph=effph)
 
 #np.savez("phonong=0prob.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
 #volver a sacar 3_10^{-3}(16/12/25)

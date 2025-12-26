@@ -2,33 +2,33 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 data0 = np.load("phonong=0zoom.npz")
-Jof0,Id0,Ile0,Ire0,Iphs0,cohes0,concv0,Nls0,Act0,Nqm0,Nltotal0,Work0 = data0["Jof"], data0["Id"], data0["Ile"], data0["Ire"], data0["Iphs"], data0["cohes"], data0["concv"], data0["Nls"],data0["Acts"], data0["Nlqm"],data0["Nltotal"],data0["Work"]
+Jof0,Id0,Ile0,Ire0,Iphs0,cohes0,concv0,Nls0,Act0,Nqm0,Nltotal0,Work0,eff0,effph0 = data0["Jof"], data0["Id"], data0["Ile"], data0["Ire"], data0["Iphs"], data0["cohes"], data0["concv"], data0["Nls"],data0["Acts"], data0["Nlqm"],data0["Nltotal"],data0["Work"],data0["eff"],data0["effph"]
 
 data1 = np.load("phonong=10^{-4}zoom.npz")
-Jof1,Id1,Ile1,Ire1,Iphs1,cohes1,concv1,Nls1,Act1,Nqm1,Nltotal1,Work1 = data1["Jof"], data1["Id"], data1["Ile"], data1["Ire"], data1["Iphs"], data1["cohes"], data1["concv"], data1["Nls"],data1["Acts"], data1["Nlqm"],data1["Nltotal"],data1["Work"]
+Jof1,Id1,Ile1,Ire1,Iphs1,cohes1,concv1,Nls1,Act1,Nqm1,Nltotal1,Work1,eff1,effph1 = data1["Jof"], data1["Id"], data1["Ile"], data1["Ire"], data1["Iphs"], data1["cohes"], data1["concv"], data1["Nls"],data1["Acts"], data1["Nlqm"],data1["Nltotal"],data1["Work"],data1["eff"],data1["effph"]
 
 data2 = np.load("phonong=5_10^{-4}zoom.npz")
-Jof2,Id2,Ile2,Ire2,Iphs2,cohes2,concv2,Nls2,Act2,Nqm2,Nltotal2,Work2 = data2["Jof"], data2["Id"], data2["Ile"], data2["Ire"], data2["Iphs"], data2["cohes"], data2["concv"], data2["Nls"],data2["Acts"], data2["Nlqm"],data2["Nltotal"],data2["Work"]
+Jof2,Id2,Ile2,Ire2,Iphs2,cohes2,concv2,Nls2,Act2,Nqm2,Nltotal2,Work2,eff2,effph2 = data2["Jof"], data2["Id"], data2["Ile"], data2["Ire"], data2["Iphs"], data2["cohes"], data2["concv"], data2["Nls"],data2["Acts"], data2["Nlqm"],data2["Nltotal"],data2["Work"],data2["eff"],data2["effph"]
 data3 = np.load("phonong=10^{-3}zoom.npz")
-Jof3,Id3,Ile3,Ire3,Iphs3,cohes3,concv3,Nls3,Act3,Nqm3,Nltotal3,Work3 = data3["Jof"], data3["Id"], data3["Ile"], data3["Ire"], data3["Iphs"], data3["cohes"], data3["concv"], data3["Nls"],data3["Acts"], data3["Nlqm"],data3["Nltotal"],data3["Work"]
+Jof3,Id3,Ile3,Ire3,Iphs3,cohes3,concv3,Nls3,Act3,Nqm3,Nltotal3,Work3,eff3,effph3 = data3["Jof"], data3["Id"], data3["Ile"], data3["Ire"], data3["Iphs"], data3["cohes"], data3["concv"], data3["Nls"],data3["Acts"], data3["Nlqm"],data3["Nltotal"],data3["Work"],data3["eff"],data3["effph"]
 
 data4 = np.load("phonong=5_10^{-3}zoom.npz")
-Jof4,Id4,Ile4,Ire4,Iphs4,cohes4,concv4,Nls4,Act4,Nqm4,Nltotal4,Work4 = data4["Jof"], data4["Id"], data4["Ile"], data4["Ire"], data4["Iphs"], data4["cohes"], data4["concv"], data4["Nls"],data4["Acts"], data4["Nlqm"],data4["Nltotal"],data4["Work"]
+Jof4,Id4,Ile4,Ire4,Iphs4,cohes4,concv4,Nls4,Act4,Nqm4,Nltotal4,Work4,eff4,effph4 = data4["Jof"], data4["Id"], data4["Ile"], data4["Ire"], data4["Iphs"], data4["cohes"], data4["concv"], data4["Nls"],data4["Acts"], data4["Nlqm"],data4["Nltotal"],data4["Work"],data4["eff"],data4["effph"]
 
 data5 = np.load("phonong=10^{-2}zoom.npz")
-Jof5,Id5,Ile5,Ire5,Iphs5,cohes5,concv5,Nls5,Act5,Nqm5,Nltotal5,Work5 = data5["Jof"], data5["Id"], data5["Ile"], data5["Ire"], data5["Iphs"], data5["cohes"], data5["concv"], data5["Nls"],data5["Acts"], data5["Nlqm"],data5["Nltotal"],data5["Work"]
+Jof5,Id5,Ile5,Ire5,Iphs5,cohes5,concv5,Nls5,Act5,Nqm5,Nltotal5,Work5,eff5,effph5 = data5["Jof"], data5["Id"], data5["Ile"], data5["Ire"], data5["Iphs"], data5["cohes"], data5["concv"], data5["Nls"],data5["Acts"], data5["Nlqm"],data5["Nltotal"],data5["Work"],data5["eff"],data5["effph"]
 
 data6 = np.load("phonong=5_10^{-2}zoom.npz")
-Jof6,Id6,Ile6,Ire6,Iphs6,cohes6,concv6,Nls6,Act6,Nqm6,Nltotal6,Work6 = data6["Jof"], data6["Id"], data6["Ile"], data6["Ire"], data6["Iphs"], data6["cohes"], data6["concv"], data6["Nls"],data6["Acts"], data6["Nlqm"],data6["Nltotal"],data6["Work"]
+Jof6,Id6,Ile6,Ire6,Iphs6,cohes6,concv6,Nls6,Act6,Nqm6,Nltotal6,Work6,eff6,effph6 = data6["Jof"], data6["Id"], data6["Ile"], data6["Ire"], data6["Iphs"], data6["cohes"], data6["concv"], data6["Nls"],data6["Acts"], data6["Nlqm"],data6["Nltotal"],data6["Work"],data6["eff"],data6["effph"]
 
 data7 = np.load("phonong=10^{-1}zoom.npz")
-Jof7,Id7,Ile7,Ire7,Iphs7,cohes7,concv7,Nls7,Act7,Nqm7,Nltotal7,Work7 = data7["Jof"], data7["Id"], data7["Ile"], data7["Ire"], data7["Iphs"], data7["cohes"], data7["concv"], data7["Nls"],data7["Acts"], data7["Nlqm"],data7["Nltotal"],data7["Work"]
+Jof7,Id7,Ile7,Ire7,Iphs7,cohes7,concv7,Nls7,Act7,Nqm7,Nltotal7,Work7,eff7,effph7 = data7["Jof"], data7["Id"], data7["Ile"], data7["Ire"], data7["Iphs"], data7["cohes"], data7["concv"], data7["Nls"],data7["Acts"], data7["Nlqm"],data7["Nltotal"],data7["Work"],data7["eff"],data7["effph"]
 
 data8 = np.load("phonong=7_10^{-3}zoom.npz")
-Jof8,Id8,Ile8,Ire8,Iphs8,cohes8,concv8,Nls8,Act8,Nqm8,Nltotal8,Work8 = data8["Jof"], data8["Id"], data8["Ile"], data8["Ire"], data8["Iphs"], data8["cohes"], data8["concv"], data8["Nls"],data8["Acts"], data8["Nlqm"],data8["Nltotal"],data8["Work"]
+Jof8,Id8,Ile8,Ire8,Iphs8,cohes8,concv8,Nls8,Act8,Nqm8,Nltotal8,Work8,eff8,effph8 = data8["Jof"], data8["Id"], data8["Ile"], data8["Ire"], data8["Iphs"], data8["cohes"], data8["concv"], data8["Nls"],data8["Acts"], data8["Nlqm"],data8["Nltotal"],data8["Work"],data8["eff"],data8["effph"]
 
 data9 = np.load("phonong=3_10^{-3}zoom.npz")
-Jof9,Id9,Ile9,Ire9,Iphs9,cohes9,concv9,Nls9,Act9,Nqm9,Nltotal9,Work9 = data9["Jof"], data9["Id"], data9["Ile"], data9["Ire"], data9["Iphs"], data9["cohes"], data9["concv"], data9["Nls"],data9["Acts"], data9["Nlqm"],data9["Nltotal"],data9["Work"]
+Jof9,Id9,Ile9,Ire9,Iphs9,cohes9,concv9,Nls9,Act9,Nqm9,Nltotal9,Work9,eff9,effph9 = data9["Jof"], data9["Id"], data9["Ile"], data9["Ire"], data9["Iphs"], data9["cohes"], data9["concv"], data9["Nls"],data9["Acts"], data9["Nlqm"],data9["Nltotal"],data9["Work"],data9["eff"],data9["effph"]
 Ilrt0 = []
 Ilrt1 = []
 Ilrt2 = []
@@ -252,6 +252,25 @@ plt.plot(Jof8,Work8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 
 plt.plot(Jof9,Work9, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\mathcal{W}_{LR}$',fontsize = 25)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+
+plt.plot(Jof0,eff0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+plt.plot(Jof1,eff1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+plt.plot(Jof2,eff2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
+plt.plot(Jof3,eff3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+plt.plot(Jof4,eff4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
+plt.plot(Jof5,eff5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
+plt.plot(Jof6,eff6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
+plt.plot(Jof7,eff7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+plt.plot(Jof8,eff8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+plt.plot(Jof9,eff9, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
+plt.ylabel(r'$\eta_{LR}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15,loc = "upper right")
