@@ -416,10 +416,8 @@ plt.colorbar()
 plt.show()
 
     
-Ufs = np.linspace(7,40,100)
-Us = np.linspace(1,6,50)
 Num = 200
-eVs0 = np.linspace(0,800,Num)
+eVs0 = np.linspace(0,600,Num)
 #eVs0 = np.linspace(0,2000,Num)
 Ql = []
 Qr = []
@@ -520,7 +518,7 @@ for ev in eVs0:
     cohes.append(cohe0)
     Ilf.append(-Sl0)
     Irf.append(-Sr0) 
-    Nls.append(Nl0)
+    Nls.append(Nl0/gl)
     Nrs.append(Nr0)
     Nds.append(Nd0)
     eVs.append(ev*betal)
@@ -537,9 +535,6 @@ for ev in eVs0:
     resta.append(abs( rhof[3,3].real - rhof[5,5].real ))
     cohesex.append(abs( rhof[3,5]).real)
 
-###mejorar formato############
-#plt.rcParams["text.usetex"] = True
-#plt.rcParams["font.family"] = "serif" 
 
 
 plt.plot(eVs,Ql, color='black',lw = 4,label = r'$J_{L}$')
@@ -556,17 +551,17 @@ plt.yticks(fontsize=21)  # Y-axis tick labels
 plt.legend(loc = "lower left",fontsize=22) 
 plt.show()   
 
-plt.plot(eVs,Nls, color='black',lw=4,label = r'$\dot{N}_{L}$')
-plt.plot(eVs,Nrs, color='blue',lw=4, label = r'$\dot{N}_{R}$') 
-plt.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{D}$')
+plt.plot(eVs,Nls, color='black',lw=4,label = r'$I/\kappa_{L}$')
+#plt.plot(eVs,Nrs, color='blue',lw=4, label = r'$\dot{N}_{R}$') 
+#plt.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{D}$')
 plt.xticks(fontsize=20)  # X-axis tick labels
 plt.yticks(fontsize=20)  # Y-axis tick labels
 #plt.xscale("log")
 plt.xlabel(r'$eV/T$',fontsize = 20)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
-plt.ylabel(r'$\dot{N}_{\alpha}$',fontsize = 19)
-plt.legend(bbox_to_anchor=(0., 0.49), loc="lower left",fontsize=20) 
+plt.ylabel(r'$I/\kappa_{L}$',fontsize = 19)
+#plt.legend(bbox_to_anchor=(0., 0.49), loc="lower left",fontsize=20) 
 plt.show()  
 
 plt.plot(eVs,Qlr,lw=3, label = r'$J_{LR}$', color = 'black')
@@ -775,6 +770,11 @@ plt.show()
 #plt.rcParams["text.usetex"] = True
 #plt.rcParams["font.family"] = "serif" 
 
+###mejorar formato############
+plt.rcParams["text.usetex"] = True
+plt.rcParams["font.family"] = "serif" 
+
+
 # Create subplots (1 row, 2 columns)
 fig, (ax1, ax2) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
 
@@ -855,30 +855,34 @@ plt.show()
 # Create subplots (1 row, 2 columns)
 fig, (ax11, ax21) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
 
-ax11.plot(eVs,Nls,color='blue',lw=3, label = r'$\dot{N}_{L}$')
+ax11.plot(eVs,Nls,color='black',lw=3, label = r'$I/\kappa_{L}$')
+ax11.plot(eVs,Nds, color='red',linestyle = '--',lw=2)
+#(0.7,0.48)
+ax11.legend(bbox_to_anchor=(0.7, 0.52), fontsize=28, loc = "upper left")
+#ax11.set_ylabel(r'$I/\kappa_{L}$',fontsize = 20)
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax11.plot(eVs,Nrs,color='black',lw=3, label = r'$\dot{N}_{R}$')
-ax11.plot(eVs,Nds, color='red',lw = 3,label = r'$\dot{N}_{D}$')
 #ax10.xticks(fontsize=17)  
 #ax10.yticks(fontsize=17)
-ax11.legend(bbox_to_anchor=(0.20, 0.98),fontsize=15,loc = "upper left", ncol = 2)
-ax11.tick_params(labelbottom=False,labelsize = 20)
-ax11.text(0.9, 0.96, '(a)', transform=ax11.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+#ax11.legend(bbox_to_anchor=(0.20, 0.98),fontsize=15,loc = "upper left", ncol = 2)
+ax11.axvspan(0, 2.5, facecolor='b', alpha=0.5)
+ax11.tick_params(labelbottom=False,labelsize = 26)
+ax11.text(0.9, 0.20, '(a)', transform=ax11.transAxes, fontsize=35, fontweight='bold', va='top', ha='right')
 
 
-ax21.plot(eVs,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 3)
+ax21.plot(eVs,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'black',lw = 3)
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
 ax21.plot(eVs,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3) 
 #plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
 #ax2.xticks(fontsize=17)  # X-axis tick labels
 #ax2.yticks(fontsize=17)  # Y-axis tick labels
 #plt.xscale("log")
-ax21.set_xlabel(r'$eV/T$',fontsize = 20)
+ax21.set_xlabel(r'$eV/T$',fontsize = 26)
+ax21.axvspan(0, 2.5, facecolor='b', alpha=0.5)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
-ax21.legend(bbox_to_anchor=(0.20, 0.98), fontsize=17, loc = "upper left")
-ax21.tick_params(labelsize=18)  # font size of tick labels 
-ax21.text(0.9, 0.96, '(b)', transform=ax21.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+ax21.legend(bbox_to_anchor=(0.7, 0.98), fontsize=28, loc = "upper left")
+ax21.tick_params(labelsize=26)  # font size of tick labels 
+ax21.text(0.9, 0.22, '(b)', transform=ax21.transAxes, fontsize=35, fontweight='bold', va='top', ha='right')
 
 #fig.supylabel("Cantidades termodinámicas", fontsize=22)
 #plt.subplots_adjust(left=0.05) 
