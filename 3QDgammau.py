@@ -806,7 +806,7 @@ ax2.set_xlabel(r'$eV/T$',fontsize = 22)
 ax2.set_ylabel(r'$\dot{N}_{\alpha}$',fontsize = 22)
 ax2.legend(bbox_to_anchor=(-0.005, 0.68), loc="center left",fontsize=12) 
 ax2.tick_params(labelsize=18)  # font size of tick labels 
-ax2.text(0.9, 0.95, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
+ax2.text(0.9, 0.95, '(b)', transform=ax2.transAxes, fontsize=25, fontweight='bold', va='top', ha='left')
 
 
 #plt.subplots_adjust(left=0.05) 
@@ -817,7 +817,7 @@ plt.show()
 # Create subplots (1 row, 2 columns)
 fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
 
-ax10.plot(eVs,Erl,color='blue',lw=3, label = r'$\dot{E}_{LR}$')
+ax10.plot(eVs,Erl,color='black',linestyle='--',lw=3, label = r'$\dot{E}_{LR}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
 ax10.plot(eVs,Flr,color='black',lw=3, label = r'$\dot{F}_{LR}$')
 ax10.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$',linestyle='--', dashes=(5, 3), color = 'r',lw=3)
@@ -825,12 +825,13 @@ ax10.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=3)
 ax10.plot(eVs,Qlr, color='red',lw = 3,label = r'$J_{LR}$')
 #ax10.xticks(fontsize=17)  
 #ax10.yticks(fontsize=17)
-ax10.legend(fontsize=15,loc = "upper left", ncol = 2)
-ax10.tick_params(labelbottom=False,labelsize = 20)
-ax10.text(0.9, 0.96, '(a)', transform=ax10.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+ax10.legend(fontsize=19,loc = "upper left", ncol = 3)
+ax10.tick_params(labelbottom=False,labelsize = 24)
+ax10.axvspan(0, 2.465, facecolor='b', alpha=0.5)
+ax10.text(0.9, 0.16, '(a)', transform=ax10.transAxes, fontsize=35, fontweight='bold', va='top', ha='right')
 
 
-ax20.plot(eVs,Eds, color='blue',lw=3, label = r'$\dot{E}_{D}$')
+ax20.plot(eVs,Eds, color='black',linestyle='--',lw=3, label = r'$\dot{E}_{D}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
 ax20.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{F}_{D}$')
 ax20.plot(eVs,Tid,label = r'$T_{D}\dot{I}_{D}$', linestyle='--', dashes=(5, 3),color = 'r',lw=3)
@@ -842,10 +843,10 @@ ax20.plot(eVs,Wdf,label = r'$\dot{W}_{D}$', color = 'm',lw=3)
 ax20.set_xlabel(r'$eV/T$',fontsize = 20)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
-ax20.legend(bbox_to_anchor=(-0.005, 0.66), fontsize=15, loc = "center left", ncol = 2)
-ax20.tick_params(labelsize=18)  # font size of tick labels 
-ax20.text(0.9, 0.96, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
-
+ax20.legend(bbox_to_anchor=(-0.005, 0.66), fontsize=19, loc = "center left", ncol = 2)
+ax20.tick_params(labelsize=24)  # font size of tick labels 
+ax20.text(0.9, 0.16, '(b)', transform=ax20.transAxes, fontsize=35, fontweight='bold', va='top', ha='right')
+ax20.axvspan(0, 2.465, facecolor='b', alpha=0.5)
 #fig.supylabel("Cantidades termodinámicas", fontsize=22)
 #plt.subplots_adjust(left=0.05) 
 plt.tight_layout()  # Avoids overlapping labels
@@ -864,7 +865,7 @@ ax11.legend(bbox_to_anchor=(0.7, 0.52), fontsize=28, loc = "upper left")
 #ax10.xticks(fontsize=17)  
 #ax10.yticks(fontsize=17)
 #ax11.legend(bbox_to_anchor=(0.20, 0.98),fontsize=15,loc = "upper left", ncol = 2)
-ax11.axvspan(0, 2.5, facecolor='b', alpha=0.5)
+ax11.axvspan(0, 2.465, facecolor='b', alpha=0.5)
 ax11.tick_params(labelbottom=False,labelsize = 26)
 ax11.text(0.9, 0.20, '(a)', transform=ax11.transAxes, fontsize=35, fontweight='bold', va='top', ha='right')
 
@@ -877,7 +878,7 @@ ax21.plot(eVs,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3)
 #ax2.yticks(fontsize=17)  # Y-axis tick labels
 #plt.xscale("log")
 ax21.set_xlabel(r'$eV/T$',fontsize = 26)
-ax21.axvspan(0, 2.5, facecolor='b', alpha=0.5)
+ax21.axvspan(0, 2.465, facecolor='b', alpha=0.5)
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
 ax21.legend(bbox_to_anchor=(0.7, 0.98), fontsize=28, loc = "upper left")

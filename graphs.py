@@ -52,6 +52,15 @@ for i in range(len(Jof0)):
     Ilrt8.append(Ile8[i]+Ire8[i])  
     Ilrt9.append(Ile9[i]+Ire9[i])
 
+n = len(Jof0)
+Td = 2
+T = 100
+effcarnot = []
+
+for i in range(n):
+    eta = 1-(Td/T)
+    effcarnot.append(eta)
+
 plt.plot(Jof0,Nls0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
 plt.plot(Jof1,Nls1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
 plt.plot(Jof2,Nls2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
@@ -269,6 +278,7 @@ plt.plot(Jof6,eff6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^
 plt.plot(Jof7,eff7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
 plt.plot(Jof8,eff8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
 plt.plot(Jof9,eff9, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.plot(Jof0,effcarnot,color='blue',lw=3,linestyle = '--', label = r'$\eta_{carnot}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\eta_{LR}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
