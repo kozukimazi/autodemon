@@ -324,8 +324,6 @@ plt.imshow(values.imag)
 plt.colorbar()
 plt.show()
     
-Ufs = np.linspace(7,40,100)
-Us = np.linspace(1,6,50)
 #Num = 80000
 #Num = 10
 #g0s = np.linspace(0,1,Num)
@@ -686,4 +684,10 @@ for i in range(Num):
     archivo.write( format_str.format(concv[i]))
     archivo.write(" ") 
     archivo.write( format_str.format(cohes[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Qlr[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Wt[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Isl[i]))
     archivo.write("\n")

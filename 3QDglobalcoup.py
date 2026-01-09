@@ -281,6 +281,11 @@ def currents(El,Er,g,Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     Nr = np.trace( np.matmul( Dr,Nop  ) )
     Nd = np.trace( np.matmul( Dd,Nop  ) )
 
+    Wl = mul*np.trace( np.matmul( Dl,Nop  ) )
+    Wr = mur*np.trace( np.matmul( Dr,Nop  ) )
+    
+
+
     Sl = -np.trace( np.matmul(Dl,aux) )
     Sr = -np.trace( np.matmul(Dr,aux) )
     Sd = -np.trace( np.matmul(Dd,aux) )
@@ -289,7 +294,7 @@ def currents(El,Er,g,Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     Er = np.trace( np.matmul( Dr,Hs  ) )
     Ed = np.trace( np.matmul(Dd,Hs))
 
-    return Nl.real, Ql.real, Qr.real, Qd.real, Sl.real, Sr.real,Sd.real, El.real, Er.real, Ed.real
+    return Nl.real, Wl.real,Wr.real,Ql.real, Qr.real, Qd.real, Sl.real, Sr.real,Sd.real, El.real, Er.real, Ed.real
 
 betar,betad,betal = 1/100,1/2,1/100
 gr,gd,gl = 1/100*(1/6),1/50,1/100
@@ -310,6 +315,10 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
 
 cohev = []
 concuv = []
+Ilr = []
+Jlr = []
+Wlr = []
+Nlr = []
 g0m = []
 
 #Num = 80000
@@ -378,6 +387,11 @@ for g0f in g0s:
         concuv.append(0)
     g0m.append(g0f/gl)    
 
+    Nl0,Wl0,Wr0,Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0 = currents(Elf,Erf,g,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,30000)
+    Ilr.append(-Sl0-Sr0)
+    Jlr.append(Ql0+Qr0)
+    Wlr.append(Wl0+Wr0)
+
 archivo = open("globalcouplarge","w")
 decimal_places = 7
 total_width = 8
@@ -390,4 +404,10 @@ for i in range(Num):
     archivo.write( format_str.format(concuv[i]))
     archivo.write(" ") 
     archivo.write( format_str.format(cohev[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Jlr[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Wlr[i]))
+    archivo.write(" ")
+    archivo.write( format_str.format(Ilr[i]))
     archivo.write("\n")

@@ -388,6 +388,9 @@ Num = 5000
 g0s = np.logspace(-6,3,Num)
 cohev = []
 concuv = []
+Nls = []
+Wlr = []
+Jlr = []
 g0m = []
 for g0 in g0s:  
     #aqui hay funciones que no deberian estar para optimizarlo
@@ -409,8 +412,17 @@ for g0 in g0s:
     Lr = Drgen(betar,-ev/2,gr1,E0l,E0r,g0,Uf0,U00)
     Ham = Hamiltonian(E0l,E0r,Ed0,U00,Uf0,g0)
     Htd = Hamiltonianthermo(E0l,E0r,Ed0,U00,Uf0,g0)
-    Superop =  supertotal(Ham,Ll,Lr,Ld)
+    Superop = supertotal(Ham,Ll,Lr,Ld)
     cal1f = Propagate(rho0,Superop,40000)
+    nl0 = propcurrent(cal1f,Ll,Nop)
+    nr0 = propcurrent(cal1f,Lr,Nop)
+    Qlop = Ham - (ev/2)*Nop
+    Qrop = Ham + (ev/2)*Nop
+    ql0 = propcurrent(cal1f,Ll,Qlop)
+    qr0 = propcurrent(cal1f,Lr,Qrop)
+    Nls.append(nl0.real)
+    Jlr.append(ql0.real+qr0.real)
+    Wlr.append(ev*nl0.real)
     cohev.append(abs(cal1f[5,3]) + abs(cal1f[4,2]) )
     cohesum = abs(cal1f[5,3] + cal1f[4,2])
     PD = cal1f[0,0].real + cal1f[1,1].real 
@@ -435,4 +447,8 @@ for i in range(Num):
     archivo.write( format_str.format(concuv[i]))
     archivo.write(" ") 
     archivo.write( format_str.format(cohev[i]))
+    archivo.write(" ") 
+    archivo.write( format_str.format(Jlr[i]))
+    archivo.write(" ") 
+    archivo.write( format_str.format(Wlr[i]))
     archivo.write("\n")
