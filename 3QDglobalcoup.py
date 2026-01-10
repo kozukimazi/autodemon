@@ -273,23 +273,24 @@ def currents(El,Er,g,Hs,mul,mur,mud,Ll,Lr,Ld,superop,rho0,t):
     Qopr = (Hs - mur*Nop)
     Qopd = (Hs - mud*Nop)
     aux = logm(rhof)
+    #heatflow
     Ql = np.trace( np.matmul( Dl,Qopl  ) )
     Qr = np.trace( np.matmul( Dr,Qopr  ) )
     Qd = np.trace( np.matmul( Dd,Qopd  ) )
-
+    #particlecurrent
     Nl = np.trace( np.matmul( Dl,Nop  ) )
     Nr = np.trace( np.matmul( Dr,Nop  ) )
     Nd = np.trace( np.matmul( Dd,Nop  ) )
-
+    #work
     Wl = mul*np.trace( np.matmul( Dl,Nop  ) )
     Wr = mur*np.trace( np.matmul( Dr,Nop  ) )
     
 
-
+    #entropyflow
     Sl = -np.trace( np.matmul(Dl,aux) )
     Sr = -np.trace( np.matmul(Dr,aux) )
     Sd = -np.trace( np.matmul(Dd,aux) )
-
+    #energyflow
     El = np.trace( np.matmul( Dl,Hs  ) )
     Er = np.trace( np.matmul( Dr,Hs  ) )
     Ed = np.trace( np.matmul(Dd,Hs))
@@ -345,7 +346,7 @@ for g0f in g0s:
     Ls0 = Dissipator(Elf,Erf,g0f,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,gl,glU,gr,grU,gd)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g0f)
     superop0 = Liouvillian(H0,Ls0)
-    cal1f = Propagate(rho0,superop0,10000) 
+    cal1f = Propagate(rho0,superop0,40000) 
     #Ll0 = Dp(E,g0,U00,Uf0,ev/2,betal,gl) + Dm(E,g0,U00,Uf0,ev/2,betal,gl)
     #Lr0 = Dp(E,g0,U00,Uf0,-ev/2,betar,gr) + Dm(E,g0,U00,Uf0,-ev/2,betar,gr)
     #Ld0 = Dd(Ed0,U00,mud0,betad,gd)
@@ -387,7 +388,7 @@ for g0f in g0s:
         concuv.append(0)
     g0m.append(g0f/gl)    
 
-    Nl0,Wl0,Wr0,Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0 = currents(Elf,Erf,g,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,30000)
+    Nl0,Wl0,Wr0,Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0 = currents(Elf,Erf,g,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,40000)
     Ilr.append(-Sl0-Sr0)
     Jlr.append(Ql0+Qr0)
     Wlr.append(Wl0+Wr0)
