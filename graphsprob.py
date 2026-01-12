@@ -190,7 +190,7 @@ plt.plot(Jof7,Imalphg7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1
 plt.plot(Jof8,Imalphg8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
 plt.plot(Jof9,Imalphg9, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
-plt.ylabel(r'$2g\text{Im}(\alpha^{*})$',fontsize = 25)
+plt.ylabel(r'$2gIm(\alpha^{*})$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15,loc = "upper right")
@@ -209,7 +209,7 @@ plt.plot(Jof7,Imbetg7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}
 plt.plot(Jof8,Imbetg8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
 plt.plot(Jof9,Imbetg9, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
-plt.ylabel(r'$2g\text{Im}(\beta^{*})$',fontsize = 25)
+plt.ylabel(r'$2gIm(\beta^{*})$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
 plt.yticks(fontsize=17)
 plt.legend(fontsize=15,loc = "upper right")

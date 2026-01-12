@@ -1,22 +1,22 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-data0 = np.load("phononJ0=10^{-3}bk.npz")
+data0 = np.load("phononJ0=10^{-3}bkb100.npz")
 gof10,Id0,Ile0,Ire0,Iphs0,cohes0,concv0,Nls0 = data0["gof1"], data0["Id"], data0["Ile"], data0["Ire"], data0["Iphs"], data0["cohes"], data0["concv"], data0["Nls"]
 
-data1 = np.load("phononJ0=10^{-2}bk.npz")
+data1 = np.load("phononJ0=10^{-2}bkb100.npz")
 gof11,Id1,Ile1,Ire1,Iphs1,cohes1,concv1,Nls1 = data1["gof1"], data1["Id"], data1["Ile"], data1["Ire"], data1["Iphs"], data1["cohes"], data1["concv"], data1["Nls"]
 
-data2 = np.load("phononJ0=10^{-1}bk.npz")
+data2 = np.load("phononJ0=10^{-1}bkb100.npz")
 gof12,Id2,Ile2,Ire2,Iphs2,cohes2,concv2,Nls2 = data2["gof1"], data2["Id"], data2["Ile"], data2["Ire"], data2["Iphs"], data2["cohes"], data2["concv"], data2["Nls"]
 
-data3 = np.load("phononJ0=bk.npz")
+data3 = np.load("phononJ0=bkb100.npz")
 gof13,Id3,Ile3,Ire3,Iphs3,cohes3,concv3,Nls3 = data3["gof1"], data3["Id"], data3["Ile"], data3["Ire"], data3["Iphs"], data3["cohes"], data3["concv"], data3["Nls"]
 
-data4 = np.load("phononJ0=10bk.npz")
+data4 = np.load("phononJ0=10bkb100.npz")
 gof14,Id4,Ile4,Ire4,Iphs4,cohes4,concv4,Nls4 = data4["gof1"], data4["Id"], data4["Ile"], data4["Ire"], data4["Iphs"], data4["cohes"], data4["concv"], data4["Nls"]
 
-data5 = np.load("phononJ0=5_10^{-1}bk.npz")
+data5 = np.load("phononJ0=5_10^{-1}bkb100.npz")
 gof15,Id5,Ile5,Ire5,Iphs5,cohes5,concv5,Nls5 = data5["gof1"], data5["Id"], data5["Ile"], data5["Ire"], data5["Iphs"], data5["cohes"], data5["concv"], data5["Nls"]
 
 
@@ -220,12 +220,12 @@ plt.show()
 plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif" 
 
-plt.plot(gof10,cohes0, color='blue',lw=3, label = r'$\frac{J0}{\beta_{Ph} \kappa_{L}}= 10^{-3}$')
-plt.plot(gof11,cohes1, color='orange',lw=3, label = r'$\frac{J0}{\beta_{Ph} \kappa_{L}}= 10^{-2}$')
-plt.plot(gof12,cohes2, color='green',lw=3, label = r'$\frac{J0}{\beta_{Ph} \kappa_{L}}= 10^{-1}$')
-plt.plot(gof15,cohes5, color='brown',lw=3, label = r'$\frac{J0}{\beta_{Ph} \kappa_{L}}= 5 \cdot 10^{-1}$')
-plt.plot(gof13,cohes3, color='red',lw=3, label = r'$\frac{J0}{\beta_{Ph} \kappa_{L}}= 1$')
-plt.plot(gof14,cohes4, color='purple',lw=3, label = r'$\frac{J0}{\beta_{Ph} \kappa_{L}}= 10$')
+plt.plot(gof10,cohes0, color='blue',lw=3, label = r'$J_{0}/\beta_{Ph} \kappa_{L}= 10^{-3}$')
+plt.plot(gof11,cohes1, color='orange',lw=3, label = r'$J_{0}/\beta_{Ph} \kappa_{L}= 10^{-2}$')
+plt.plot(gof12,cohes2, color='green',lw=3, label = r'$J_{0}/\beta_{Ph} \kappa_{L}= 10^{-1}$')
+plt.plot(gof15,cohes5, color='brown',lw=3, label = r'$J_{0}/\beta_{Ph} \kappa_{L}= 5 \cdot 10^{-1}$')
+plt.plot(gof13,cohes3, color='red',lw=3, label = r'$J_{0}/\beta_{Ph} \kappa_{L}= 1$')
+plt.plot(gof14,cohes4, color='purple',lw=3, label = r'$J_{0}/\beta_{Ph} \kappa_{L}= 10$')
 plt.xlabel(r'$g/\kappa_{L}$',fontsize = 35)
 plt.ylabel(r'$\mathcal{C}_{l_{1}}$',fontsize = 35)
 plt.xticks(fontsize=35)  # X-axis tick labels

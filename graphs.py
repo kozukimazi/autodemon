@@ -474,3 +474,75 @@ ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='b
 
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
+
+
+plt.rcParams["text.usetex"] = True
+plt.rcParams["font.family"] = "serif" 
+
+
+plt.plot(Jof0,eff0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+plt.plot(Jof1,eff1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+plt.plot(Jof2,eff2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
+plt.plot(Jof3,eff3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+plt.plot(Jof9,eff9, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.plot(Jof4,eff4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
+plt.plot(Jof5,eff5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
+#plt.plot(Jof6,eff6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
+plt.plot(Jof7,eff7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+#plt.plot(Jof8,eff8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+#plt.plot(Jof0,effcarnot,color='blue',lw=3,linestyle = '--', label = r'$\eta_{carnot}$')
+#plt.xlabel(r'$J_{0}/\beta_{Ph}\kappa_{L}$',fontsize = 28)
+#plt.ylabel(r'$\eta_{LR}$',fontsize = 28)
+plt.xticks(fontsize=30)  # X-axis tick labels
+plt.yticks(fontsize=30)
+#plt.legend(fontsize=22,loc = "lower right")
+#plt.figtext(0.14, 0.955, '(a)',fontsize=30, fontweight='bold', va='top', ha='left')
+
+plt.xscale("log")
+plt.show()
+
+
+'''
+plt.plot(Jof0,Work0, color='blue',lw=3, label = r'$g/\kappa_{L}=0$')
+plt.plot(Jof1,Work1, color='orange',lw=3, label = r'$g/\kappa_{L}=10^{-2}$')
+plt.plot(Jof2,Work2, color='green',lw=3, label = r'$g/\kappa_{L}=5\cdot10^{-2}$')
+plt.plot(Jof3,Work3, color='red',lw=3, label = r'$g/\kappa_{L}=10^{-1}$')
+plt.plot(Jof9,Work9, color='black',lw=3,linestyle = '--', label = r'$g/\kappa_{L}=3\cdot 10^{-1}$')
+plt.plot(Jof4,Work4, color='purple',lw=3, label = r'$g/\kappa_{L}=5\cdot10^{-1}$')
+plt.plot(Jof5,Work5, color='brown',lw=3, label = r'$g/\kappa_{L}=10^{0}$')
+#plt.plot(Jof6,Work6, color='pink',lw=3, label = r'$g/\kappa_{L}=5\cdot10^{0}$')
+plt.plot(Jof7,Work7, color='gray',lw=3, label = r'$g/\kappa_{L}=10^{1}$')
+#plt.plot(Jof8,Work8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+#plt.plot(Jof9,Work9, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.xlabel(r'$J_{0}/\beta_{Ph}\kappa_{L}$',fontsize = 28)
+plt.ylabel(r'$\dot{W}_{LR}$',fontsize = 28)
+plt.xticks(fontsize=30)  # X-axis tick labels
+plt.yticks(fontsize=30)
+plt.legend(fontsize=22,loc = "upper right")
+plt.figtext(0.14, 0.955, '(a)',fontsize=30, fontweight='bold', va='top', ha='left')
+
+plt.xscale("log")
+plt.show()
+
+
+
+plt.plot(Jof0,cohes0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+plt.plot(Jof1,cohes1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+plt.plot(Jof2,cohes2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
+plt.plot(Jof3,cohes3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+plt.plot(Jof9,cohes9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.plot(Jof4,cohes4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
+plt.plot(Jof5,cohes5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
+#plt.plot(Jof6,cohes6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
+plt.plot(Jof7,cohes7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+#plt.plot(Jof8,cohes8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+
+plt.xlabel(r'$J_{0}/\beta_{Ph}\kappa_{L}$',fontsize = 28)
+plt.ylabel(r'$\mathcal{C}_{l_{1}}$',fontsize = 28)
+plt.xticks(fontsize=30)  # X-axis tick labels
+plt.yticks(fontsize=30)
+plt.figtext(0.14, 0.955, '(b)',fontsize=30, fontweight='bold', va='top', ha='left')
+
+#plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()'''
