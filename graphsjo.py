@@ -220,6 +220,7 @@ plt.show()
 plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif" 
 
+
 plt.plot(gof10,cohes0, color='blue',lw=3, label = r'$J_{0}/\beta_{Ph} \kappa_{L}= 10^{-3}$')
 plt.plot(gof11,cohes1, color='orange',lw=3, label = r'$J_{0}/\beta_{Ph} \kappa_{L}= 10^{-2}$')
 plt.plot(gof12,cohes2, color='green',lw=3, label = r'$J_{0}/\beta_{Ph} \kappa_{L}= 10^{-1}$')
@@ -233,3 +234,48 @@ plt.yticks(fontsize=35)
 plt.legend(fontsize=20,loc = "upper right")
 plt.xscale("log")
 plt.show()
+
+
+fig, ax10 = plt.subplots(
+    sharex=True,
+    figsize=(3.39, 2.8)
+)
+
+LINE_W = 1.6
+LABEL_FS = 9
+TICK_FS = 8
+PANEL_FS = 9
+
+# ---------- Panel (a)
+ax10.plot(gof10, cohes0, color='blue',   lw=LINE_W, label=r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-3}$')
+ax10.plot(gof11, cohes1, color='orange', lw=LINE_W, label=r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-2}$')
+ax10.plot(gof12, cohes2, color='green',  lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{Ph}} \kappa_{L})= 10^{-1}$')
+ax10.plot(gof15, cohes5, color='brown',    lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{Ph}} \kappa_{L})= 5 \times 10^{-1}$')
+ax10.plot(gof13, cohes3, color='red',  lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{Ph}} \kappa_{L})= 1$')
+ax10.plot(gof14, cohes4, color='purple', lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{Ph}} \kappa_{L})= 10$')
+#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
+ax10.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax10.set_ylabel(r'$\mathcal{C}_{l_{1}}$', fontsize=LABEL_FS)
+ax10.set_xscale('log')
+ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
+#ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes,
+          #fontsize=PANEL_FS, fontweight='bold')
+
+ax10.legend(
+    fontsize=6.5,
+    frameon=True,
+    ncol=1,
+    loc='upper right',
+    bbox_to_anchor=(1, 0.99)
+)
+
+
+
+# ---------- Spines
+
+for spine in ax10.spines.values():
+    spine.set_linewidth(0.8)
+
+plt.tight_layout(pad=0.4)
+plt.savefig("fig6jo.pdf")
+plt.close()
