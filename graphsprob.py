@@ -30,6 +30,19 @@ Jof8,Probnt18,Probnt28,Probnt38,Probnt48,Probnt58,Probnt68,Probnt78,Probnt88,Ima
 data9 = np.load("phonong=3_10^{-3}probb100.npz")
 Jof9,Probnt19,Probnt29,Probnt39,Probnt49,Probnt59,Probnt69,Probnt79,Probnt89,Imalphg9,Imbetg9 = data9["Jof"], data9["Probnt10"], data9["Probnt20"], data9["Probnt30"], data9["Probnt40"], data9["Probnt50"], data9["Probnt60"], data9["Probnt70"], data9["Probnt80"], data9["Imalphg"], data9["Imbetg"]
 
+data10 = np.load("phonong=10probb100.npz")
+Jof10,Probnt110,Probnt210,Probnt310,Probnt410,Probnt510,Probnt610,Probnt710,Probnt810,Imalphg10,Imbetg10 = data10["Jof"], data10["Probnt10"], data10["Probnt20"], data10["Probnt30"], data10["Probnt40"], data10["Probnt50"], data10["Probnt60"], data10["Probnt70"], data10["Probnt80"], data10["Imalphg"], data10["Imbetg"]
+
+data11 = np.load("phonong=100probb100.npz")
+Jof11,Probnt111,Probnt211,Probnt311,Probnt411,Probnt511,Probnt611,Probnt711,Probnt811,Imalphg11,Imbetg11 = data11["Jof"], data11["Probnt10"], data11["Probnt20"], data11["Probnt30"], data11["Probnt40"], data11["Probnt50"], data11["Probnt60"], data11["Probnt70"], data11["Probnt80"], data11["Imalphg"], data11["Imbetg"]
+
+data12 = np.load("phonong=1000probb100.npz")
+Jof12,Probnt112,Probnt212,Probnt312,Probnt412,Probnt512,Probnt612,Probnt712,Probnt812,Imalphg12,Imbetg12 = data12["Jof"], data12["Probnt10"], data12["Probnt20"], data12["Probnt30"], data12["Probnt40"], data12["Probnt50"], data12["Probnt60"], data12["Probnt70"], data12["Probnt80"], data12["Imalphg"], data12["Imbetg"]
+
+data13 = np.load("phonong=10000probb100.npz")
+Jof13,Probnt113,Probnt213,Probnt313,Probnt413,Probnt513,Probnt613,Probnt713,Probnt813,Imalphg13,Imbetg13 = data13["Jof"], data13["Probnt10"], data13["Probnt20"], data13["Probnt30"], data13["Probnt40"], data13["Probnt50"], data13["Probnt60"], data13["Probnt70"], data13["Probnt80"], data13["Imalphg"], data13["Imbetg"]
+
+'''
 
 plt.plot(Jof0,Probnt10, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
 plt.plot(Jof1,Probnt11, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
@@ -183,6 +196,8 @@ plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif" 
 
 '''
+
+'''
 plt.plot(Jof0,Imalphg0, color='blue',lw=3, label = r'$g/\kappa_{L}=0$')
 plt.plot(Jof1,Imalphg1, color='orange',lw=3, label = r'$g/\kappa_{L}=10^{-2}$')
 plt.plot(Jof2,Imalphg2, color='green',lw=3, label = r'$g/\kappa_{L}=5\cdot10^{-2}$')
@@ -289,6 +304,8 @@ ax10.plot(Jof9, Imbetg9, color='black',  lw=LINE_W, ls='--', label=r'$g/\kappa_L
 ax10.plot(Jof4, Imbetg4, color='purple', lw=LINE_W, label=r'$g/\kappa_L=5\times10^{-1}$')
 #ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
 ax10.plot(Jof7, Imbetg7, color='gray',   lw=LINE_W, label=r'$g/\kappa_L=10$')
+ax10.plot(Jof12, Imbetg12, color='green',   lw=LINE_W,ls='--', label=r'$g/\kappa_L=10^{5}$')
+ax10.plot(Jof13, Imbetg13, color='brown',   lw=LINE_W,ls = '--', label=r'$g/\kappa_L=10^{6}$')
 
 ax10.set_ylabel(r'$2g\mathrm{Im}(\beta)$', fontsize=LABEL_FS)
 ax10.set_xscale('log')
@@ -312,6 +329,8 @@ ax20.plot(Jof9, Imalphg9, color='black',  lw=LINE_W, ls='--')
 ax20.plot(Jof4, Imalphg4, color='purple', lw=LINE_W)
 #ax20.plot(Jof5, Imbetg5, color='brown',  lw=LINE_W)
 ax20.plot(Jof7, Imalphg7, color='gray',   lw=LINE_W)
+ax20.plot(Jof12, Imalphg12, color='green',   lw=LINE_W,ls='--')
+ax20.plot(Jof13, Imalphg13, color='brown',   lw=LINE_W,ls = '--')
 
 ax20.set_xlabel(r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)$', fontsize=LABEL_FS)
 ax20.set_ylabel(r'$2g\,\mathrm{Im}(\alpha)$', fontsize=LABEL_FS)
@@ -326,5 +345,5 @@ for ax in (ax10, ax20):
         spine.set_linewidth(0.8)
 
 plt.tight_layout(pad=0.4)
-plt.savefig("fig6_PR_colors.pdf")
+plt.savefig("fig6_PR_colors0.pdf")
 plt.close()

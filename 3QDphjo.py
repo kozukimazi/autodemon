@@ -373,7 +373,7 @@ for g0fm in g0fs:
     Uf0 = 500 #50
     #Probar condicion (U00/E0)<<1,Strasberg
     El0 = Er0 = E0 = 0
-    J0 = 0.001*betaph*gl
+    J0 = (0.001)*betaph*gl
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0,omegac)
     H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0fm)
     superop0 = Liouvillian(H0,Ls0)
@@ -467,5 +467,7 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-np.savez("phononJ0=10^{-3}bkb100.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
+#np.savez("phononJ0=10^{-3}bkb100.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
+
+np.savez("phononJ0=10^{-3}comp.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohev=cohes, concv = concv, Nls = Nls)
 

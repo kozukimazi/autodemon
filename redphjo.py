@@ -484,7 +484,7 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
 
 
 betal,betar,betad =1/100,1/100,1/2
-betaph = 1/400
+betaph = 1/100
 
 g00 = 30
 gl,glu = 1/100,(1/100)*(1/6)
@@ -530,7 +530,7 @@ for g in g0fs:
     mul = ev/2
     mur = -ev/2
     E0 = 0
-    J0 = 10*betaph*gl
+    J0 = 0.001*betaph*gl
     Ll = Dlgen(betal,ev/2,gl1,E0l,E0r,g,Uf0,U00)
     Lr = Drgen(betar,-ev/2,gr1,E0l,E0r,g,Uf0,U00)
     Lph = Dphgen(betaph,J0,omegac,E0l,E0r,g)
@@ -637,4 +637,4 @@ for i in range(Num):
     archivo.write("\n")
 
 #calcular 3_10^{-3}redEl_4.npz
-np.savez("phononJ0=10bkred.npz", gof1=gof1,Qlrs=Qlrs,Qphs=Qphs,cohev=cohev, concuv = concuv, Nls = Nls)    
+np.savez("phononJ0=10^{-3}redcomp.npz", gof1=gof1,Qlrs=Qlrs,Qphs=Qphs,cohev=cohev, concuv = concuv, Nls = Nls)    

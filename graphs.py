@@ -31,6 +31,27 @@ Jof8,Id8,Ile8,Ire8,Iphs8,cohes8,concv8,Nls8,Act8,Nqm8,Nltotal8,Work8,eff8,effph8
 
 data9 = np.load("phonong=3_10^{-3}b100.npz")
 Jof9,Id9,Ile9,Ire9,Iphs9,cohes9,concv9,Nls9,Act9,Nqm9,Nltotal9,Work9,eff9,effph9 = data9["Jof"], data9["Id"], data9["Ile"], data9["Ire"], data9["Iphs"], data9["cohes"], data9["concv"], data9["Nls"],data9["Acts"], data9["Nlqm"],data9["Nltotal"],data9["Work"],data9["eff"],data9["effph"]
+
+data10 = np.load("phonong=10b100.npz")
+Jof10,Id10,Ile10,Ire10,Iphs10,cohes10,concv10,Nls10,Work10,eff10,effph10 = data10["Jof"], data10["Id"], data10["Ile"], data10["Ire"], data10["Iphs"], data10["cohes"], data10["concv"], data10["Nls"],data10["Work"],data10["eff"],data10["effph"]
+
+data11 = np.load("phonong=100b100.npz")
+Jof11,Id11,Ile11,Ire11,Iphs11,cohes11,concv11,Nls11,Work11,eff11,effph11 = data11["Jof"], data11["Id"], data11["Ile"], data11["Ire"], data11["Iphs"], data11["cohes"], data11["concv"], data11["Nls"],data11["Work"],data11["eff"],data11["effph"]
+
+data12 = np.load("phonong=1000b100.npz")
+Jof12,Id12,Ile12,Ire12,Iphs12,cohes12,concv12,Nls12,Work12,eff12,effph12 = data12["Jof"], data12["Id"], data12["Ile"], data12["Ire"], data12["Iphs"], data12["cohes"], data12["concv"], data12["Nls"],data12["Work"],data12["eff"],data12["effph"]
+
+data13 = np.load("phonong=10000b100.npz")
+Jof13,Id13,Ile13,Ire13,Iphs13,cohes13,concv13,Nls13,Work13,eff13,effph13 = data13["Jof"], data13["Id"], data13["Ile"], data13["Ire"], data13["Iphs"], data13["cohes"], data13["concv"], data13["Nls"],data13["Work"],data13["eff"],data13["effph"]
+
+
+
+######################
+#####seculardata######
+######################
+
+
+
 Ilrt0 = []
 Ilrt1 = []
 Ilrt2 = []
@@ -62,7 +83,7 @@ effcarnot = []
 for i in range(n):
     eta = 1-(Td/T)
     effcarnot.append(eta)
-
+'''
 plt.plot(Jof0,Nls0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
 plt.plot(Jof1,Nls1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
 plt.plot(Jof2,Nls2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
@@ -288,7 +309,7 @@ plt.yticks(fontsize=17)
 plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()
-
+'''
 # Create subplots (1 row, 2 columns)
 fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
 
@@ -517,13 +538,18 @@ LEG_FS   = 7
 
 # ===================== (a) Efficiency =====================
 ax1.plot(Jof0, eff0, color='blue',   lw=LINE_W, label=r'$g/\kappa_{L}=0$')
-ax1.plot(Jof1, eff1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
-ax1.plot(Jof2, eff2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\cdot10^{-2}$')
+#ax1.plot(Jof1, eff1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
+#ax1.plot(Jof2, eff2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\cdot10^{-2}$')
 ax1.plot(Jof3, eff3, color='red',    lw=LINE_W, label=r'$g/\kappa_{L}=10^{-1}$')
 ax1.plot(Jof9, eff9, color='black',  lw=LINE_W, ls='--', label=r'$g/\kappa_{L}=3\cdot10^{-1}$')
 ax1.plot(Jof4, eff4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\cdot10^{-1}$')
 ax1.plot(Jof5, eff5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
-ax1.plot(Jof7, eff7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
+#ax1.plot(Jof7, eff7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
+#ax1.plot(Jof10, eff10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
+#ax1.plot(Jof11, eff11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
+ax1.plot(Jof12, eff12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
+ax1.plot(Jof13, eff13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
+
 
 ###########zoomplot###############
 '''x1 = Jof4[10:40]
@@ -568,13 +594,19 @@ ax1.text(0.92, 0.90, '(a)', transform=ax1.transAxes,
 
 # ===================== (b) Coherence =====================
 ax2.plot(Jof0, cohes0, color='blue',   lw=LINE_W)
-ax2.plot(Jof1, cohes1, color='orange', lw=LINE_W)
-ax2.plot(Jof2, cohes2, color='green',  lw=LINE_W)
+#ax2.plot(Jof1, cohes1, color='orange', lw=LINE_W)
+#ax2.plot(Jof2, cohes2, color='green',  lw=LINE_W)
 ax2.plot(Jof3, cohes3, color='red',    lw=LINE_W)
 ax2.plot(Jof9, cohes9, color='black',  lw=LINE_W, ls='--')
 ax2.plot(Jof4, cohes4, color='purple', lw=LINE_W)
 ax2.plot(Jof5, cohes5, color='brown',  lw=LINE_W)
-ax2.plot(Jof7, cohes7, color='gray',   lw=LINE_W)
+#ax2.plot(Jof7, cohes7, color='gray',   lw=LINE_W)
+#ax2.plot(Jof10, cohes10, color='red',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof11, cohes11, color='blue',   lw=LINE_W, ls = '--')
+ax2.plot(Jof12, cohes12, color='green',   lw=LINE_W, ls = '--')
+ax2.plot(Jof13, cohes13, color='brown',   lw=LINE_W, ls = '--')
+
+
 
 ax2.set_xscale("log")
 ax2.set_ylabel(r'$\mathcal{C}_{l_{1}}$', fontsize=LABEL_FS)
@@ -603,7 +635,7 @@ fig.legend(
 
 # ===================== Layout & save =====================
 plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
-plt.savefig("figeffcohe.pdf")
+plt.savefig("figeffcohe0.pdf")
 plt.close()
 
 
