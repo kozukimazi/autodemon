@@ -430,8 +430,12 @@ Qr = []
 Qd = []
 
  
-Num = 1800
-J0s = np.logspace(-8,-3,Num)
+#Num = 1800
+#J0s = np.logspace(-8,-3,Num)
+
+Num = 3000
+J0s = np.logspace(-8,1,Num)
+
 Sls = []
 Srs = []
 Sds = []
@@ -551,8 +555,8 @@ for J0 in J0s:
     Probnt60.append(cal1f[5,5].real )
     Probnt70.append(cal1f[6,6].real )
     Probnt80.append(cal1f[7,7].real )
-    Imalphg.append(2*g0fm*alp0[0,0].imag)
-    Imbetg.append(2*g0fm*alp1[0,0].imag)
+    Imalphg.append(2*g0fm*alp0[0,0].real)
+    Imbetg.append(2*g0fm*alp1[0,0].real)
 
     Realphg.append(alp0[0,0].real)
     Rebetg.append(alp1[0,0].real)
@@ -621,6 +625,7 @@ plt.show()
 
 
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 
-#np.savez("phonong=10b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
+#np.savez("phonong=0.1b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
+np.savez("phonong=1000b100sec.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
 
-#np.savez("phonong=10probb100.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
+np.savez("phonong=1000probb100sec.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)

@@ -296,7 +296,7 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-g0 =3/1000
+g0 =1/1000
 #g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
@@ -360,8 +360,11 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,1/4]])
 
-Num = 1800
-J0s = np.logspace(-8,-3,Num)
+Num = 3000
+J0s = np.logspace(-8,1,Num)
+
+#Num = 1800
+#J0s = np.logspace(-8,-3,Num)
 
 Isl = []
 Id = []
@@ -469,6 +472,7 @@ for J0 in J0s:
     effph.append( abs(Wlr0)/(Ql0+Qr0+Qph0) )
     print(J0)
 
+
 plt.plot(Jof,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
 plt.plot(Jof,Iphs, color='orange',lw=3, label = r'$\dot{I}_{Ph}$')
 plt.plot(Jof,Ile, color='black',lw=3, label = r'$\dot{I}_{Le}$')
@@ -559,7 +563,7 @@ plt.show()
 
 
 
-#np.savez("phonong=10^{-1}b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work, eff=eff,effph=effph)
+np.savez("phonong=10^{-3}b100ne.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work, eff=eff,effph=effph)
 
 #np.savez("phonong=3_10^{-3}probb100.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
 #volver a sacar 3_10^{-3}(16/12/25)

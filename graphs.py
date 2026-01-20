@@ -310,6 +310,9 @@ plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()
 '''
+
+
+'''
 # Create subplots (1 row, 2 columns)
 fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
 
@@ -497,7 +500,7 @@ ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='b
 
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
-
+'''
 
 plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif" 
@@ -530,7 +533,7 @@ fig, (ax1, ax2) = plt.subplots(
     figsize=(7.0, 3.6)   # APS wide figure
 )
 
-LINE_W = 3
+LINE_W = 2.0
 LABEL_FS = 9
 TICK_FS  = 8
 PANEL_FS = 9
@@ -541,8 +544,8 @@ ax1.plot(Jof0, eff0, color='blue',   lw=LINE_W, label=r'$g/\kappa_{L}=0$')
 #ax1.plot(Jof1, eff1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
 #ax1.plot(Jof2, eff2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\cdot10^{-2}$')
 ax1.plot(Jof3, eff3, color='red',    lw=LINE_W, label=r'$g/\kappa_{L}=10^{-1}$')
-ax1.plot(Jof9, eff9, color='black',  lw=LINE_W, ls='--', label=r'$g/\kappa_{L}=3\cdot10^{-1}$')
-ax1.plot(Jof4, eff4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\cdot10^{-1}$')
+ax1.plot(Jof9, eff9, color='black',  lw=LINE_W, ls='--', label=r'$g/\kappa_{L}=3\times10^{-1}$')
+ax1.plot(Jof4, eff4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\times10^{-1}$')
 ax1.plot(Jof5, eff5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
 #ax1.plot(Jof7, eff7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
 #ax1.plot(Jof10, eff10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
@@ -620,8 +623,8 @@ for ax in (ax1, ax2):
     for spine in ax.spines.values():
         spine.set_linewidth(0.8)
 
-ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
-ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax1.set_xlabel(r'$J_{0}/(\beta_{Ph}\kappa_{L})$', fontsize=LABEL_FS)
+ax2.set_xlabel(r'$J_{0}/(\beta_{Ph}\kappa_{L})$', fontsize=LABEL_FS)
 
 # ===================== Single legend (recommended) =====================
 handles, labels = ax1.get_legend_handles_labels()
@@ -637,6 +640,8 @@ fig.legend(
 plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
 plt.savefig("figeffcohe0.pdf")
 plt.close()
+
+
 
 
 '''
@@ -683,3 +688,90 @@ plt.figtext(0.14, 0.955, '(b)',fontsize=30, fontweight='bold', va='top', ha='lef
 #plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()'''
+
+
+datos1 = np.load("phonong=0.1b100sec.npz")
+Jof1s,Id1s,Ile1s,Ire1s,Iphs1s,cohes1s,concv1s,Nls1s,Work1s,eff1s,effph1s = datos1["Jof"], datos1["Id"], datos1["Ile"], datos1["Ire"], datos1["Iphs"], datos1["cohes"], datos1["concv"], datos1["Nls"],datos1["Work"],datos1["eff"],datos1["effph"]
+
+datos2 = np.load("phonong=1b100sec.npz")
+Jof2s,Id2s,Ile2s,Ire2s,Iphs2s,cohes2s,concv2s,Nls2s,Work2s,eff2s,effph2s = datos2["Jof"], datos2["Id"], datos2["Ile"], datos2["Ire"], datos2["Iphs"], datos2["cohes"], datos2["concv"], datos2["Nls"],datos2["Work"],datos2["eff"],datos2["effph"]
+
+datos3 = np.load("phonong=10b100sec.npz")
+Jof3s,Id3s,Ile3s,Ire3s,Iphs3s,cohes3s,concv3s,Nls3s,Work3s,eff3s,effph3s = datos3["Jof"], datos3["Id"], datos3["Ile"], datos3["Ire"], datos3["Iphs"], datos3["cohes"], datos3["concv"], datos3["Nls"],datos3["Work"],datos3["eff"],datos3["effph"]
+
+datos4 = np.load("phonong=100b100sec.npz")
+Jof4s,Id4s,Ile4s,Ire4s,Iphs4s,cohes4s,concv4s,Nls4s,Work4s,eff4s,effph4s = datos4["Jof"], datos4["Id"], datos4["Ile"], datos4["Ire"], datos4["Iphs"], datos4["cohes"], datos4["concv"], datos4["Nls"],datos4["Work"],datos4["eff"],datos4["effph"]
+
+datos5 = np.load("phonong=1000b100sec.npz")
+Jof5s,Id5s,Ile5s,Ire5s,Iphs5s,cohes5s,concv5s,Nls5s,Work5s,eff5s,effph5s = datos5["Jof"], datos5["Id"], datos5["Ile"], datos5["Ire"], datos5["Iphs"], datos5["cohes"], datos5["concv"], datos5["Nls"],datos5["Work"],datos5["eff"],datos5["effph"]
+
+
+
+fig, (ax1, ax2) = plt.subplots(
+    1, 2,
+    sharex=True,
+    figsize=(7.0, 3.6)   # APS wide figure
+)
+
+LINE_W = 2.0
+LABEL_FS = 9
+TICK_FS  = 8
+PANEL_FS = 9
+LEG_FS   = 7
+
+# ===================== (a) Efficiency =====================
+#ax1.plot(Jof1s, eff1s, color='blue',   lw=LINE_W, label=r'$g/\kappa_{L}=10$')
+#ax1.plot(Jof1, eff1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
+#ax1.plot(Jof2, eff2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\cdot10^{-2}$')
+ax1.plot(Jof2s, eff2s, color='red',    lw=LINE_W, label=r'$g/\kappa_{L}=10^{2}$')
+ax1.plot(Jof3s, eff3s, color='black',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{3}$', ls = '--')
+ax1.plot(Jof4s, eff4s, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=10^{4}$')
+ax1.plot(Jof5s, eff5s, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{5}$')
+
+
+ax1.set_xscale("log")
+ax1.set_ylabel(r'$\eta_{LR}$', fontsize=LABEL_FS)
+
+ax1.text(0.92, 0.90, '(a)', transform=ax1.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== (b) Coherence =====================
+#ax2.plot(Jof1s, cohes1s, color='blue',   lw=LINE_W)
+#ax2.plot(Jof1, cohes1, color='orange', lw=LINE_W)
+#ax2.plot(Jof2, cohes2, color='green',  lw=LINE_W)
+ax2.plot(Jof2s, cohes2s, color='red',    lw=LINE_W)
+ax2.plot(Jof3s, cohes3s, color='black',  lw=LINE_W, ls='--')
+ax2.plot(Jof4s, cohes4s, color='purple', lw=LINE_W)
+ax2.plot(Jof5s, cohes5s, color='brown',  lw=LINE_W)
+
+
+ax2.set_xscale("log")
+ax2.set_ylabel(r'$\mathcal{C}_{l_{1}}$', fontsize=LABEL_FS)
+
+ax2.text(0.92, 0.90, '(b)', transform=ax2.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== Shared formatting =====================
+for ax in (ax1, ax2):
+    ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+ax1.set_xlabel(r'$J_{0}/(\beta_{Ph}\kappa_{L})$', fontsize=LABEL_FS)
+ax2.set_xlabel(r'$J_{0}/(\beta_{Ph}\kappa_{L})$', fontsize=LABEL_FS)
+
+# ===================== Single legend (recommended) =====================
+handles, labels = ax1.get_legend_handles_labels()
+fig.legend(
+    handles, labels,
+    loc='upper center',
+    ncol=4,
+    fontsize=LEG_FS,
+    frameon=True
+)
+
+# ===================== Layout & save =====================
+plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
+plt.savefig("figeffcohesec.pdf")
+plt.show()
+plt.close()

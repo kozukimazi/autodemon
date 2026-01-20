@@ -300,7 +300,7 @@ Ed = mud1-U0/2
 #betar,betad,betal = 1/100,10,1/100
 #transport
 betar,betad,betal = 1/100,1/2,1/100
-betaph = 1/400
+betaph = 1/100
 J0, omegac = 0.000005, 1E-2 
 gr,grU = (1/100)*(1/6), 1/100
 gl,glU = 1/100, (1/100)*(1/6)
@@ -354,7 +354,7 @@ rho1 = np.array([[0,0,0,0,0,0,0,0],
 
 
 Num = 200
-eVs0 = np.linspace(0,800,Num)
+eVs0 = np.linspace(0,600,Num)
 #eVs0 = np.linspace(0,2000,Num)
 Ql = []
 Qr = []
@@ -834,6 +834,11 @@ ax21.text(0.9, 0.96, '(b)', transform=ax21.transAxes, fontsize=14, fontweight='b
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
+
+
+
+
+'''
 archivo = open("probabiltyph","w")
 decimal_places = 7
 total_width = 8
@@ -868,6 +873,7 @@ for i in range(Num):
     archivo.write("\n")
 
 
+
 archivo = open("semiphJ0","w")
 decimal_places = 7
 total_width = 8
@@ -895,3 +901,5 @@ for i in range(Num):
     archivo.write(" ")
     archivo.write( format_str.format(Id[i]))
     archivo.write("\n")
+    '''
+

@@ -238,6 +238,10 @@ plt.xscale("log")
 plt.show()
 '''
 
+plt.rcParams["text.usetex"] = True
+plt.rcParams["font.family"] = "serif" 
+
+
 # Create subplots (1 row, 2 columns)
 fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(3.39, 10.4))  # 1 row, 2 columns
 
@@ -332,7 +336,7 @@ ax20.plot(Jof7, Imalphg7, color='gray',   lw=LINE_W)
 ax20.plot(Jof12, Imalphg12, color='green',   lw=LINE_W,ls='--')
 ax20.plot(Jof13, Imalphg13, color='brown',   lw=LINE_W,ls = '--')
 
-ax20.set_xlabel(r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)$', fontsize=LABEL_FS)
+ax20.set_xlabel(r'$J_0/(\beta_{Ph}\kappa_L)$', fontsize=LABEL_FS)
 ax20.set_ylabel(r'$2g\,\mathrm{Im}(\alpha)$', fontsize=LABEL_FS)
 ax20.set_xscale('log')
 ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
@@ -346,4 +350,79 @@ for ax in (ax10, ax20):
 
 plt.tight_layout(pad=0.4)
 plt.savefig("fig6_PR_colors0.pdf")
+plt.close()
+
+
+datos0 = np.load("phonong=0.1probb100sec.npz")
+Jofs0,Probnts10,Probnts20,Probnts30,Probnts40,Probnts50,Probnts60,Probnts70,Probnts80,Imalphg0s,Imbetg0s = datos0["Jof"], datos0["Probnt10"], datos0["Probnt20"], datos0["Probnt30"], datos0["Probnt40"], data0["Probnt50"], datos0["Probnt60"], datos0["Probnt70"], datos0["Probnt80"], datos0["Imalphg"], datos0["Imbetg"]
+
+datos1 = np.load("phonong=1probb100sec.npz")
+Jofs1,Probnts11,Probnts21,Probnts31,Probnts41,Probnts51,Probnts61,Probnts71,Probnts81,Imalphg1s,Imbetg1s = datos1["Jof"], datos1["Probnt10"], datos1["Probnt20"], datos1["Probnt30"], datos1["Probnt40"], datos1["Probnt50"], datos1["Probnt60"], datos1["Probnt70"], datos1["Probnt80"], datos1["Imalphg"], datos1["Imbetg"]
+
+datos2 = np.load("phonong=10probb100sec.npz")
+Jofs2,Probnts12,Probnts22,Probnts32,Probnts42,Probnts52,Probnts62,Probnts72,Probnts82,Imalphg2s,Imbetg2s = datos2["Jof"], datos2["Probnt10"], datos2["Probnt20"], datos2["Probnt30"], datos2["Probnt40"], datos2["Probnt50"], datos2["Probnt60"], datos2["Probnt70"], datos2["Probnt80"], datos2["Imalphg"], datos2["Imbetg"]
+
+datos3 = np.load("phonong=100probb100sec.npz")
+Jofs3,Probnts13,Probnts23,Probnts33,Probnts43,Probnts53,Probnts63,Probnts73,Probnts83,Imalphg3s,Imbetg3s = datos3["Jof"], datos3["Probnt10"], datos3["Probnt20"], datos3["Probnt30"], datos3["Probnt40"], datos3["Probnt50"], datos3["Probnt60"], datos3["Probnt70"], datos3["Probnt80"], datos3["Imalphg"], datos3["Imbetg"]
+
+datos4 = np.load("phonong=1000probb100sec.npz")
+Jofs4,Probnts14,Probnts24,Probnts34,Probnts44,Probnts54,Probnts64,Probnts74,Probnts84,Imalphg4s,Imbetg4s = datos4["Jof"], datos4["Probnt10"], datos4["Probnt20"], datos4["Probnt30"], datos4["Probnt40"], datos4["Probnt50"], datos4["Probnt60"], datos4["Probnt70"], datos4["Probnt80"], datos4["Imalphg"], datos4["Imbetg"]
+
+
+
+fig, (ax10, ax20) = plt.subplots(
+    2, 1,
+    sharex=True,
+    figsize=(3.39, 4.0)
+)
+
+LINE_W = 1.6
+LABEL_FS = 9
+TICK_FS = 8
+PANEL_FS = 9
+
+# ---------- Panel (a)
+ax10.plot(Jofs0, Imbetg0s, color='blue',   lw=LINE_W, label=r'$g/\kappa_L=10$')
+ax10.plot(Jofs1, Imbetg1s, color='orange', lw=LINE_W, label=r'$g/\kappa_L=10^{2}$')
+ax10.plot(Jofs2, Imbetg2s, color='green',  lw=LINE_W, label=r'$g/\kappa_L=10^{3}$')
+ax10.plot(Jofs3, Imbetg3s, color='red',    lw=LINE_W, label=r'$g/\kappa_L=10^{4}$')
+ax10.plot(Jofs4, Imbetg4s, color='purple', lw=LINE_W, label=r'$g/\kappa_L=10^{5}$')
+#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
+
+ax10.set_ylabel(r'$2g\mathrm{Re}(\beta)$', fontsize=LABEL_FS)
+ax10.set_xscale('log')
+ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
+ax10.text(0.9, 0.87, '(a)', transform=ax10.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+
+ax10.legend(
+    fontsize=7,
+    frameon=True,
+    ncol=1,
+    loc='center left'
+)
+
+# ---------- Panel (b)
+ax20.plot(Jofs0, Imalphg0s, color='blue',   lw=LINE_W)
+ax20.plot(Jofs1, Imalphg1s, color='orange', lw=LINE_W)
+ax20.plot(Jofs2, Imalphg2s, color='green',  lw=LINE_W)
+ax20.plot(Jofs3, Imalphg3s, color='red',    lw=LINE_W)
+ax20.plot(Jofs4, Imalphg4s, color='purple', lw=LINE_W)
+#ax20.plot(Jof5, Imbetg5, color='brown',  lw=LINE_W)
+
+ax20.set_xlabel(r'$J_0/(\beta_{Ph}\kappa_L)$', fontsize=LABEL_FS)
+ax20.set_ylabel(r'$2g\,\mathrm{Re}(\alpha)$', fontsize=LABEL_FS)
+ax20.set_xscale('log')
+ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
+ax20.text(0.9, 0.87, '(b)', transform=ax20.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+
+# ---------- Spines
+for ax in (ax10, ax20):
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+plt.tight_layout(pad=0.4)
+plt.savefig("fig6_PR_colors0sec.pdf")
+plt.show()
 plt.close()
