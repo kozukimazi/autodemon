@@ -301,10 +301,14 @@ Ed = mud1-U0/2
 #transport
 betar,betad,betal = 1/100,1/2,1/100
 betaph = 1/100
-J0, omegac = 0.000005, 1E-2 
+
+omegac = 1E-2 
 gr,grU = (1/100)*(1/6), 1/100
 gl,glU = 1/100, (1/100)*(1/6)
 gd,gdU = 1/50,1/50
+
+J0 = 0.1*(betaph*gl)
+
 #gd,gdU = 1/400,1/400  
 #gr,grU = (1/100), 1/100
 #gl,glU = 1/100, (1/100)
@@ -470,7 +474,7 @@ for ev in eVs0:
     cohes.append(cohe0)
     Ilf.append(-Sl0)
     Irf.append(-Sr0) 
-    Nls.append(Nl0)
+    Nls.append(Nl0/gl)
     Nrs.append(Nr0)
     Nds.append(Nd0)
     eVs.append(ev*betal)
@@ -491,7 +495,7 @@ for ev in eVs0:
 #plt.rcParams["text.usetex"] = True
 #plt.rcParams["font.family"] = "serif" 
 
-
+'''
 plt.plot(eVs,Ql, color='black',lw = 4,label = r'$J_{L}$')
 plt.plot(eVs,Qr, color='blue', lw=4,label = r'$J_{R}$') 
 plt.plot(eVs,Qd, color='red',lw=4,label = r'$J_{D}$')
@@ -714,16 +718,157 @@ plt.plot(eVs,resta, label = r'$|\rho_{100}-\rho_{010}|$')
 plt.plot(eVs,cohesex, label = r'$|\alpha|$')
 plt.legend()
 plt.show()
-
+'''
 
 ##############################
 ######graficosdobles##########
 ##############################
 
 ###mejorar formato############
-#plt.rcParams["text.usetex"] = True
-#plt.rcParams["font.family"] = "serif" 
+plt.rcParams["text.usetex"] = True
+plt.rcParams["font.family"] = "serif" 
 
+# Create subplots (1 row, 2 columns)
+fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(3.39, 4.6))  # 1 row, 2 columns
+
+
+LINE_W = 1.6
+LABEL_FS = 9
+TICK_FS = 8
+PANEL_FS = 9
+
+ax10.plot(eVs,Erl,color='black',linestyle='--',lw=LINE_W, label = r'$\dot{E}_{LR}$')
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+ax10.plot(eVs,Flr,color='black',lw=LINE_W, label = r'$\dot{F}_{LR}$')
+ax10.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$',linestyle='--', dashes=(5, 3), color = 'r',lw=LINE_W)
+ax10.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=LINE_W)
+ax10.plot(eVs,Qlr, color='red',lw = LINE_W,label = r'$\dot{Q}_{LR}$')
+#ax10.xticks(fontsize=17)  
+#ax10.yticks(fontsize=17)
+ax10.tick_params(labelbottom=False,direction='in', which='both', labelsize=TICK_FS)
+ax10.axvspan(0, 2.465, facecolor='b', alpha=0.5)
+ax10.text(0.92, 0.1, '(a)', transform=ax10.transAxes, fontsize=PANEL_FS, fontweight='bold')
+
+ax10.legend(
+    fontsize=7,
+    frameon=True,
+    ncol=3,
+    loc='upper left'
+)
+
+
+
+ax20.plot(eVs,Eds, color='black',linestyle='--',lw=LINE_W, label = r'$\dot{E}_{D}$')
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+ax20.plot(eVs,Fd, color='black',lw=LINE_W, label = r'$\dot{F}_{D}$')
+ax20.plot(eVs,Tid,label = r'$T_{D}\dot{I}_{D}$', linestyle='--', dashes=(5, 3),color = 'r',lw=LINE_W)
+ax20.plot(eVs,Wdf,label = r'$\dot{W}_{D}$', color = 'm',lw=LINE_W)
+#plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
+#ax2.xticks(fontsize=17)  # X-axis tick labels
+#ax2.yticks(fontsize=17)  # Y-axis tick labels
+#plt.xscale("log")
+ax20.set_xlabel(r'$eV/T$',fontsize = LABEL_FS)
+#plt.ylim(-0.0018, 0.0018) 
+#plt.legend(loc='upper left')  
+
+ax20.tick_params(direction='in', which='both',labelsize=TICK_FS)  # font size of tick labels 
+ax20.text(0.92, 0.1, '(b)', transform=ax20.transAxes, fontsize=PANEL_FS, fontweight='bold')
+ax20.axvspan(0, 2.465, facecolor='b', alpha=0.5)
+#fig.supylabel("Cantidades termodinámicas", fontsize=22)
+#plt.subplots_adjust(left=0.05) 
+
+ax20.legend(
+    fontsize=7,
+    frameon=True,
+    ncol=2,
+    loc='center left',
+    bbox_to_anchor=(-0.005, 0.66)
+)
+
+ax20.text(
+    0.60, 0.25,
+    r'$J_0/(\beta_{Ph}\kappa_L)=10^{-1}$',
+    transform=ax20.transAxes,
+    fontsize=8
+)
+
+for ax in (ax10, ax20):
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+
+plt.tight_layout(pad=0.4)
+plt.savefig("figthermoph.pdf")
+plt.show()
+plt.close()
+
+
+
+
+# Create subplots (1 row, 2 columns)
+fig, (ax11, ax21) = plt.subplots(2, 1,sharex=True, figsize=(3.39, 4.5))  # 1 row, 2 columns
+
+ax11.plot(eVs,Nls,color='black',lw=LINE_W, label = r'$\dot{N}_{L}/\kappa_{L}$')
+ax11.plot(eVs,Nds, color='red',linestyle = '--',lw=LINE_W)
+#(0.7,0.48)
+#ax11.set_ylabel(r'$I/\kappa_{L}$',fontsize = 20)
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+#ax10.xticks(fontsize=17)  
+#ax10.yticks(fontsize=17)
+#ax11.legend(bbox_to_anchor=(0.20, 0.98),fontsize=15,loc = "upper left", ncol = 2)
+ax11.axvspan(0, 2.465, facecolor='b', alpha=0.5)
+ax11.tick_params(labelbottom=False,direction='in', which='both',labelsize = TICK_FS)
+ax11.text(0.07, 0.94, '(a)', transform=ax11.transAxes, fontsize=PANEL_FS, fontweight='bold')
+
+ax11.legend(
+    fontsize=7,
+    frameon=True,
+    ncol=1,
+    loc='upper left',
+    bbox_to_anchor=(0.7, 0.25)
+)
+
+ax21.plot(eVs,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'black',lw = LINE_W)
+#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
+ax21.plot(eVs,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=LINE_W,linestyle ='--') 
+#plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
+#ax2.xticks(fontsize=17)  # X-axis tick labels
+#ax2.yticks(fontsize=17)  # Y-axis tick labels
+#plt.xscale("log")
+ax21.set_xlabel(r'$eV/T$',fontsize = LABEL_FS)
+ax21.axvspan(0, 2.465, facecolor='b', alpha=0.5)
+#plt.ylim(-0.0018, 0.0018) 
+#plt.legend(loc='upper left')  
+
+ax21.tick_params(labelsize=TICK_FS)  # font size of tick labels 
+ax21.text(0.07, 0.94, '(b)', transform=ax21.transAxes, fontsize=PANEL_FS, fontweight='bold')
+
+ax21.legend(
+    fontsize=7,
+    frameon=True,
+    ncol=1,
+    loc='upper left',
+    bbox_to_anchor=(0.7, 0.25)
+)
+
+ax21.text(
+    0.60, 0.25,
+    r'$J_0/(\beta_{Ph}\kappa_L)=10^{-1}$',
+    transform=ax21.transAxes,
+    fontsize=8
+)
+
+
+#fig.supylabel("Cantidades termodinámicas", fontsize=22)
+#plt.subplots_adjust(left=0.05) 
+plt.tight_layout(pad=0.4)
+plt.savefig("figcurrentph.pdf")
+plt.show()
+plt.close()
+
+
+
+'''
 # Create subplots (1 row, 2 columns)
 fig, (ax1, ax2) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
 
@@ -834,11 +979,6 @@ ax21.text(0.9, 0.96, '(b)', transform=ax21.transAxes, fontsize=14, fontweight='b
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
-
-
-
-
-'''
 archivo = open("probabiltyph","w")
 decimal_places = 7
 total_width = 8
@@ -901,5 +1041,5 @@ for i in range(Num):
     archivo.write(" ")
     archivo.write( format_str.format(Id[i]))
     archivo.write("\n")
-    '''
+'''
 
