@@ -787,7 +787,7 @@ ax20.legend(
 
 ax20.text(
     0.60, 0.25,
-    r'$J_0/(\beta_{Ph}\kappa_L)=10^{-1}$',
+    r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-1}$',
     transform=ax20.transAxes,
     fontsize=8
 )
@@ -853,7 +853,7 @@ ax21.legend(
 
 ax21.text(
     0.60, 0.25,
-    r'$J_0/(\beta_{Ph}\kappa_L)=10^{-1}$',
+    r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-1}$',
     transform=ax21.transAxes,
     fontsize=8
 )

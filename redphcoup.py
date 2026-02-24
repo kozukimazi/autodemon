@@ -483,7 +483,7 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
 
 
 betal,betar,betad =1/100,1/100,1/2
-betaph = 1/400
+betaph = 1/100
 
 g = 30
 gl,glu = 1/100,(1/100)*(1/6)

@@ -410,7 +410,7 @@ ax20.plot(Jofs3, Imalphg3s, color='red',    lw=LINE_W)
 ax20.plot(Jofs4, Imalphg4s, color='purple', lw=LINE_W)
 #ax20.plot(Jof5, Imbetg5, color='brown',  lw=LINE_W)
 
-ax20.set_xlabel(r'$J_0/(\beta_{Ph}\kappa_L)$', fontsize=LABEL_FS)
+ax20.set_xlabel(r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)$', fontsize=LABEL_FS)
 ax20.set_ylabel(r'$2g\,\mathrm{Re}(\alpha)$', fontsize=LABEL_FS)
 ax20.set_xscale('log')
 ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)

@@ -561,7 +561,7 @@ ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='b
 plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
-
+#sacar nuevamente la data con 3000
 
 np.savez("phonong=10^{-3}b100ne.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work, eff=eff,effph=effph)
 

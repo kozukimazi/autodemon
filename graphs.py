@@ -62,8 +62,18 @@ Ilrt6 = []
 Ilrt7 = []
 Ilrt8 = []
 Ilrt9 = []
-
+print(len(Jof0))
+print(len(Ile1))
+print(len(Ile2))
+print(len(Ile3))
+print(len(Ile4))
+print(len(Ile5))
+print(len(Ile6))
+print(len(Ile7))
+print(len(Ile8))
+print(len(Ile9))
 for i in range(len(Jof0)):
+    
     Ilrt0.append(Ile0[i]+Ire0[i])
     Ilrt1.append(Ile1[i]+Ire1[i])
     Ilrt2.append(Ile2[i]+Ire2[i])
@@ -623,8 +633,8 @@ for ax in (ax1, ax2):
     for spine in ax.spines.values():
         spine.set_linewidth(0.8)
 
-ax1.set_xlabel(r'$J_{0}/(\beta_{Ph}\kappa_{L})$', fontsize=LABEL_FS)
-ax2.set_xlabel(r'$J_{0}/(\beta_{Ph}\kappa_{L})$', fontsize=LABEL_FS)
+ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
 
 # ===================== Single legend (recommended) =====================
 handles, labels = ax1.get_legend_handles_labels()
@@ -757,8 +767,8 @@ for ax in (ax1, ax2):
     for spine in ax.spines.values():
         spine.set_linewidth(0.8)
 
-ax1.set_xlabel(r'$J_{0}/(\beta_{Ph}\kappa_{L})$', fontsize=LABEL_FS)
-ax2.set_xlabel(r'$J_{0}/(\beta_{Ph}\kappa_{L})$', fontsize=LABEL_FS)
+ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
 
 # ===================== Single legend (recommended) =====================
 handles, labels = ax1.get_legend_handles_labels()
