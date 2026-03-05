@@ -785,3 +785,6 @@ plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
 plt.savefig("figeffcohesec.pdf")
 plt.show()
 plt.close()
+
+
+#########hacer los calculos de 1800 a 3000

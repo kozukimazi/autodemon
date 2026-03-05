@@ -411,6 +411,7 @@ Probnt80 = []
 resta = []
 cohesex = []
 Fph = []
+Slrt = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -443,6 +444,8 @@ for ev in eVs0:
     concv.append(concu0)    
     sigmal = Sl0 - betal*Ql0
     sigmar = Sr0 - betar*Qr0
+    sigmaph = Sphf0 - betaph*Qph0
+    Slrt.append(sigmal + sigmar + sigmaph)
     Sls.append(Sl0 - betal*Ql0)
     Srs.append(Sr0 - betar*Qr0)
     Sds.append(Sd0 - betad*Qd0)
@@ -478,7 +481,7 @@ for ev in eVs0:
     Nrs.append(Nr0)
     Nds.append(Nd0)
     eVs.append(ev*betal)
-    entropf.append( -betal*(Ql0+Qr0) )
+    entropf.append( -betal*(Ql0+Qr0+Qph0) )
     auxff.append(0)
     Probnt10.append(rhof[0,0].real )
     Probnt20.append(rhof[1,1].real )
@@ -787,7 +790,7 @@ ax20.legend(
 
 ax20.text(
     0.60, 0.25,
-    r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-1}$',
+    r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-1}$',
     transform=ax20.transAxes,
     fontsize=8
 )
@@ -853,7 +856,7 @@ ax21.legend(
 
 ax21.text(
     0.60, 0.25,
-    r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-1}$',
+    r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-1}$',
     transform=ax21.transAxes,
     fontsize=8
 )
@@ -866,180 +869,6 @@ plt.savefig("figcurrentph.pdf")
 plt.show()
 plt.close()
 
+np.savez("entropyph.npz", eVs=eVs, entropf=entropf, Slrt=Slrt, Nds=Nds)
 
-
-'''
-# Create subplots (1 row, 2 columns)
-fig, (ax1, ax2) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
-
-ax1.plot(eVs,Ql, color='black',lw = 4,label = r'$J_{L}$')
-ax1.plot(eVs,Qr, color='blue', lw=4,label = r'$J_{R}$') 
-ax1.plot(eVs,Qd, color='red',lw=4,label = r'$J_{D}$')
-#plt.plot(eVs,Nls,label = r'$\dot{N}_{L}$')
-#plt.plot(eVs,Nrs, label = r'$\dot{N}_{R}$') 
-#plt.plot(eVs,Nds,label = r'$\dot{N}_{d}$')
-#plt.xscale("log")
-#ax1.set_xlabel(r'$eV/T$',fontsize = 20)
-ax1.set_ylabel(r'$J_{\alpha}$',fontsize = 22)
-#ax1.xticks(fontsize=17)  # X-axis tick labels
-#ax1.set_yticks(fontsize=17)  # Y-axis tick labels
-ax1.legend(loc = "lower left",fontsize=12) 
-ax1.tick_params(labelbottom=False,labelsize = 18)
-ax1.text(0.9, 0.95, '(a)', transform=ax1.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
-
-
-ax2.plot(eVs,Nls, color='black',lw=4,label = r'$\dot{N}_{L}$')
-ax2.plot(eVs,Nrs, color='blue',lw=4, label = r'$\dot{N}_{R}$') 
-ax2.plot(eVs,Nds, color='red',lw=4,label = r'$\dot{N}_{D}$')
-#ax2.xticks(fontsize=17)  # X-axis tick labels
-#ax2.yticks(fontsize=17)  # Y-axis tick labels
-#plt.xscale("log")
-ax2.set_xlabel(r'$eV/T$',fontsize = 22)
-#plt.ylim(-0.0018, 0.0018) 
-#plt.legend(loc='upper left')  
-ax2.set_ylabel(r'$\dot{N}_{\alpha}$',fontsize = 22)
-ax2.legend(bbox_to_anchor=(-0.005, 0.68), loc="center left",fontsize=12) 
-ax2.tick_params(labelsize=18)  # font size of tick labels 
-ax2.text(0.9, 0.95, '(b)', transform=ax2.transAxes, fontsize=14, fontweight='bold', va='top', ha='left')
-
-
-#plt.subplots_adjust(left=0.05) 
-plt.tight_layout()  # Avoids overlapping labels
-plt.show()
-
-
-# Create subplots (1 row, 2 columns)
-fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
-
-ax10.plot(eVs,Erl,color='blue',lw=3, label = r'$\dot{E}_{LR}$')
-#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax10.plot(eVs,Flr,color='black',lw=3, label = r'$\dot{F}_{LR}$')
-ax10.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$',linestyle='--', dashes=(5, 3), color = 'r',lw=3)
-ax10.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=3)
-ax10.plot(eVs,Qlr, color='red',lw = 3,label = r'$J_{LR}$')
-#ax10.xticks(fontsize=17)  
-#ax10.yticks(fontsize=17)
-ax10.legend(fontsize=15,loc = "upper left", ncol = 2)
-ax10.tick_params(labelbottom=False,labelsize = 20)
-ax10.text(0.9, 0.96, '(a)', transform=ax10.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
-
-
-ax20.plot(eVs,Eds, color='blue',lw=3, label = r'$\dot{E}_{D}$')
-#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax20.plot(eVs,Fd, color='black',lw=3, label = r'$\dot{F}_{D}$')
-ax20.plot(eVs,Tid,label = r'$T_{D}\dot{I}_{D}$', linestyle='--', dashes=(5, 3),color = 'r',lw=3)
-ax20.plot(eVs,Wdf,label = r'$\dot{W}_{D}$', color = 'm',lw=3)
-#plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
-#ax2.xticks(fontsize=17)  # X-axis tick labels
-#ax2.yticks(fontsize=17)  # Y-axis tick labels
-#plt.xscale("log")
-ax20.set_xlabel(r'$eV/T$',fontsize = 20)
-#plt.ylim(-0.0018, 0.0018) 
-#plt.legend(loc='upper left')  
-ax20.legend(bbox_to_anchor=(-0.005, 0.66), fontsize=15, loc = "center left", ncol = 2)
-ax20.tick_params(labelsize=18)  # font size of tick labels 
-ax20.text(0.9, 0.96, '(b)', transform=ax20.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
-
-#fig.supylabel("Cantidades termodinámicas", fontsize=22)
-#plt.subplots_adjust(left=0.05) 
-plt.tight_layout()  # Avoids overlapping labels
-plt.show()
-
-
-# Create subplots (1 row, 2 columns)
-fig, (ax11, ax21) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
-
-ax11.plot(eVs,Nls,color='blue',lw=3, label = r'$\dot{N}_{L}$')
-#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax11.plot(eVs,Nrs,color='black',lw=3, label = r'$\dot{N}_{R}$')
-ax11.plot(eVs,Nds, color='red',lw = 3,label = r'$\dot{N}_{D}$')
-#ax10.xticks(fontsize=17)  
-#ax10.yticks(fontsize=17)
-ax11.legend(bbox_to_anchor=(0.20, 0.98),fontsize=15,loc = "upper left", ncol = 2)
-ax11.tick_params(labelbottom=False,labelsize = 20)
-ax11.text(0.9, 0.96, '(a)', transform=ax11.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
-
-
-ax21.plot(eVs,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'b',lw = 3)
-#plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax21.plot(eVs,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=3) 
-#plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
-#ax2.xticks(fontsize=17)  # X-axis tick labels
-#ax2.yticks(fontsize=17)  # Y-axis tick labels
-#plt.xscale("log")
-ax21.set_xlabel(r'$eV/T$',fontsize = 20)
-#plt.ylim(-0.0018, 0.0018) 
-#plt.legend(loc='upper left')  
-ax21.legend(bbox_to_anchor=(0.20, 0.98), fontsize=17, loc = "upper left")
-ax21.tick_params(labelsize=18)  # font size of tick labels 
-ax21.text(0.9, 0.96, '(b)', transform=ax21.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
-
-#fig.supylabel("Cantidades termodinámicas", fontsize=22)
-#plt.subplots_adjust(left=0.05) 
-plt.tight_layout()  # Avoids overlapping labels
-plt.show()
-
-archivo = open("probabiltyph","w")
-decimal_places = 7
-total_width = 8
-format_str = f"{{:.{decimal_places}f}}" 
-#format_str = f"{{:{total_width}.{decimal_places}f}}"
-for i in range(Num):
-    archivo.write( format_str.format(eVs[i])) #guarda el grado del nodo
-    #archivo.write(str(xs[i])) 
-    archivo.write(" ") 
-    #archivo.write(str(ys[i]))
-    archivo.write( format_str.format(Nls[i]))
-    archivo.write(" ")  
-    #archivo.write(str(ys[i]))
-    archivo.write( format_str.format(Probnt10[i]))
-    archivo.write(" ") 
-    archivo.write( format_str.format(Probnt20[i]))
-    archivo.write(" ") 
-    archivo.write( format_str.format(Probnt30[i]))
-    archivo.write(" ") 
-    archivo.write( format_str.format(Probnt40[i]))
-    archivo.write(" ")  
-    archivo.write( format_str.format(Probnt50[i]))
-    archivo.write(" ")  
-    archivo.write( format_str.format(Probnt60[i]))
-    archivo.write(" ")  
-    archivo.write( format_str.format(Probnt70[i]))
-    archivo.write(" ")  
-    archivo.write( format_str.format(Probnt80[i]))
-    archivo.write(" ")  
-    #archivo.write(str(ys[i]))
-    archivo.write( format_str.format(Id[i]))
-    archivo.write("\n")
-
-
-
-archivo = open("semiphJ0","w")
-decimal_places = 7
-total_width = 8
-format_str = f"{{:.{decimal_places}f}}" 
-#format_str = f"{{:{total_width}.{decimal_places}f}}"
-for i in range(Num):
-    archivo.write( format_str.format(eVs[i])) #guarda el grado del nodo
-    #archivo.write(str(xs[i])) 
-    archivo.write(" ") 
-    #archivo.write(str(ys[i]))
-    archivo.write( format_str.format(Nls[i]))
-    archivo.write(" ")
-    archivo.write( format_str.format(Ql[i]))
-    archivo.write(" ")
-    archivo.write( format_str.format(Qr[i]))
-    archivo.write(" ")
-    archivo.write( format_str.format(Qlr[i]))
-    archivo.write(" ")   
-    archivo.write( format_str.format(Qphs[i]))
-    archivo.write(" ")
-    #archivo.write(str(ys[i]))
-    archivo.write( format_str.format(concv[i]))
-    archivo.write(" ") 
-    archivo.write( format_str.format(cohes[i]))
-    archivo.write(" ")
-    archivo.write( format_str.format(Id[i]))
-    archivo.write("\n")
-'''
 

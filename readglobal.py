@@ -251,17 +251,17 @@ TICK_FS = 8
 PANEL_FS = 9
 
 # ---------- Panel (a)
-ax10.plot(gof10, cohes0, color='blue',   lw=LINE_W, label="semilocal")
+ax10.plot(gof10, cohes0, color='blue',   lw=LINE_W, label="partial")
 #ax10.plot(Jof1, Imalphg1, color='orange', lw=LINE_W, label=r'$10^{-2}$')
 ax10.plot(gof12, cohes2, color='red',    lw=LINE_W, label="global")
-ax10.plot(gof11, cohes1, color='green',  lw=LINE_W, label="redfield", ls = '--')
-ax10.plot(gof10x, cohes0x, color='blue',   lw=LINE_W, label="semilocal", ls = '--')
+ax10.plot(gof11, cohes1, color='green',  lw=LINE_W, label="Redfield", ls = '--')
+ax10.plot(gof10x, cohes0x, color='blue',   lw=LINE_W, label="partial", ls = '--')
 ax10.plot(gof12x, cohes2x, color='red',    lw=LINE_W, label="global",ls = '--')
-ax10.plot(gof11x, cohes1x, color='green',  lw=LINE_W, label="redfield", ls = ':')
+ax10.plot(gof11x, cohes1x, color='green',  lw=LINE_W, label="Redfield", ls = ':')
 
-ax10.plot(gof10y, cohes0y, color='blue',   lw=LINE_W, label="semilocal", ls = '-.')
+ax10.plot(gof10y, cohes0y, color='blue',   lw=LINE_W, label="partial", ls = '-.')
 ax10.plot(gof12y, cohes2y, color='red',    lw=LINE_W, label="global",ls = '-.')
-ax10.plot(gof11y, cohes1y, color='green',  lw=LINE_W, label="redfield", ls = '-.')
+ax10.plot(gof11y, cohes1y, color='green',  lw=LINE_W, label="Redfield", ls = '-.')
 
 
 ax10.set_ylabel(r'$\mathcal{C}_{l_1}$', fontsize=LABEL_FS)
@@ -322,10 +322,10 @@ TICK_FS = 8
 PANEL_FS = 9
 
 # ---------- Panel (a)
-ax10.plot(gof10x, cohes0x, color='blue',   lw=LINE_W, label="semilocal")
+ax10.plot(gof10x, cohes0x, color='blue',   lw=LINE_W, label="partial")
 #ax10.plot(Jof1, Imalphg1, color='orange', lw=LINE_W, label=r'$10^{-2}$')
 ax10.plot(gof12x, cohes2x, color='red',    lw=LINE_W, label="global")
-ax10.plot(gof11x, cohes1x, color='green',  lw=LINE_W, label="redfield", ls = '--')
+ax10.plot(gof11x, cohes1x, color='green',  lw=LINE_W, label="Redfield", ls = '--')
 
 ax10.set_ylabel(r'$\mathcal{C}_{l_1}$', fontsize=LABEL_FS)
 ax10.set_xscale('log')
@@ -371,10 +371,10 @@ fig, (ax10, ax20) = plt.subplots(
 )
 
 # ---------- Panel (a)
-ax10.plot(gof10y, cohes0y, color='blue',   lw=LINE_W, label="semilocal")
+ax10.plot(gof10y, cohes0y, color='blue',   lw=LINE_W, label="partial")
 #ax10.plot(Jof1, Imalphg1, color='orange', lw=LINE_W, label=r'$10^{-2}$')
 ax10.plot(gof12y, cohes2y, color='red',    lw=LINE_W, label="global")
-ax10.plot(gof11y, cohes1y, color='green',  lw=LINE_W, label="redfield", ls = '--')
+ax10.plot(gof11y, cohes1y, color='green',  lw=LINE_W, label="Redfield", ls = '--')
 
 ax10.set_ylabel(r'$\mathcal{C}_{l_1}$', fontsize=LABEL_FS)
 ax10.set_xscale('log')
@@ -383,9 +383,9 @@ ax10.text(0.91, 0.88, '(a)', transform=ax10.transAxes,
           fontsize=PANEL_FS, fontweight='bold')
 
 ax10.text(
-    0.05, 0.95,
-    r'$J_0/(\beta_{Ph} \kappa_L)= 10^{-3}$',
-    transform=ax.transAxes,
+    0.05, 0.29,
+    r'$J_0/(\beta_{\mathrm{Ph}} \kappa_L)= 10^{-3}$',
+    transform=ax10.transAxes,
     fontsize=9
 )
 
@@ -443,9 +443,9 @@ PANEL_FS = 9
 LEG_FS   = 7
 
 # ===================== Panel (a) =====================
-ax10.plot(gof10y, cohes0y, color='blue',  lw=LINE_W, label="semilocal")
+ax10.plot(gof10y, cohes0y, color='blue',  lw=LINE_W, label="partial")
 ax10.plot(gof12y, cohes2y, color='red',   lw=LINE_W, label="global")
-ax10.plot(gof11y, cohes1y, color='green', lw=LINE_W, ls='--', label="redfield")
+ax10.plot(gof11y, cohes1y, color='green', lw=LINE_W, ls='--', label="Redfield")
 
 ax10.set_ylabel(r'$\mathcal{C}_{l_1}$', fontsize=LABEL_FS)
 ax10.set_xscale('log')
@@ -456,7 +456,7 @@ ax10.text(0.92, 0.88, '(a)', transform=ax10.transAxes,
 
 ax10.text(
     0.05, 0.65,
-    r'$J_0/(\beta_{Ph}\kappa_L)=10^{-3}$',
+    r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-3}$',
     transform=ax10.transAxes,
     fontsize=8
 )
@@ -492,7 +492,7 @@ ax11.tick_params(direction='in', which='both', labelsize=TICK_FS)
 
 ax11.text(
     0.05, 0.65,
-    r'$J_0/(\beta_{Ph}\kappa_L)=5 \times 10^{-1}$',
+    r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=5 \times 10^{-1}$',
     transform=ax11.transAxes,
     fontsize=8
 )

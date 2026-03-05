@@ -426,6 +426,7 @@ Sls = []
 Srs = []
 Sds = []
 Slr = []
+Slro = []
 entropf = []
 Isl = []
 Id = []
@@ -940,6 +941,59 @@ plt.tight_layout(pad=0.4)
 plt.savefig("figcurrent.pdf")
 plt.show()
 plt.close()
+
+
+
+
+# Figure format parameters
+LINE_W0 = 1.6
+LABEL_FS0 = 9
+TICK_FS0 = 8
+PANEL_FS0 = 9
+
+# Create figure
+fig, ax = plt.subplots(figsize=(3.39, 2.3))
+
+# Plots
+ax.plot(eVs, entropf, color='black', lw=LINE_W0, label=r'$\dot{\sigma}^{O}_{LR}$')
+ax.plot(eVs, Slr, color='red', lw=LINE_W0, label=r'$\dot{\sigma}_{LR}$')
+ax.plot(eVs,Nds, color='black',lw=LINE_W0,linestyle='--')
+# Axis labels
+ax.set_xlabel(r'$eV/T$', fontsize=LABEL_FS0)
+
+# Tick formatting
+ax.tick_params(direction='in', which='both', labelsize=TICK_FS0)
+
+# Highlighted region
+ax.axvspan(0, 2.465, facecolor='b', alpha=0.5)
+
+# Panel label
+ax.text(0.92, 0.05, '(a)', transform=ax.transAxes,
+        fontsize=PANEL_FS0, fontweight='bold')
+
+# Legend
+ax.legend(
+    fontsize=7,
+    frameon=True,
+    ncol=1,
+    loc='upper left'
+)
+
+# Spine thickness
+for spine in ax.spines.values():
+    spine.set_linewidth(0.8)
+
+# Layout
+plt.tight_layout(pad=0.4)
+
+# Save
+plt.savefig("entropy.pdf")
+
+plt.show()
+plt.close()
+
+
+np.savez("entropy.npz", eVs=eVs, entropf=entropf, Slr=Slr, Nds=Nds)
 
 
 archivo = open("lindbladgamU","w")
