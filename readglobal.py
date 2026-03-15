@@ -255,26 +255,33 @@ ax10.plot(gof10, cohes0, color='blue',   lw=LINE_W, label="partial")
 #ax10.plot(Jof1, Imalphg1, color='orange', lw=LINE_W, label=r'$10^{-2}$')
 ax10.plot(gof12, cohes2, color='red',    lw=LINE_W, label="global")
 ax10.plot(gof11, cohes1, color='green',  lw=LINE_W, label="Redfield", ls = '--')
-ax10.plot(gof10x, cohes0x, color='blue',   lw=LINE_W, label="partial", ls = '--')
-ax10.plot(gof12x, cohes2x, color='red',    lw=LINE_W, label="global",ls = '--')
-ax10.plot(gof11x, cohes1x, color='green',  lw=LINE_W, label="Redfield", ls = ':')
+#ax10.plot(gof10x, cohes0x, color='blue',   lw=LINE_W, label="partial", ls = '--')
+#ax10.plot(gof12x, cohes2x, color='red',    lw=LINE_W, label="global",ls = '--')
+#ax10.plot(gof11x, cohes1x, color='green',  lw=LINE_W, label="Redfield", ls = ':')
 
-ax10.plot(gof10y, cohes0y, color='blue',   lw=LINE_W, label="partial", ls = '-.')
-ax10.plot(gof12y, cohes2y, color='red',    lw=LINE_W, label="global",ls = '-.')
-ax10.plot(gof11y, cohes1y, color='green',  lw=LINE_W, label="Redfield", ls = '-.')
+#ax10.plot(gof10y, cohes0y, color='blue',   lw=LINE_W, label="partial", ls = '-.')
+#ax10.plot(gof12y, cohes2y, color='red',    lw=LINE_W, label="global",ls = '-.')
+#ax10.plot(gof11y, cohes1y, color='green',  lw=LINE_W, label="Redfield", ls = '-.')
 
 
 ax10.set_ylabel(r'$\mathcal{C}_{l_1}$', fontsize=LABEL_FS)
 ax10.set_xscale('log')
 ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
-ax10.text(0.05, 0.97, '(a)', transform=ax10.transAxes,
+ax10.text(0.90, 0.10, '(a)', transform=ax10.transAxes,
           fontsize=PANEL_FS, fontweight='bold')
 
 ax10.legend(
     fontsize=7,
     frameon=True,
     ncol=1,
-    loc='center left'
+    loc='upper left'
+)
+
+ax10.text(
+    0.05, 0.29,
+    r'$J_0/(\beta_{\mathrm{ph}} \kappa_L)= 5\times 10^{-1}$',
+    transform=ax10.transAxes,
+    fontsize=9
 )
 
 # ---------- Panel (b)
@@ -283,17 +290,17 @@ ax20.plot(gof10, Nls0, color='blue',   lw=LINE_W)
 ax20.plot(gof12, Nls2, color='red',    lw=LINE_W)
 ax20.plot(gof11, Nls1, color='green',  lw=LINE_W,ls = '--')
 
-ax20.plot(gof10x, Nls0x, color='blue',   lw=LINE_W, ls = '--')
+#ax20.plot(gof10x, Nls0x, color='blue',   lw=LINE_W, ls = '--')
 #ax20.plot(Jof1, Imbetg1, color='orange', lw=LINE_W)
-ax20.plot(gof12x, Nls2x, color='red',    lw=LINE_W, ls = '--')
-ax20.plot(gof11x, Nls1x, color='green',  lw=LINE_W,ls = ':')
+#ax20.plot(gof12x, Nls2x, color='red',    lw=LINE_W, ls = '--')
+#ax20.plot(gof11x, Nls1x, color='green',  lw=LINE_W,ls = ':')
 
 
 ax20.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
 ax20.set_ylabel(r'$\dot{N}_L$', fontsize=LABEL_FS)
 ax20.set_xscale('log')
 ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
-ax20.text(0.05, 0.97, '(b)', transform=ax20.transAxes,
+ax20.text(0.90, 0.10, '(b)', transform=ax20.transAxes,
           fontsize=PANEL_FS, fontweight='bold')
 
 # ---------- Spines
@@ -384,7 +391,7 @@ ax10.text(0.91, 0.88, '(a)', transform=ax10.transAxes,
 
 ax10.text(
     0.05, 0.29,
-    r'$J_0/(\beta_{\mathrm{Ph}} \kappa_L)= 10^{-3}$',
+    r'$J_0/(\beta_{\mathrm{ph}} \kappa_L)= 10^{-3}$',
     transform=ax10.transAxes,
     fontsize=9
 )
@@ -456,7 +463,7 @@ ax10.text(0.92, 0.88, '(a)', transform=ax10.transAxes,
 
 ax10.text(
     0.05, 0.65,
-    r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-3}$',
+    r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-3}$',
     transform=ax10.transAxes,
     fontsize=8
 )
@@ -492,7 +499,7 @@ ax11.tick_params(direction='in', which='both', labelsize=TICK_FS)
 
 ax11.text(
     0.05, 0.65,
-    r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=5 \times 10^{-1}$',
+    r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=5 \times 10^{-1}$',
     transform=ax11.transAxes,
     fontsize=8
 )

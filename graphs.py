@@ -633,8 +633,8 @@ for ax in (ax1, ax2):
     for spine in ax.spines.values():
         spine.set_linewidth(0.8)
 
-ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
-ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
 
 # ===================== Single legend (recommended) =====================
 handles, labels = ax1.get_legend_handles_labels()
@@ -767,8 +767,8 @@ for ax in (ax1, ax2):
     for spine in ax.spines.values():
         spine.set_linewidth(0.8)
 
-ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
-ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{Ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
 
 # ===================== Single legend (recommended) =====================
 handles, labels = ax1.get_legend_handles_labels()

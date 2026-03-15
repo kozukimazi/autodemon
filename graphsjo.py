@@ -221,12 +221,12 @@ plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif" 
 
 
-plt.plot(gof10,cohes0, color='blue',lw=3, label = r'$J_{0}/\beta_{\mathrm{Ph}} \kappa_{L}= 10^{-3}$')
-plt.plot(gof11,cohes1, color='orange',lw=3, label = r'$J_{0}/\beta_{\mathrm{Ph}} \kappa_{L}= 10^{-2}$')
-plt.plot(gof12,cohes2, color='green',lw=3, label = r'$J_{0}/\beta_{\mathrm{Ph}} \kappa_{L}= 10^{-1}$')
-plt.plot(gof15,cohes5, color='brown',lw=3, label = r'$J_{0}/\beta_{\mathrm{Ph}} \kappa_{L}= 5 \cdot 10^{-1}$')
-plt.plot(gof13,cohes3, color='red',lw=3, label = r'$J_{0}/\beta_{\mathrm{Ph}} \kappa_{L}= 1$')
-plt.plot(gof14,cohes4, color='purple',lw=3, label = r'$J_{0}/\beta_{\mathrm{Ph}} \kappa_{L}= 10$')
+plt.plot(gof10,cohes0, color='blue',lw=3, label = r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 10^{-3}$')
+plt.plot(gof11,cohes1, color='orange',lw=3, label = r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 10^{-2}$')
+plt.plot(gof12,cohes2, color='green',lw=3, label = r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 10^{-1}$')
+plt.plot(gof15,cohes5, color='brown',lw=3, label = r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 5 \cdot 10^{-1}$')
+plt.plot(gof13,cohes3, color='red',lw=3, label = r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 1$')
+plt.plot(gof14,cohes4, color='purple',lw=3, label = r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 10$')
 plt.xlabel(r'$g/\kappa_{L}$',fontsize = 35)
 plt.ylabel(r'$\mathcal{C}_{l_{1}}$',fontsize = 35)
 plt.xticks(fontsize=35)  # X-axis tick labels
@@ -247,12 +247,12 @@ TICK_FS = 8
 PANEL_FS = 9
 
 # ---------- Panel (a)
-ax10.plot(gof10, cohes0, color='blue',   lw=LINE_W, label=r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-3}$')
-ax10.plot(gof11, cohes1, color='orange', lw=LINE_W, label=r'$J_0/(\beta_{\mathrm{Ph}}\kappa_L)=10^{-2}$')
-ax10.plot(gof12, cohes2, color='green',  lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{Ph}} \kappa_{L})= 10^{-1}$')
-ax10.plot(gof15, cohes5, color='brown',    lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{Ph}} \kappa_{L})= 5 \times 10^{-1}$')
-ax10.plot(gof13, cohes3, color='red',  lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{Ph}} \kappa_{L})= 1$')
-ax10.plot(gof14, cohes4, color='purple', lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{Ph}} \kappa_{L})= 10$')
+ax10.plot(gof10, cohes0, color='blue',   lw=LINE_W, label=r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-3}$')
+ax10.plot(gof11, cohes1, color='orange', lw=LINE_W, label=r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-2}$')
+ax10.plot(gof12, cohes2, color='green',  lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 10^{-1}$')
+ax10.plot(gof15, cohes5, color='brown',    lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 5 \times 10^{-1}$')
+ax10.plot(gof13, cohes3, color='red',  lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 1$')
+ax10.plot(gof14, cohes4, color='purple', lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 10$')
 #ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
 ax10.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
 ax10.set_ylabel(r'$\mathcal{C}_{l_{1}}$', fontsize=LABEL_FS)
