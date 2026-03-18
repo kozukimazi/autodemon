@@ -62,16 +62,8 @@ Ilrt6 = []
 Ilrt7 = []
 Ilrt8 = []
 Ilrt9 = []
-print(len(Jof0))
-print(len(Ile1))
-print(len(Ile2))
-print(len(Ile3))
-print(len(Ile4))
-print(len(Ile5))
-print(len(Ile6))
-print(len(Ile7))
-print(len(Ile8))
-print(len(Ile9))
+
+
 for i in range(len(Jof0)):
     
     Ilrt0.append(Ile0[i]+Ire0[i])
@@ -322,195 +314,6 @@ plt.show()
 '''
 
 
-'''
-# Create subplots (1 row, 2 columns)
-fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
-
-
-#ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
-#mientras que al superar esa vara L empieza a medir 
-ax10.plot(Jof0,Nls0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-ax10.plot(Jof1,Nls1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-ax10.plot(Jof2,Nls2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-ax10.plot(Jof3,Nls3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-ax10.plot(Jof4,Nls4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-ax10.plot(Jof5,Nls5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-ax10.plot(Jof6,Nls6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-ax10.plot(Jof7,Nls7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
-ax10.plot(Jof8,Nls8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
-ax10.plot(Jof9,Nls9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
-
-ax10.set_ylabel(r'$\dot{N}_{i}$',fontsize = 22)
-ax10.legend(fontsize=17,loc = "upper right")
-ax10.set_xscale('log')  
-ax10.tick_params(labelbottom=False,labelsize = 18)
-ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
-
-ax20.plot(Jof0,concv0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-ax20.plot(Jof1,concv1, color='orange',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-ax20.plot(Jof2,concv2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-ax20.plot(Jof3,concv3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-ax20.plot(Jof4,concv4, color='purple',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-ax20.plot(Jof5,concv5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-ax20.plot(Jof6,concv6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-ax20.plot(Jof7,concv7, color='gray',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=10^{1}$') 
-ax20.plot(Jof8,concv8, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$') 
-ax20.plot(Jof9,concv9, color='black',lw=3,linestyle = ':', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$') 
-
-ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
-ax20.set_xscale("log")
-#ax20.legend(fontsize=17, loc = "upper left") 
-ax20.set_ylabel("Coherencia y entrelazamiento",fontsize = 22)
-ax20.tick_params(labelsize=18)  # font size of tick labels 
-ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
-
-
-plt.tight_layout()  # Avoids overlapping labels
-plt.show()
-
-
-# Create subplots (1 row, 2 columns)
-fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
-
-
-#ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
-#mientras que al superar esa vara L empieza a medir 
-ax10.plot(Jof0,Nls0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-ax10.plot(Jof1,Nls1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-ax10.plot(Jof2,Nls2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-ax10.plot(Jof3,Nls3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-ax10.plot(Jof4,Nls4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-ax10.plot(Jof5,Nls5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-ax10.plot(Jof6,Nls6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-ax10.plot(Jof7,Nls7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
-ax10.plot(Jof8,Nls8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
-ax10.plot(Jof9,Nls9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
-
-ax10.set_ylabel(r'$\dot{N}_{i}$',fontsize = 22)
-ax10.legend(fontsize=17,loc = "upper right")
-ax10.set_xscale('log')  
-ax10.tick_params(labelbottom=False,labelsize = 18)
-ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
-
-ax20.plot(Jof0,cohes0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-ax20.plot(Jof1,cohes1, color='orange',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-ax20.plot(Jof2,cohes2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-ax20.plot(Jof3,cohes3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-ax20.plot(Jof4,cohes4, color='purple',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-ax20.plot(Jof5,cohes5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-ax20.plot(Jof6,cohes6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-ax20.plot(Jof7,cohes7, color='gray',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=10^{1}$') 
-ax20.plot(Jof8,cohes8, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$') 
-ax20.plot(Jof9,cohes9, color='black',lw=3,linestyle = ':', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$') 
-
-ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
-ax20.set_xscale("log")
-#ax20.legend(fontsize=17, loc = "upper left") 
-ax20.set_ylabel("Coherencia",fontsize = 22)
-ax20.tick_params(labelsize=18)  # font size of tick labels 
-ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
-
-
-plt.tight_layout()  # Avoids overlapping labels
-plt.show()
-
-# Create subplots (1 row, 2 columns)
-fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
-
-ax10.plot(Jof0,Iphs0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-ax10.plot(Jof1,Iphs1, color='orange',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-ax10.plot(Jof2,Iphs2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-ax10.plot(Jof3,Iphs3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-ax10.plot(Jof4,Iphs4, color='purple',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-ax10.plot(Jof5,Iphs5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-ax10.plot(Jof6,Iphs6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-ax10.plot(Jof7,Iphs7, color='gray',lw=3, linestyle = '--',label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
-ax10.plot(Jof8,Iphs8, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
-ax10.plot(Jof9,Iphs9, color='black',linestyle = ':',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
-ax10.set_ylabel(r'$\dot{I}_{ph}$',fontsize = 22)
-ax10.legend(fontsize=17,loc = "upper right")
-ax10.set_xscale('log')  
-ax10.tick_params(labelbottom=False,labelsize = 18)
-ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
-
-
-ax20.plot(Jof0,cohes0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-ax20.plot(Jof1,cohes1, color='orange',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-ax20.plot(Jof2,cohes2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-ax20.plot(Jof3,cohes3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-ax20.plot(Jof4,cohes4, color='purple',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-ax20.plot(Jof5,cohes5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-ax20.plot(Jof6,cohes6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-ax20.plot(Jof7,cohes7, color='gray',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=10^{1}$') 
-ax20.plot(Jof8,cohes8, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$') 
-ax20.plot(Jof9,cohes9, color='black',lw=3,linestyle = ':', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$') 
-ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
-ax20.set_xscale("log")
-#ax20.legend(fontsize=17, loc = "upper left") 
-ax20.set_ylabel("Coherencia",fontsize = 22)
-ax20.tick_params(labelsize=18)  # font size of tick labels 
-ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
-
-
-plt.tight_layout()  # Avoids overlapping labels
-plt.show()
-
-
-# Create subplots (1 row, 2 columns)
-fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(4, 9),constrained_layout=True)  # 1 row, 2 columns
-
-
-#ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
-#mientras que al superar esa vara L empieza a medir 
-ax10.plot(Jof0,Id0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-ax10.plot(Jof1,Id1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-ax10.plot(Jof2,Id2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-ax10.plot(Jof3,Id3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-ax10.plot(Jof4,Id4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-ax10.plot(Jof5,Id5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-ax10.plot(Jof6,Id6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-ax10.plot(Jof7,Id7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
-ax10.plot(Jof8,Id8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
-ax10.plot(Jof9,Id9, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
-
-ax10.set_ylabel(r'$\dot{I}_{i}$',fontsize = 22)
-ax10.legend(fontsize=17,loc = "upper right")
-ax10.set_xscale('log')  
-ax10.tick_params(labelbottom=False,labelsize = 18)
-ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
-
-#ax20.plot(Jof0,Nqm0, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-#ax20.plot(Jof0,Nltotal0, color='blue',linestyle='--',lw=3)
-#ax20.plot(Jof1,Nqm1, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-#ax20.plot(Jof1,Nltotal1, color='orange',linestyle='--',lw=3)
-#ax20.plot(Jof2,Nqm2, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-#ax20.plot(Jof2,Nltotal2, color='green',linestyle = '--',lw=3)
-#ax20.plot(Jof3,Nqm3, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-#ax20.plot(Jof3,Nltotal3, color='red',linestyle='--',lw=3)
-ax20.plot(Jof4,Nqm4, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-ax20.plot(Jof4,Nltotal4, color='purple',linestyle='--',lw=3)
-#ax20.plot(Jof5,Nqm5, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-#ax20.plot(Jof5,Nltotal5, color='brown',linestyle='--',lw=3)
-#ax20.plot(Jof6,Nqm6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-#ax20.plot(Jof6,Nltotal6, color='pink',linestyle='--',lw=3)
-ax20.plot(Jof7,Nqm7, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-ax20.plot(Jof7,Nltotal7, color='gray',linestyle='--',lw=3)
-ax20.plot(Jof8,Nqm8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
-ax20.plot(Jof8,Nltotal8, color='black',linestyle='--',lw=3)
-ax20.plot(Jof9,Nqm9, color='black',lw=1,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
-ax20.plot(Jof9,Nltotal9, color='black',linestyle = (0, (3, 5, 1, 5)),lw=3)
-
-ax20.set_xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)   
-ax20.set_xscale("log")
-#ax20.legend(fontsize=17, loc = "upper left") 
-ax20.set_ylabel(r'$\dot{\hat{N}_{2}}$',fontsize = 22)
-ax20.tick_params(labelsize=18)  # font size of tick labels 
-ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes, fontsize=16, fontweight='bold', va='top', ha='left')
-
-
-plt.tight_layout()  # Avoids overlapping labels
-plt.show()
-'''
 
 plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif" 
@@ -551,15 +354,15 @@ LEG_FS   = 7
 
 # ===================== (a) Efficiency =====================
 ax1.plot(Jof0, eff0, color='blue',   lw=LINE_W, label=r'$g/\kappa_{L}=0$')
-#ax1.plot(Jof1, eff1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
-#ax1.plot(Jof2, eff2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\cdot10^{-2}$')
+ax1.plot(Jof1, eff1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
+ax1.plot(Jof2, eff2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\cdot10^{-2}$')
 ax1.plot(Jof3, eff3, color='red',    lw=LINE_W, label=r'$g/\kappa_{L}=10^{-1}$')
 ax1.plot(Jof9, eff9, color='black',  lw=LINE_W, ls='--', label=r'$g/\kappa_{L}=3\times10^{-1}$')
 ax1.plot(Jof4, eff4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\times10^{-1}$')
 ax1.plot(Jof5, eff5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
-#ax1.plot(Jof7, eff7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
-#ax1.plot(Jof10, eff10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
-#ax1.plot(Jof11, eff11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
+ax1.plot(Jof7, eff7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
+ax1.plot(Jof10, eff10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
+ax1.plot(Jof11, eff11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
 ax1.plot(Jof12, eff12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
 ax1.plot(Jof13, eff13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
 
@@ -607,15 +410,15 @@ ax1.text(0.92, 0.90, '(a)', transform=ax1.transAxes,
 
 # ===================== (b) Coherence =====================
 ax2.plot(Jof0, cohes0, color='blue',   lw=LINE_W)
-#ax2.plot(Jof1, cohes1, color='orange', lw=LINE_W)
-#ax2.plot(Jof2, cohes2, color='green',  lw=LINE_W)
+ax2.plot(Jof1, cohes1, color='orange', lw=LINE_W)
+ax2.plot(Jof2, cohes2, color='green',  lw=LINE_W)
 ax2.plot(Jof3, cohes3, color='red',    lw=LINE_W)
 ax2.plot(Jof9, cohes9, color='black',  lw=LINE_W, ls='--')
 ax2.plot(Jof4, cohes4, color='purple', lw=LINE_W)
 ax2.plot(Jof5, cohes5, color='brown',  lw=LINE_W)
-#ax2.plot(Jof7, cohes7, color='gray',   lw=LINE_W)
-#ax2.plot(Jof10, cohes10, color='red',   lw=LINE_W, ls = '--')
-#ax2.plot(Jof11, cohes11, color='blue',   lw=LINE_W, ls = '--')
+ax2.plot(Jof7, cohes7, color='gray',   lw=LINE_W)
+ax2.plot(Jof10, cohes10, color='red',   lw=LINE_W, ls = '--')
+ax2.plot(Jof11, cohes11, color='blue',   lw=LINE_W, ls = '--')
 ax2.plot(Jof12, cohes12, color='green',   lw=LINE_W, ls = '--')
 ax2.plot(Jof13, cohes13, color='brown',   lw=LINE_W, ls = '--')
 

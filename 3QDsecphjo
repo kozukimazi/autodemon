@@ -86,9 +86,15 @@ v011 = totdr @ v00
 v111 = totf @ v00
 
 
+plus0 = (v100 + v010)/np.sqrt(2)
+plus1 = (v101 + v011)/np.sqrt(2)
+minus0 = (v010 - v100)/np.sqrt(2)
+minus1 = (v011 - v101)/np.sqrt(2)
+
 def twolevel(el,er,g):
     Delta = (el-er)/2
-    if (Delta**2 + g**2>1E-9):
+    tol = 1E-25
+    if (Delta**2 + g**2>tol):
         aux = Delta/np.sqrt( Delta**2 + g**2)
         theta = math.acos(aux)
     #revisar este else
@@ -102,7 +108,8 @@ def twolevel(el,er,g):
 
 def energy(el,er,g):
     Delta = (el-er)/2
-    if (Delta**2 + g**2>1E-9):
+    tol = 1E-25
+    if (Delta**2 + g**2>tol):
         aux = Delta/np.sqrt( Delta**2 + g**2)
         theta = math.acos(aux)
     else:
@@ -450,7 +457,7 @@ Sphlist = []
 Qlr = []
 gof1 = []
 #gf = 5/1000
-
+coheseig = []
 for g0fm in g0fs:
     mud0 = 2
     U00 = 40
@@ -501,6 +508,10 @@ for g0fm in g0fs:
     #alp0 = np.trace( np.matmul( np.matmul(dldag,dr),cal1f) )
     alp0 = v100.conjugate().T @ cal1f @ v010
     alp1 = v101.conjugate().T @ cal1f @ v011
+
+    alp0g = plus0.conjugate().T @ cal1f @ minus0
+    alp1g = plus1.conjugate().T @ cal1f @ minus1
+
     #print(alp0[0,0],alp1[0,0])
     P0 = v00.conjugate().T @ cal1f @ v00 + v001.conjugate().T @ cal1f @ v001
     PD = v110.conjugate().T @ cal1f @ v110 + v111.conjugate().T @ cal1f @ v111
@@ -511,6 +522,11 @@ for g0fm in g0fs:
         concuv.append(concurrencef)
     else:
         concuv.append(0)
+
+    coheseig.append( abs(alp0g[0,0]) + abs(alp1g[0,0])  )  
+    print("la coherencia:")
+    #print(cal1f[5,3],cal1f[4,2]) 
+    print( abs(alp0g[0,0]) + abs(alp1g[0,0])) 
     Nls.append(Nl0)
     Ql.append(Ql0)
     Qr.append(Qr0)
@@ -537,6 +553,11 @@ for g0fm in g0fs:
     print(g0fm)
 
 
+plt.plot(gof1,coheseig)
+plt.xscale("log")
+plt.xlabel("g0/gl")
+plt.ylabel("coherencia eig")
+plt.show()
 
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 
-np.savez("phononJ0=10^{-3}seccomp.npz", gof1=gof1,Qlrs=Qlr,Qphs=Qphlist,cohev=cohev, concuv = concuv, Nls = Nls)    
+np.savez("phononJ0=10^{-3}seccomp.npz", gof1=gof1,Qlrs=Qlr,Qphs=Qphlist,cohev=cohev, concuv = concuv, Nls = Nls,coheveig = coheseig)    

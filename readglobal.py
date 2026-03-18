@@ -188,13 +188,13 @@ plt.rcParams["font.family"] = "serif"
 
 
 data0 = np.load("phononJ0=5_10^{-1}comp.npz")
-gof10,ql0,qph0,Id0,Ile0,Ire0,Iphs0,cohes0,concv0,Nls0 = data0["gof1"], data0["Qlr"],data0["Qphs"], data0["Id"], data0["Ile"], data0["Ire"], data0["Iphs"], data0["cohes"], data0["concv"], data0["Nls"]
+gof10,ql0,qph0,Id0,Ile0,Ire0,Iphs0,cohes0,concv0,Nls0,coheveig0 = data0["gof1"], data0["Qlr"],data0["Qphs"], data0["Id"], data0["Ile"], data0["Ire"], data0["Iphs"], data0["cohev"], data0["concv"], data0["Nls"],data0["coheveig"]
 
 data1 = np.load("phononJ0=5_10^{-1}redcomp.npz")
-gof11,ql1,qph1,cohes1,concv1,Nls1 = data1["gof1"], data1["Qlrs"], data1["Qphs"], data1["cohev"], data1["concuv"], data1["Nls"]
+gof11,ql1,qph1,cohes1,concv1,Nls1,coheveig1 = data1["gof1"], data1["Qlrs"], data1["Qphs"], data1["cohev"], data1["concuv"], data1["Nls"], data1["coheveig"]
 
 data2 = np.load("phononJ0=5_10^{-1}seccomp.npz")
-gof12,ql2,qph2,cohes2,concv2,Nls2 = data2["gof1"], data2["Qlrs"], data2["Qphs"], data2["cohev"], data2["concuv"], data2["Nls"]
+gof12,ql2,qph2,cohes2,concv2,Nls2,coheveig2 = data2["gof1"], data2["Qlrs"], data2["Qphs"], data2["cohev"], data2["concuv"], data2["Nls"], data2["coheveig"]
 
 
 data0x = np.load("phononJ0=10comp.npz")
@@ -208,13 +208,13 @@ gof12x,ql2x,qph2x,cohes2x,concv2x,Nls2x = data2x["gof1"], data2x["Qlrs"], data2x
 
 
 data0y = np.load("phononJ0=10^{-3}comp.npz")
-gof10y,ql0y,qph0y,Id0y,Ile0y,Ire0y,Iphs0y,cohes0y,concv0y,Nls0y = data0y["gof1"], data0y["Qlr"],data0y["Qphs"], data0y["Id"], data0y["Ile"], data0y["Ire"], data0y["Iphs"], data0y["cohev"], data0y["concv"], data0y["Nls"]
+gof10y,ql0y,qph0y,Id0y,Ile0y,Ire0y,Iphs0y,cohes0y,concv0y,Nls0y,coheveig0y = data0y["gof1"], data0y["Qlr"],data0y["Qphs"], data0y["Id"], data0y["Ile"], data0y["Ire"], data0y["Iphs"], data0y["cohev"], data0y["concv"], data0y["Nls"],data0y["coheveig"]
 
 data1y = np.load("phononJ0=10^{-3}redcomp.npz")
-gof11y,ql1y,qph1y,cohes1y,concv1y,Nls1y = data1y["gof1"], data1y["Qlrs"], data1y["Qphs"], data1y["cohev"], data1y["concuv"], data1y["Nls"]
+gof11y,ql1y,qph1y,cohes1y,concv1y,Nls1y,coheveig1y = data1y["gof1"], data1y["Qlrs"], data1y["Qphs"], data1y["cohev"], data1y["concuv"], data1y["Nls"], data1y["coheveig"]
 
 data2y = np.load("phononJ0=10^{-3}seccomp.npz")
-gof12y,ql2y,qph2y,cohes2y,concv2y,Nls2y = data2y["gof1"], data2y["Qlrs"], data2y["Qphs"], data2y["cohev"], data2y["concuv"], data2y["Nls"]
+gof12y,ql2y,qph2y,cohes2y,concv2y,Nls2y,coheveig2y = data2y["gof1"], data2y["Qlrs"], data2y["Qphs"], data2y["cohev"], data2y["concuv"], data2y["Nls"], data2y["coheveig"]
 
 n0f = len(Nls2y) 
 gl = 1/100
@@ -523,4 +523,340 @@ for ax in axs.flat:
 # ---------------- Layout & save ----------------
 plt.tight_layout(pad=0.6)
 plt.savefig("fig_2x2_PR.pdf")
+plt.close()
+
+
+
+# ---------------- Figure geometry ----------------
+fig, axs = plt.subplots(
+    2, 2,
+    figsize=(7.0, 4.4),   # APS 2-column width
+    sharex='col'
+)
+
+(ax10, ax11), (ax20, ax21) = axs
+
+LINE_W   = 2.2
+LABEL_FS = 9
+TICK_FS  = 8
+PANEL_FS = 9
+LEG_FS   = 7
+
+# ===================== Panel (a) =====================
+ax10.plot(gof10y, coheveig0y, color='blue',  lw=LINE_W, label="partial")
+ax10.plot(gof12y, coheveig2y, color='red',   lw=LINE_W, label="global")
+ax10.plot(gof11y, coheveig1y, color='green', lw=LINE_W, ls='--', label="Redfield")
+
+ax10.set_ylabel(r'$\mathcal{C}_{l_1}(\mathrm{eig})$', fontsize=LABEL_FS)
+ax10.set_xscale('log')
+ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+ax10.text(0.92, 0.88, '(a)', transform=ax10.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+
+ax10.text(
+    0.05, 0.65,
+    r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-3}$',
+    transform=ax10.transAxes,
+    fontsize=8
+)
+
+ax10.legend(
+    fontsize=LEG_FS,
+    frameon=True,
+    loc='upper left'
+)
+
+# ===================== Panel (b) =====================
+ax20.plot(gof10y, Nls0fy, color='blue',  lw=LINE_W)
+ax20.plot(gof12y, Nls2fy, color='red',   lw=LINE_W)
+ax20.plot(gof11y, Nls1fy, color='green', lw=LINE_W, ls='--')
+
+ax20.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax20.set_ylabel(r'$\dot{N}_L/\kappa_L$', fontsize=LABEL_FS)
+ax20.set_xscale('log')
+ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+ax20.text(0.92, 0.88, '(b)', transform=ax20.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== Panel (c) — placeholder =====================
+# Add your third observable here
+ax11.plot(gof10, coheveig0, color='blue',  lw=LINE_W)
+ax11.plot(gof12, coheveig2, color='red',   lw=LINE_W)
+ax11.plot(gof11, coheveig1, color='green', lw=LINE_W, ls='--')
+ax11.set_xscale('log')
+ax11.text(0.92, 0.88, '(c)', transform=ax11.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+ax11.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+ax11.text(
+    0.05, 0.65,
+    r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=5 \times 10^{-1}$',
+    transform=ax11.transAxes,
+    fontsize=8
+)
+
+
+# ===================== Panel (d) — placeholder =====================
+# Add your fourth observable here
+ax21.plot(gof10, Nls0f, color='blue',  lw=LINE_W)
+ax21.plot(gof12, Nls2f, color='red',   lw=LINE_W)
+ax21.plot(gof11, Nls1f, color='green', lw=LINE_W, ls='--')
+ax21.text(0.92, 0.88, '(d)', transform=ax21.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+ax21.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax21.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+# ---------------- Shared cosmetics ----------------
+for ax in axs.flat:
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+# ---------------- Layout & save ----------------
+plt.tight_layout(pad=0.6)
+plt.savefig("fig_2x2_PReig.pdf")
+plt.close()
+
+
+# ---------------- Figure ----------------
+fig, axs = plt.subplots(
+    3, 2,
+    figsize=(7.0, 7.2),   # 2-column width, taller for 3 rows
+    sharex='col'
+)
+
+# Flatten for easy indexing
+axs = axs.flatten()
+
+# ---------------- Parameters ----------------
+LINE_W   = 1.8
+LABEL_FS = 9
+TICK_FS  = 8
+PANEL_FS = 9
+LEG_FS   = 7
+
+# ===================== Panel (a) =====================
+ax = axs[0]
+
+ax.plot(gof10, cohes0, lw=LINE_W, color='blue', label='partial')
+ax.plot(gof12, cohes2, lw=LINE_W, color='red',  label='global')
+ax.plot(gof11, cohes1, lw=LINE_W, color='black',linestyle='--', label='Redfield')
+ax.set_xscale('log')
+
+ax.set_ylabel(r'$\mathcal{C}_{l_1}$', fontsize=LABEL_FS)
+ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+# Legend ONLY here
+ax.legend(fontsize=LEG_FS, frameon=True, loc='upper left')
+
+ax.text(0.90, 0.88, '(a)', transform=ax.transAxes,
+        fontsize=PANEL_FS, fontweight='bold')
+
+ax.text(0.05, 0.65,
+        r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=5 \times 10^{-1}$',
+        transform=ax.transAxes,
+        fontsize=8)
+
+# ===================== Panel (b) =====================
+ax = axs[1]
+ax.plot(gof10y, cohes0y, lw=LINE_W, color='blue', label='partial')
+ax.plot(gof12y, cohes2y, lw=LINE_W, color='red',  label='global')
+ax.plot(gof11y, cohes1y, lw=LINE_W, color='black',linestyle='--', label='Redfield')
+ax.set_xscale('log')
+ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+ax.text(0.90, 0.88, '(b)', transform=ax.transAxes,
+        fontsize=PANEL_FS, fontweight='bold')
+    
+# TEXT inside plot (1)
+ax.text(0.05, 0.65,
+        r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-3}$',
+        transform=ax.transAxes,
+        fontsize=8)
+
+# ===================== Panel (c) =====================
+ax = axs[2]
+ax.plot(gof10, coheveig0, lw=LINE_W, color='blue', label='partial')
+ax.plot(gof12, coheveig2, lw=LINE_W, color='red',  label='global')
+ax.plot(gof11, coheveig1, lw=LINE_W, color='black',linestyle='--', label='Redfield')
+ax.set_xscale('log')
+ax.set_ylabel(r'$\mathcal{C}_{l_1}(eig)$', fontsize=LABEL_FS)
+ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+ax.text(0.90, 0.88, '(c)', transform=ax.transAxes,
+        fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== Panel (d) =====================
+ax = axs[3]
+ax.plot(gof10y, coheveig0y, lw=LINE_W, color='blue', label='partial')
+ax.plot(gof12y, coheveig2y, lw=LINE_W, color='red',  label='global')
+ax.plot(gof11y, coheveig1y, lw=LINE_W, color='black',linestyle='--', label='Redfield')
+ax.set_xscale('log')
+ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+ax.text(0.90, 0.88, '(d)', transform=ax.transAxes,
+        fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== Panel (e) =====================
+ax = axs[4]
+ax.plot(gof10, Nls0f, lw=LINE_W, color='blue', label='partial')
+ax.plot(gof12, Nls2f, lw=LINE_W, color='red',  label='global')
+ax.plot(gof11, Nls1f, lw=LINE_W, color='black',linestyle='--', label='Redfield')
+
+ax.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax.set_ylabel(r'$\dot{N}_{L}/\kappa_L$', fontsize=LABEL_FS)
+ax.set_xscale('log')
+
+ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+ax.text(0.90, 0.88, '(e)', transform=ax.transAxes,
+        fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== Panel (f) =====================
+ax = axs[5]
+ax.plot(gof10y, Nls0fy, lw=LINE_W, color='blue', label='partial')
+ax.plot(gof12y, Nls2fy, lw=LINE_W, color='red',  label='global')
+ax.plot(gof11y, Nls1fy, lw=LINE_W, color='black',linestyle='--', label='Redfield')
+ax.set_xscale('log')
+ax.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+#ax.set_ylabel(r'$\dot{N}_{L}/\kappa_L$', fontsize=LABEL_FS)
+
+ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+ax.text(0.90, 0.88, '(f)', transform=ax.transAxes,
+        fontsize=PANEL_FS, fontweight='bold')
+
+# TEXT inside plot (2)
+
+
+# ---------------- Spine style ----------------
+for ax in axs:
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+# ---------------- Layout ----------------
+plt.tight_layout(pad=0.6)
+plt.savefig("fig_3x2_PR.pdf")
+plt.close()
+
+
+
+
+LINE_W   = 1.8
+LABEL_FS = 9
+TICK_FS  = 8
+PANEL_FS = 9
+LEG_FS   = 7
+
+# ---------------- Layout ----------------
+fig = plt.figure(figsize=(7.0, 6.5))  # 2-column width
+
+gs = fig.add_gridspec(
+    3, 2,
+    height_ratios=[1, 1, 1.8],  # bottom row larger
+    hspace=0.05,
+    wspace=0.25
+)
+
+# Top 4 small panels
+ax_a = fig.add_subplot(gs[0, 0])
+ax_b = fig.add_subplot(gs[0, 1])
+ax_c = fig.add_subplot(gs[1, 0])
+ax_d = fig.add_subplot(gs[1, 1])
+
+# Bottom 2 large panels
+ax_e = fig.add_subplot(gs[2, 0])
+ax_f = fig.add_subplot(gs[2, 1])
+
+# ===================== Example content =====================
+
+# ---- Small panels ----
+ax_a.plot(gof10, cohes0, lw=LINE_W,color='blue', label='partial')
+ax_a.plot(gof12, cohes2, lw=LINE_W,color='red', label='global')
+ax_a.plot(gof11, cohes1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+ax_a.set_ylabel(r'$\mathcal{C}_{l_1}$', fontsize=LABEL_FS)
+ax_a.set_xscale('log')
+ax_a.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
+ax_a.text(0.90, 0.84, '(a)', transform=ax_a.transAxes,
+            fontsize=PANEL_FS, fontweight='bold')
+
+# Text inside plot (2)
+ax_a.text(0.05, 0.5,
+          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-3}$',
+          transform=ax_a.transAxes,
+          fontsize=8)
+
+ax_b.plot(gof10y, cohes0y, lw=LINE_W,color='blue', label='partial')
+ax_b.plot(gof12y, cohes2y, lw=LINE_W,color='red', label='global')
+ax_b.plot(gof11y, cohes1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+ax_b.set_xscale('log')
+ax_b.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
+ax_b.text(0.90, 0.84, '(b)', transform=ax_b.transAxes,
+            fontsize=PANEL_FS, fontweight='bold')
+
+# Text inside plot (1)
+ax_b.text(0.02, 0.5,
+          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=5 \times 10^{-1}$',
+          transform=ax_b.transAxes,
+          fontsize=8)
+
+ax_c.plot(gof10, coheveig0, lw=LINE_W,color='blue', label='partial')
+ax_c.plot(gof12, coheveig2, lw=LINE_W,color='red', label='global')
+ax_c.plot(gof11, coheveig1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+
+ax_c.set_xscale('log')
+ax_c.set_ylabel(r'$\mathcal{C}_{l_1}(\mathrm{eig})$', fontsize=LABEL_FS)
+ax_c.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
+ax_c.text(0.90, 0.84, '(c)', transform=ax_c.transAxes,
+            fontsize=PANEL_FS, fontweight='bold')
+         
+ax_d.plot(gof10y, coheveig0y, lw=LINE_W,color='blue', label='partial')
+ax_d.plot(gof12y, coheveig2y, lw=LINE_W,color='red', label='global')
+ax_d.plot(gof11y, coheveig1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+ax_d.set_xscale('log')
+ax_d.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
+ax_d.text(0.90, 0.84, '(d)', transform=ax_d.transAxes,
+            fontsize=PANEL_FS, fontweight='bold')
+                  
+
+# ---- Large panels ----
+ax_e.plot(gof10, Nls0f, lw=LINE_W,color = 'blue', label='partial')
+ax_e.plot(gof12, Nls2f, lw=LINE_W, color = 'red', label='global')
+ax_e.plot(gof11, Nls1f, lw=LINE_W, color = 'black', linestyle='--', label='Redfield')
+ax_e.set_xscale('log')
+ax_e.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax_e.set_ylabel(r'$\dot{N}_{L}/\kappa_L$', fontsize=LABEL_FS)
+ax_e.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+# Legend ONLY here
+ax_e.legend(fontsize=LEG_FS, frameon=True, loc='upper left')
+
+ax_e.text(0.90, 0.86, '(e)', transform=ax_e.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+
+
+
+# ---- Panel (f)
+ax_f.plot(gof10y, Nls0fy, lw=LINE_W, color = 'blue', label='partial')
+ax_f.plot(gof12y, Nls2fy, lw=LINE_W, color = 'red', label='global')
+ax_f.plot(gof11y, Nls1fy, lw=LINE_W, color = 'black', linestyle='--', label='Redfield')
+ax_f.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+#ax_f.set_ylabel(r'$\dot{N}_{L}/\kappa_L$', fontsize=LABEL_FS)
+ax_f.set_xscale('log')
+ax_f.tick_params(direction='in', which='both', labelsize=TICK_FS)
+
+ax_f.text(0.90, 0.86, '(f)', transform=ax_f.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+
+
+
+# ---------------- Spine style ----------------
+for ax in [ax_a, ax_b, ax_c, ax_d, ax_e, ax_f]:
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+# ---------------- Layout ----------------
+plt.tight_layout(pad=0.25)
+plt.savefig("fig_asymmetric_PR.pdf")
+plt.show()
 plt.close()

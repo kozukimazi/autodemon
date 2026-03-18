@@ -103,6 +103,35 @@ nd = np.matmul(dddag,dd)
 nl = np.matmul(dldag,dl)
 nr = np.matmul(drdag,dr)
 
+##################################
+#############definirbase##########
+##################################
+##definir base con objetivo de calcular coherencias
+v00 = np.array([[0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [1]])
+
+v100 = dldag @ v00
+v010 = -drdag @ v00
+v001 = dddag @ v00
+totrl = np.matmul(drdag,dldag)
+totdl = np.matmul(dddag,dldag)
+totdr = np.matmul(dddag,drdag)
+totf = np.matmul(dddag,totrl )
+v110 = totrl @ v00
+v101 = -totdl @ v00
+v011 = totdr @ v00
+v111 = totf @ v00
+
+plus0 = (v100 + v010)/np.sqrt(2)
+plus1 = (v101 + v011)/np.sqrt(2)
+minus0 = (v010 - v100)/np.sqrt(2)
+minus1 = (v011 - v101)/np.sqrt(2)
 
 def Liouvillian( H,Ls, hbar = 1):
     d = len(H)
@@ -230,6 +259,12 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     rhof = Propagate(rho0,superop,t)
     cohe = abs(rhof[5,3]) + abs(rhof[4,2]) 
     cohesum = abs(rhof[5,3] + rhof[4,2])
+
+    alp0g = plus0.conjugate().T @ rhof @ minus0
+    alp1g = plus1.conjugate().T @ rhof @ minus1
+
+    coheg = abs(alp0g[0,0]) + abs(alp1g[0,0]) 
+
     PD = rhof[0,0].real + rhof[1,1].real 
     P0 = rhof[7,7].real + rhof[6,6].real 
     concurrencef = 2*cohesum - 2*np.sqrt(P0*PD)
@@ -271,7 +306,9 @@ def currents(Htd,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Nl = np.trace( np.matmul(Dl,Nop ) )
     Nr = np.trace(np.matmul(Dr,Nop ))
     Nd = np.trace(np.matmul( Dd,Nop ))
-    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real
+    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real,coheg.real
+
+
 
 ###################################
 #############parametros##############
@@ -359,6 +396,7 @@ gof1 = []
 Nls = []
 Qlr = []
 Qphlist = []
+coheseig = []
 for g0fm in g0fs:
     mud0 = 2
     U00 = 40 #10
@@ -373,7 +411,7 @@ for g0fm in g0fs:
     Uf0 = 500 #50
     #Probar condicion (U00/E0)<<1,Strasberg
     El0 = Er0 = E0 = 0
-    J0 = (0.001)*betaph*gl
+    J0 = (0.01)*betaph*gl
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0,omegac)
     H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0fm)
     superop0 = Liouvillian(H0,Ls0)
@@ -384,9 +422,10 @@ for g0fm in g0fs:
     Htd0 =  Htd(El0,Er0,Ed0,U00,Uf0)
     rhof = Propagate(rho0,superop0,40000)
     
-    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0 = currents(Htd0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
+    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,coheg0 = currents(Htd0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
     #cohev.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
-    concv.append(concu0)    
+    concv.append(concu0)
+    coheseig.append(coheg0)
     sigmal = Sl0 - betal*Ql0
     sigmar = Sr0 - betar*Qr0
 
@@ -467,7 +506,8 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-#np.savez("phononJ0=10^{-3}bkb100.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls)
 
-np.savez("phononJ0=10^{-3}comp.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohev=cohes, concv = concv, Nls = Nls)
+np.savez("phononJ0=10^{-2}bkb100.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,coheveig=coheseig)
+
+#np.savez("phononJ0=10^{-3}comp.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohev=cohes, concv = concv, Nls = Nls,coheveig=coheseig)
 

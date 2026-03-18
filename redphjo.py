@@ -87,6 +87,35 @@ nd = np.matmul(dddag,dd)
 nl = np.matmul(dldag,dl)
 nr = np.matmul(drdag,dr)
 Nop = nl+nr+nd
+
+##definir base con objetivo de calcular coherencias
+v00 = np.array([[0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [1]])
+
+v100 = dldag @ v00
+v010 = -drdag @ v00
+v001 = dddag @ v00
+totrl = np.matmul(drdag,dldag)
+totdl = np.matmul(dddag,dldag)
+totdr = np.matmul(dddag,drdag)
+totf = np.matmul(dddag,totrl )
+v110 = totrl @ v00
+v101 = -totdl @ v00
+v011 = totdr @ v00
+v111 = totf @ v00
+
+plus0 = (v100 + v010)/np.sqrt(2)
+plus1 = (v101 + v011)/np.sqrt(2)
+minus0 = (v010 - v100)/np.sqrt(2)
+minus1 = (v011 - v101)/np.sqrt(2)
+
+
 #########################################
 ##############Hamiltonian################
 #########################################
@@ -509,6 +538,7 @@ Jof = []
 Wlr = []
 Jphonon = []
 gof1 = []
+coheseig = []
 for g in g0fs:
     print(g)
     mud0 = 2
@@ -530,7 +560,7 @@ for g in g0fs:
     mul = ev/2
     mur = -ev/2
     E0 = 0
-    J0 = 0.001*betaph*gl
+    J0 = (0.001)*betaph*gl
     Ll = Dlgen(betal,ev/2,gl1,E0l,E0r,g,Uf0,U00)
     Lr = Drgen(betar,-ev/2,gr1,E0l,E0r,g,Uf0,U00)
     Lph = Dphgen(betaph,J0,omegac,E0l,E0r,g)
@@ -538,6 +568,11 @@ for g in g0fs:
     Htd = Hamiltonianthermo(E0l,E0r,Ed0,U00,Uf0,g)
     Superop =  supertotal(Ham,Ll,Lr,Ld,Lph)
     cal1f = Propagate(rho0,Superop,40000)
+    alp0g = plus0.conjugate().T @ cal1f @ minus0
+    alp1g = plus1.conjugate().T @ cal1f @ minus1
+
+    coheg = abs(alp0g[0,0]) + abs(alp1g[0,0]) 
+    coheseig.append(coheg)
     cohev.append(abs(cal1f[5,3]) + abs(cal1f[4,2]) )
     cohesum = abs(cal1f[5,3] + cal1f[4,2])
     PD = cal1f[0,0].real + cal1f[1,1].real 
@@ -637,4 +672,4 @@ for i in range(Num):
     archivo.write("\n")
 
 #calcular 3_10^{-3}redEl_4.npz
-np.savez("phononJ0=10^{-3}redcomp.npz", gof1=gof1,Qlrs=Qlrs,Qphs=Qphs,cohev=cohev, concuv = concuv, Nls = Nls)    
+np.savez("phononJ0=10^{-3}redcomp.npz", gof1=gof1,Qlrs=Qlrs,Qphs=Qphs,cohev=cohev, concuv = concuv, Nls = Nls,coheveig = coheseig)    

@@ -2,22 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 data0 = np.load("phononJ0=10^{-3}bkb100.npz")
-gof10,Id0,Ile0,Ire0,Iphs0,cohes0,concv0,Nls0 = data0["gof1"], data0["Id"], data0["Ile"], data0["Ire"], data0["Iphs"], data0["cohes"], data0["concv"], data0["Nls"]
+gof10,Id0,Ile0,Ire0,Iphs0,cohes0,concv0,Nls0,coheveig0 = data0["gof1"], data0["Id"], data0["Ile"], data0["Ire"], data0["Iphs"], data0["cohes"], data0["concv"], data0["Nls"],data0["coheveig"]
 
 data1 = np.load("phononJ0=10^{-2}bkb100.npz")
-gof11,Id1,Ile1,Ire1,Iphs1,cohes1,concv1,Nls1 = data1["gof1"], data1["Id"], data1["Ile"], data1["Ire"], data1["Iphs"], data1["cohes"], data1["concv"], data1["Nls"]
+gof11,Id1,Ile1,Ire1,Iphs1,cohes1,concv1,Nls1,coheveig1 = data1["gof1"], data1["Id"], data1["Ile"], data1["Ire"], data1["Iphs"], data1["cohes"], data1["concv"], data1["Nls"],data1["coheveig"]
 
 data2 = np.load("phononJ0=10^{-1}bkb100.npz")
-gof12,Id2,Ile2,Ire2,Iphs2,cohes2,concv2,Nls2 = data2["gof1"], data2["Id"], data2["Ile"], data2["Ire"], data2["Iphs"], data2["cohes"], data2["concv"], data2["Nls"]
+gof12,Id2,Ile2,Ire2,Iphs2,cohes2,concv2,Nls2,coheveig2 = data2["gof1"], data2["Id"], data2["Ile"], data2["Ire"], data2["Iphs"], data2["cohes"], data2["concv"], data2["Nls"],data2["coheveig"]
 
 data3 = np.load("phononJ0=bkb100.npz")
-gof13,Id3,Ile3,Ire3,Iphs3,cohes3,concv3,Nls3 = data3["gof1"], data3["Id"], data3["Ile"], data3["Ire"], data3["Iphs"], data3["cohes"], data3["concv"], data3["Nls"]
+gof13,Id3,Ile3,Ire3,Iphs3,cohes3,concv3,Nls3,coheveig3 = data3["gof1"], data3["Id"], data3["Ile"], data3["Ire"], data3["Iphs"], data3["cohes"], data3["concv"], data3["Nls"],data3["coheveig"]
 
 data4 = np.load("phononJ0=10bkb100.npz")
-gof14,Id4,Ile4,Ire4,Iphs4,cohes4,concv4,Nls4 = data4["gof1"], data4["Id"], data4["Ile"], data4["Ire"], data4["Iphs"], data4["cohes"], data4["concv"], data4["Nls"]
+gof14,Id4,Ile4,Ire4,Iphs4,cohes4,concv4,Nls4,coheveig4 = data4["gof1"], data4["Id"], data4["Ile"], data4["Ire"], data4["Iphs"], data4["cohes"], data4["concv"], data4["Nls"],data4["coheveig"]
 
 data5 = np.load("phononJ0=5_10^{-1}bkb100.npz")
-gof15,Id5,Ile5,Ire5,Iphs5,cohes5,concv5,Nls5 = data5["gof1"], data5["Id"], data5["Ile"], data5["Ire"], data5["Iphs"], data5["cohes"], data5["concv"], data5["Nls"]
+gof15,Id5,Ile5,Ire5,Iphs5,cohes5,concv5,Nls5,coheveig5 = data5["gof1"], data5["Id"], data5["Ile"], data5["Ire"], data5["Iphs"], data5["cohes"], data5["concv"], data5["Nls"],data5["coheveig"]
 
 
 Ilrt0 = []
@@ -278,4 +278,50 @@ for spine in ax10.spines.values():
 
 plt.tight_layout(pad=0.4)
 plt.savefig("fig6jo.pdf")
+plt.close()
+
+
+
+fig, ax10 = plt.subplots(
+    sharex=True,
+    figsize=(3.39, 2.8)
+)
+
+LINE_W = 1.6
+LABEL_FS = 9
+TICK_FS = 8
+PANEL_FS = 9
+
+# ---------- Panel (a)
+ax10.plot(gof10, coheveig0, color='blue',   lw=LINE_W, label=r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-3}$')
+ax10.plot(gof11, coheveig1, color='orange', lw=LINE_W, label=r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-2}$')
+ax10.plot(gof12, coheveig2, color='green',  lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 10^{-1}$')
+ax10.plot(gof15, coheveig5, color='brown',    lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 5 \times 10^{-1}$')
+ax10.plot(gof13, coheveig3, color='red',  lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 1$')
+ax10.plot(gof14, coheveig4, color='purple', lw=LINE_W, label=r'$J_{0}/(\beta_{\mathrm{ph}} \kappa_{L})= 10$')
+#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
+ax10.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax10.set_ylabel(r'$\mathcal{C}_{l_{1}}(\mathrm{eig})$', fontsize=LABEL_FS)
+ax10.set_xscale('log')
+ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
+#ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes,
+          #fontsize=PANEL_FS, fontweight='bold')
+
+ax10.legend(
+    fontsize=6.5,
+    frameon=True,
+    ncol=1,
+    loc='upper right',
+    bbox_to_anchor=(1, 0.99)
+)
+
+
+
+# ---------- Spines
+
+for spine in ax10.spines.values():
+    spine.set_linewidth(0.8)
+
+plt.tight_layout(pad=0.4)
+plt.savefig("fig6joeig.pdf")
 plt.close()

@@ -88,7 +88,8 @@ v111 = totf @ v00
 
 def twolevel(el,er,g):
     Delta = (el-er)/2
-    if (Delta**2 + g**2>1E-9):
+    tol = 1E-25
+    if (Delta**2 + g**2>tol):
         aux = Delta/np.sqrt( Delta**2 + g**2)
         theta = math.acos(aux)
     #revisar este else
@@ -102,7 +103,8 @@ def twolevel(el,er,g):
 
 def energy(el,er,g):
     Delta = (el-er)/2
-    if (Delta**2 + g**2>1E-9):
+    tol = 1E-25
+    if (Delta**2 + g**2>tol):
         aux = Delta/np.sqrt( Delta**2 + g**2)
         theta = math.acos(aux)
     else:
@@ -357,7 +359,7 @@ E = 0
 Ed = 0.
 U0 = 0.
 Uf = 50
-g0 = 30/1000
+g0 = 100
 
 eV = 6.5
 mul1 = eV/2
@@ -430,11 +432,11 @@ Qr = []
 Qd = []
 
  
-#Num = 1800
-#J0s = np.logspace(-8,-3,Num)
+Num = 1800
+J0s = np.logspace(-8,-1,Num)
 
-Num = 3000
-J0s = np.logspace(-8,1,Num)
+#Num = 3000
+#J0s = np.logspace(-8,2,Num)
 
 Sls = []
 Srs = []
@@ -475,7 +477,7 @@ Realphg = []
 Rebetg = []
 
 #gf = 5/1000
-g0fm = 1000
+g0fm = 10000
 for J0 in J0s:
     mud0 = 2
     U00 = 40
@@ -625,7 +627,7 @@ plt.show()
 
 
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 
-#np.savez("phonong=0.1b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
-np.savez("phonong=1000b100sec.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
+np.savez("phonong=10000b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
+#np.savez("phonong=1000b100sec.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
 
-np.savez("phonong=1000probb100sec.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
+#np.savez("phonong=1000probb100sec.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)

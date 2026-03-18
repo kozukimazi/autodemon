@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import LogLocator, LogFormatterMathtext,NullLocator
 
 data0 = np.load("phonong=0probb100.npz")
 Jof0,Probnt10,Probnt20,Probnt30,Probnt40,Probnt50,Probnt60,Probnt70,Probnt80,Imalphg0,Imbetg0 = data0["Jof"], data0["Probnt10"], data0["Probnt20"], data0["Probnt30"], data0["Probnt40"], data0["Probnt50"], data0["Probnt60"], data0["Probnt70"], data0["Probnt80"], data0["Imalphg"], data0["Imbetg"]
@@ -197,94 +198,65 @@ plt.rcParams["font.family"] = "serif"
 
 '''
 
-'''
-plt.plot(Jof0,Imalphg0, color='blue',lw=3, label = r'$g/\kappa_{L}=0$')
-plt.plot(Jof1,Imalphg1, color='orange',lw=3, label = r'$g/\kappa_{L}=10^{-2}$')
-plt.plot(Jof2,Imalphg2, color='green',lw=3, label = r'$g/\kappa_{L}=5\cdot10^{-2}$')
-plt.plot(Jof3,Imalphg3, color='red',lw=3, label = r'$g/\kappa_{L}=10^{-1}$')
-plt.plot(Jof9,Imalphg9, color='black',lw=3,linestyle = '--', label = r'$g/\kappa_{L}=3\cdot 10^{-1}$')
-plt.plot(Jof4,Imalphg4, color='purple',lw=3, label = r'$g/\kappa_{L}=5\cdot10^{-1}$')
-plt.plot(Jof5,Imalphg5, color='brown',lw=3, label = r'$g/\kappa_{L}=10^{0}$')
-#plt.plot(Jof6,Imalphg6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-plt.plot(Jof7,Imalphg7, color='gray',lw=3, label = r'$g/\kappa_{L}=10^{1}$')
-#plt.plot(Jof8,Imalphg8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
-
-plt.xlabel(r'$J_{0}/(\beta_{Ph}\kappa_{L})$',fontsize = 28)
-plt.ylabel(r'$2gIm(\alpha^{*})$',fontsize = 28)
-plt.xticks(fontsize=30)  # X-axis tick labels
-plt.yticks(fontsize=30)
-plt.legend(fontsize=22,loc = "upper right")
-plt.xscale("log")
-plt.show()
-
-
-plt.plot(Jof0,Imbetg0, color='blue',lw=3, label = r'$g/\kappa_{L}=0$')
-plt.plot(Jof1,Imbetg1, color='orange',lw=3, label = r'$g/\kappa_{L}=10^{-2}$')
-plt.plot(Jof2,Imbetg2, color='green',lw=3, label = r'$g/\kappa_{L}=5\cdot10^{-2}$')
-plt.plot(Jof3,Imbetg3, color='red',lw=3, label = r'$g/\kappa_{L}=10^{-1}$')
-plt.plot(Jof9,Imbetg9, color='black',lw=3,linestyle = '--', label = r'$g/\kappa_{L}=3\cdot 10^{-1}$')
-plt.plot(Jof4,Imbetg4, color='purple',lw=3, label = r'$g/\kappa_{L}=5\cdot10^{-1}$')
-plt.plot(Jof5,Imbetg5, color='brown',lw=3, label = r'$g/\kappa_{L}=10^{0}$')
-#plt.plot(Jof6,Imbetg6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-plt.plot(Jof7,Imbetg7, color='gray',lw=3, label = r'$g/\kappa_{L}=10^{1}$')
-#plt.plot(Jof8,Imbetg8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
-
-plt.xlabel(r'$J_{0}/\beta_{Ph}\kappa_{L}$',fontsize = 28)
-plt.ylabel(r'$2gIm(\beta^{*})$',fontsize = 28)
-plt.xticks(fontsize=30)  # X-axis tick labels
-plt.yticks(fontsize=30)
-plt.legend(fontsize=22,loc = "upper right")
-plt.xscale("log")
-plt.show()
-'''
 
 plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif" 
 
 
 # Create subplots (1 row, 2 columns)
-fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(3.39, 10.4))  # 1 row, 2 columns
-
+fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(3.39, 4.8))  # 1 row, 2 columns
+TICK_FS = 8
 
 #ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
 #mientras que al superar esa vara L empieza a medir 
-ax10.plot(Jof0,Imalphg0, color='blue',lw=1.6, label = r'$g/\kappa_{L}=0$')
-ax10.plot(Jof1,Imalphg1, color='orange',lw=1.6, label = r'$g/\kappa_{L}=10^{-2}$')
-ax10.plot(Jof2,Imalphg2, color='green',lw=1.6, label = r'$g/\kappa_{L}=5\cdot10^{-2}$')
-ax10.plot(Jof3,Imalphg3, color='red',lw=1.6, label = r'$g/\kappa_{L}=10^{-1}$')
-ax10.plot(Jof9,Imalphg9, color='black',lw=1.6,linestyle = '--', label = r'$g/\kappa_{L}=3\cdot 10^{-1}$')
-ax10.plot(Jof4,Imalphg4, color='purple',lw=1.6, label = r'$g/\kappa_{L}=5\cdot10^{-1}$')
-ax10.plot(Jof5,Imalphg5, color='brown',lw=1.6, label = r'$g/\kappa_{L}=10^{0}$')
+ax20.plot(Jof0,Imalphg0, color='blue',lw=1.6, label = r'$g/\kappa_{L}=0$')
+ax20.plot(Jof1,Imalphg1, color='orange',lw=1.6, label = r'$g/\kappa_{L}=10^{-2}$')
+ax20.plot(Jof2,Imalphg2, color='green',lw=1.6, label = r'$g/\kappa_{L}=5\cdot10^{-2}$')
+ax20.plot(Jof3,Imalphg3, color='red',lw=1.6, label = r'$g/\kappa_{L}=10^{-1}$')
+ax20.plot(Jof9,Imalphg9, color='black',lw=1.6,linestyle = '--', label = r'$g/\kappa_{L}=3\cdot 10^{-1}$')
+ax20.plot(Jof4,Imalphg4, color='purple',lw=1.6, label = r'$g/\kappa_{L}=5\cdot10^{-1}$')
+ax20.plot(Jof5,Imalphg5, color='brown',lw=1.6, label = r'$g/\kappa_{L}=10^{0}$')
 #plt.plot(Jof6,Imalphg6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-ax10.plot(Jof7,Imalphg7, color='gray',lw=1.6, label = r'$g/\kappa_{L}=10^{1}$')
+ax20.plot(Jof7,Imalphg7, color='gray',lw=1.6, label = r'$g/\kappa_{L}=10^{1}$')
 #plt.plot(Jof8,Imalphg8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
 
-ax10.set_ylabel(r'$2gIm(\alpha^{*})$',fontsize = 9)
-ax10.legend(fontsize=9,loc = "upper left", bbox_to_anchor=(1, 1))
-ax10.set_xscale('log')  
-ax10.tick_params(labelbottom=False,labelsize = 8)
-ax10.text(0.9, 0.97, '(a)', transform=ax10.transAxes, fontsize=9, fontweight='bold', va='top', ha='left')
-
-ax20.plot(Jof0,Imbetg0, color='blue',lw=1.6, label = r'$g/\kappa_{L}=0$')
-ax20.plot(Jof1,Imbetg1, color='orange',lw=1.6, label = r'$g/\kappa_{L}=10^{-2}$')
-ax20.plot(Jof2,Imbetg2, color='green',lw=1.6, label = r'$g/\kappa_{L}=5\cdot10^{-2}$')
-ax20.plot(Jof3,Imbetg3, color='red',lw=1.6, label = r'$g/\kappa_{L}=10^{-1}$')
-ax20.plot(Jof9,Imbetg9, color='black',lw=1.6,linestyle = '--', label = r'$g/\kappa_{L}=3\cdot 10^{-1}$')
-ax20.plot(Jof4,Imbetg4, color='purple',lw=1.6, label = r'$g/\kappa_{L}=5\cdot10^{-1}$')
-ax20.plot(Jof5,Imbetg5, color='brown',lw=1.6, label = r'$g/\kappa_{L}=10^{0}$')
-#plt.plot(Jof6,Imbetg6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-ax20.plot(Jof7,Imbetg7, color='gray',lw=1.6, label = r'$g/\kappa_{L}=10^{1}$')
-#plt.plot(Jof8,Imbetg8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
-  
-ax20.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$',fontsize = 9)   
-ax20.set_xscale("log")
-#ax20.legend(fontsize=17, loc = "upper left") 
-ax20.set_ylabel(r'$2gIm(\beta^{*})$',fontsize = 9)
-ax20.tick_params(labelsize=8)  # font size of tick labels 
+ax20.set_ylabel(r'$2g|\mathrm{Im}(\alpha)|$',fontsize = 9)
+ax20.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$',fontsize = 9) 
+ax20.set_xscale("log")  
+ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
 ax20.text(0.9, 0.97, '(b)', transform=ax20.transAxes, fontsize=9, fontweight='bold', va='top', ha='left')
 
+ax10.plot(Jof0,Imbetg0, color='blue',lw=1.6, label = r'$g/\kappa_{L}=0$')
+ax10.plot(Jof1,Imbetg1, color='orange',lw=1.6, label = r'$g/\kappa_{L}=10^{-2}$')
+ax10.plot(Jof2,Imbetg2, color='green',lw=1.6, label = r'$g/\kappa_{L}=5\cdot10^{-2}$')
+ax10.plot(Jof3,Imbetg3, color='red',lw=1.6, label = r'$g/\kappa_{L}=10^{-1}$')
+ax10.plot(Jof9,Imbetg9, color='black',lw=1.6,linestyle = '--', label = r'$g/\kappa_{L}=3\cdot 10^{-1}$')
+ax10.plot(Jof4,Imbetg4, color='purple',lw=1.6, label = r'$g/\kappa_{L}=5\cdot10^{-1}$')
+ax10.plot(Jof5,Imbetg5, color='brown',lw=1.6, label = r'$g/\kappa_{L}=10^{0}$')
+#plt.plot(Jof6,Imbetg6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
+ax10.plot(Jof7,Imbetg7, color='gray',lw=1.6, label = r'$g/\kappa_{L}=10^{1}$')
+#plt.plot(Jof8,Imbetg8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+ax10.legend(fontsize=8,loc = "upper left")  
+  
+ax10.set_xscale("log")
+#ax20.legend(fontsize=17, loc = "upper left") 
+ax10.set_ylabel(r'$2g|\mathrm{Im}(\beta)|$',fontsize = 9)
+ax10.tick_params(direction='in', which='both',labelbottom = False, labelsize=TICK_FS)  # font size of tick labels 
+ax10.text(0.9, 0.97, '(a)', transform=ax10.transAxes, fontsize=9, fontweight='bold', va='top', ha='left')
 
-plt.tight_layout()  # Avoids overlapping labels
+ax10.xaxis.set_major_locator(LogLocator(base=10))
+ax10.xaxis.set_minor_locator(LogLocator(base=10, subs=[2,5]))
+ax10.xaxis.set_major_formatter(LogFormatterMathtext())
+# Remove ALL minor ticks
+ax10.xaxis.set_minor_locator(NullLocator())
+
+ax20.xaxis.set_major_locator(LogLocator(base=10))
+ax20.xaxis.set_minor_locator(LogLocator(base=10, subs=[2,5]))
+ax20.xaxis.set_major_formatter(LogFormatterMathtext())
+ax20.xaxis.set_minor_locator(NullLocator())
+
+plt.tight_layout(pad=0.4)  # Avoids overlapping labels
+plt.savefig("fig6_PRapp.pdf")
 plt.show()
 
 
