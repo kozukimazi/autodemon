@@ -749,11 +749,16 @@ PANEL_FS = 9
 LEG_FS   = 7
 
 # ---------------- Layout ----------------
-fig = plt.figure(figsize=(7.0, 6.5))  # 2-column width
+fig = plt.figure(figsize=(7.0, 5.4))  # 2-column width
+fig.subplots_adjust(
+    top=0.98,
+    bottom=0.08
+)
 
 gs = fig.add_gridspec(
     3, 2,
-    height_ratios=[1, 1, 1.8],  # bottom row larger
+    height_ratios=[1, 1, 1],
+    #height_ratios=[1, 1, 1.8],  # bottom row larger
     hspace=0.05,
     wspace=0.25
 )
@@ -856,7 +861,66 @@ for ax in [ax_a, ax_b, ax_c, ax_d, ax_e, ax_f]:
         spine.set_linewidth(0.8)
 
 # ---------------- Layout ----------------
-plt.tight_layout(pad=0.25)
+#plt.tight_layout(pad=0.25)
 plt.savefig("fig_asymmetric_PR.pdf")
 plt.show()
 plt.close()
+
+
+
+fig, (ax10, ax20) = plt.subplots(
+    2, 1,
+    sharex=True,
+    figsize=(3.39, 4.0)
+)
+
+# ---------- Panel (a)
+ax10.plot(gof10y, concv0y, color='blue',   lw=LINE_W, label="partial")
+#ax10.plot(Jof1, Imalphg1, color='orange', lw=LINE_W, label=r'$10^{-2}$')
+ax10.plot(gof12y, concv2y, color='red',    lw=LINE_W, label="global")
+ax10.plot(gof11y, concv1y, color='green',  lw=LINE_W, label="Redfield", ls = '--')
+
+ax10.set_ylabel(r'$\mathcal{C}_{on}$', fontsize=LABEL_FS)
+ax10.set_xscale('log')
+ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
+ax10.text(0.91, 0.88, '(a)', transform=ax10.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+
+ax10.text(
+    0.05, 0.29,
+    r'$J_0/(\beta_{\mathrm{ph}} \kappa_L)= 10^{-3}$',
+    transform=ax10.transAxes,
+    fontsize=9
+)
+
+ax10.legend(
+    fontsize=7,
+    frameon=True,
+    ncol=1,
+    loc='upper left'
+)
+
+# ---------- Panel (b)
+ax20.plot(gof10y, Nls0fy, color='blue',   lw=LINE_W)
+#ax20.plot(Jof1, Imbet1, color='orange', lw=LINE_W)
+ax20.plot(gof12y, Nls2fy, color='red',    lw=LINE_W)
+ax20.plot(gof11y, Nls1fy, color='green',  lw=LINE_W,ls = '--')
+
+
+ax20.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax20.set_ylabel(r'$\dot{N}_L/\kappa_L$', fontsize=LABEL_FS)
+ax20.set_xscale('log')
+ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
+ax20.text(0.91, 0.88, '(b)', transform=ax20.transAxes,
+          fontsize=PANEL_FS, fontweight='bold')
+
+# ---------- Spines
+for ax in (ax10, ax20):
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+plt.tight_layout(pad=0.4)
+plt.show()
+plt.savefig("figconcu.pdf")
+plt.close()
+

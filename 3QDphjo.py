@@ -507,7 +507,7 @@ plt.show()
 
 
 
-np.savez("phononJ0=10^{-2}bkb100.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,coheveig=coheseig)
+#np.savez("phononJ0=10^{-2}bkb100.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,coheveig=coheseig)
 
 #np.savez("phononJ0=10^{-3}comp.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohev=cohes, concv = concv, Nls = Nls,coheveig=coheseig)
 

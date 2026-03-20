@@ -471,7 +471,7 @@ for g0fm in g0fs:
     Eup = (Elf+Erf)/2 + np.sqrt(Delta**2 + g**2)
     Emin = (Elf+Erf)/2 - np.sqrt(Delta**2 + g**2)
     dup,dupdag,dmin,dmindag = twolevel(Elf,Erf,g)
-    J0 = (0.001)*betaph*gl
+    J0 = (10)*betaph*gl
     omegac = 1E-2
     Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,J0,omegac)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g)
@@ -506,8 +506,19 @@ for g0fm in g0fs:
     #hay que medir de otra forma la coherencia 
     #elegir bien como medir coherencia y entrelazamient
     #alp0 = np.trace( np.matmul( np.matmul(dldag,dr),cal1f) )
-    alp0 = v100.conjugate().T @ cal1f @ v010
+    alp0 = v100.conjugate().T @ cal1f @ v010    
     alp1 = v101.conjugate().T @ cal1f @ v011
+
+    p000 = v00.conjugate().T @ cal1f @ v00
+    p001 = v001.conjugate().T @ cal1f @ v001
+    
+
+    p110 = v110.conjugate().T @ cal1f @ v110
+    p111 = v111.conjugate().T @ cal1f @ v111
+
+    p0 = p000+p001
+    pd = p110+p111
+    print(p0)
 
     alp0g = plus0.conjugate().T @ cal1f @ minus0
     alp1g = plus1.conjugate().T @ cal1f @ minus1
@@ -516,17 +527,17 @@ for g0fm in g0fs:
     P0 = v00.conjugate().T @ cal1f @ v00 + v001.conjugate().T @ cal1f @ v001
     PD = v110.conjugate().T @ cal1f @ v110 + v111.conjugate().T @ cal1f @ v111
     cohev.append(abs(alp0[0,0]) + abs(alp1[0,0]) )
-    cohesum = abs(alp0[0,0] + alp1[0,0])
-    concurrencef = 2*cohesum - 2*np.sqrt(abs(P0[0,0]*PD[0,0]))
+    cohesum = abs(alp0g[0,0] + alp1g[0,0])
+    concurrencef = 2*cohesum - 2*np.sqrt(abs(p0[0,0]*pd[0,0]))
     if (concurrencef > 0):
         concuv.append(concurrencef)
     else:
         concuv.append(0)
 
     coheseig.append( abs(alp0g[0,0]) + abs(alp1g[0,0])  )  
-    print("la coherencia:")
+    #print("la coherencia:")
     #print(cal1f[5,3],cal1f[4,2]) 
-    print( abs(alp0g[0,0]) + abs(alp1g[0,0])) 
+    #print( abs(alp0g[0,0]) + abs(alp1g[0,0])) 
     Nls.append(Nl0)
     Ql.append(Ql0)
     Qr.append(Qr0)
@@ -550,6 +561,7 @@ for g0fm in g0fs:
     Ers.append(Er0)
     Eds.append(Ed0)
     Erl.append(El0 + Er0)
+    #concuv.append(concurrencef)
     print(g0fm)
 
 
@@ -560,4 +572,4 @@ plt.ylabel("coherencia eig")
 plt.show()
 
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 
-np.savez("phononJ0=10^{-3}seccomp.npz", gof1=gof1,Qlrs=Qlr,Qphs=Qphlist,cohev=cohev, concuv = concuv, Nls = Nls,coheveig = coheseig)    
+np.savez("phononJ0=10seccomp.npz", gof1=gof1,Qlrs=Qlr,Qphs=Qphlist,cohev=cohev, concuv = concuv, Nls = Nls,coheveig = coheseig)    
