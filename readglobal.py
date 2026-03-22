@@ -787,7 +787,7 @@ ax_a.text(0.90, 0.84, '(a)', transform=ax_a.transAxes,
 
 # Text inside plot (2)
 ax_a.text(0.05, 0.5,
-          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=10^{-3}$',
+          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=5 \times 10^{-1}$',
           transform=ax_a.transAxes,
           fontsize=8)
 
@@ -801,7 +801,7 @@ ax_b.text(0.90, 0.84, '(b)', transform=ax_b.transAxes,
 
 # Text inside plot (1)
 ax_b.text(0.02, 0.5,
-          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=5 \times 10^{-1}$',
+          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)= 10^{-3}$',
           transform=ax_b.transAxes,
           fontsize=8)
 
