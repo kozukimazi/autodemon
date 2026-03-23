@@ -471,7 +471,7 @@ for g0fm in g0fs:
     Eup = (Elf+Erf)/2 + np.sqrt(Delta**2 + g**2)
     Emin = (Elf+Erf)/2 - np.sqrt(Delta**2 + g**2)
     dup,dupdag,dmin,dmindag = twolevel(Elf,Erf,g)
-    J0 = (10)*betaph*gl
+    J0 = 5*(0.1)*betaph*gl
     omegac = 1E-2
     Ls0 = Dissipator(Elf,Erf,g,Ed0f,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,J0,omegac)
     H0 = Hamiltonian(Elf,Erf,Ed0f,U00,Uf0,g)
@@ -527,7 +527,7 @@ for g0fm in g0fs:
     P0 = v00.conjugate().T @ cal1f @ v00 + v001.conjugate().T @ cal1f @ v001
     PD = v110.conjugate().T @ cal1f @ v110 + v111.conjugate().T @ cal1f @ v111
     cohev.append(abs(alp0[0,0]) + abs(alp1[0,0]) )
-    cohesum = abs(alp0g[0,0] + alp1g[0,0])
+    cohesum = abs(alp0[0,0] + alp1[0,0])
     concurrencef = 2*cohesum - 2*np.sqrt(abs(p0[0,0]*pd[0,0]))
     if (concurrencef > 0):
         concuv.append(concurrencef)
@@ -572,4 +572,4 @@ plt.ylabel("coherencia eig")
 plt.show()
 
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 
-np.savez("phononJ0=10seccomp.npz", gof1=gof1,Qlrs=Qlr,Qphs=Qphlist,cohev=cohev, concuv = concuv, Nls = Nls,coheveig = coheseig)    
+np.savez("phononJ0=5_10^{-1}seccomp.npz", gof1=gof1,Qlrs=Qlr,Qphs=Qphlist,cohev=cohev, concuv = concuv, Nls = Nls,coheveig = coheseig)    

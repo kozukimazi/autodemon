@@ -86,6 +86,12 @@ v011 = totdr @ v00
 v111 = totf @ v00
 
 
+plus0 = (v100 + v010)/np.sqrt(2)
+plus1 = (v101 + v011)/np.sqrt(2)
+minus0 = (v010 - v100)/np.sqrt(2)
+minus1 = (v011 - v101)/np.sqrt(2)
+
+
 def twolevel(el,er,g):
     Delta = (el-er)/2
     tol = 1E-25
@@ -359,7 +365,7 @@ E = 0
 Ed = 0.
 U0 = 0.
 Uf = 50
-g0 = 100
+g0 = 1000
 
 eV = 6.5
 mul1 = eV/2
@@ -475,9 +481,9 @@ eff = []
 effph = []
 Realphg = []
 Rebetg = []
-
+coheseig = []
 #gf = 5/1000
-g0fm = 10000
+g0fm = 1
 for J0 in J0s:
     mud0 = 2
     U00 = 40
@@ -500,6 +506,11 @@ for J0 in J0s:
     #Lr0 = Dp(E,g0,U00,Uf0,-ev/2,betar,gr) + Dm(E,g0,U00,Uf0,-ev/2,betar,gr)
     #Ld0 = Dd(Ed0,U00,mud0,betad,gd)
     #Hs0 = Hamiltonian(E,g0,Ed0,U00,Uf0)
+    alp0g = plus0.conjugate().T @ cal1f @ minus0
+    alp1g = plus1.conjugate().T @ cal1f @ minus1
+
+    coheg = abs(alp0g[0,0]) + abs(alp1g[0,0]) 
+
     DLP,DRP = Dp(Eup,g,U00,Uf0,ev/2,betal,-ev/2,betar,gl,glU,gr,grU,dup,dupdag,dmin,dmindag,theta)
     DLM,DRM = Dm(Emin,g,U00,Uf0,ev/2,betal,-ev/2,betar,gl,glU,gr,grU,dmin,dmindag,dup,dupdag,theta)
     
@@ -531,12 +542,14 @@ for J0 in J0s:
     P0 = v00.conjugate().T @ cal1f @ v00 + v001.conjugate().T @ cal1f @ v001
     PD = v110.conjugate().T @ cal1f @ v110 + v111.conjugate().T @ cal1f @ v111
     cohev.append(abs(alp0[0,0]) + abs(alp1[0,0]) )
+    coheseig.append(coheg)
     cohesum = abs(alp0[0,0] + alp1[0,0])
     concurrencef = 2*cohesum - 2*np.sqrt(abs(P0[0,0]*PD[0,0]))
     if (concurrencef > 0):
         concuv.append(concurrencef)
     else:
         concuv.append(0)
+        
     Nls.append(Nl0)
     Ql.append(Ql0)
     Qr.append(Qr0)
@@ -627,7 +640,7 @@ plt.show()
 
 
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 
-np.savez("phonong=10000b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
+np.savez("phonong=1000b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph,coheveig = coheseig)
 #np.savez("phonong=1000b100sec.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
 
 #np.savez("phonong=1000probb100sec.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)

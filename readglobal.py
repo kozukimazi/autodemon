@@ -920,7 +920,8 @@ for ax in (ax10, ax20):
         spine.set_linewidth(0.8)
 
 plt.tight_layout(pad=0.4)
-plt.show()
 plt.savefig("figconcu.pdf")
+plt.show()
+
 plt.close()
 

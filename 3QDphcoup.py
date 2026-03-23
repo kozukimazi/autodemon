@@ -104,6 +104,39 @@ nl = np.matmul(dldag,dl)
 nr = np.matmul(drdag,dr)
 
 
+##################################
+#############definirbase##########
+##################################
+##definir base con objetivo de calcular coherencias
+v00 = np.array([[0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [1]])
+
+v100 = dldag @ v00
+v010 = -drdag @ v00
+v001 = dddag @ v00
+totrl = np.matmul(drdag,dldag)
+totdl = np.matmul(dddag,dldag)
+totdr = np.matmul(dddag,drdag)
+totf = np.matmul(dddag,totrl )
+v110 = totrl @ v00
+v101 = -totdl @ v00
+v011 = totdr @ v00
+v111 = totf @ v00
+
+plus0 = (v100 + v010)/np.sqrt(2)
+plus1 = (v101 + v011)/np.sqrt(2)
+minus0 = (v010 - v100)/np.sqrt(2)
+minus1 = (v011 - v101)/np.sqrt(2)
+
+
+
+
 def Liouvillian( H,Ls, hbar = 1):
     d = len(H)
     superH = -1j/hbar * (np.kron(np.eye(d), H ) - np.kron(H.T,  np.eye(d))   )
@@ -252,6 +285,12 @@ def currents(Htd,g0,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
         concf += concurrencef
     else: 
         concf = 0
+    
+    alp0g = plus0.conjugate().T @ rhof @ minus0
+    alp1g = plus1.conjugate().T @ rhof @ minus1
+
+    coheg = abs(alp0g[0,0]) + abs(alp1g[0,0]) 
+    
     Dl = Dissipate(Htd,Ll,rhof)
     Dr = Dissipate(Htd,Lr,rhof)
     Dd = Dissipate(Htd,Ld,rhof)
@@ -287,7 +326,7 @@ def currents(Htd,g0,mul,mur,mud,Ll,Lr,Ld,Dph,superop,rho0,t):
     Nr = np.trace(np.matmul(Dr,Nop ))
     Nd = np.trace(np.matmul( Dd,Nop ))
     Act = np.trace(np.matmul(A,np.matmul(rhof,A)))
-    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real,Act.real,Nqm.real,Wlr.real
+    return Ql.real, Qr.real, Qd.real, Qph.real, Sl.real, Sr.real,Sd.real, Sph.real, El.real, Er.real, Ed.real, Wl.real,Wr.real,Wd.real,cohe,concf,Nl.real,Nr.real,Nd.real,Act.real,Nqm.real,Wlr.real,coheg.real
 
 ###################################
 #############parametros##############
@@ -296,7 +335,7 @@ E = 0
 U0 = 40.
 Uf = 500
 #caso solo fonones
-g0 =1/100
+g0 =7/1000
 #g0 = 5/1000
 #g0 = 600
 #g0 = 1/1000, pasa algo muy interesante con el entrelazamiento, muere y reaparece
@@ -396,6 +435,7 @@ Qrs = []
 Qds = []
 eff = []
 effph = []
+coheseig = []
 for J0 in J0s:
     mud0 = 2
     U00 = 40 #10
@@ -430,7 +470,7 @@ for J0 in J0s:
     Nlt = np.trace( np.matmul(superop0adj,rhof ) )
     Nltqm = np.trace( np.matmul(superop1adj,rhof ) )
     #Nlt = np.trace( np.matmul(nlt,rho0 ) )
-    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0,Wlr0 = currents(Htd0,g0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
+    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0,Wlr0,coheg0 = currents(Htd0,g0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
     #cohev.append(abs(rhof[5,3]) + abs(rhof[4,2]) )
     concv.append(concu0)    
     sigmal = Sl0 - betal*Ql0
@@ -448,6 +488,7 @@ for J0 in J0s:
     Ile.append(Il0)
     Ire.append(Ir0)
     cohes.append(cohe0)
+    coheseig.append(coheg0)
     Nls.append(Nl0)
     Jof.append(J0/(betaph*gl))
     Acts.append(J0*Act0)
@@ -563,7 +604,7 @@ plt.show()
 
 #sacar nuevamente la data con 3000
 
-#np.savez("phonong=10^{-1}b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work, eff=eff,effph=effph)
+np.savez("phonong=7_10^{-3}b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,Acts=Acts,Nlqm=Nlqm,Nltotal=Nltotal,Work=Work, eff=eff,effph=effph,coheveig = coheseig)
 print(g0)
-np.savez("phonong=3_10^{-3}probb100.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
+#np.savez("phonong=3_10^{-3}probb100.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
 #volver a sacar 3_10^{-3}(16/12/25)
