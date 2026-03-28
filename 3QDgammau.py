@@ -68,6 +68,35 @@ nd = np.matmul(dddag,dd)
 nl = np.matmul(dldag,dl)
 nr = np.matmul(drdag,dr)
 
+##definir base con objetivo de calcular coherencias
+v00 = np.array([[0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [0],
+                 [1]])
+
+v100 = dldag @ v00
+v010 = -drdag @ v00
+v001 = dddag @ v00
+totrl = np.matmul(drdag,dldag)
+totdl = np.matmul(dddag,dldag)
+totdr = np.matmul(dddag,drdag)
+totf = np.matmul(dddag,totrl )
+v110 = totrl @ v00
+v101 = -totdl @ v00
+v011 = totdr @ v00
+v111 = totf @ v00
+
+
+plus0 = (v100 + v010)/np.sqrt(2)
+plus1 = (v101 + v011)/np.sqrt(2)
+minus0 = (v010 - v100)/np.sqrt(2)
+minus1 = (v011 - v101)/np.sqrt(2)
+
+
 
 def Liouvillian( H,Ls, hbar = 1):
     d = len(H)
@@ -465,6 +494,7 @@ Probnt70 = []
 Probnt80 = []
 resta = []
 cohesex = []
+coheseig = []
 for ev in eVs0:
     mud0 = 2
     U00 = 40 #10
@@ -486,6 +516,13 @@ for ev in eVs0:
     Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
     Htd0 =  Htd(E0,Ed0,U00,Uf0)
     rhof = Propagate(rho0,superop0,40000)
+    alp0g = plus0.conjugate().T @ rhof @ minus0
+    alp1g = plus1.conjugate().T @ rhof @ minus1
+
+    #print(alp0g)
+    #print(alp1g)
+    coheg = abs(alp0g[0,0]) + abs(alp1g[0,0]) 
+    coheseig.append(coheg)
     Ql0,Qr0,Qd0,Sl0,Sr0,Sd0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0 = currents(Htd0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,superop0,rho0,40000)
     Ql.append(Ql0)
     Qr.append(Qr0)
@@ -816,9 +853,7 @@ plt.tight_layout()
 plt.show()
 
 
-
-
-# Create subplots (1 row, 2 columns)
+#Create subplots (1 row, 2 columns)
 fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(3.39, 4.6))  # 1 row, 2 columns
 
 
@@ -827,19 +862,19 @@ LABEL_FS = 9
 TICK_FS = 8
 PANEL_FS = 9
 
-ax10.plot(eVs,Erl,color='black',linestyle='--',lw=LINE_W, label = r'$\dot{E}_{LR}$')
+ax20.plot(eVs,Erl,color='black',linestyle='--',lw=LINE_W, label = r'$\dot{E}_{2}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax10.plot(eVs,Flr,color='black',lw=LINE_W, label = r'$\dot{F}_{LR}$')
-ax10.plot(eVs,Tisl,label = r'$T\dot{I}_{LR}$',linestyle='--', dashes=(5, 3), color = 'r',lw=LINE_W)
-ax10.plot(eVs,Wt,label = r'$\dot{W}_{LR}$', color = 'm',lw=LINE_W)
-ax10.plot(eVs,Qlr, color='red',lw = LINE_W,label = r'$\dot{Q}_{LR}$')
+ax20.plot(eVs,Flr,color='black',lw=LINE_W, label = r'$\dot{F}_{2}$')
+ax20.plot(eVs,Tisl,label = r'$T\dot{I}_{2}$',linestyle='--', dashes=(5, 3), color = 'r',lw=LINE_W)
+ax20.plot(eVs,Wt,label = r'$\dot{W}_{2}$', color = 'm',lw=LINE_W)
+ax20.plot(eVs,Qlr, color='red',lw = LINE_W,label = r'$\dot{Q}_{2}$')
 #ax10.xticks(fontsize=17)  
 #ax10.yticks(fontsize=17)
-ax10.tick_params(labelbottom=False,direction='in', which='both', labelsize=TICK_FS)
-ax10.axvspan(0, 2.465, facecolor='b', alpha=0.5)
-ax10.text(0.92, 0.1, '(a)', transform=ax10.transAxes, fontsize=PANEL_FS, fontweight='bold')
-
-ax10.legend(
+ax20.tick_params(direction='in', which='both',labelsize=TICK_FS)
+ax20.axvspan(0, 2.465, facecolor='b', alpha=0.5)
+ax20.text(0.92, 0.1, '(b)', transform=ax20.transAxes, fontsize=PANEL_FS, fontweight='bold')
+ax20.set_xlabel(r'$eV/T$',fontsize = LABEL_FS)
+ax20.legend(
     fontsize=7,
     frameon=True,
     ncol=3,
@@ -848,26 +883,27 @@ ax10.legend(
 
 
 
-ax20.plot(eVs,Eds, color='black',linestyle='--',lw=LINE_W, label = r'$\dot{E}_{D}$')
+ax10.plot(eVs,Eds, color='black',linestyle='--',lw=LINE_W, label = r'$\dot{E}_{1}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax20.plot(eVs,Fd, color='black',lw=LINE_W, label = r'$\dot{F}_{D}$')
-ax20.plot(eVs,Tid,label = r'$T_{D}\dot{I}_{D}$', linestyle='--', dashes=(5, 3),color = 'r',lw=LINE_W)
-ax20.plot(eVs,Wdf,label = r'$\dot{W}_{D}$', color = 'm',lw=LINE_W)
+ax10.plot(eVs,Fd, color='black',lw=LINE_W, label = r'$\dot{F}_{1}$')
+ax10.plot(eVs,Tid,label = r'$T_{B_{D}}\dot{I}_{1}$', linestyle='--', dashes=(5, 3),color = 'r',lw=LINE_W)
+ax10.plot(eVs,Wdf,label = r'$\dot{W}_{1}$', color = 'm',lw=LINE_W)
+ax10.tick_params(labelbottom=False,direction='in', which='both', labelsize=TICK_FS)
 #plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
 #ax2.xticks(fontsize=17)  # X-axis tick labels
 #ax2.yticks(fontsize=17)  # Y-axis tick labels
 #plt.xscale("log")
-ax20.set_xlabel(r'$eV/T$',fontsize = LABEL_FS)
+
 #plt.ylim(-0.0018, 0.0018) 
 #plt.legend(loc='upper left')  
 
-ax20.tick_params(direction='in', which='both',labelsize=TICK_FS)  # font size of tick labels 
-ax20.text(0.92, 0.1, '(b)', transform=ax20.transAxes, fontsize=PANEL_FS, fontweight='bold')
-ax20.axvspan(0, 2.465, facecolor='b', alpha=0.5)
+# font size of tick labels 
+ax10.text(0.92, 0.1, '(a)', transform=ax10.transAxes, fontsize=PANEL_FS, fontweight='bold')
+ax10.axvspan(0, 2.465, facecolor='b', alpha=0.5)
 #fig.supylabel("Cantidades termodinámicas", fontsize=22)
 #plt.subplots_adjust(left=0.05) 
 
-ax20.legend(
+ax10.legend(
     fontsize=7,
     frameon=True,
     ncol=2,
@@ -993,7 +1029,7 @@ plt.show()
 plt.close()
 
 
-np.savez("entropy.npz", eVs=eVs, entropf=entropf, Slr=Slr, Nds=Nds)
+#np.savez("entropy.npz", eVs=eVs, entropf=entropf, Slr=Slr, Nds=Nds)
 
 
 archivo = open("lindbladgamU","w")
@@ -1053,3 +1089,6 @@ for i in range(Num):
     archivo.write(" ") 
     archivo.write( format_str.format(cohes[i]))
     archivo.write("\n")
+
+
+#np.savez("phononeVg=5_10^{-3}.npz", eVs=eVs, entropf=entropf, Slr=Slr,cohes=cohev, concv = concv, Nls = Nls,Nds=Nds,coheveig = coheseig)

@@ -43,6 +43,40 @@ Jof12,Probnt112,Probnt212,Probnt312,Probnt412,Probnt512,Probnt612,Probnt712,Prob
 data13 = np.load("phonong=10000probb100.npz")
 Jof13,Probnt113,Probnt213,Probnt313,Probnt413,Probnt513,Probnt613,Probnt713,Probnt813,Imalphg13,Imbetg13 = data13["Jof"], data13["Probnt10"], data13["Probnt20"], data13["Probnt30"], data13["Probnt40"], data13["Probnt50"], data13["Probnt60"], data13["Probnt70"], data13["Probnt80"], data13["Imalphg"], data13["Imbetg"]
 
+
+n = len(Imalphg0)
+cohesum0s = []
+cohesum1s = []
+cohesum2s = []
+cohesum3s = []
+cohesum4s = []
+cohesum5s = []
+cohesum6s = []
+cohesum7s = []
+cohesum8s = []
+cohesum9s = []
+cohesum10s = []
+cohesum11s = []
+cohesum12s = []
+cohesum13s = []
+
+for i in range(n):
+    cohesum0s.append(Imalphg0[i] + Imbetg0[i])
+    cohesum1s.append(Imalphg1[i] + Imbetg1[i])
+    cohesum2s.append(Imalphg2[i] + Imbetg2[i])
+    cohesum3s.append(Imalphg3[i] + Imbetg3[i])
+    cohesum4s.append(Imalphg4[i] + Imbetg4[i])
+    cohesum5s.append(Imalphg5[i] + Imbetg5[i])
+    cohesum6s.append(Imalphg6[i] + Imbetg6[i])
+    cohesum7s.append(Imalphg7[i] + Imbetg7[i])
+    cohesum8s.append(Imalphg8[i] + Imbetg8[i])
+    cohesum9s.append(Imalphg9[i] + Imbetg9[i])
+    cohesum10s.append(Imalphg10[i] + Imbetg10[i])
+    cohesum11s.append(Imalphg11[i] + Imbetg11[i])
+    cohesum12s.append(Imalphg12[i] + Imbetg12[i])
+    cohesum13s.append(Imalphg13[i] + Imbetg13[i])
+
+
 '''
 
 plt.plot(Jof0,Probnt10, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
@@ -342,6 +376,8 @@ Jofs4,Probnts14,Probnts24,Probnts34,Probnts44,Probnts54,Probnts64,Probnts74,Prob
 
 
 
+
+
 fig, (ax10, ax20) = plt.subplots(
     2, 1,
     sharex=True,
@@ -397,4 +433,53 @@ for ax in (ax10, ax20):
 plt.tight_layout(pad=0.4)
 plt.savefig("fig6_PR_colors0sec.pdf")
 plt.show()
+plt.close()
+
+
+fig, ax10 = plt.subplots(
+    sharex=True,
+    figsize=(3.39, 2.8)
+)
+
+LINE_W = 1.6
+LABEL_FS = 9
+TICK_FS = 8
+PANEL_FS = 9
+
+# ---------- Panel (a)
+ax10.plot(Jof0, cohesum0s, color='blue',   lw=LINE_W, label=r'$g/\kappa_L=0$')
+#ax10.plot(Jof1, cohesum1s, color='orange', lw=LINE_W, label=r'$g/\kappa_L=10^{-2}$')
+ax10.plot(Jof2, cohesum2s, color='green',  lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{-2}$')
+ax10.plot(Jof3, cohesum3s, color='red',    lw=LINE_W, label=r'$g/\kappa_L=10^{-1}$')
+ax10.plot(Jof4, cohesum4s, color='purple',  lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{-1}$')
+ax10.plot(Jof5, cohesum5s, color='brown', lw=LINE_W, label=r'$g/\kappa_L=10^{0}$')
+#ax10.plot(Jof6, cohesum6s, color='pink',   lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{0}$')
+#ax10.plot(Jof7, cohesum7s, color='gray',   lw=LINE_W, label=r'$g/\kappa_L=10^{1}$')
+#ax10.plot(Jof8, cohesum8s, color='black',  lw=LINE_W, label   =r'$g/\kappa_L=7 \times 10^{-1}$')
+ax10.plot(Jof9, cohesum9s, color='black',  lw=LINE_W, label=r'$g/\kappa_L=3 \times 10^{-1}$')
+#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
+ax10.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax10.set_ylabel(r'$2g|\mathrm{Im}(\alpha)+\mathrm{Im}(\beta)|$', fontsize=LABEL_FS)
+ax10.set_xscale('log')
+ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
+#ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes,
+          #fontsize=PANEL_FS, fontweight='bold')
+
+ax10.legend(
+    fontsize=6.1,
+    frameon=True,
+    ncol=1,
+    loc='center left',
+    bbox_to_anchor=(0.02, 0.63)
+)
+
+
+
+# ---------- Spines
+
+for spine in ax10.spines.values():
+    spine.set_linewidth(0.8)
+
+plt.tight_layout(pad=0.4)
+plt.savefig("fig6cohesum.pdf")
 plt.close()

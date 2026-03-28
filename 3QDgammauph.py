@@ -869,6 +869,6 @@ plt.savefig("figcurrentph.pdf")
 plt.show()
 plt.close()
 
-np.savez("entropyph.npz", eVs=eVs, entropf=entropf, Slrt=Slrt, Nds=Nds)
+#np.savez("entropyph.npz", eVs=eVs, entropf=entropf, Slrt=Slrt, Nds=Nds)
 
 

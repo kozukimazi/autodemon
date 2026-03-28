@@ -394,7 +394,7 @@ ax1.plot(Jof9, eff9, color='black',  lw=LINE_W, label=r'$g/\kappa_{L}=3\times10^
 ax1.plot(Jof4, eff4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\times10^{-1}$')
 ax1.plot(Jof5, eff5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
 #ax1.plot(Jof7, eff7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
-ax1.plot(Jof10, eff10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
+#ax1.plot(Jof10, eff10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
 #ax1.plot(Jof11, eff11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
 #ax1.plot(Jof12, eff12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
 #ax1.plot(Jof13, eff13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
@@ -474,7 +474,7 @@ handles, labels = ax1.get_legend_handles_labels()
 fig.legend(
     handles, labels,
     loc='upper center',
-    ncol=3,
+    ncol=4,
     fontsize=LEG_FS,
     frameon=True
 )
