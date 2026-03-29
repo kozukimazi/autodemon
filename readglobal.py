@@ -740,7 +740,7 @@ plt.savefig("fig_3x2_PR.pdf")
 plt.close()
 
 
-
+###############modificar C_l1(loc) y mover hacia arriba el panel (c) y (d) para que quede mas claro que es C_l1(eig) y no C_l1(loc)####################
 
 LINE_W   = 1.8
 LABEL_FS = 9
@@ -776,53 +776,55 @@ ax_f = fig.add_subplot(gs[2, 1])
 # ===================== Example content =====================
 
 # ---- Small panels ----
-ax_a.plot(gof10, cohes0, lw=LINE_W,color='blue', label='partial')
-ax_a.plot(gof12, cohes2, lw=LINE_W,color='red', label='global')
-ax_a.plot(gof11, cohes1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
-ax_a.set_ylabel(r'$\mathcal{C}_{l_1}$', fontsize=LABEL_FS)
+ax_a.plot(gof10, coheveig0, lw=LINE_W,color='blue', label='partial')
+ax_a.plot(gof12, coheveig2, lw=LINE_W,color='red', label='global')
+ax_a.plot(gof11, coheveig1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+ax_a.set_ylabel(r'$\mathcal{C}_{l_1}(\mathrm{eig})$', fontsize=LABEL_FS)
 ax_a.set_xscale('log')
 ax_a.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
 ax_a.text(0.90, 0.84, '(a)', transform=ax_a.transAxes,
             fontsize=PANEL_FS, fontweight='bold')
 
 # Text inside plot (2)
-ax_a.text(0.05, 0.5,
-          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=5 \times 10^{-1}$',
-          transform=ax_a.transAxes,
-          fontsize=8)
 
-ax_b.plot(gof10y, cohes0y, lw=LINE_W,color='blue', label='partial')
-ax_b.plot(gof12y, cohes2y, lw=LINE_W,color='red', label='global')
-ax_b.plot(gof11y, cohes1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+
+ax_b.plot(gof10y, coheveig0y, lw=LINE_W,color='blue', label='partial')
+ax_b.plot(gof12y, coheveig2y, lw=LINE_W,color='red', label='global')
+ax_b.plot(gof11y, coheveig1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 ax_b.set_xscale('log')
 ax_b.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
 ax_b.text(0.90, 0.84, '(b)', transform=ax_b.transAxes,
             fontsize=PANEL_FS, fontweight='bold')
 
-# Text inside plot (1)
-ax_b.text(0.02, 0.5,
-          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)= 10^{-3}$',
-          transform=ax_b.transAxes,
-          fontsize=8)
 
-ax_c.plot(gof10, coheveig0, lw=LINE_W,color='blue', label='partial')
-ax_c.plot(gof12, coheveig2, lw=LINE_W,color='red', label='global')
-ax_c.plot(gof11, coheveig1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+ax_c.plot(gof10, cohes0, lw=LINE_W,color='blue', label='partial')
+ax_c.plot(gof12, cohes2, lw=LINE_W,color='red', label='global')
+ax_c.plot(gof11, cohes1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 
 ax_c.set_xscale('log')
-ax_c.set_ylabel(r'$\mathcal{C}_{l_1}(\mathrm{eig})$', fontsize=LABEL_FS)
+ax_c.set_ylabel(r'$\mathcal{C}_{l_1}(\mathrm{loc})$', fontsize=LABEL_FS)
 ax_c.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
 ax_c.text(0.90, 0.84, '(c)', transform=ax_c.transAxes,
             fontsize=PANEL_FS, fontweight='bold')
-         
-ax_d.plot(gof10y, coheveig0y, lw=LINE_W,color='blue', label='partial')
-ax_d.plot(gof12y, coheveig2y, lw=LINE_W,color='red', label='global')
-ax_d.plot(gof11y, coheveig1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+
+ax_c.text(0.05, 0.5,
+          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=5 \times 10^{-1}$',
+          transform=ax_c.transAxes,
+          fontsize=8)
+
+ax_d.plot(gof10y, cohes0y, lw=LINE_W,color='blue', label='partial')
+ax_d.plot(gof12y, cohes2y, lw=LINE_W,color='red', label='global')
+ax_d.plot(gof11y, cohes1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 ax_d.set_xscale('log')
 ax_d.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
 ax_d.text(0.90, 0.84, '(d)', transform=ax_d.transAxes,
             fontsize=PANEL_FS, fontweight='bold')
-                  
+
+# Text inside plot (1)
+ax_d.text(0.02, 0.5,
+          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)= 10^{-3}$',
+          transform=ax_d.transAxes,
+          fontsize=8)            
 
 # ---- Large panels ----
 ax_e.plot(gof10, Nls0f, lw=LINE_W,color = 'blue', label='partial')
