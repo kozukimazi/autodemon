@@ -928,7 +928,7 @@ plt.close()
 # Create subplots (1 row, 2 columns)
 fig, (ax11, ax21) = plt.subplots(2, 1,sharex=True, figsize=(3.39, 4.5))  # 1 row, 2 columns
 
-ax11.plot(eVs,Nls,color='black',lw=LINE_W, label = r'$\dot{N}_{L}/\kappa_{L}$')
+ax11.plot(eVs,Nls,color='black',lw=LINE_W, label = r'$\dot{N}_{B_L}/\kappa_{L}$')
 ax11.plot(eVs,Nds, color='red',linestyle = '--',lw=LINE_W)
 #(0.7,0.48)
 #ax11.set_ylabel(r'$I/\kappa_{L}$',fontsize = 20)
@@ -991,8 +991,8 @@ PANEL_FS0 = 9
 fig, ax = plt.subplots(figsize=(3.39, 2.3))
 
 # Plots
-ax.plot(eVs, entropf, color='black', lw=LINE_W0, label=r'$\dot{\sigma}^{O}_{LR}$')
-ax.plot(eVs, Slr, color='red', lw=LINE_W0, label=r'$\dot{\sigma}_{LR}$')
+ax.plot(eVs, entropf, color='black', lw=LINE_W0, label=r'$\dot{\sigma}^{O}_{2}$')
+ax.plot(eVs, Slr, color='red', lw=LINE_W0, label=r'$\dot{\sigma}_{2}$')
 ax.plot(eVs,Nds, color='black',lw=LINE_W0,linestyle='--')
 # Axis labels
 ax.set_xlabel(r'$eV/T$', fontsize=LABEL_FS0)

@@ -439,7 +439,7 @@ Qd = []
 
  
 Num = 1800
-J0s = np.logspace(-8,-1,Num)
+J0s = np.logspace(-8,4,Num)
 
 #Num = 3000
 #J0s = np.logspace(-8,2,Num)
@@ -613,7 +613,7 @@ ax10.plot(Jof, Realphg, color='blue',   lw=LINE_W, label=r'$2gRe(a)$')
 ax10.plot(Jof, Rebetg, color='orange', lw=LINE_W, label=r'$2gRe(b)$')
 
 #ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
-ax10.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax10.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)$', fontsize=LABEL_FS)
 ax10.set_ylabel(r'$\mathcal{C}_{l_{1}}$', fontsize=LABEL_FS)
 ax10.set_xscale('log')
 ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
@@ -639,8 +639,50 @@ plt.tight_layout(pad=0.4)
 plt.show()
 
 
+fig, ax20 = plt.subplots(
+    sharex=True,
+    figsize=(3.39, 3.2)
+)
+
+LINE_W = 1.6
+LABEL_FS = 9
+TICK_FS = 8
+PANEL_FS = 9
+
+# ---------- Panel (a)
+ax20.plot(Jof, Work, color='blue',   lw=LINE_W, label=r'$Work$')
+ax20.plot(Jof, Nls, color='orange', lw=LINE_W, label=r'$current$')
+
+#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
+ax20.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}} \kappa_L)$', fontsize=LABEL_FS)
+#ax20.set_ylabel(r'$\mathcal{C}_{l_{1}}$', fontsize=LABEL_FS)
+ax20.set_xscale('log')
+ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
+#ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes,
+          #fontsize=PANEL_FS, fontweight='bold')
+
+ax20.legend(
+    fontsize=6.5,
+    frameon=True,
+    ncol=1,
+    loc='upper right',
+    bbox_to_anchor=(1, 0.99)
+)
+
+
+
+# ---------- Spines
+
+for spine in ax20.spines.values():
+    spine.set_linewidth(0.8)
+
+plt.tight_layout(pad=0.4)
+plt.show()
+
+
+
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 
-np.savez("phonong=1000b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph,coheveig = coheseig)
+#np.savez("phonong=1000b100.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph,coheveig = coheseig)
 #np.savez("phonong=1000b100sec.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
 
 #np.savez("phonong=1000probb100sec.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)

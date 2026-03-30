@@ -185,7 +185,7 @@ mark_inset(ax1, axins, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
 
 
 ax1.set_xscale("log")
-ax1.set_ylabel(r'$\eta_{LR}$', fontsize=LABEL_FS)
+ax1.set_ylabel(r'$\eta_{2}$', fontsize=LABEL_FS)
 
 ax1.text(0.92, 0.90, '(a)', transform=ax1.transAxes,
          fontsize=PANEL_FS, fontweight='bold')
@@ -414,11 +414,12 @@ axins = inset_axes(
 
 # Plot SAME curves (no legend!)
 axins.plot(Jof4, eff4, color='purple', lw=2)
+axins.plot(Jof5,eff5,color='brown', lw = 2)
 axins.plot(Jof9, eff9, color='black',  lw=2)
 
 # Zoom region (example values — adjust!)
-axins.set_xlim(7e-4, 1e-0)
-axins.set_ylim(0.5, 0.535)
+axins.set_xlim(7e-4, 2.1e-0)
+axins.set_ylim(0.5, 0.542)
 
 # Inset formatting
 axins.tick_params(direction='in', labelsize=6)
@@ -430,7 +431,7 @@ mark_inset(ax1, axins, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
 
 
 ax1.set_xscale("log")
-ax1.set_ylabel(r'$\eta_{LR}$', fontsize=LABEL_FS)
+ax1.set_ylabel(r'$\eta_{2}$', fontsize=LABEL_FS)
 
 ax1.text(0.92, 0.90, '(a)', transform=ax1.transAxes,
          fontsize=PANEL_FS, fontweight='bold')
@@ -482,4 +483,152 @@ fig.legend(
 # ===================== Layout & save =====================
 plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
 plt.savefig("figeffcoheeig.pdf")
+plt.close()
+
+
+
+#########hacer los calculos de 1800 a 3000
+fig, (ax10, ax20) = plt.subplots(
+    1, 2,
+    sharex=True,
+    figsize=(7.0, 3.6)   # APS wide figure
+)
+
+LINE_W = 2.0
+LABEL_FS = 9
+TICK_FS  = 8
+PANEL_FS = 9
+LEG_FS   = 7
+
+# ===================== (a) Efficiency =====================
+ax10.plot(Jof0, Id0, color='blue',   lw=LINE_W, label=r'$g/\kappa_{L}=0$')
+#ax1.plot(Jof1, eff1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
+ax10.plot(Jof2, Id2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\times 10^{-2}$')
+ax10.plot(Jof3, Id3, color='red',    lw=LINE_W, label=r'$g/\kappa_{L}=10^{-1}$')
+ax10.plot(Jof9, Id9, color='black',  lw=LINE_W, label=r'$g/\kappa_{L}=3\times10^{-1}$')
+ax10.plot(Jof4, Id4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\times10^{-1}$')
+ax10.plot(Jof5, Id5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
+#ax1.plot(Jof7, eff7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
+#ax10.plot(Jof10, Id10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
+#ax10.plot(Jof11, Id11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
+#ax1.plot(Jof12, eff12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
+#ax1.plot(Jof13, eff13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
+ax10.plot(Jof14, Id14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
+#ax1.plot(Jof15, eff15, color='gray',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=5\times 10^{2}$')
+#ax1.plot(Jof16, eff16, color='pink',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=9\times 10^{2}$')
+
+axins0 = inset_axes(
+    ax10,
+    width="32%",
+    height="32%",
+    #bbox_to_anchor=(0.005, 0.005, 0.1, 0.2),  #[x, y, width, height] 
+    #bbox_transform=ax10.transAxes,
+    loc = 'lower right',
+    borderpad=1
+)
+
+# Plot SAME curves (no legend!)
+axins0.plot(Jof4, Id4, color='purple', lw=2)
+axins0.plot(Jof9, Id9, color='black',  lw=2)
+axins0.plot(Jof5, Id5, color='brown',  lw=2)
+axins0.set_xscale("log")
+
+# Zoom region (example values — adjust!)
+axins0.set_xlim(1e-2, 1)
+axins0.set_ylim(0.0042, 0.00423)
+
+# Inset formatting
+axins0.tick_params(direction='in', labelsize=6)
+for spine in axins0.spines.values():
+    spine.set_linewidth(0.6)
+
+# Optional: draw connectors
+#mark_inset(ax10, axins0, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
+mark_inset(ax10, axins0, loc1=2, loc2=4, fc="none", ec="0.4", lw=0.6)
+
+ax10.set_xscale("log")
+ax10.set_ylabel(r'$\dot{I}_{1}$', fontsize=LABEL_FS)
+
+ax10.text(0.92, 0.90, '(a)', transform=ax10.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== (b) Coherence =====================
+ax20.plot(Jof0, Work0, color='blue',   lw=LINE_W)
+#ax2.plot(Jof1, coheveig1, color='orange', lw=LINE_W)
+ax20.plot(Jof2, Work2, color='green',  lw=LINE_W)
+ax20.plot(Jof3, Work3, color='red',    lw=LINE_W)
+ax20.plot(Jof9, Work9, color='black',  lw=LINE_W)
+ax20.plot(Jof4, Work4, color='purple', lw=LINE_W)
+ax20.plot(Jof5, Work5, color='brown',  lw=LINE_W)
+#ax2.plot(Jof7, coheveig7, color='gray',   lw=LINE_W)
+#ax20.plot(Jof10, Work10, color='red',   lw=LINE_W, ls = '--')
+#ax20.plot(Jof11, Work11, color='blue',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof12, coheveig12, color='green',   lw=LINE_W, ls = '--')
+#ax20.plot(Jof13, Work13, color='brown',   lw=LINE_W, ls = '--')
+ax20.plot(Jof14, Work14, color='black',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof15, coheveig15, color='gray',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof16, coheveig16, color='pink',   lw=LINE_W, ls = '--')
+
+
+
+ax20.set_xscale("log")
+ax20.set_ylabel(r'$\dot{W}_{2}$', fontsize=LABEL_FS)
+
+ax20.text(0.92, 0.90, '(b)', transform=ax20.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+
+axins20 = inset_axes(
+    ax20,
+    width="32%",
+    height="32%",
+    #bbox_to_anchor=(0.005, 0.005, 0.1, 0.2),  #[x, y, width, height] 
+    #bbox_transform=ax10.transAxes,
+    loc = 'center right',
+    borderpad=1
+)
+
+# Plot SAME curves (no legend!)
+axins20.plot(Jof4, Work4, color='purple', lw=2)
+axins20.plot(Jof9, Work9, color='black',  lw=2)
+axins20.plot(Jof5, Work5, color='brown',  lw=2)
+axins20.set_xscale("log")
+
+# Zoom region (example values — adjust!)
+axins20.set_xlim(1e-2, 4)
+axins20.set_ylim(-0.048, -0.039)
+
+# Inset formatting
+axins20.tick_params(direction='in', labelsize=6)
+for spine in axins20.spines.values():
+    spine.set_linewidth(0.6)
+
+# Optional: draw connectors
+#mark_inset(ax10, axins0, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
+mark_inset(ax20, axins20, loc1=2, loc2=4, fc="none", ec="0.4", lw=0.6)
+
+
+
+# ===================== Shared formatting =====================
+for ax in (ax10, ax20):
+    ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+ax10.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax20.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+
+# ===================== Single legend (recommended) =====================
+handles, labels = ax10.get_legend_handles_labels()
+fig.legend(
+    handles, labels,
+    loc='upper center',
+    ncol=4,
+    fontsize=LEG_FS,
+    frameon=True
+)
+
+# ===================== Layout & save =====================
+plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
+plt.savefig("figinfocoheeig.pdf")
 plt.close()

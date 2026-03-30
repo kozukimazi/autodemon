@@ -22,9 +22,9 @@ TICK_FS = 8
 PANEL_FS = 9
 
 # ---------- Panel (a)
-ax10.plot(eVs, entropf, color='black',   lw=LINE_W, label=r'$\dot{\sigma}^{O}_{LR}$')
+ax10.plot(eVs, entropf, color='black',   lw=LINE_W, label=r'$\dot{\sigma}^{O}_{2}$')
 #ax10.plot(Jof1, Imalphg1, color='orange', lw=LINE_W, label=r'$10^{-2}$')
-ax10.plot(eVs, Slr, color='red',  lw=LINE_W, label=r'$\dot{\sigma}_{LR}$')
+ax10.plot(eVs, Slr, color='red',  lw=LINE_W, label=r'$\dot{\sigma}_{2}$')
 ax10.plot(eVs, Nds, color='black',lw=LINE_W,linestyle = '--')
 #ax10.set_ylabel(r'$2g\mathrm{Im}(\beta)$', fontsize=LABEL_FS)
 #ax10.set_xlabel(r'$eV/T$', fontsize=LABEL_FS)

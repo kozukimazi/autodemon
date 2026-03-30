@@ -297,7 +297,7 @@ ax20.plot(gof11, Nls1, color='green',  lw=LINE_W,ls = '--')
 
 
 ax20.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
-ax20.set_ylabel(r'$\dot{N}_L$', fontsize=LABEL_FS)
+ax20.set_ylabel(r'$\dot{N}_{B_L}$', fontsize=LABEL_FS)
 ax20.set_xscale('log')
 ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
 ax20.text(0.90, 0.10, '(b)', transform=ax20.transAxes,
@@ -411,7 +411,7 @@ ax20.plot(gof11y, Nls1fy, color='green',  lw=LINE_W,ls = '--')
 
 
 ax20.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
-ax20.set_ylabel(r'$\dot{N}_L/\kappa_L$', fontsize=LABEL_FS)
+ax20.set_ylabel(r'$\dot{N}_{B_L}/\kappa_L$', fontsize=LABEL_FS)
 ax20.set_xscale('log')
 ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
 ax20.text(0.91, 0.88, '(b)', transform=ax20.transAxes,
@@ -480,7 +480,7 @@ ax20.plot(gof12y, Nls2fy, color='red',   lw=LINE_W)
 ax20.plot(gof11y, Nls1fy, color='green', lw=LINE_W, ls='--')
 
 ax20.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
-ax20.set_ylabel(r'$\dot{N}_L/\kappa_L$', fontsize=LABEL_FS)
+ax20.set_ylabel(r'$\dot{N}_{B_L}/\kappa_L$', fontsize=LABEL_FS)
 ax20.set_xscale('log')
 ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
 
@@ -573,7 +573,7 @@ ax20.plot(gof12y, Nls2fy, color='red',   lw=LINE_W)
 ax20.plot(gof11y, Nls1fy, color='green', lw=LINE_W, ls='--')
 
 ax20.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
-ax20.set_ylabel(r'$\dot{N}_L/\kappa_L$', fontsize=LABEL_FS)
+ax20.set_ylabel(r'$\dot{N}_{B_L}/\kappa_L$', fontsize=LABEL_FS)
 ax20.set_xscale('log')
 ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
 
@@ -704,7 +704,7 @@ ax.plot(gof12, Nls2f, lw=LINE_W, color='red',  label='global')
 ax.plot(gof11, Nls1f, lw=LINE_W, color='black',linestyle='--', label='Redfield')
 
 ax.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
-ax.set_ylabel(r'$\dot{N}_{L}/\kappa_L$', fontsize=LABEL_FS)
+ax.set_ylabel(r'$\dot{N}_{B_L}/\kappa_L$', fontsize=LABEL_FS)
 ax.set_xscale('log')
 
 ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
@@ -832,7 +832,7 @@ ax_e.plot(gof12, Nls2f, lw=LINE_W, color = 'red', label='global')
 ax_e.plot(gof11, Nls1f, lw=LINE_W, color = 'black', linestyle='--', label='Redfield')
 ax_e.set_xscale('log')
 ax_e.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
-ax_e.set_ylabel(r'$\dot{N}_{L}/\kappa_L$', fontsize=LABEL_FS)
+ax_e.set_ylabel(r'$\dot{N}_{B_L}/\kappa_L$', fontsize=LABEL_FS)
 ax_e.tick_params(direction='in', which='both', labelsize=TICK_FS)
 
 # Legend ONLY here
@@ -910,7 +910,7 @@ ax20.plot(gof11y, Nls1fy, color='green',  lw=LINE_W,ls = '--')
 
 
 ax20.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
-ax20.set_ylabel(r'$\dot{N}_L/\kappa_L$', fontsize=LABEL_FS)
+ax20.set_ylabel(r'$\dot{N}_{B_L}/\kappa_L$', fontsize=LABEL_FS)
 ax20.set_xscale('log')
 ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
 ax20.text(0.91, 0.88, '(b)', transform=ax20.transAxes,
