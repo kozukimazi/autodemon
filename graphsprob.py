@@ -1,9 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import LogLocator, LogFormatterMathtext,NullLocator
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
+
 
 data0 = np.load("phonong=0probb100.npz")
 Jof0,Probnt10,Probnt20,Probnt30,Probnt40,Probnt50,Probnt60,Probnt70,Probnt80,Imalphg0,Imbetg0 = data0["Jof"], data0["Probnt10"], data0["Probnt20"], data0["Probnt30"], data0["Probnt40"], data0["Probnt50"], data0["Probnt60"], data0["Probnt70"], data0["Probnt80"], data0["Imalphg"], data0["Imbetg"]
+
+
 
 data1 = np.load("phonong=10^{-4}probb100.npz")
 Jof1,Probnt11,Probnt21,Probnt31,Probnt41,Probnt51,Probnt61,Probnt71,Probnt81,Imalphg1,Imbetg1 = data1["Jof"], data1["Probnt10"], data1["Probnt20"], data1["Probnt30"], data1["Probnt40"], data1["Probnt50"], data1["Probnt60"], data1["Probnt70"], data1["Probnt80"], data1["Imalphg"], data1["Imbetg"]
@@ -43,6 +47,63 @@ Jof12,Probnt112,Probnt212,Probnt312,Probnt412,Probnt512,Probnt612,Probnt712,Prob
 data13 = np.load("phonong=10000probb100.npz")
 Jof13,Probnt113,Probnt213,Probnt313,Probnt413,Probnt513,Probnt613,Probnt713,Probnt813,Imalphg13,Imbetg13 = data13["Jof"], data13["Probnt10"], data13["Probnt20"], data13["Probnt30"], data13["Probnt40"], data13["Probnt50"], data13["Probnt60"], data13["Probnt70"], data13["Probnt80"], data13["Imalphg"], data13["Imbetg"]
 
+data14 = np.load("phonong=1probb100.npz")
+Jof14,Probnt114,Probnt214,Probnt314,Probnt414,Probnt514,Probnt614,Probnt714,Probnt814,Imalphg14,Imbetg14 = data14["Jof"], data14["Probnt10"], data14["Probnt20"], data14["Probnt30"], data14["Probnt40"], data14["Probnt50"], data14["Probnt60"], data14["Probnt70"], data14["Probnt80"], data14["Imalphg"], data14["Imbetg"]
+
+dataf0 = np.load("phonong=0b100.npz")
+Jof0f,Id0,Ile0,Ire0,Iphs0,cohes0,concv0,Nls0,Act0,Nqm0,Nltotal0,Work0,eff0,effph0,coheveig0 = dataf0["Jof"], dataf0["Id"], dataf0["Ile"], dataf0["Ire"], dataf0["Iphs"], dataf0["cohes"], dataf0["concv"], dataf0["Nls"],dataf0["Acts"], dataf0["Nlqm"],dataf0["Nltotal"],dataf0["Work"],dataf0["eff"],dataf0["effph"],dataf0["coheveig"]
+
+dataf1 = np.load("phonong=10^{-4}b100.npz")
+Jof1f,Id1,Ile1,Ire1,Iphs1,cohes1,concv1,Nls1,Act1,Nqm1,Nltotal1,Work1,eff1,effph1,coheveig1 = dataf1["Jof"], dataf1["Id"], dataf1["Ile"], dataf1["Ire"], dataf1["Iphs"], dataf1["cohes"], dataf1["concv"], dataf1["Nls"],dataf1["Acts"], dataf1["Nlqm"],dataf1["Nltotal"],dataf1["Work"],dataf1["eff"],dataf1["effph"],dataf1["coheveig"]   
+
+dataf2 = np.load("phonong=5_10^{-4}b100.npz")
+Jof2f,Id2,Ile2,Ire2,Iphs2,cohes2,concv2,Nls2,Act2,Nqm2,Nltotal2,Work2,eff2,effph2,coheveig2 = dataf2["Jof"], dataf2["Id"], dataf2["Ile"], dataf2["Ire"], dataf2["Iphs"], dataf2["cohes"], dataf2["concv"], dataf2["Nls"],dataf2["Acts"], dataf2["Nlqm"],dataf2["Nltotal"],dataf2["Work"],dataf2["eff"],dataf2["effph"],dataf2["coheveig"]
+
+dataf3 = np.load("phonong=10^{-3}b100.npz")
+Jof3f,Id3,Ile3,Ire3,Iphs3,cohes3,concv3,Nls3,Act3,Nqm3,Nltotal3,Work3,eff3,effph3,coheveig3 = dataf3["Jof"], dataf3["Id"], dataf3["Ile"], dataf3["Ire"], dataf3["Iphs"], dataf3["cohes"], dataf3["concv"], dataf3["Nls"],dataf3["Acts"], dataf3["Nlqm"],dataf3["Nltotal"],dataf3["Work"],dataf3["eff"],dataf3["effph"],dataf3["coheveig"]
+
+dataf4 = np.load("phonong=5_10^{-3}b100.npz")
+Jof4f,Id4,Ile4,Ire4,Iphs4,cohes4,concv4,Nls4,Act4,Nqm4,Nltotal4,Work4,eff4,effph4,coheveig4 = dataf4["Jof"], dataf4["Id"], dataf4["Ile"], dataf4["Ire"], dataf4["Iphs"], dataf4["cohes"], dataf4["concv"], dataf4["Nls"],dataf4["Acts"], dataf4["Nlqm"],dataf4["Nltotal"],dataf4["Work"],dataf4["eff"],dataf4["effph"],dataf4["coheveig"]
+
+dataf6 = np.load("phonong=5_10^{-2}b100.npz")
+Jof6f,Id6,Ile6,Ire6,Iphs6,cohes6,concv6,Nls6,Act6,Nqm6,Nltotal6,Work6,eff6,effph6,coheveig6 = dataf6["Jof"], dataf6["Id"], dataf6["Ile"], dataf6["Ire"], dataf6["Iphs"], dataf6["cohes"], dataf6["concv"], dataf6["Nls"],dataf6["Acts"], dataf6["Nlqm"],dataf6["Nltotal"],dataf6["Work"],dataf6["eff"],dataf6["effph"],dataf6["coheveig"]
+
+
+dataf7 = np.load("phonong=10^{-1}b100.npz")
+Jof7f,Id7,Ile7,Ire7,Iphs7,cohes7,concv7,Nls7,Act7,Nqm7,Nltotal7,Work7,eff7,effph7,coheveig7 = dataf7["Jof"], dataf7["Id"], dataf7["Ile"], dataf7["Ire"], dataf7["Iphs"], dataf7["cohes"], dataf7["concv"], dataf7["Nls"],dataf7["Acts"], dataf7["Nlqm"],dataf7["Nltotal"],dataf7["Work"],dataf7["eff"],dataf7["effph"],dataf7["coheveig"]
+
+
+dataf8 = np.load("phonong=7_10^{-3}b100.npz")
+Jof8f,Id8,Ile8,Ire8,Iphs8,cohes8,concv8,Nls8,Act8,Nqm8,Nltotal8,Work8,eff8,effph8,coheveig8 = dataf8["Jof"], dataf8["Id"], dataf8["Ile"], dataf8["Ire"], dataf8["Iphs"], dataf8["cohes"], dataf8["concv"], dataf8["Nls"],dataf8["Acts"], dataf8["Nlqm"],dataf8["Nltotal"],dataf8["Work"],dataf8["eff"],dataf8["effph"],dataf8["coheveig"]
+dataf9 = np.load("phonong=3_10^{-3}b100.npz")
+Jof9f,Id9,Ile9,Ire9,Iphs9,cohes9,concv9,Nls9,Act9,Nqm9,Nltotal9,Work9,eff9,effph9,coheveig9 = dataf9["Jof"], dataf9["Id"], dataf9["Ile"], dataf9["Ire"], dataf9["Iphs"], dataf9["cohes"], dataf9["concv"], dataf9["Nls"],dataf9["Acts"], dataf9["Nlqm"],dataf9["Nltotal"],dataf9["Work"],dataf9["eff"],dataf9["effph"],dataf9["coheveig"]
+
+dataf10 = np.load("phonong=10b100.npz")
+Jof10f,Id10,Ile10,Ire10,Iphs10,cohes10,concv10,Nls10,Work10,eff10,effph10,coheveig10 = dataf10["Jof"], dataf10["Id"], dataf10["Ile"], dataf10["Ire"], dataf10["Iphs"], dataf10["cohes"], dataf10["concv"], dataf10["Nls"],dataf10["Work"],dataf10["eff"],dataf10["effph"],dataf10["coheveig"]    
+
+dataf11 = np.load("phonong=100b100.npz")
+Jof11f,Id11,Ile11,Ire11,Iphs11,cohes11,concv11,Nls11,Work11,eff11,effph11,coheveig11 = dataf11["Jof"], dataf11["Id"], dataf11["Ile"], dataf11["Ire"], dataf11["Iphs"], dataf11["cohes"], dataf11["concv"], dataf11["Nls"],dataf11["Work"],dataf11["eff"],dataf11["effph"],dataf11["coheveig"]
+
+dataf12 = np.load("phonong=1000b100.npz")
+Jof12f,Id12,Ile12,Ire12,Iphs12,cohes12,concv12,Nls12,Work12,eff12,effph12,coheveig12 = dataf12["Jof"], dataf12["Id"], dataf12["Ile"], dataf12["Ire"], dataf12["Iphs"], dataf12["cohes"], dataf12["concv"], dataf12["Nls"],dataf12["Work"],dataf12["eff"],dataf12["effph"],dataf12["coheveig"]
+
+dataf13 = np.load("phonong=10000b100.npz")
+Jof13f,Id13,Ile13,Ire13,Iphs13,cohes13,concv13,Nls13,Work13,eff13,effph13,coheveig13 = dataf13["Jof"], dataf13["Id"], dataf13["Ile"], dataf13["Ire"], dataf13["Iphs"], dataf13["cohes"], dataf13["concv"], dataf13["Nls"],dataf13["Work"],dataf13["eff"],dataf13["effph"],dataf13["coheveig"]
+
+dataf14 = np.load("phonong=1b100.npz")  
+Jof14f,Id14,Ile14,Ire14,Iphs14,cohes14,concv14,Nls14,Work14,eff14,effph14,coheveig14 = dataf14["Jof"], dataf14["Id"], dataf14["Ile"], dataf14["Ire"], dataf14["Iphs"], dataf14["cohes"], dataf14["concv"], dataf14["Nls"],dataf14["Work"],dataf14["eff"],dataf14["effph"],dataf14["coheveig"]
+
+dataf15 = np.load("phonong=5b100.npz")
+Jof15f,Id15,Ile15,Ire15,Iphs15,cohes15,concv15,Nls15,Work15,eff15,effph15,coheveig15 = dataf15["Jof"], dataf15["Id"], dataf15["Ile"], dataf15["Ire"], dataf15["Iphs"], dataf15["cohes"], dataf15["concv"], dataf15["Nls"],dataf15["Work"],dataf15["eff"],dataf15["effph"],dataf15["coheveig"]
+
+dataf16 = np.load("phonong=9b100.npz")
+Jof16f,Id16,Ile16,Ire16,Iphs16,cohes16,concv16,Nls16,Work16,eff16,effph16,coheveig16 = dataf16["Jof"], dataf16["Id"], dataf16["Ile"], dataf16["Ire"], dataf16["Iphs"], dataf16["cohes"], dataf16["concv"], dataf16["Nls"],dataf16["Work"],dataf16["eff"],dataf16["effph"],dataf16["coheveig"]
+######################
+
+
+dataf5 = np.load("phonong=10^{-2}b100.npz")
+Jof5f,Id5,Ile5,Ire5,Iphs5,cohes5,concv5,Nls5,Act5,Nqm5,Nltotal5,Work5,eff5,effph5,coheveig5 = dataf5["Jof"], dataf5["Id"], dataf5["Ile"], dataf5["Ire"], dataf5["Iphs"], dataf5["cohes"], dataf5["concv"], dataf5["Nls"],dataf5["Acts"], dataf5["Nlqm"],dataf5["Nltotal"],dataf5["Work"],dataf5["eff"],dataf5["effph"],dataf5["coheveig"]
+
 
 n = len(Imalphg0)
 cohesum0s = []
@@ -59,8 +120,24 @@ cohesum10s = []
 cohesum11s = []
 cohesum12s = []
 cohesum13s = []
-
+cohesum14s = []
 for i in range(n):
+    Nls0[i] = abs(Nls0[i]*100)
+    Nls1[i] = abs(Nls1[i]*100)
+    Nls2[i] = abs(Nls2[i]*100)
+    Nls3[i] = abs(Nls3[i]*100)
+    Nls4[i] = abs(Nls4[i]*100)
+    Nls5[i] = abs(Nls5[i]*100)
+    Nls6[i] = abs(Nls6[i]*100)
+    Nls7[i] = abs(Nls7[i]*100)
+    Nls8[i] = abs(Nls8[i]*100)
+    Nls9[i] = abs(Nls9[i]*100)
+    Nls10[i] = abs(Nls10[i]*100)
+    Nls11[i] = abs(Nls11[i]*100)
+    Nls12[i] = abs(Nls12[i]*100)
+    Nls13[i] = abs(Nls13[i]*100)
+    Nls14[i] = abs(Nls14[i]*100)
+    Nls15[i] = abs(Nls15[i]*100)
     cohesum0s.append(Imalphg0[i] + Imbetg0[i])
     cohesum1s.append(Imalphg1[i] + Imbetg1[i])
     cohesum2s.append(Imalphg2[i] + Imbetg2[i])
@@ -75,7 +152,7 @@ for i in range(n):
     cohesum11s.append(Imalphg11[i] + Imbetg11[i])
     cohesum12s.append(Imalphg12[i] + Imbetg12[i])
     cohesum13s.append(Imalphg13[i] + Imbetg13[i])
-
+    cohesum14s.append(Imalphg14[i] + Imbetg14[i])
 
 '''
 
@@ -458,7 +535,7 @@ ax10.plot(Jof5, cohesum5s, color='brown', lw=LINE_W, label=r'$g/\kappa_L=10^{0}$
 #ax10.plot(Jof8, cohesum8s, color='black',  lw=LINE_W, label   =r'$g/\kappa_L=7 \times 10^{-1}$')
 ax10.plot(Jof9, cohesum9s, color='black',  lw=LINE_W, label=r'$g/\kappa_L=3 \times 10^{-1}$')
 #ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
-ax10.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
+ax10.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)$', fontsize=LABEL_FS)
 ax10.set_ylabel(r'$2g|\mathrm{Im}(\alpha)+\mathrm{Im}(\beta)|$', fontsize=LABEL_FS)
 ax10.set_xscale('log')
 ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
@@ -482,4 +559,176 @@ for spine in ax10.spines.values():
 
 plt.tight_layout(pad=0.4)
 plt.savefig("fig6cohesum.pdf")
+plt.close()
+
+
+
+
+fig, ax10 = plt.subplots(
+    sharex=True,
+    figsize=(3.39, 2.8)
+)
+
+LINE_W = 1.6
+LABEL_FS = 9
+TICK_FS = 8
+PANEL_FS = 9
+
+# ---------- Panel (a)
+ax10.plot(Jof0, cohesum0s, color='blue',   lw=LINE_W, label=r'$g/\kappa_L=0$')
+ax10.plot(Jof0,Nls0, color='blue',   lw=LINE_W, ls='--')
+#ax10.plot(Jof1, cohesum1s, color='orange', lw=LINE_W, label=r'$g/\kappa_L=10^{-2}$')
+ax10.plot(Jof2, cohesum2s, color='green',  lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{-2}$')
+ax10.plot(Jof2,Nls2, color='green',  lw=LINE_W, ls='--')
+ax10.plot(Jof3, cohesum3s, color='red',    lw=LINE_W, label=r'$g/\kappa_L=10^{-1}$')
+ax10.plot(Jof3,Nls3, color='red',    lw=LINE_W, ls='--')
+ax10.plot(Jof4, cohesum4s, color='purple',  lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{-1}$')
+ax10.plot(Jof4,Nls4, color='purple',  lw=LINE_W, ls='--')
+ax10.plot(Jof5, cohesum5s, color='brown', lw=LINE_W, label=r'$g/\kappa_L=10^{0}$')
+ax10.plot(Jof5,Nls5, color='brown', lw=LINE_W, ls='--')
+#ax10.plot(Jof6, cohesum6s, color='pink',   lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{0}$')
+#ax10.plot(Jof7, cohesum7s, color='gray',   lw=LINE_W, label=r'$g/\kappa_L=10^{1}$')
+#ax10.plot(Jof8, cohesum8s, color='black',  lw=LINE_W, label   =r'$g/\kappa_L=7 \times 10^{-1}$')
+ax10.plot(Jof9, cohesum9s, color='black',  lw=LINE_W, label=r'$g/\kappa_L=3 \times 10^{-1}$')
+ax10.plot(Jof9,Nls9, color='black',  lw=LINE_W, ls='--')
+#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
+ax10.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)$', fontsize=LABEL_FS)
+#ax10.set_ylabel(r'$2g|\mathrm{Im}(\alpha)+\mathrm{Im}(\beta)|$', fontsize=LABEL_FS)
+ax10.set_xscale('log')
+ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
+#ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes,
+          #fontsize=PANEL_FS, fontweight='bold')
+
+ax10.legend(
+    fontsize=6.1,
+    frameon=True,
+    ncol=1,
+    loc='center left',
+    bbox_to_anchor=(0.02, 0.63)
+)
+
+
+
+# ---------- Spines
+
+for spine in ax10.spines.values():
+    spine.set_linewidth(0.8)
+
+plt.tight_layout(pad=0.4)
+plt.savefig("fig6coheNls.pdf")
+plt.close()
+
+
+
+#########hacer los calculos de 1800 a 3000
+fig, (ax1, ax2) = plt.subplots(
+    1, 2,
+    sharex=True,
+    figsize=(7.0, 3.6)   # APS wide figure
+)
+
+LINE_W = 2.0
+LABEL_FS = 9
+TICK_FS  = 8
+PANEL_FS = 9
+LEG_FS   = 7
+
+# ===================== (a) Efficiency =====================
+ax1.plot(Jof0f, Nls0, color='blue',   lw=LINE_W, label=r'$g/\kappa_{L}=0$')
+#ax1.plot(Jof1, Nls1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
+ax1.plot(Jof2f, Nls2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\times 10^{-2}$')
+ax1.plot(Jof3f, Nls3, color='red',    lw=LINE_W, label=r'$g/\kappa_{L}=10^{-1}$')
+ax1.plot(Jof9f, Nls9, color='black',  lw=LINE_W, label=r'$g/\kappa_{L}=3\times10^{-1}$')
+ax1.plot(Jof4f, Nls4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\times10^{-1}$')
+ax1.plot(Jof5f, Nls5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
+#ax1.plot(Jof7, Nls7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
+#ax1.plot(Jof10, Nls10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
+#ax1.plot(Jof11, Nls11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
+#ax1.plot(Jof12, Nls12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
+#ax1.plot(Jof13, Nls13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
+ax1.plot(Jof14f, Nls14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
+#ax1.plot(Jof15, Nls15, color='gray',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=5\times 10^{2}$')
+#ax1.plot(Jof16, Nls16, color='pink',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=9\times 10^{2}$')
+
+axins = inset_axes(
+    ax1,
+    width="50%",
+    height="50%",
+    bbox_to_anchor=(0.35, 0.05, 0.6, 0.6),
+    bbox_transform=ax1.transAxes,
+    
+    borderpad=0
+)
+
+# Plot SAME curves (no legend!)
+axins.plot(Jof4, Nls4, color='purple', lw=2)
+axins.plot(Jof5,Nls5,color='brown', lw = 2)
+axins.plot(Jof9, Nls9, color='black',  lw=2)
+
+# Zoom region (example values — adjust!)
+axins.set_xlim(6.5e-4, 2.1e-0)
+axins.set_ylim(0.0385, 0.0485)
+
+# Inset formatting
+axins.tick_params(direction='in', labelsize=6)
+for spine in axins.spines.values():
+    spine.set_linewidth(0.6)
+
+# Optional: draw connectors
+mark_inset(ax1, axins, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
+
+
+ax1.set_xscale("log")
+ax1.set_ylabel(r'$\dot{N}_{B_L}/\kappa_{L}$', fontsize=LABEL_FS)
+
+ax1.text(0.92, 0.90, '(a)', transform=ax1.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== (b) Coherence =====================
+ax2.plot(Jof0, cohesum0s, color='blue',   lw=LINE_W)
+#ax2.plot(Jof1, coheveig1, color='orange', lw=LINE_W)
+ax2.plot(Jof2, cohesum2s, color='green',  lw=LINE_W)
+ax2.plot(Jof3, cohesum3s, color='red',    lw=LINE_W)
+ax2.plot(Jof9, cohesum9s, color='black',  lw=LINE_W)
+ax2.plot(Jof4, cohesum4s, color='purple', lw=LINE_W)
+ax2.plot(Jof5, cohesum5s, color='brown',  lw=LINE_W)
+#ax2.plot(Jof7, cohesum7s, color='gray',   lw=LINE_W)
+#ax2.plot(Jof10, cohesum10s, color='red',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof11, cohesum11s, color='blue',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof12, cohesum12s, color='green',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof13f, cohesum13s, color='brown',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof14f, cohesum14s, color='black',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof15, cohesum15s, color='gray',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof16, cohesum16s, color='pink',   lw=LINE_W, ls = '--')
+
+
+
+ax2.set_xscale("log")
+ax2.set_ylabel(r'$2g|\mathrm{Im}(\alpha)+\mathrm{Im}(\beta)|$', fontsize=LABEL_FS)
+
+ax2.text(0.92, 0.90, '(b)', transform=ax2.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== Shared formatting =====================
+for ax in (ax1, ax2):
+    ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+
+# ===================== Single legend (recommended) =====================
+handles, labels = ax1.get_legend_handles_labels()
+fig.legend(
+    handles, labels,
+    loc='upper center',
+    ncol=4,
+    fontsize=LEG_FS,
+    frameon=True
+)
+
+# ===================== Layout & save =====================
+plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
+plt.savefig("figcurrentdecohe.pdf")
 plt.close()

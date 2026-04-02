@@ -60,6 +60,28 @@ Jof16,Id16,Ile16,Ire16,Iphs16,cohes16,concv16,Nls16,Work16,eff16,effph16,cohevei
 ######################
 
 
+N00 = len(Nls0)
+
+for i in range(N00):
+    Nls0[i] = Nls0[i]*100
+    Nls1[i] = Nls1[i]*100
+    Nls2[i] = Nls2[i]*100
+    Nls3[i] = Nls3[i]*100
+    Nls4[i] = Nls4[i]*100
+    Nls5[i] = Nls5[i]*100
+    Nls6[i] = Nls6[i]*100
+    Nls7[i] = Nls7[i]*100
+    Nls8[i] = Nls8[i]*100
+    Nls9[i] = Nls9[i]*100
+    Nls10[i] = Nls10[i]*100
+    Nls11[i] = Nls11[i]*100
+    Nls12[i] = Nls12[i]*100
+    Nls13[i] = Nls13[i]*100
+    Nls14[i] = Nls14[i]*100
+    Nls15[i] = Nls15[i]*100
+    Nls16[i] = Nls16[i]*100
+
+
 
 Ilrt0 = []
 Ilrt1 = []
@@ -631,4 +653,120 @@ fig.legend(
 # ===================== Layout & save =====================
 plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
 plt.savefig("figinfocoheeig.pdf")
+plt.close()
+
+
+
+
+#########hacer los calculos de 1800 a 3000
+fig, (ax1, ax2) = plt.subplots(
+    1, 2,
+    sharex=True,
+    figsize=(7.0, 3.6)   # APS wide figure
+)
+
+LINE_W = 2.0
+LABEL_FS = 9
+TICK_FS  = 8
+PANEL_FS = 9
+LEG_FS   = 7
+
+# ===================== (a) Efficiency =====================
+ax1.plot(Jof0, Nls0, color='blue',   lw=LINE_W, label=r'$g/\kappa_{L}=0$')
+#ax1.plot(Jof1, Nls1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
+ax1.plot(Jof2, Nls2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\times 10^{-2}$')
+ax1.plot(Jof3, Nls3, color='red',    lw=LINE_W, label=r'$g/\kappa_{L}=10^{-1}$')
+ax1.plot(Jof9, Nls9, color='black',  lw=LINE_W, label=r'$g/\kappa_{L}=3\times10^{-1}$')
+ax1.plot(Jof4, Nls4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\times10^{-1}$')
+ax1.plot(Jof5, Nls5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
+#ax1.plot(Jof7, Nls7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
+#ax1.plot(Jof10, Nls10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
+#ax1.plot(Jof11, Nls11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
+#ax1.plot(Jof12, Nls12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
+#ax1.plot(Jof13, Nls13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
+ax1.plot(Jof14, Nls14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
+#ax1.plot(Jof15, Nls15, color='gray',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=5\times 10^{2}$')
+#ax1.plot(Jof16, Nls16, color='pink',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=9\times 10^{2}$')
+
+axins = inset_axes(
+    ax1,
+    width="50%",
+    height="50%",
+    bbox_to_anchor=(0.35, 0.05, 0.6, 0.6),
+    bbox_transform=ax1.transAxes,
+    
+    borderpad=0
+)
+
+# Plot SAME curves (no legend!)
+axins.plot(Jof4, Nls4, color='purple', lw=2)
+axins.plot(Jof5,Nls5,color='brown', lw = 2)
+axins.plot(Jof9, Nls9, color='black',  lw=2)
+
+# Zoom region (example values — adjust!)
+axins.set_xlim(7e-4, 2.1e-0)
+axins.set_ylim(-0.05, -0.0384)
+
+# Inset formatting
+axins.tick_params(direction='in', labelsize=6)
+for spine in axins.spines.values():
+    spine.set_linewidth(0.6)
+
+# Optional: draw connectors
+mark_inset(ax1, axins, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
+
+
+ax1.set_xscale("log")
+ax1.set_ylabel(r'$\dot{N}_{B_L}/\kappa_{L}$', fontsize=LABEL_FS)
+
+ax1.text(0.92, 0.90, '(a)', transform=ax1.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== (b) Coherence =====================
+ax2.plot(Jof0, coheveig0, color='blue',   lw=LINE_W)
+#ax2.plot(Jof1, coheveig1, color='orange', lw=LINE_W)
+ax2.plot(Jof2, coheveig2, color='green',  lw=LINE_W)
+ax2.plot(Jof3, coheveig3, color='red',    lw=LINE_W)
+ax2.plot(Jof9, coheveig9, color='black',  lw=LINE_W)
+ax2.plot(Jof4, coheveig4, color='purple', lw=LINE_W)
+ax2.plot(Jof5, coheveig5, color='brown',  lw=LINE_W)
+#ax2.plot(Jof7, coheveig7, color='gray',   lw=LINE_W)
+#ax2.plot(Jof10, coheveig10, color='red',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof11, coheveig11, color='blue',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof12, coheveig12, color='green',   lw=LINE_W, ls = '--')
+ax2.plot(Jof13, coheveig13, color='brown',   lw=LINE_W, ls = '--')
+ax2.plot(Jof14, coheveig14, color='black',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof15, coheveig15, color='gray',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof16, coheveig16, color='pink',   lw=LINE_W, ls = '--')
+
+
+
+ax2.set_xscale("log")
+ax2.set_ylabel(r'$\mathcal{C}_{l_{1}}(\mathrm{eig})$', fontsize=LABEL_FS)
+
+ax2.text(0.92, 0.90, '(b)', transform=ax2.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== Shared formatting =====================
+for ax in (ax1, ax2):
+    ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+
+# ===================== Single legend (recommended) =====================
+handles, labels = ax1.get_legend_handles_labels()
+fig.legend(
+    handles, labels,
+    loc='upper center',
+    ncol=4,
+    fontsize=LEG_FS,
+    frameon=True
+)
+
+# ===================== Layout & save =====================
+plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
+plt.savefig("figcurrenteignew.pdf")
 plt.close()
