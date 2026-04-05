@@ -679,7 +679,7 @@ mark_inset(ax1, axins, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
 
 
 ax1.set_xscale("log")
-ax1.set_ylabel(r'$\dot{N}_{B_L}/\kappa_{L}$', fontsize=LABEL_FS)
+ax1.set_ylabel(r'$|\dot{N}_{B_L}|/\kappa_{L}$', fontsize=LABEL_FS)
 
 ax1.text(0.92, 0.90, '(a)', transform=ax1.transAxes,
          fontsize=PANEL_FS, fontweight='bold')

@@ -556,8 +556,8 @@ axins0.plot(Jof5, Id5, color='brown',  lw=2)
 axins0.set_xscale("log")
 
 # Zoom region (example values — adjust!)
-axins0.set_xlim(1e-2, 1)
-axins0.set_ylim(0.0042, 0.00423)
+axins0.set_xlim(9e-3, 2)
+axins0.set_ylim(0.0042, 0.00431)
 
 # Inset formatting
 axins0.tick_params(direction='in', labelsize=6)
