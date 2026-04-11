@@ -575,26 +575,26 @@ ax10.text(0.92, 0.90, '(a)', transform=ax10.transAxes,
          fontsize=PANEL_FS, fontweight='bold')
 
 # ===================== (b) Coherence =====================
-ax20.plot(Jof0, Work0, color='blue',   lw=LINE_W)
+ax20.plot(Jof0, eff0, color='blue',   lw=LINE_W)
 #ax2.plot(Jof1, coheveig1, color='orange', lw=LINE_W)
-ax20.plot(Jof2, Work2, color='green',  lw=LINE_W)
-ax20.plot(Jof3, Work3, color='red',    lw=LINE_W)
-ax20.plot(Jof9, Work9, color='black',  lw=LINE_W)
-ax20.plot(Jof4, Work4, color='purple', lw=LINE_W)
-ax20.plot(Jof5, Work5, color='brown',  lw=LINE_W)
+ax20.plot(Jof2, eff2, color='green',  lw=LINE_W)
+ax20.plot(Jof3, eff3, color='red',    lw=LINE_W)
+ax20.plot(Jof9, eff9, color='black',  lw=LINE_W)
+ax20.plot(Jof4, eff4, color='purple', lw=LINE_W)
+ax20.plot(Jof5, eff5, color='brown',  lw=LINE_W)
 #ax2.plot(Jof7, coheveig7, color='gray',   lw=LINE_W)
-#ax20.plot(Jof10, Work10, color='red',   lw=LINE_W, ls = '--')
-#ax20.plot(Jof11, Work11, color='blue',   lw=LINE_W, ls = '--')
+#ax20.plot(Jof10, eff10, color='red',   lw=LINE_W, ls = '--')
+#ax20.plot(Jof11, eff11, color='blue',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof12, coheveig12, color='green',   lw=LINE_W, ls = '--')
-#ax20.plot(Jof13, Work13, color='brown',   lw=LINE_W, ls = '--')
-ax20.plot(Jof14, Work14, color='black',   lw=LINE_W, ls = '--')
+#ax20.plot(Jof13, eff13, color='brown',   lw=LINE_W, ls = '--')
+ax20.plot(Jof14, eff14, color='black',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof15, coheveig15, color='gray',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof16, coheveig16, color='pink',   lw=LINE_W, ls = '--')
 
 
 
 ax20.set_xscale("log")
-ax20.set_ylabel(r'$\dot{W}_{2}$', fontsize=LABEL_FS)
+ax20.set_ylabel(r'$\eta_{2}$', fontsize=LABEL_FS)
 
 ax20.text(0.92, 0.90, '(b)', transform=ax20.transAxes,
          fontsize=PANEL_FS, fontweight='bold')
@@ -611,14 +611,14 @@ axins20 = inset_axes(
 )
 
 # Plot SAME curves (no legend!)
-axins20.plot(Jof4, Work4, color='purple', lw=2)
-axins20.plot(Jof9, Work9, color='black',  lw=2)
-axins20.plot(Jof5, Work5, color='brown',  lw=2)
+axins20.plot(Jof4, eff4, color='purple', lw=2)
+axins20.plot(Jof9, eff9, color='black',  lw=2)
+axins20.plot(Jof5, eff5, color='brown',  lw=2)
 axins20.set_xscale("log")
 
 # Zoom region (example values — adjust!)
 axins20.set_xlim(1e-2, 4)
-axins20.set_ylim(-0.048, -0.039)
+axins20.set_ylim(0.5, 0.541)
 
 # Inset formatting
 axins20.tick_params(direction='in', labelsize=6)
@@ -703,7 +703,7 @@ axins.plot(Jof4, Nls4, color='purple', lw=2)
 axins.plot(Jof5,Nls5,color='brown', lw = 2)
 axins.plot(Jof9, Nls9, color='black',  lw=2)
 
-# Zoom region (example values — adjust!)
+#Zoom region (example values — adjust!)
 axins.set_xlim(7e-4, 2.1e-0)
 axins.set_ylim(-0.05, -0.0384)
 

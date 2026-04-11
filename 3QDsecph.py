@@ -570,8 +570,8 @@ for J0 in J0s:
     Probnt60.append(cal1f[5,5].real )
     Probnt70.append(cal1f[6,6].real )
     Probnt80.append(cal1f[7,7].real )
-    Imalphg.append(2*g0fm*alp0[0,0].real)
-    Imbetg.append(2*g0fm*alp1[0,0].real)
+    Imalphg.append(2*g0fm*alp0[0,0].imag)
+    Imbetg.append(2*g0fm*alp1[0,0].imag)
 
     Realphg.append(alp0[0,0].real)
     Rebetg.append(alp1[0,0].real)

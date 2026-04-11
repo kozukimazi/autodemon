@@ -154,18 +154,26 @@ for i in range(n):
     cohesum13s.append((Imalphg13[i] + Imbetg13[i])*100)
     cohesum14s.append((Imalphg14[i] + Imbetg14[i])*100)
 
-'''
+datoness = np.load("phonong=3_10^{-3}steady.npz")
+Jof4nes,Probnt14nes,Probnt24nes,Probnt34nes,Probnt44nes,Probnt54nes,Probnt64nes,Probnt74nes,Probnt84nes,Imalphg4nes,Imbetg4nes = datoness["Jof"], datoness["Probnt10"], datoness["Probnt20"], datoness["Probnt30"], datoness["Probnt40"], datoness["Probnt50"], datoness["Probnt60"], datoness["Probnt70"], datoness["Probnt80"], datoness["Imalphg"], datoness["Imbetg"]
 
-plt.plot(Jof0,Probnt10, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-plt.plot(Jof1,Probnt11, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-plt.plot(Jof2,Probnt12, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-plt.plot(Jof3,Probnt13, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-plt.plot(Jof4,Probnt14, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-plt.plot(Jof5,Probnt15, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-plt.plot(Jof6,Probnt16, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-plt.plot(Jof7,Probnt17, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-plt.plot(Jof8,Probnt18, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
-plt.plot(Jof9,Probnt19, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
+datoness1 = np.load("phonong=0steady.npz")
+Jof0nes,Probnt10nes,Probnt20nes,Probnt30nes,Probnt40nes,Probnt54nes,Probnt64nes,Probnt74nes,Probnt84nes,Imalphg4nes,Imbetg4nes = datoness1["Jof"], datoness1["Probnt10"], datoness1["Probnt20"], datoness1["Probnt30"], datoness1["Probnt40"], datoness1["Probnt50"], datoness1["Probnt60"], datoness1["Probnt70"], datoness1["Probnt80"], datoness1["Imalphg"], datoness1["Imbetg"]
+
+
+
+#plt.plot(Jof0,Probnt10, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+#plt.plot(Jof1,Probnt11, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+#plt.plot(Jof2,Probnt12, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
+##plt.plot(Jof3,Probnt13, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+#plt.plot(Jof4,Probnt14, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
+#plt.plot(Jof5,Probnt15, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
+#plt.plot(Jof6,Probnt16, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
+#plt.plot(Jof7,Probnt17, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+#plt.plot(Jof8,Probnt18, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
+#plt.plot(Jof9,Probnt19, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
+plt.plot(Jof4nes,Probnt14nes, color='cyan',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$ steady state')    
+plt.plot(Jof0nes,Probnt10nes, color='magenta',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=0$ steady state')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\rho_{111}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -174,16 +182,18 @@ plt.legend(fontsize=15,loc = "upper right")
 plt.xscale("log")
 plt.show()
 
-plt.plot(Jof0,Probnt20, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-plt.plot(Jof1,Probnt21, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-plt.plot(Jof2,Probnt22, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-plt.plot(Jof3,Probnt23, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-plt.plot(Jof4,Probnt24, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-plt.plot(Jof5,Probnt25, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-plt.plot(Jof6,Probnt26, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-plt.plot(Jof7,Probnt27, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
-plt.plot(Jof8,Probnt28, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
-plt.plot(Jof9,Probnt29, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+#plt.plot(Jof0,Probnt20, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+#plt.plot(Jof1,Probnt21, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+#plt.plot(Jof2,Probnt22, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
+#plt.plot(Jof3,Probnt23, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+#plt.plot(Jof4,Probnt24, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
+#plt.plot(Jof5,Probnt25, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
+#plt.plot(Jof6,Probnt26, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
+#plt.plot(Jof7,Probnt27, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+#plt.plot(Jof8,Probnt28, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+#plt.plot(Jof9,Probnt29, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.plot(Jof4nes,Probnt24nes, color='cyan',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$ steady state')
+plt.plot(Jof0nes,Probnt20nes, color='magenta',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=0$ steady state')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\rho_{110}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -193,16 +203,18 @@ plt.xscale("log")
 plt.show()
 
 
-plt.plot(Jof0,Probnt30, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
-plt.plot(Jof1,Probnt31, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
-plt.plot(Jof2,Probnt32, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
-plt.plot(Jof3,Probnt33, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
-plt.plot(Jof4,Probnt34, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
-plt.plot(Jof5,Probnt35, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
-plt.plot(Jof6,Probnt36, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-plt.plot(Jof7,Probnt37, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
-plt.plot(Jof8,Probnt38, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
-plt.plot(Jof9,Probnt39, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+#plt.plot(Jof0,Probnt30, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+#plt.plot(Jof1,Probnt31, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+#plt.plot(Jof2,Probnt32, color='green',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-2}$')
+#plt.plot(Jof3,Probnt33, color='red',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-1}$')
+##plt.plot(Jof4,Probnt34, color='purple',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{-1}$')
+#plt.plot(Jof5,Probnt35, color='brown',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{0}$')
+#plt.plot(Jof6,Probnt36, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
+#plt.plot(Jof7,Probnt37, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
+#plt.plot(Jof8,Probnt38, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
+#plt.plot(Jof9,Probnt39, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.plot(Jof4nes,Probnt34nes, color='cyan',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$ steady state')
+plt.plot(Jof0nes,Probnt30nes, color='magenta',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=0$ steady state')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\rho_{101}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -221,6 +233,7 @@ plt.plot(Jof6,Probnt46, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdo
 plt.plot(Jof7,Probnt47, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
 plt.plot(Jof8,Probnt48, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
 plt.plot(Jof9,Probnt49, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.plot(Jof4nes,Probnt44nes, color='cyan',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$ steady state')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\rho_{100}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -239,7 +252,7 @@ plt.plot(Jof6,Probnt56, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdo
 plt.plot(Jof7,Probnt57, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
 plt.plot(Jof8,Probnt58, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
 plt.plot(Jof9,Probnt59, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
-
+plt.plot(Jof4nes,Probnt54nes, color='cyan',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$ steady state')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\rho_{011}$',fontsize = 25) 
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -258,6 +271,7 @@ plt.plot(Jof6,Probnt66, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdo
 plt.plot(Jof7,Probnt67, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
 plt.plot(Jof8,Probnt68, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot10^{-1}$')
 plt.plot(Jof9,Probnt69, color='black',linestyle = '--',lw=3, label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$')
+plt.plot(Jof4nes,Probnt64nes, color='cyan',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$ steady state')
 
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\rho_{010}$',fontsize = 25)
@@ -278,6 +292,7 @@ plt.plot(Jof6,Probnt76, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdo
 plt.plot(Jof7,Probnt77, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
 plt.plot(Jof8,Probnt78, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
 plt.plot(Jof9,Probnt79, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.plot(Jof4nes,Probnt74nes, color='cyan',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$ steady state')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\rho_{001}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -296,6 +311,7 @@ plt.plot(Jof6,Probnt86, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdo
 plt.plot(Jof7,Probnt87, color='gray',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{1}$')
 plt.plot(Jof8,Probnt88, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
 plt.plot(Jof9,Probnt89, color='black',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot 10^{-1}$')
+plt.plot(Jof4nes,Probnt84nes, color='cyan',lw=3,linestyle = '--', label = r'$\frac{g}{\kappa_{L}}=3\cdot10^{-1}$ steady state')
 plt.xlabel(r'$J_{0}/(\beta_{ph}\kappa_{L})$',fontsize = 20)
 plt.ylabel(r'$\rho_{000}$',fontsize = 25)
 plt.xticks(fontsize=17)  # X-axis tick labels
@@ -307,133 +323,9 @@ plt.show()
 plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif" 
 
-'''
 
 
-plt.rcParams["text.usetex"] = True
-plt.rcParams["font.family"] = "serif" 
 
-
-# Create subplots (1 row, 2 columns)
-fig, (ax10, ax20) = plt.subplots(2, 1,sharex=True, figsize=(3.39, 4.8))  # 1 row, 2 columns
-TICK_FS = 8
-
-#ojo aqui, bajo eV=200, los puntos L y R parecen estar siendo medidos
-#mientras que al superar esa vara L empieza a medir 
-ax20.plot(Jof0,Imalphg0, color='blue',lw=1.6, label = r'$g/\kappa_{L}=0$')
-#ax20.plot(Jof1,Imalphg1, color='orange',lw=1.6, label = r'$g/\kappa_{L}=10^{-2}$')
-ax20.plot(Jof2,Imalphg2, color='green',lw=1.6, label = r'$g/\kappa_{L}=5\times 10^{-2}$')
-ax20.plot(Jof3,Imalphg3, color='red',lw=1.6, label = r'$g/\kappa_{L}=10^{-1}$')
-ax20.plot(Jof9,Imalphg9, color='black',lw=1.6, label = r'$g/\kappa_{L}=3\times 10^{-1}$')
-ax20.plot(Jof4,Imalphg4, color='purple',lw=1.6, label = r'$g/\kappa_{L}=5\times 10^{-1}$')
-ax20.plot(Jof5,Imalphg5, color='brown',lw=1.6, label = r'$g/\kappa_{L}=10^{0}$')
-#plt.plot(Jof6,Imalphg6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-#ax20.plot(Jof7,Imalphg7, color='gray',lw=1.6, label = r'$g/\kappa_{L}=10^{1}$')
-#plt.plot(Jof8,Imalphg8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
-
-ax20.set_ylabel(r'$2g|\mathrm{Im}(\alpha)|$',fontsize = 9)
-ax20.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$',fontsize = 9) 
-ax20.set_xscale("log")  
-ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
-ax20.text(0.9, 0.97, '(b)', transform=ax20.transAxes, fontsize=9, fontweight='bold', va='top', ha='left')
-
-ax10.plot(Jof0,Imbetg0, color='blue',lw=1.6, label = r'$g/\kappa_{L}=0$')
-#ax10.plot(Jof1,Imbetg1, color='orange',lw=1.6, label = r'$g/\kappa_{L}=10^{-2}$')
-ax10.plot(Jof2,Imbetg2, color='green',lw=1.6, label = r'$g/\kappa_{L}=5\times 10^{-2}$')
-ax10.plot(Jof3,Imbetg3, color='red',lw=1.6, label = r'$g/\kappa_{L}=10^{-1}$')
-ax10.plot(Jof9,Imbetg9, color='black',lw=1.6, label = r'$g/\kappa_{L}=3 \times 10^{-1}$')
-ax10.plot(Jof4,Imbetg4, color='purple',lw=1.6, label = r'$g/\kappa_{L}=5 \times 10^{-1}$')
-ax10.plot(Jof5,Imbetg5, color='brown',lw=1.6, label = r'$g/\kappa_{L}=10^{0}$')
-#plt.plot(Jof6,Imbetg6, color='pink',lw=3, label = r'$\frac{g}{\kappa_{L}}=5\cdot10^{0}$')
-#ax10.plot(Jof7,Imbetg7, color='gray',lw=1.6, label = r'$g/\kappa_{L}=10^{1}$')
-#plt.plot(Jof8,Imbetg8, color='black',lw=3, label = r'$\frac{g}{\kappa_{L}}=7\cdot 10^{-1}$')
-ax10.legend(fontsize=8,loc = "center left", bbox_to_anchor=(0.02, 0.65))  
-  
-ax10.set_xscale("log")
-#ax20.legend(fontsize=17, loc = "upper left") 
-ax10.set_ylabel(r'$2g|\mathrm{Im}(\beta)|$',fontsize = 9)
-ax10.tick_params(direction='in', which='both',labelbottom = False, labelsize=TICK_FS)  # font size of tick labels 
-ax10.text(0.9, 0.97, '(a)', transform=ax10.transAxes, fontsize=9, fontweight='bold', va='top', ha='left')
-
-ax10.xaxis.set_major_locator(LogLocator(base=10))
-ax10.xaxis.set_minor_locator(LogLocator(base=10, subs=[2,5]))
-ax10.xaxis.set_major_formatter(LogFormatterMathtext())
-# Remove ALL minor ticks
-ax10.xaxis.set_minor_locator(NullLocator())
-
-ax20.xaxis.set_major_locator(LogLocator(base=10))
-ax20.xaxis.set_minor_locator(LogLocator(base=10, subs=[2,5]))
-ax20.xaxis.set_major_formatter(LogFormatterMathtext())
-ax20.xaxis.set_minor_locator(NullLocator())
-
-plt.tight_layout(pad=0.4)  # Avoids overlapping labels
-plt.savefig("fig6_PRapp.pdf")
-plt.show()
-
-
-fig, (ax10, ax20) = plt.subplots(
-    2, 1,
-    sharex=True,
-    figsize=(3.39, 4.0)
-)
-
-LINE_W = 1.6
-LABEL_FS = 9
-TICK_FS = 8
-PANEL_FS = 9
-
-# ---------- Panel (a)
-ax10.plot(Jof0, Imbetg0, color='blue',   lw=LINE_W, label=r'$g/\kappa_L=0$')
-#ax10.plot(Jof1, Imalphg1, color='orange', lw=LINE_W, label=r'$10^{-2}$')
-ax10.plot(Jof2, Imbetg2, color='green',  lw=LINE_W, label=r'$g/\kappa_L=5\times10^{-2}$')
-ax10.plot(Jof3, Imbetg3, color='red',    lw=LINE_W, label=r'$g/\kappa_L=10^{-1}$')
-ax10.plot(Jof9, Imbetg9, color='black',  lw=LINE_W, ls='--', label=r'$g/\kappa_L=3\times10^{-1}$')
-ax10.plot(Jof4, Imbetg4, color='purple', lw=LINE_W, label=r'$g/\kappa_L=5\times10^{-1}$')
-#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
-ax10.plot(Jof7, Imbetg7, color='gray',   lw=LINE_W, label=r'$g/\kappa_L=10$')
-ax10.plot(Jof12, Imbetg12, color='green',   lw=LINE_W,ls='--', label=r'$g/\kappa_L=10^{5}$')
-ax10.plot(Jof13, Imbetg13, color='brown',   lw=LINE_W,ls = '--', label=r'$g/\kappa_L=10^{6}$')
-
-ax10.set_ylabel(r'$2g\mathrm{Im}(\beta)$', fontsize=LABEL_FS)
-ax10.set_xscale('log')
-ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
-ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes,
-          fontsize=PANEL_FS, fontweight='bold')
-
-ax10.legend(
-    fontsize=7,
-    frameon=True,
-    ncol=1,
-    loc='center left'
-)
-
-# ---------- Panel (b)
-ax20.plot(Jof0, Imalphg0, color='blue',   lw=LINE_W)
-#ax20.plot(Jof1, Imbetg1, color='orange', lw=LINE_W)
-ax20.plot(Jof2, Imalphg2, color='green',  lw=LINE_W)
-ax20.plot(Jof3, Imalphg3, color='red',    lw=LINE_W)
-ax20.plot(Jof9, Imalphg9, color='black',  lw=LINE_W, ls='--')
-ax20.plot(Jof4, Imalphg4, color='purple', lw=LINE_W)
-#ax20.plot(Jof5, Imbetg5, color='brown',  lw=LINE_W)
-ax20.plot(Jof7, Imalphg7, color='gray',   lw=LINE_W)
-ax20.plot(Jof12, Imalphg12, color='green',   lw=LINE_W,ls='--')
-ax20.plot(Jof13, Imalphg13, color='brown',   lw=LINE_W,ls = '--')
-
-ax20.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)$', fontsize=LABEL_FS)
-ax20.set_ylabel(r'$2g\,\mathrm{Im}(\alpha)$', fontsize=LABEL_FS)
-ax20.set_xscale('log')
-ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
-ax20.text(0.9, 0.93, '(b)', transform=ax20.transAxes,
-          fontsize=PANEL_FS, fontweight='bold')
-
-# ---------- Spines
-for ax in (ax10, ax20):
-    for spine in ax.spines.values():
-        spine.set_linewidth(0.8)
-
-plt.tight_layout(pad=0.4)
-plt.savefig("fig6_PR_colors0.pdf")
-plt.close()
 
 
 datos0 = np.load("phonong=0.1probb100sec.npz")
@@ -450,288 +342,6 @@ Jofs3,Probnts13,Probnts23,Probnts33,Probnts43,Probnts53,Probnts63,Probnts73,Prob
 
 datos4 = np.load("phonong=1000probb100sec.npz")
 Jofs4,Probnts14,Probnts24,Probnts34,Probnts44,Probnts54,Probnts64,Probnts74,Probnts84,Imalphg4s,Imbetg4s = datos4["Jof"], datos4["Probnt10"], datos4["Probnt20"], datos4["Probnt30"], datos4["Probnt40"], datos4["Probnt50"], datos4["Probnt60"], datos4["Probnt70"], datos4["Probnt80"], datos4["Imalphg"], datos4["Imbetg"]
-
-
-
-
-
-fig, (ax10, ax20) = plt.subplots(
-    2, 1,
-    sharex=True,
-    figsize=(3.39, 4.0)
-)
-
-LINE_W = 1.6
-LABEL_FS = 9
-TICK_FS = 8
-PANEL_FS = 9
-
-# ---------- Panel (a)
-ax10.plot(Jofs0, Imbetg0s, color='blue',   lw=LINE_W, label=r'$g/\kappa_L=10$')
-ax10.plot(Jofs1, Imbetg1s, color='orange', lw=LINE_W, label=r'$g/\kappa_L=10^{2}$')
-ax10.plot(Jofs2, Imbetg2s, color='green',  lw=LINE_W, label=r'$g/\kappa_L=10^{3}$')
-ax10.plot(Jofs3, Imbetg3s, color='red',    lw=LINE_W, label=r'$g/\kappa_L=10^{4}$')
-ax10.plot(Jofs4, Imbetg4s, color='purple', lw=LINE_W, label=r'$g/\kappa_L=10^{5}$')
-#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
-
-ax10.set_ylabel(r'$2g\mathrm{Re}(\beta)$', fontsize=LABEL_FS)
-ax10.set_xscale('log')
-ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
-ax10.text(0.9, 0.87, '(a)', transform=ax10.transAxes,
-          fontsize=PANEL_FS, fontweight='bold')
-
-ax10.legend(
-    fontsize=7,
-    frameon=True,
-    ncol=1,
-    loc='center left'
-)
-
-# ---------- Panel (b)
-ax20.plot(Jofs0, Imalphg0s, color='blue',   lw=LINE_W)
-ax20.plot(Jofs1, Imalphg1s, color='orange', lw=LINE_W)
-ax20.plot(Jofs2, Imalphg2s, color='green',  lw=LINE_W)
-ax20.plot(Jofs3, Imalphg3s, color='red',    lw=LINE_W)
-ax20.plot(Jofs4, Imalphg4s, color='purple', lw=LINE_W)
-#ax20.plot(Jof5, Imbetg5, color='brown',  lw=LINE_W)
-
-ax20.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)$', fontsize=LABEL_FS)
-ax20.set_ylabel(r'$2g\,\mathrm{Re}(\alpha)$', fontsize=LABEL_FS)
-ax20.set_xscale('log')
-ax20.tick_params(direction='in', which='both', labelsize=TICK_FS)
-ax20.text(0.9, 0.87, '(b)', transform=ax20.transAxes,
-          fontsize=PANEL_FS, fontweight='bold')
-
-# ---------- Spines
-for ax in (ax10, ax20):
-    for spine in ax.spines.values():
-        spine.set_linewidth(0.8)
-
-plt.tight_layout(pad=0.4)
-plt.savefig("fig6_PR_colors0sec.pdf")
-plt.show()
-plt.close()
-
-
-fig, ax10 = plt.subplots(
-    sharex=True,
-    figsize=(3.39, 2.8)
-)
-
-LINE_W = 1.6
-LABEL_FS = 9
-TICK_FS = 8
-PANEL_FS = 9
-
-# ---------- Panel (a)
-ax10.plot(Jof0, cohesum0s, color='blue',   lw=LINE_W, label=r'$g/\kappa_L=0$')
-#ax10.plot(Jof1, cohesum1s, color='orange', lw=LINE_W, label=r'$g/\kappa_L=10^{-2}$')
-ax10.plot(Jof2, cohesum2s, color='green',  lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{-2}$')
-ax10.plot(Jof3, cohesum3s, color='red',    lw=LINE_W, label=r'$g/\kappa_L=10^{-1}$')
-ax10.plot(Jof4, cohesum4s, color='purple',  lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{-1}$')
-ax10.plot(Jof5, cohesum5s, color='brown', lw=LINE_W, label=r'$g/\kappa_L=10^{0}$')
-#ax10.plot(Jof6, cohesum6s, color='pink',   lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{0}$')
-#ax10.plot(Jof7, cohesum7s, color='gray',   lw=LINE_W, label=r'$g/\kappa_L=10^{1}$')
-#ax10.plot(Jof8, cohesum8s, color='black',  lw=LINE_W, label   =r'$g/\kappa_L=7 \times 10^{-1}$')
-ax10.plot(Jof9, cohesum9s, color='black',  lw=LINE_W, label=r'$g/\kappa_L=3 \times 10^{-1}$')
-#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
-ax10.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)$', fontsize=LABEL_FS)
-ax10.set_ylabel(r'$2g|\mathrm{Im}(\alpha)+\mathrm{Im}(\beta)|$', fontsize=LABEL_FS)
-ax10.set_xscale('log')
-ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
-#ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes,
-          #fontsize=PANEL_FS, fontweight='bold')
-
-ax10.legend(
-    fontsize=6.1,
-    frameon=True,
-    ncol=1,
-    loc='center left',
-    bbox_to_anchor=(0.02, 0.63)
-)
-
-
-
-# ---------- Spines
-
-for spine in ax10.spines.values():
-    spine.set_linewidth(0.8)
-
-plt.tight_layout(pad=0.4)
-plt.savefig("fig6cohesum.pdf")
-plt.close()
-
-
-
-
-fig, ax10 = plt.subplots(
-    sharex=True,
-    figsize=(3.39, 2.8)
-)
-
-LINE_W = 1.6
-LABEL_FS = 9
-TICK_FS = 8
-PANEL_FS = 9
-
-# ---------- Panel (a)
-ax10.plot(Jof0, cohesum0s, color='blue',   lw=LINE_W, label=r'$g/\kappa_L=0$')
-ax10.plot(Jof0,Nls0, color='blue',   lw=LINE_W, ls='--')
-#ax10.plot(Jof1, cohesum1s, color='orange', lw=LINE_W, label=r'$g/\kappa_L=10^{-2}$')
-ax10.plot(Jof2, cohesum2s, color='green',  lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{-2}$')
-ax10.plot(Jof2,Nls2, color='green',  lw=LINE_W, ls='--')
-ax10.plot(Jof3, cohesum3s, color='red',    lw=LINE_W, label=r'$g/\kappa_L=10^{-1}$')
-ax10.plot(Jof3,Nls3, color='red',    lw=LINE_W, ls='--')
-ax10.plot(Jof4, cohesum4s, color='purple',  lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{-1}$')
-ax10.plot(Jof4,Nls4, color='purple',  lw=LINE_W, ls='--')
-ax10.plot(Jof5, cohesum5s, color='brown', lw=LINE_W, label=r'$g/\kappa_L=10^{0}$')
-ax10.plot(Jof5,Nls5, color='brown', lw=LINE_W, ls='--')
-#ax10.plot(Jof6, cohesum6s, color='pink',   lw=LINE_W, label=r'$g/\kappa_L=5 \times 10^{0}$')
-#ax10.plot(Jof7, cohesum7s, color='gray',   lw=LINE_W, label=r'$g/\kappa_L=10^{1}$')
-#ax10.plot(Jof8, cohesum8s, color='black',  lw=LINE_W, label   =r'$g/\kappa_L=7 \times 10^{-1}$')
-ax10.plot(Jof9, cohesum9s, color='black',  lw=LINE_W, label=r'$g/\kappa_L=3 \times 10^{-1}$')
-ax10.plot(Jof9,Nls9, color='black',  lw=LINE_W, ls='--')
-#ax10.plot(Jof5, Imalphg5, color='brown',  lw=LINE_W, label=r'$1$')
-ax10.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)$', fontsize=LABEL_FS)
-#ax10.set_ylabel(r'$2g|\mathrm{Im}(\alpha)+\mathrm{Im}(\beta)|$', fontsize=LABEL_FS)
-ax10.set_xscale('log')
-ax10.tick_params(direction='in', which='both', labelsize=TICK_FS)
-#ax10.text(0.9, 0.93, '(a)', transform=ax10.transAxes,
-          #fontsize=PANEL_FS, fontweight='bold')
-
-ax10.legend(
-    fontsize=6.1,
-    frameon=True,
-    ncol=1,
-    loc='center left',
-    bbox_to_anchor=(0.02, 0.63)
-)
-
-
-
-# ---------- Spines
-
-for spine in ax10.spines.values():
-    spine.set_linewidth(0.8)
-
-plt.tight_layout(pad=0.4)
-plt.savefig("fig6coheNls.pdf")
-plt.close()
-
-
-
-#########hacer los calculos de 1800 a 3000
-fig, (ax1, ax2) = plt.subplots(
-    1, 2,
-    sharex=True,
-    figsize=(7.0, 3.6)   # APS wide figure
-)
-
-LINE_W = 2.0
-LABEL_FS = 9
-TICK_FS  = 8
-PANEL_FS = 9
-LEG_FS   = 7
-
-# ===================== (a) Efficiency =====================
-ax1.plot(Jof0f, Nls0, color='blue',   lw=LINE_W, label=r'$g/\kappa_{L}=0$')
-#ax1.plot(Jof1, Nls1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
-ax1.plot(Jof2f, Nls2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\times 10^{-2}$')
-ax1.plot(Jof3f, Nls3, color='red',    lw=LINE_W, label=r'$g/\kappa_{L}=10^{-1}$')
-ax1.plot(Jof9f, Nls9, color='black',  lw=LINE_W, label=r'$g/\kappa_{L}=3\times10^{-1}$')
-ax1.plot(Jof4f, Nls4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\times10^{-1}$')
-ax1.plot(Jof5f, Nls5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
-#ax1.plot(Jof7, Nls7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
-#ax1.plot(Jof10, Nls10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
-#ax1.plot(Jof11, Nls11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
-#ax1.plot(Jof12, Nls12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
-#ax1.plot(Jof13, Nls13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
-ax1.plot(Jof14f, Nls14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
-#ax1.plot(Jof15, Nls15, color='gray',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=5\times 10^{2}$')
-#ax1.plot(Jof16, Nls16, color='pink',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=9\times 10^{2}$')
-
-axins = inset_axes(
-    ax1,
-    width="50%",
-    height="50%",
-    bbox_to_anchor=(0.35, 0.05, 0.6, 0.6),
-    bbox_transform=ax1.transAxes,
-    
-    borderpad=0
-)
-
-# Plot SAME curves (no legend!)
-axins.plot(Jof4, Nls4, color='purple', lw=2)
-axins.plot(Jof5,Nls5,color='brown', lw = 2)
-axins.plot(Jof9, Nls9, color='black',  lw=2)
-
-# Zoom region (example values — adjust!)
-axins.set_xlim(6.5e-4, 2.1e-0)
-axins.set_ylim(0.0385, 0.0485)
-
-# Inset formatting
-axins.tick_params(direction='in', labelsize=6)
-for spine in axins.spines.values():
-    spine.set_linewidth(0.6)
-
-# Optional: draw connectors
-mark_inset(ax1, axins, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
-
-
-ax1.set_xscale("log")
-ax1.set_ylabel(r'$|\dot{N}_{B_L}|/\kappa_{L}$', fontsize=LABEL_FS)
-
-ax1.text(0.92, 0.90, '(a)', transform=ax1.transAxes,
-         fontsize=PANEL_FS, fontweight='bold')
-
-# ===================== (b) Coherence =====================
-ax2.plot(Jof0, cohesum0s, color='blue',   lw=LINE_W)
-#ax2.plot(Jof1, coheveig1, color='orange', lw=LINE_W)
-ax2.plot(Jof2, cohesum2s, color='green',  lw=LINE_W)
-ax2.plot(Jof3, cohesum3s, color='red',    lw=LINE_W)
-ax2.plot(Jof9, cohesum9s, color='black',  lw=LINE_W)
-ax2.plot(Jof4, cohesum4s, color='purple', lw=LINE_W)
-ax2.plot(Jof5, cohesum5s, color='brown',  lw=LINE_W)
-#ax2.plot(Jof7, cohesum7s, color='gray',   lw=LINE_W)
-#ax2.plot(Jof10, cohesum10s, color='red',   lw=LINE_W, ls = '--')
-#ax2.plot(Jof11, cohesum11s, color='blue',   lw=LINE_W, ls = '--')
-#ax2.plot(Jof12, cohesum12s, color='green',   lw=LINE_W, ls = '--')
-#ax2.plot(Jof13f, cohesum13s, color='brown',   lw=LINE_W, ls = '--')
-ax2.plot(Jof14f, cohesum14s, color='black',   lw=LINE_W, ls = '--')
-#ax2.plot(Jof15, cohesum15s, color='gray',   lw=LINE_W, ls = '--')
-#ax2.plot(Jof16, cohesum16s, color='pink',   lw=LINE_W, ls = '--')
-
-
-
-ax2.set_xscale("log")
-ax2.set_ylabel(r'$\langle \dot{N}_{\mathrm{cohe}}\rangle/\kappa_{L}$', fontsize=LABEL_FS)
-
-ax2.text(0.92, 0.90, '(b)', transform=ax2.transAxes,
-         fontsize=PANEL_FS, fontweight='bold')
-
-# ===================== Shared formatting =====================
-for ax in (ax1, ax2):
-    ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
-    for spine in ax.spines.values():
-        spine.set_linewidth(0.8)
-
-ax1.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
-ax2.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
-
-# ===================== Single legend (recommended) =====================
-handles, labels = ax1.get_legend_handles_labels()
-fig.legend(
-    handles, labels,
-    loc='upper center',
-    ncol=4,
-    fontsize=LEG_FS,
-    frameon=True
-)
-
-# ===================== Layout & save =====================
-plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
-plt.savefig("figcurrentdecohe.pdf")
-plt.close()
 
 
 
