@@ -864,7 +864,7 @@ PANEL_FS = 9
 
 ax20.plot(eVs,Erl,color='black',linestyle='--',lw=LINE_W, label = r'$\dot{E}_{2}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax20.plot(eVs,Flr,color='black',lw=LINE_W, label = r'$\dot{F}_{2}$')
+ax20.plot(eVs,Flr,color='black',lw=LINE_W, label = r'$\dot{\mathcal{F}}_{2}$')
 ax20.plot(eVs,Tisl,label = r'$T\dot{I}_{2}$',linestyle='--', dashes=(5, 3), color = 'r',lw=LINE_W)
 ax20.plot(eVs,Wt,label = r'$\dot{W}_{2}$', color = 'm',lw=LINE_W)
 ax20.plot(eVs,Qlr, color='red',lw = LINE_W,label = r'$\dot{Q}_{2}$')
@@ -885,7 +885,7 @@ ax20.legend(
 
 ax10.plot(eVs,Eds, color='black',linestyle='--',lw=LINE_W, label = r'$\dot{E}_{1}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax10.plot(eVs,Fd, color='black',lw=LINE_W, label = r'$\dot{F}_{1}$')
+ax10.plot(eVs,Fd, color='black',lw=LINE_W, label = r'$\dot{\mathcal{F}}_{1}$')
 ax10.plot(eVs,Tid,label = r'$T_{B_{D}}\dot{I}_{1}$', linestyle='--', dashes=(5, 3),color = 'r',lw=LINE_W)
 ax10.plot(eVs,Wdf,label = r'$\dot{W}_{1}$', color = 'm',lw=LINE_W)
 ax10.tick_params(labelbottom=False,direction='in', which='both', labelsize=TICK_FS)
@@ -948,7 +948,7 @@ ax11.legend(
     bbox_to_anchor=(0.7, 0.25)
 )
 
-ax21.plot(eVs,cohes,label = r'$\mathcal{C}_{l_{1}}$', color = 'black',lw = LINE_W)
+ax21.plot(eVs,cohes,label = r'$\mathcal{C}_{l_{1}}(\mathrm{eig})$', color = 'black',lw = LINE_W)
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
 ax21.plot(eVs,concv, label = r'$\mathcal{C}_{on}$', color = 'r',lw=LINE_W) 
 #plt.plot(eVs,Qdf,label = r'$J_{d}$',color = "gray",lw=2)
