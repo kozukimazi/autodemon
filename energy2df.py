@@ -5,16 +5,25 @@ from scipy.linalg import logm
 from scipy import integrate
 import matplotlib.colors as colors
 
-data = np.load("energy.npz")
+data = np.load("energyratio.npz")
 x = data["x"]
 y = data["y"]
 Z = data["Z"]
 
-data2 = np.load("energyfs.npz")
+data2 = np.load("energyratiofs.npz")
 x2 = data2["x"]
 y2 = data2["y"]
 Z2 = data2["Z"]
 
+data0 = np.load("current.npz")
+x0 = data0["x"]
+y0 = data0["y"]
+Z0 = data0["Z"]
+
+data02 = np.load("currentfs.npz")
+x02 = data02["x"]
+y02 = data02["y"]
+Z02 = data02["Z"]
 
 
 plt.imshow(Z, cmap='viridis')
@@ -26,9 +35,19 @@ plt.colorbar()
 plt.show()
 
 
+Z_total = np.hstack((Z, Z2))
 
-Z_total = np.vstack((Z, Z2))
+
+
+
 y_total = np.concatenate((y, y2))
+
+Z0_total = np.hstack((Z0, Z02))
+y0_total = np.concatenate((y0, y02))
+
+print(Z_total.shape)
+print(y_total.shape)
+
 
 plt.imshow(Z_total, cmap='viridis')
 plt.colorbar()
@@ -64,13 +83,13 @@ plt.rcParams.update({
 
 fig, ax = plt.subplots(figsize=(3.4, 3))
 
-pcm = ax.pcolormesh(x, y_total, Z_total, shading='auto', cmap='viridis')
+pcm = ax.pcolormesh(y_total,x, Z_total, shading='auto', cmap='viridis')
 
 cbar = plt.colorbar(pcm, ax=ax)
 cbar.set_label(r'$\dot{E}_1$')
 
-ax.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}} \kappa_L)$')
-ax.set_ylabel(r'$g/ \kappa_L$')
+ax.set_ylabel(r'$J_0/(\beta_{\mathrm{ph}} \kappa_L)$')
+ax.set_xlabel(r'$g/ \kappa_L$')
 
 # 🔥 aquí está la clave
 ax.set_xscale("log")
@@ -96,18 +115,18 @@ plt.rcParams.update({
 fig, ax = plt.subplots(figsize=(3.4, 3))
 
 pcm = ax.pcolormesh(
-    x, y_total, Z_total,
+    y_total,x, Z_total,
     shading='auto',
     cmap='viridis'
 )
 
 cbar = plt.colorbar(pcm, ax=ax)
-cbar.set_label(r'$\dot{E}_1$')
+cbar.set_label(r'$|\dot{E}_1/T \dot{I}_{1}|$')
 cbar.ax.tick_params(labelsize=8, direction='in', width=0.8)
 cbar.outline.set_linewidth(0.8)
 
-ax.set_xlabel(r'$J_0/(\beta_{\mathrm{ph}} \kappa_L)$')
-ax.set_ylabel(r'$g/ \kappa_L$')
+ax.set_ylabel(r'$J_0/(\beta_{\mathrm{ph}} \kappa_L)$')
+ax.set_xlabel(r'$g/ \kappa_L$')
 
 ax.set_xscale("log")
 ax.set_yscale("log")
@@ -121,5 +140,49 @@ for spine in ax.spines.values():
     spine.set_linewidth(0.8)
 
 plt.tight_layout(pad=0.3)
-plt.savefig("figure3D.pdf", bbox_inches='tight')
+plt.savefig("figure3Dratio.pdf", bbox_inches='tight')
 plt.show()
+
+
+
+plt.rcParams.update({
+    "font.size": 10,
+    "axes.labelsize": 10,
+    "xtick.labelsize": 8,
+    "ytick.labelsize": 8,
+    "figure.dpi": 300
+})
+
+fig, ax = plt.subplots(figsize=(3.4, 3))
+
+pcm = ax.pcolormesh(
+    y0_total,x0, Z0_total,
+    shading='auto',
+    cmap='viridis'
+)
+
+cbar = plt.colorbar(pcm, ax=ax)
+cbar.set_label(r'$\dot{N}_{B_L}/\kappa_L$')
+cbar.ax.tick_params(labelsize=8, direction='in', width=0.8)
+cbar.outline.set_linewidth(0.8)
+
+ax.set_ylabel(r'$J_0/(\beta_{\mathrm{ph}} \kappa_L)$')
+ax.set_xlabel(r'$g/ \kappa_L$')
+
+ax.set_xscale("log")
+ax.set_yscale("log")
+
+ax.xaxis.set_major_locator(ticker.LogLocator(base=10))
+ax.yaxis.set_major_locator(ticker.LogLocator(base=10))
+
+ax.tick_params(which='both', direction='in', width=0.8)
+
+for spine in ax.spines.values():
+    spine.set_linewidth(0.8)
+
+plt.tight_layout(pad=0.3)
+plt.savefig("figure3Dcurr.pdf", bbox_inches='tight')
+plt.show()
+
+
+

@@ -91,7 +91,6 @@ plus1 = (v101 + v011)/np.sqrt(2)
 minus0 = (v010 - v100)/np.sqrt(2)
 minus1 = (v011 - v101)/np.sqrt(2)
 
-
 def twolevel(el,er,g):
     Delta = (el-er)/2
     tol = 1E-25
@@ -406,6 +405,8 @@ g0s = np.logspace(-1,3,Num)
 Jof = []
 
 Edemon = np.zeros((Num,Num))
+Inforatio = np.zeros((Num,Num))
+current = np.zeros((Num,Num))
 
 for i in range(len(J0s)):
     for j in range(len(g0s)):
@@ -453,6 +454,9 @@ for i in range(len(J0s)):
         Ld0 = DD
         Nl0,Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sph0,El0,Er0,Ed0 = currents(Elf,Erf,g,H0,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Dph0,superop0,rho0,30000)
         Edemon[i,j] = Ed0
+        T = 1/betal
+        Inforatio[i,j] = abs(Ed0/(T*Sd0))
+        current[i,j] = Nl0/gl
     
 J0f = []
 g0f = []
@@ -461,7 +465,8 @@ for i in range(len(J0s)):
 for j in range(len(g0s)):
     g0f.append(g0s[j]/gl)
 
-np.savez("energyfs.npz", x=J0f, y=g0f, Z=Edemon)    
-    
+#np.savez("energyratiofs.npz", x=J0f, y=g0f, Z=Inforatio)    
+np.savez("currentfs.npz", x=J0f, y=g0f, Z=current)    
+
 
 

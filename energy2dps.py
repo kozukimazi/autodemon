@@ -379,86 +379,22 @@ J0s = np.logspace(-8,-1,Num)
 g0s = np.logspace(-4,-1,Num)
 
 Edemon = np.zeros((Num,Num))
-#for i in range(len(J0s)):
-    #for j in range(len(g0s)):
-        #mud0 = 2
-        #U00 = 40 #10
-        #eps = 0.5
-        #Ed0 = mud0 - (1-eps)*U00
-        #ev = 100
-    #Ed0 = mud0 -U00/2
-        #Uf0 = 500 #50
-        #Probar condicion (U00/E0)<<1,Strasberg
-        #El0 = Er0 = E0 = 0
-        #Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0s[i],omegac)
-        #Ls0p = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,0,0,0,0,0,0,J0s[i],omegac)
-        #H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0s[j])
-        #H0f = Hamiltonian(El0,Er0,Ed0,U00,Uf0,0)
-        #superop0 = Liouvillian(H0,Ls0)
-        #superop0adj = adjLiouvillian(H0,Ls0p,nl)
-        #superop1adj = adjLiouvillian(H0,0*Ls0p,nl)
-        #superop0adj2 = adjLiouvillian(H0,Ls0,nr)
-        #final = superop0adj + superop0adj2
-        #adLin = adjLiouvillianT(H0,Ls0)
-        #Ll0 = Dl(E0,U00,Uf0,ev/2,betal,gl,glU)
-        #Lr0 = Dr(E0,U00,Uf0,-ev/2,betar,gr,grU)
-        #Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
-        #Lph0 = Dphonon(betaph,J0s[i],omegac)
-        #Htd0 =  Htd(El0,Er0,Ed0,U00,Uf0)
-        #rhof = Propagate(rho0,superop0,40000)
-        #Nlt = np.trace( np.matmul(superop0adj,rhof ) )
-       # Nltqm = np.trace( np.matmul(superop1adj,rhof ) )
-        #Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0,Wlr0,coheg0 = currents(Htd0,g0s[j],ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
-       # Edemon[i,j] = Ed0
-       # print("J0:",J0s[i],"g0:",g0s[j],"Edemon:",Edemon[i,j])
-
-
-J0f = []
-g0f = []
+Inforatio = np.zeros((Num,Num))
+current = np.zeros((Num,Num))
 for i in range(len(J0s)):
-    J0f.append(J0s[i]/(betaph*gl))
-for j in range(len(g0s)):
-    g0f.append(g0s[j]/gl)
-
-#np.savez("energy.npz", x=J0f, y=g0f, Z=Edemon)
-
-#######################################
-########aqui probamos paralelizacion###
-#######################################
-from multiprocessing import Pool
-if __name__ == "__main__":
-    def energycal(J0xs,g0ys):
-    # -----------------------
-    # Diccionario de parámetros fijos
-    # -----------------------
-        params = {
-        "E0": 0,
-        "Ed0": 2-20,
-        "U00": 40,
-        "Uf0": 500,
-        "ev": 100,
-        "mud0": 2,
-        "betal": 1/100,
-        "betar": 1/100,
-        "betad": 1/2,
-        "gl": 1/100, "glU": 1/600,
-        "gr": 1/600, "grU": 1/100,
-        "gd": 1/50, "gdU": 1/50,
-        "omegac": 1E-2,
-        "betaph": 1/100,
-        }
+    for j in range(len(g0s)):
         mud0 = 2
         U00 = 40 #10
         eps = 0.5
         Ed0 = mud0 - (1-eps)*U00
         ev = 100
-        Ed0 = mud0 -U00/2
+    #Ed0 = mud0 -U00/2
         Uf0 = 500 #50
         #Probar condicion (U00/E0)<<1,Strasberg
         El0 = Er0 = E0 = 0
-        Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0xs,omegac)
-        Ls0p = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,0,0,0,0,0,0,J0xs,omegac)
-        H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0ys)
+        Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0s[i],omegac)
+        Ls0p = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,0,0,0,0,0,0,J0s[i],omegac)
+        H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0s[j])
         H0f = Hamiltonian(El0,Er0,Ed0,U00,Uf0,0)
         superop0 = Liouvillian(H0,Ls0)
         superop0adj = adjLiouvillian(H0,Ls0p,nl)
@@ -469,25 +405,95 @@ if __name__ == "__main__":
         Ll0 = Dl(E0,U00,Uf0,ev/2,betal,gl,glU)
         Lr0 = Dr(E0,U00,Uf0,-ev/2,betar,gr,grU)
         Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
-        Lph0 = Dphonon(betaph,J0xs,omegac)
+        Lph0 = Dphonon(betaph,J0s[i],omegac)
         Htd0 =  Htd(El0,Er0,Ed0,U00,Uf0)
         rhof = Propagate(rho0,superop0,40000)
-        Nlt = np.trace( np.matmul(superop0adj,rhof ) )
-        Nltqm = np.trace( np.matmul(superop1adj,rhof ) )
-        Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0,Wlr0,coheg0 = currents(Htd0,g0ys,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
-        return Ed0
+        #Nlt = np.trace( np.matmul(superop0adj,rhof ) )
+       # Nltqm = np.trace( np.matmul(superop1adj,rhof ) )
+        Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0,Wlr0,coheg0 = currents(Htd0,g0s[j],ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
+        Edemon[i,j] = Ed0
+        T = 1/betal
+        Inforatio[i,j] = abs(Ed0/(T*Sd0))
+        current[i,j] = Nl0/gl
+        print("J0:",J0s[i],"g0:",g0s[j],"Inforatio:",Inforatio[i,j])
 
-    def compute_row(y_val):
-        return [energycal(x_val, y_val) for x_val in J0s]
 
-    with Pool() as p:
-        Znew = p.map(compute_row, g0s)
+J0f = []
+g0f = []
+for i in range(len(J0s)):
+    J0f.append(J0s[i]/(betaph*gl))
+for j in range(len(g0s)):
+    g0f.append(g0s[j]/gl)
 
-    J0f = []
-    g0f = []
-    for i in range(len(J0s)):
-        J0f.append(J0s[i]/(betaph*gl))
-    for j in range(len(g0s)):
-        g0f.append(g0s[j]/gl)
+#np.savez("energyratio.npz", x=J0f, y=g0f, Z=Inforatio)
+np.savez("current.npz", x=J0f, y=g0f, Z=current)
 
-    np.savez("energyparallel.npz", x=J0f, y=g0f, Z=Znew)
+#######################################
+########aqui probamos paralelizacion###
+#######################################
+#from multiprocessing import Pool
+#if __name__ == "__main__":
+    #def energycal(J0xs,g0ys):
+    # -----------------------
+    # Diccionario de parámetros fijos
+    # -----------------------
+    #    params = {
+    #    "E0": 0,
+    #    "Ed0": 2-20,
+    #    "U00": 40,
+     #   "Uf0": 500,
+    #    "ev": 100,
+    #    "mud0": 2,
+    #    "betal": 1/100,
+    #    "betar": 1/100,
+    #    "betad": 1/2,
+    #    "gl": 1/100, "glU": 1/600,
+    #    "gr": 1/600, "grU": 1/100,
+    #    "gd": 1/50, "gdU": 1/50,
+    #    "omegac": 1E-2,
+    #    "betaph": 1/100,
+    #    }
+    #    mud0 = 2
+    #    U00 = 40 #10
+    #    eps = 0.5
+    #    Ed0 = mud0 - (1-eps)*U00
+    #   ev = 100
+    #    Ed0 = mud0 -U00/2
+    #    Uf0 = 500 #50
+        #Probar condicion (U00/E0)<<1,Strasberg
+    #    El0 = Er0 = E0 = 0
+    #    Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0xs,omegac)
+    #    Ls0p = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,0,0,0,0,0,0,J0xs,omegac)
+    #    H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0ys)
+    #    H0f = Hamiltonian(El0,Er0,Ed0,U00,Uf0,0)
+    #    superop0 = Liouvillian(H0,Ls0)
+    #    superop0adj = adjLiouvillian(H0,Ls0p,nl)
+    #   superop1adj = adjLiouvillian(H0,0*Ls0p,nl)
+    #    superop0adj2 = adjLiouvillian(H0,Ls0,nr)
+    #    final = superop0adj + superop0adj2
+    ##   adLin = adjLiouvillianT(H0,Ls0)
+    #    Ll0 = Dl(E0,U00,Uf0,ev/2,betal,gl,glU)
+    #    Lr0 = Dr(E0,U00,Uf0,-ev/2,betar,gr,grU)
+    #    Ld0 = Dd(Ed0,U00,mud0,betad,gd,gdU)
+    #    Lph0 = Dphonon(betaph,J0xs,omegac)
+    #    Htd0 =  Htd(El0,Er0,Ed0,U00,Uf0)
+    #    rhof = Propagate(rho0,superop0,40000)
+    #    Nlt = np.trace( np.matmul(superop0adj,rhof ) )
+    #    Nltqm = np.trace( np.matmul(superop1adj,rhof ) )
+    #    Ql0,Qr0,Qd0,Qph0,Sl0,Sr0,Sd0,Sphf0,El0,Er0,Ed0,Wl0,Wr0,Wd0,cohe0,concu0,Nl0,Nr0,Nd0,Act0,Nq0,Wlr0,coheg0 = currents(Htd0,g0ys,ev/2,-ev/2,mud0,Ll0,Lr0,Ld0,Lph0,superop0,rho0,40000)
+    #    return Ed0
+
+#    def compute_row(y_val):
+#        return [energycal(x_val, y_val) for x_val in J0s]
+
+#    with Pool() as p:
+#        Znew = p.map(compute_row, g0s)
+
+#    J0f = []
+#    g0f = []
+#    for i in range(len(J0s)):
+#        J0f.append(J0s[i]/(betaph*gl))
+#    for j in range(len(g0s)):
+#        g0f.append(g0s[j]/gl)
+
+    #np.savez("energyparallel.npz", x=J0f, y=g0f, Z=Znew)
