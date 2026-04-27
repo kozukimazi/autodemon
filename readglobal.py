@@ -776,9 +776,9 @@ ax_f = fig.add_subplot(gs[2, 1])
 # ===================== Example content =====================
 
 # ---- Small panels ----
-ax_a.plot(gof10, coheveig0, lw=LINE_W,color='blue', label='partial')
-ax_a.plot(gof12, coheveig2, lw=LINE_W,color='red', label='global')
-ax_a.plot(gof11, coheveig1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+ax_a.plot(gof10, coheveig0y, lw=LINE_W,color='blue', label='partial')
+ax_a.plot(gof12, coheveig2y, lw=LINE_W,color='red', label='global')
+ax_a.plot(gof11, coheveig1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 ax_a.set_ylabel(r'$\mathcal{C}_{l_1}(\mathrm{eig})$', fontsize=LABEL_FS)
 ax_a.set_xscale('log')
 ax_a.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
@@ -788,18 +788,18 @@ ax_a.text(0.90, 0.84, '(a)', transform=ax_a.transAxes,
 # Text inside plot (2)
 
 
-ax_b.plot(gof10y, coheveig0y, lw=LINE_W,color='blue', label='partial')
-ax_b.plot(gof12y, coheveig2y, lw=LINE_W,color='red', label='global')
-ax_b.plot(gof11y, coheveig1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+ax_b.plot(gof10y, coheveig0, lw=LINE_W,color='blue', label='partial')
+ax_b.plot(gof12y, coheveig2, lw=LINE_W,color='red', label='global')
+ax_b.plot(gof11y, coheveig1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 ax_b.set_xscale('log')
 ax_b.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
 ax_b.text(0.90, 0.84, '(b)', transform=ax_b.transAxes,
             fontsize=PANEL_FS, fontweight='bold')
 
 
-ax_c.plot(gof10, cohes0, lw=LINE_W,color='blue', label='partial')
-ax_c.plot(gof12, cohes2, lw=LINE_W,color='red', label='global')
-ax_c.plot(gof11, cohes1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+ax_c.plot(gof10, cohes0y, lw=LINE_W,color='blue', label='partial')
+ax_c.plot(gof12, cohes2y, lw=LINE_W,color='red', label='global')
+ax_c.plot(gof11, cohes1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 
 ax_c.set_xscale('log')
 ax_c.set_ylabel(r'$\mathcal{C}_{l_1}(\mathrm{loc})$', fontsize=LABEL_FS)
@@ -808,13 +808,13 @@ ax_c.text(0.90, 0.84, '(c)', transform=ax_c.transAxes,
             fontsize=PANEL_FS, fontweight='bold')
 
 ax_c.text(0.05, 0.5,
-          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)=5 \times 10^{-1}$',
+          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)= 10^{-3}$',
           transform=ax_c.transAxes,
           fontsize=8)
 
-ax_d.plot(gof10y, cohes0y, lw=LINE_W,color='blue', label='partial')
-ax_d.plot(gof12y, cohes2y, lw=LINE_W,color='red', label='global')
-ax_d.plot(gof11y, cohes1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
+ax_d.plot(gof10y, cohes0, lw=LINE_W,color='blue', label='partial')
+ax_d.plot(gof12y, cohes2, lw=LINE_W,color='red', label='global')
+ax_d.plot(gof11y, cohes1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 ax_d.set_xscale('log')
 ax_d.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
 ax_d.text(0.90, 0.84, '(d)', transform=ax_d.transAxes,
@@ -822,21 +822,21 @@ ax_d.text(0.90, 0.84, '(d)', transform=ax_d.transAxes,
 
 # Text inside plot (1)
 ax_d.text(0.02, 0.5,
-          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)= 10^{-3}$',
+          r'$J_0/(\beta_{\mathrm{ph}}\kappa_L)= 5 \times 10^{-1}$',
           transform=ax_d.transAxes,
           fontsize=8)            
 
 # ---- Large panels ----
-ax_e.plot(gof10, Nls0f, lw=LINE_W,color = 'blue', label='partial')
-ax_e.plot(gof12, Nls2f, lw=LINE_W, color = 'red', label='global')
-ax_e.plot(gof11, Nls1f, lw=LINE_W, color = 'black', linestyle='--', label='Redfield')
+ax_e.plot(gof10, Nls0fy, lw=LINE_W,color = 'blue', label='partial')
+ax_e.plot(gof12, Nls2fy, lw=LINE_W, color = 'red', label='global')
+ax_e.plot(gof11, Nls1fy, lw=LINE_W, color = 'black', linestyle='--', label='Redfield')
 ax_e.set_xscale('log')
 ax_e.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
 ax_e.set_ylabel(r'$\dot{N}_{B_L}/\kappa_L$', fontsize=LABEL_FS)
 ax_e.tick_params(direction='in', which='both', labelsize=TICK_FS)
 
 # Legend ONLY here
-ax_e.legend(fontsize=LEG_FS, frameon=True, loc='upper left')
+ax_e.legend(fontsize=LEG_FS, frameon=True, loc='center left')
 
 ax_e.text(0.90, 0.86, '(e)', transform=ax_e.transAxes,
           fontsize=PANEL_FS, fontweight='bold')
@@ -844,9 +844,9 @@ ax_e.text(0.90, 0.86, '(e)', transform=ax_e.transAxes,
 
 
 # ---- Panel (f)
-ax_f.plot(gof10y, Nls0fy, lw=LINE_W, color = 'blue', label='partial')
-ax_f.plot(gof12y, Nls2fy, lw=LINE_W, color = 'red', label='global')
-ax_f.plot(gof11y, Nls1fy, lw=LINE_W, color = 'black', linestyle='--', label='Redfield')
+ax_f.plot(gof10y, Nls0f, lw=LINE_W, color = 'blue', label='partial')
+ax_f.plot(gof12y, Nls2f, lw=LINE_W, color = 'red', label='global')
+ax_f.plot(gof11y, Nls1f, lw=LINE_W, color = 'black', linestyle='--', label='Redfield')
 ax_f.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
 #ax_f.set_ylabel(r'$\dot{N}_{L}/\kappa_L$', fontsize=LABEL_FS)
 ax_f.set_xscale('log')

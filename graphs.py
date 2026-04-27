@@ -535,17 +535,17 @@ ax10.plot(Jof5, Id5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
 #ax10.plot(Jof11, Id11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
 #ax1.plot(Jof12, eff12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
 #ax1.plot(Jof13, eff13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
-ax10.plot(Jof14, Id14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
+#ax10.plot(Jof14, Id14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
 #ax1.plot(Jof15, eff15, color='gray',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=5\times 10^{2}$')
 #ax1.plot(Jof16, eff16, color='pink',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=9\times 10^{2}$')
 
 axins0 = inset_axes(
     ax10,
-    width="32%",
-    height="32%",
+    width="30%",
+    height="30%",
     #bbox_to_anchor=(0.005, 0.005, 0.1, 0.2),  #[x, y, width, height] 
     #bbox_transform=ax10.transAxes,
-    loc = 'lower right',
+    loc = 'center right',
     borderpad=1
 )
 
@@ -587,7 +587,7 @@ ax20.plot(Jof5, eff5, color='brown',  lw=LINE_W)
 #ax20.plot(Jof11, eff11, color='blue',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof12, coheveig12, color='green',   lw=LINE_W, ls = '--')
 #ax20.plot(Jof13, eff13, color='brown',   lw=LINE_W, ls = '--')
-ax20.plot(Jof14, eff14, color='black',   lw=LINE_W, ls = '--')
+#ax20.plot(Jof14, eff14, color='black',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof15, coheveig15, color='gray',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof16, coheveig16, color='pink',   lw=LINE_W, ls = '--')
 
@@ -684,8 +684,7 @@ ax1.plot(Jof5, Nls5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
 #ax1.plot(Jof11, Nls11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
 #ax1.plot(Jof12, Nls12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
 #ax1.plot(Jof13, Nls13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
-ax1.plot(Jof14, Nls14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
-#ax1.plot(Jof15, Nls15, color='gray',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=5\times 10^{2}$')
+##ax1.plot(Jof15, Nls15, color='gray',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=5\times 10^{2}$')
 #ax1.plot(Jof16, Nls16, color='pink',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=9\times 10^{2}$')
 
 axins = inset_axes(
@@ -734,9 +733,8 @@ ax2.plot(Jof5, coheveig5, color='brown',  lw=LINE_W)
 #ax2.plot(Jof10, coheveig10, color='red',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof11, coheveig11, color='blue',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof12, coheveig12, color='green',   lw=LINE_W, ls = '--')
-ax2.plot(Jof13, coheveig13, color='brown',   lw=LINE_W, ls = '--')
-ax2.plot(Jof14, coheveig14, color='black',   lw=LINE_W, ls = '--')
-#ax2.plot(Jof15, coheveig15, color='gray',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof13, coheveig13, color='brown',   lw=LINE_W, ls = '--')
+##ax2.plot(Jof15, coheveig15, color='gray',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof16, coheveig16, color='pink',   lw=LINE_W, ls = '--')
 
 
