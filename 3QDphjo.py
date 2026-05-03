@@ -397,6 +397,11 @@ Nls = []
 Qlr = []
 Qphlist = []
 coheseig = []
+Eds = []
+Els = []
+Ers = []
+Work = []
+Wds = []
 for g0fm in g0fs:
     mud0 = 2
     U00 = 40 #10
@@ -411,7 +416,7 @@ for g0fm in g0fs:
     Uf0 = 500 #50
     #Probar condicion (U00/E0)<<1,Strasberg
     El0 = Er0 = E0 = 0
-    J0 = (0.01)*betaph*gl
+    J0 = (0.0)*betaph*gl
     Ls0 = Dissipator(E0,Ed0,U00,Uf0,ev/2,-ev/2,mud0,betal,betar,betad,betaph,gl,glU,gr,grU,gd,gdU,J0,omegac)
     H0 = Hamiltonian(El0,Er0,Ed0,U00,Uf0,g0fm)
     superop0 = Liouvillian(H0,Ls0)
@@ -445,6 +450,12 @@ for g0fm in g0fs:
     gof1.append(g0fm/(gl))
     Qphlist.append(Qph0)
     Qlr.append(Ql0 + Qr0 + Qph0)
+    Eds.append(Ed0)
+    Els.append(El0)
+    Ers.append(Er0)
+    Work.append(Wl0 + Wr0)
+    Wds.append(Wd0)
+
     print(g0fm)
 
 plt.plot(gof1,Id, color='red',lw=3, label = r'$\dot{I}_{D}$')
@@ -506,8 +517,7 @@ plt.tight_layout()  # Avoids overlapping labels
 plt.show()
 
 
-
-#np.savez("phononJ0=10^{-2}bkb100.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohes, concv = concv, Nls = Nls,coheveig=coheseig)
+np.savez("phononJ0=0gpaper.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,Ilrnew=Ilrnew,Eds=Eds,Els=Els,Ers=Ers,Work=Work,Wds=Wds,cohes=cohes, concv = concv,Nls = Nls,coheveig=coheseig)
 
 #np.savez("phononJ0=10^{-3}comp.npz", gof1=gof1,Qlr=Qlr,Qphs = Qphlist, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohev=cohes, concv = concv, Nls = Nls,coheveig=coheseig)
 

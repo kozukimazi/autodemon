@@ -545,7 +545,7 @@ for ev in eVs0:
     Ers.append(Er0)
     Eds.append(Ed0)
     Erl.append(El0 + Er0 )
-    Qlr.append(Ql0+Qr0 )
+    Qlr.append(Ql0+Qr0)
     Flr.append(El0 + Er0 + (1/betal)*Isl0 )
     Tisl.append((1/betal)*Isl0  )
     Wt.append(Wl0 + Wr0 )
@@ -1091,4 +1091,4 @@ for i in range(Num):
     archivo.write("\n")
 
 
-#np.savez("phononeVg=5_10^{-3}.npz", eVs=eVs, entropf=entropf, Slr=Slr,cohes=cohev, concv = concv, Nls = Nls,Nds=Nds,coheveig = coheseig)
+np.savez("phononeVg=5_10^{-3}.npz", eVs=eVs, entropf=entropf, Slr=Slr,cohes=cohev, concv = concv, Nls = Nls,Nds=Nds,coheveig = coheseig, Qlr = Qlr, Elr = Erl, Flr = Flr, Tisl = Tisl, Wt = Wt, Eds = Eds, Fd = Fd, Tid = Tid, Wdf = Wdf, Qdf = Qdf, Id = Id)

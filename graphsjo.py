@@ -236,7 +236,7 @@ plt.xscale("log")
 plt.show()
 
 
-fig, ax10 = plt.subplots(
+fig,ax10 = plt.subplots(
     sharex=True,
     figsize=(3.39, 2.8)
 )

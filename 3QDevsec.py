@@ -597,7 +597,7 @@ for ev in eVs:
 
 
 ###ideas: calcular <100|\rho|010> y <101|\rho|011> 
-np.savez("phononeVg=1.npz", eVs=eVs0, entropf=entropf, Slr=Slr,cohes=cohev, concv = concuv, Nls = Nls,Nds = Nds,coheveig = coheseig,Qlr = Qlr,Wt=Work,Elr=Erl,Flr = Flr,Tisl=Tisl,Eds =Eds,Fd = Fd, Tid = Tid,Wdf = Wdf)
+np.savez("phononeVg=1.npz", eVs=eVs0, entropf=entropf, Slr=Slr,cohes=cohev, concv = concuv, Nls = Nls,Nds = Nds,coheveig = coheseig,Qlr = Qlr,Wt=Work,Elr=Erl,Flr = Flr,Tisl=Tisl,Eds =Eds,Fd = Fd,Tid = Tid,Wdf = Wdf)
 #np.savez("phonong=1000b100sec.npz", Jof=Jof, Id=Id,Ile =Ile,Ire = Ire, Iphs = Iphs,cohes=cohev, concv = concuv, Nls = Nls,Work=Work, eff=eff,effph=effph)
 
 #np.savez("phonong=1000probb100sec.npz", Jof=Jof, Probnt10=Probnt10,Probnt20=Probnt20,Probnt30=Probnt30,Probnt40=Probnt40,Probnt50=Probnt50,Probnt60=Probnt60,Probnt70=Probnt70,Probnt80=Probnt80, Imalphg=Imalphg, Imbetg=Imbetg)
