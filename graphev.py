@@ -132,8 +132,8 @@ ax10.legend(
 
 ax20.plot(eVs,Edssec, color='black',linestyle='--',lw=LINE_W)
 ax20.plot(eVs,Eds, color='black',lw=LINE_W, label = r'$\dot{E}_{1}$')
-ax20.plot(eVs,Wdfsec, color = 'm',lw=LINE_W)
-ax20.plot(eVs,Wdf,label = r'$\dot{W}_{1}$',linestyle='--', color = 'm',lw=LINE_W)
+ax20.plot(eVs,Wdfsec, color = 'm',lw=LINE_W,linestyle='--')
+ax20.plot(eVs,Wdf,label = r'$\dot{W}_{1}$', color = 'm',lw=LINE_W)
 
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
 #ax20.plot(eVs,Fdsec, color='black',lw=LINE_W, label = r'$\dot{F}_{1}$')
