@@ -496,6 +496,24 @@ def propcurrent(rho0,superop,Nop1):
     total = np.trace(np.matmul(Nop1,rhof) )
     return total
 
+def thermal(Hs,beta):
+    thermic = expm(-beta*Hs)
+    canonic = thermic/np.trace(thermic)
+
+    
+    p000 = np.matmul( v00.T.conj(), np.matmul( canonic,v00 ) )
+    p100 = np.matmul( v100.T.conj(), np.matmul( canonic,v100 ) )
+    p010 = np.matmul( v010.T.conj(), np.matmul( canonic,v010 ) )
+    p001 = np.matmul( v001.T.conj(), np.matmul( canonic,v001 ) )
+    p110 = np.matmul( v110.T.conj(), np.matmul( canonic,v110 ) )
+    p101 = np.matmul( v101.T.conj(), np.matmul( canonic,v101 ) )
+    p011 = np.matmul( v011.T.conj(), np.matmul( canonic,v011 ) )
+    p111 = np.matmul( v111.T.conj(), np.matmul( canonic,v111 ) )
+
+    return p000[0,0],p100[0,0],p010[0,0],p001[0,0], p110[0,0],p101[0,0],p011[0,0],p111[0,0]
+
+
+
 #######################################
 ############ejecucion##################
 #######################################
@@ -512,13 +530,23 @@ rho0 = np.array([[1/8,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,1/8]])
 
 
-betal,betar,betad =1/100,1/100,1/2
+#betal,betar,betad =1/100,1/100,1/2
+#betaph = 1/100
+
+
+betal,betar,betad =1/100,1/100,1/100
 betaph = 1/100
 
+
 g00 = 30
-gl,glu = 1/100,(1/100)*(1/6)
-gr,gru = (1/100)*(1/6),1/100
-gd = 1/50
+#gl,glu = 1/100,(1/100)*(1/6)
+#gr,gru = (1/100)*(1/6),1/100
+#gd = 1/50
+
+gl,glu = 1/100,1/100
+gr,gru = 1/100,1/100
+gd = 1/100
+
 gl1 = [gl,gl,glu,gl,gl,gl,glu,gl]
 gr1 = [gr,gr,gru,gr,gr,gr,gru,gr]
 
@@ -539,9 +567,28 @@ Wlr = []
 Jphonon = []
 gof1 = []
 coheseig = []
+Probnt10 = []
+Probnt20 = []
+Probnt30 = []
+Probnt40 = []
+Probnt50 = []
+Probnt60 = []
+Probnt70 = []
+Probnt80 = []
+
+Probnt10d = []
+Probnt20d = []
+Probnt30d = []
+Probnt40d = []
+Probnt50d = []
+Probnt60d = []
+Probnt70d = []
+Probnt80d = []
+   
+
 for g in g0fs:
     print(g)
-    mud0 = 2
+    mud0 = 0
     U00 = 40#40
     eps = 0.5
     Ed0 = mud0 - (1-eps)*U00
@@ -554,7 +601,8 @@ for g in g0fs:
     #Probar condicion (U00/E0)<<1,Strasberg
     E0l = 0#4
     E0r = 0#4
-    ev = 100
+    #ev = 100
+    ev = 0
     omegac = 1E-2
     Ld = Dd(betad,mud0,gd,Ed0,E0l,E0r,g,U00)
     mul = ev/2
@@ -605,6 +653,24 @@ for g in g0fs:
     Jof.append(J0/(betaph*gl))
     Jphonon.append(qph.real)
     gof1.append(g/(gl))
+    Probnt10.append(cal1f[0,0].real )
+    Probnt20.append(cal1f[1,1].real )
+    Probnt30.append(cal1f[2,2].real )
+    Probnt40.append(cal1f[3,3].real )
+    Probnt50.append(cal1f[4,4].real )
+    Probnt60.append(cal1f[5,5].real )
+    Probnt70.append(cal1f[6,6].real )
+    Probnt80.append(cal1f[7,7].real )
+
+    p000d,p100d,p010d,p001d,p110d,p101d,p011d,p111d = thermal(Htd,betal)
+    Probnt10d.append(p111d)
+    Probnt20d.append(p110d)
+    Probnt30d.append(p101d)
+    Probnt40d.append(p100d)
+    Probnt50d.append(p011d)
+    Probnt60d.append(p010d)
+    Probnt70d.append(p001d) 
+    Probnt80d.append(p000d)
 
 plt.plot(gof1,Nls,lw = 3,label = r'$\dot{N}_{L}$',color = 'b')
 #plt.plot(Jof,Nrs, label = r'$\dot{N}_{R}$', color = 'r')     
@@ -671,5 +737,95 @@ for i in range(Num):
     archivo.write( format_str.format(cohev[i]))
     archivo.write("\n")
 
+
+plt.plot(gof1,Probnt10, color='blue',lw=3)
+plt.plot(gof1,Probnt10d, color='orange',lw=3)
+
+plt.xlabel(r'$g/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\rho_{111}$',fontsize = 25)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+plt.plot(gof1,Probnt20, color='blue',lw=3)
+plt.plot(gof1,Probnt20d, color='orange',lw=3)
+plt.xlabel(r'$g/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\rho_{110}$',fontsize = 25)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+
+plt.plot(gof1,Probnt30, color='blue',lw=3)
+plt.plot(gof1,Probnt30d, color='orange',lw=3)
+
+plt.xlabel(r'$g/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\rho_{101}$',fontsize = 25)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+plt.plot(gof1,Probnt40, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+plt.plot(gof1,Probnt40d, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+
+plt.xlabel(r'$g/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\rho_{100}$',fontsize = 25)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+plt.plot(gof1,Probnt50, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+plt.plot(gof1,Probnt50d, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+
+plt.xlabel(r'$g/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\rho_{011}$',fontsize = 25) 
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+plt.plot(gof1,Probnt60, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+plt.plot(gof1,Probnt60d, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+
+plt.xlabel(r'$g/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\rho_{010}$',fontsize = 25)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+
+plt.plot(gof1,Probnt70, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+plt.plot(gof1,Probnt70d, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+
+plt.xlabel(r'$g/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\rho_{001}$',fontsize = 25)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+plt.plot(gof1,Probnt80, color='blue',lw=3, label = r'$\frac{g}{\kappa_{L}}=0$')
+plt.plot(gof1,Probnt80d, color='orange',lw=3, label = r'$\frac{g}{\kappa_{L}}=10^{-2}$')
+plt.xlabel(r'$g/\kappa_{L}$',fontsize = 20)
+plt.ylabel(r'$\rho_{000}$',fontsize = 25)
+plt.xticks(fontsize=17)  # X-axis tick labels
+plt.yticks(fontsize=17)
+plt.legend(fontsize=15,loc = "upper right")
+plt.xscale("log")
+plt.show()
+
+
 #calcular 3_10^{-3}redEl_4.npz
-np.savez("phononJ0=10^{-3}redcomp.npz", gof1=gof1,Qlrs=Qlrs,Qphs=Qphs,cohev=cohev, concuv = concuv, Nls = Nls,coheveig = coheseig)    
+#np.savez("phononJ0=10^{-3}redcomp.npz", gof1=gof1,Qlrs=Qlrs,Qphs=Qphs,cohev=cohev, concuv = concuv, Nls = Nls,coheveig = coheseig)    

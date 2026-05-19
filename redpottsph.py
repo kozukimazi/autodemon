@@ -499,7 +499,7 @@ cohev = []
 concuv = []
 Jphs = []
 for ev in eVs:
-    print(ev)
+    #print(ev)
     mud0 = 2
     U00 = 40#40
     
