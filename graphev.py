@@ -103,7 +103,7 @@ PANEL_FS = 9
 ax10.plot(eVs,Elrsec2,color='black',linestyle='--',lw=LINE_W)
 ax10.plot(eVs,Elr,color='black',lw=LINE_W, label = r'$\dot{E}_{2}$')
 #plt.plot(eVs,Isl,linestyle='--', dashes=(5, 9), color='red',lw=2, label = r'$\dot{I}_{rl}$')
-ax10.plot(eVs,Flr,color='red',lw=LINE_W, label = r'$\dot{F}_{2}$')
+ax10.plot(eVs,Flr,color='red',lw=LINE_W, label = r'$\dot{\mathcal{F}}_{2}$')
 ax10.plot(eVs,Flrsec2,color='red',linestyle='--',lw=LINE_W)
 ax10.plot(eVs,Tisl,label = r'$T\dot{I}_{2}$',color='blue',lw=LINE_W)
 ax10.plot(eVs,Tislsec2,linestyle='--',color = 'blue',lw=LINE_W)

@@ -646,7 +646,7 @@ ax1.plot(Jof5f, Nls5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
 #ax1.plot(Jof11, Nls11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
 #ax1.plot(Jof12, Nls12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
 #ax1.plot(Jof13, Nls13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
-#ax1.plot(Jof14f, Nls14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
+ax1.plot(Jof14f, Nls14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
 #ax1.plot(Jof15, Nls15, color='gray',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=5\times 10^{2}$')
 #ax1.plot(Jof16, Nls16, color='pink',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=9\times 10^{2}$')
 
@@ -697,7 +697,7 @@ ax2.plot(Jof5, cohesum5s, color='brown',  lw=LINE_W)
 #ax2.plot(Jof11, cohesum11s, color='blue',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof12, cohesum12s, color='green',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof13f, cohesum13s, color='brown',   lw=LINE_W, ls = '--')
-#ax2.plot(Jof14f, cohesum14s, color='black',   lw=LINE_W, ls = '--')
+ax2.plot(Jof14f, cohesum14s, color='black',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof15, cohesum15s, color='gray',   lw=LINE_W, ls = '--')
 #ax2.plot(Jof16, cohesum16s, color='pink',   lw=LINE_W, ls = '--')
 
@@ -735,3 +735,447 @@ plt.close()
 
 
 
+#########hacer los calculos de 1800 a 3000
+fig, (ax10, ax20) = plt.subplots(
+    1, 2,
+    sharex=True,
+    figsize=(7.0, 3.6)   # APS wide figure
+)
+
+LINE_W = 2.0
+LABEL_FS = 9
+TICK_FS  = 8
+PANEL_FS = 9
+LEG_FS   = 7
+
+# ===================== (a) Efficiency =====================
+ax10.plot(Jof0, Id0, color='blue',   lw=LINE_W, label=r'$g/\kappa_{L}=0$')
+#ax1.plot(Jof1, eff1, color='orange', lw=LINE_W, label=r'$g/\kappa_{L}=10^{-2}$')
+ax10.plot(Jof2, Id2, color='green',  lw=LINE_W, label=r'$g/\kappa_{L}=5\times 10^{-2}$')
+ax10.plot(Jof3, Id3, color='red',    lw=LINE_W, label=r'$g/\kappa_{L}=10^{-1}$')
+ax10.plot(Jof9, Id9, color='black',  lw=LINE_W, label=r'$g/\kappa_{L}=3\times10^{-1}$')
+ax10.plot(Jof4, Id4, color='purple', lw=LINE_W, label=r'$g/\kappa_{L}=5\times10^{-1}$')
+ax10.plot(Jof5, Id5, color='brown',  lw=LINE_W, label=r'$g/\kappa_{L}=10^{0}$')
+#ax1.plot(Jof7, eff7, color='gray',   lw=LINE_W, label=r'$g/\kappa_{L}=10^{1}$')
+#ax10.plot(Jof10, Id10, color='red',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{3}$')
+#ax10.plot(Jof11, Id11, color='blue',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{4}$')
+#ax1.plot(Jof12, eff12, color='green',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{5}$')
+#ax1.plot(Jof13, eff13, color='brown',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{6}$')
+ax10.plot(Jof14, Id14, color='black',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=10^{2}$')
+#ax1.plot(Jof15, eff15, color='gray',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=5\times 10^{2}$')
+#ax1.plot(Jof16, eff16, color='pink',   lw=LINE_W, ls = '--',label=r'$g/\kappa_{L}=9\times 10^{2}$')
+
+axins0 = inset_axes(
+    ax10,
+    width="30%",
+    height="30%",
+    #bbox_to_anchor=(0.005, 0.005, 0.1, 0.2),  #[x, y, width, height] 
+    #bbox_transform=ax10.transAxes,
+    loc = 'center right',
+    borderpad=1
+)
+
+# Plot SAME curves (no legend!)
+axins0.plot(Jof4, Id4, color='purple', lw=2)
+axins0.plot(Jof9, Id9, color='black',  lw=2)
+axins0.plot(Jof5, Id5, color='brown',  lw=2)
+axins0.set_xscale("log")
+
+# Zoom region (example values — adjust!)
+axins0.set_xlim(9e-3, 2)
+axins0.set_ylim(0.0042, 0.00431)
+
+# Inset formatting
+axins0.tick_params(direction='in', labelsize=6)
+for spine in axins0.spines.values():
+    spine.set_linewidth(0.6)
+
+# Optional: draw connectors
+#mark_inset(ax10, axins0, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
+mark_inset(ax10, axins0, loc1=2, loc2=4, fc="none", ec="0.4", lw=0.6)
+
+ax10.set_xscale("log")
+ax10.set_ylabel(r'$\dot{I}_{1}$', fontsize=LABEL_FS)
+
+ax10.text(0.92, 0.90, '(a)', transform=ax10.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+# ===================== (b) Coherence =====================
+ax20.plot(Jof0, eff0, color='blue',   lw=LINE_W)
+#ax2.plot(Jof1, coheveig1, color='orange', lw=LINE_W)
+ax20.plot(Jof2, eff2, color='green',  lw=LINE_W)
+ax20.plot(Jof3, eff3, color='red',    lw=LINE_W)
+ax20.plot(Jof9, eff9, color='black',  lw=LINE_W)
+ax20.plot(Jof4, eff4, color='purple', lw=LINE_W)
+ax20.plot(Jof5, eff5, color='brown',  lw=LINE_W)
+#ax2.plot(Jof7, coheveig7, color='gray',   lw=LINE_W)
+#ax20.plot(Jof10, eff10, color='red',   lw=LINE_W, ls = '--')
+#ax20.plot(Jof11, eff11, color='blue',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof12, coheveig12, color='green',   lw=LINE_W, ls = '--')
+#ax20.plot(Jof13, eff13, color='brown',   lw=LINE_W, ls = '--')
+ax20.plot(Jof14, eff14, color='black',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof15, coheveig15, color='gray',   lw=LINE_W, ls = '--')
+#ax2.plot(Jof16, coheveig16, color='pink',   lw=LINE_W, ls = '--')
+
+
+
+ax20.set_xscale("log")
+ax20.set_ylabel(r'$\eta_{2}$', fontsize=LABEL_FS)
+
+ax20.text(0.92, 0.90, '(b)', transform=ax20.transAxes,
+         fontsize=PANEL_FS, fontweight='bold')
+
+
+axins20 = inset_axes(
+    ax20,
+    width="32%",
+    height="32%",
+    #bbox_to_anchor=(0.005, 0.005, 0.1, 0.2),  #[x, y, width, height] 
+    #bbox_transform=ax10.transAxes,
+    loc = 'center right',
+    borderpad=1
+)
+
+# Plot SAME curves (no legend!)
+axins20.plot(Jof4, eff4, color='purple', lw=2)
+axins20.plot(Jof9, eff9, color='black',  lw=2)
+axins20.plot(Jof5, eff5, color='brown',  lw=2)
+axins20.set_xscale("log")
+
+# Zoom region (example values — adjust!)
+axins20.set_xlim(1e-2, 4)
+axins20.set_ylim(0.5, 0.541)
+
+# Inset formatting
+axins20.tick_params(direction='in', labelsize=6)
+for spine in axins20.spines.values():
+    spine.set_linewidth(0.6)
+
+# Optional: draw connectors
+#mark_inset(ax10, axins0, loc1=2, loc2=1, fc="none", ec="0.4", lw=0.6)
+mark_inset(ax20, axins20, loc1=2, loc2=4, fc="none", ec="0.4", lw=0.6)
+
+
+
+# ===================== Shared formatting =====================
+for ax in (ax10, ax20):
+    ax.tick_params(direction='in', which='both', labelsize=TICK_FS)
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+ax10.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+ax20.set_xlabel(r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_{L})$', fontsize=LABEL_FS)
+
+# ===================== Single legend (recommended) =====================
+handles, labels = ax10.get_legend_handles_labels()
+fig.legend(
+    handles, labels,
+    loc='upper center',
+    ncol=4,
+    fontsize=LEG_FS,
+    frameon=True
+)
+
+# ===================== Layout & save =====================
+plt.tight_layout(pad=0.4, rect=[0, 0, 1, 0.88])
+#plt.savefig("figinfocoheeig.pdf")
+plt.close()
+
+
+
+
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
+
+# ==========================================================
+# PRB STYLE
+# ==========================================================
+LINE_W  = 2.0
+LABEL_FS = 9
+TICK_FS  = 8
+PANEL_FS = 10
+LEG_FS   = 7
+
+# ==========================================================
+# CREATE 2x2 FIGURE
+# ==========================================================
+fig, axs = plt.subplots(
+    2, 2,
+    figsize=(7.0, 6.0),
+    sharex=True
+)
+
+(ax1, ax2), (ax3, ax4) = axs
+
+# ==========================================================
+# COMMON CURVES
+# ==========================================================
+curves = [
+    (Jof0,  'blue',   r'$g/\kappa_L=0$'),
+    (Jof2,  'green',  r'$g/\kappa_L=5\times10^{-2}$'),
+    (Jof3,  'red',    r'$g/\kappa_L=10^{-1}$'),
+    (Jof9,  'black',  r'$g/\kappa_L=3\times10^{-1}$'),
+    (Jof4,  'purple', r'$g/\kappa_L=5\times10^{-1}$'),
+    (Jof5,  'brown',  r'$g/\kappa_L=10^{0}$'),
+    (Jof14, 'black',  r'$g/\kappa_L=10^{2}$')
+]
+
+# ==========================================================
+# (a) CURRENT
+# ==========================================================
+datasets_a = [Nls0, Nls2, Nls3, Nls9, Nls4, Nls5, Nls14]
+
+for (x, c, lab), y in zip(curves, datasets_a):
+    ls = '--' if '10^{2}' in lab else '-'
+    ax1.plot(x, y, color=c, lw=LINE_W, ls=ls, label=lab)
+
+ax1.set_xscale('log')
+ax1.set_ylabel(r'$|\dot{N}_{B_L}|/\kappa_L$', fontsize=LABEL_FS)
+
+ax1.text(
+    0.90, 0.89, '(a)',
+    transform=ax1.transAxes,
+    fontsize=PANEL_FS,
+    fontweight='bold'
+)
+
+# ==========================================================
+# INSET (a)
+# ==========================================================
+axins1 = inset_axes(
+    ax1,
+    width="34%",
+    height="34%",
+    loc='center right',
+    borderpad=1
+)
+
+axins1.plot(Jof4, Nls4, color='purple', lw=1.8)
+axins1.plot(Jof5, Nls5, color='brown', lw=1.8)
+axins1.plot(Jof9, Nls9, color='black', lw=1.8)
+
+axins1.set_xscale("log")
+
+axins1.set_xlim(6.5e-4, 2.1)
+axins1.set_ylim(0.0385, 0.0485)
+
+axins1.tick_params(direction='in', labelsize=5)
+
+for spine in axins1.spines.values():
+    spine.set_linewidth(0.6)
+
+mark_inset(
+    ax1,
+    axins1,
+    loc1=2,
+    loc2=4,
+    fc="none",
+    ec="0.4",
+    lw=0.6
+)
+
+# ==========================================================
+# (b) COHERENCE
+# ==========================================================
+datasets_b = [
+    cohesum0s,
+    cohesum2s,
+    cohesum3s,
+    cohesum9s,
+    cohesum4s,
+    cohesum5s,
+    cohesum14s
+]
+
+for (x, c, lab), y in zip(curves, datasets_b):
+    ls = '--' if '10^{2}' in lab else '-'
+    ax2.plot(x, y, color=c, lw=LINE_W, ls=ls)
+
+ax2.set_xscale('log')
+
+ax2.set_ylabel(
+    r'$\langle \dot{N}_{\mathrm{cohe}}\rangle/\kappa_L$',
+    fontsize=LABEL_FS
+)
+
+ax2.text(
+    0.90, 0.89, '(b)',
+    transform=ax2.transAxes,
+    fontsize=PANEL_FS,
+    fontweight='bold'
+)
+
+# ==========================================================
+# (c) INFORMATION FLOW
+# ==========================================================
+datasets_c = [Id0, Id2, Id3, Id9, Id4, Id5, Id14]
+
+for (x, c, lab), y in zip(curves, datasets_c):
+    ls = '--' if '10^{2}' in lab else '-'
+    ax3.plot(x, y, color=c, lw=LINE_W, ls=ls)
+
+ax3.set_xscale('log')
+
+ax3.set_ylabel(
+    r'$\dot{I}_1$',
+    fontsize=LABEL_FS
+)
+
+ax3.text(
+    0.90, 0.89, '(c)',
+    transform=ax3.transAxes,
+    fontsize=PANEL_FS,
+    fontweight='bold'
+)
+
+# ==========================================================
+# INSET (c)
+# ==========================================================
+axins3 = inset_axes(
+    ax3,
+    width="34%",
+    height="34%",
+    loc='center right',
+    borderpad=1
+)
+
+axins3.plot(Jof4, Id4, color='purple', lw=1.8)
+axins3.plot(Jof9, Id9, color='black', lw=1.8)
+axins3.plot(Jof5, Id5, color='brown', lw=1.8)
+
+axins3.set_xscale("log")
+
+axins3.set_xlim(9e-3, 2)
+axins3.set_ylim(0.0042, 0.00431)
+
+axins3.tick_params(direction='in', labelsize=5)
+
+for spine in axins3.spines.values():
+    spine.set_linewidth(0.6)
+
+mark_inset(
+    ax3,
+    axins3,
+    loc1=2,
+    loc2=4,
+    fc="none",
+    ec="0.4",
+    lw=0.6
+)
+
+# ==========================================================
+# (d) EFFICIENCY
+# ==========================================================
+datasets_d = [eff0, eff2, eff3, eff9, eff4, eff5, eff14]
+
+for (x, c, lab), y in zip(curves, datasets_d):
+    ls = '--' if '10^{2}' in lab else '-'
+    ax4.plot(x, y, color=c, lw=LINE_W, ls=ls)
+
+ax4.set_xscale('log')
+
+ax4.set_ylabel(
+    r'$\eta_2$',
+    fontsize=LABEL_FS
+)
+
+ax4.text(
+    0.90, 0.89, '(d)',
+    transform=ax4.transAxes,
+    fontsize=PANEL_FS,
+    fontweight='bold'
+)
+
+# ==========================================================
+# INSET (d)
+# ==========================================================
+axins4 = inset_axes(
+    ax4,
+    width="34%",
+    height="34%",
+    loc='center right',
+    borderpad=1
+)
+
+axins4.plot(Jof4, eff4, color='purple', lw=1.8)
+axins4.plot(Jof9, eff9, color='black', lw=1.8)
+axins4.plot(Jof5, eff5, color='brown', lw=1.8)
+
+axins4.set_xscale("log")
+
+axins4.set_xlim(1e-2, 4)
+axins4.set_ylim(0.5, 0.541)
+
+axins4.tick_params(direction='in', labelsize=5)
+
+for spine in axins4.spines.values():
+    spine.set_linewidth(0.6)
+
+mark_inset(
+    ax4,
+    axins4,
+    loc1=2,
+    loc2=4,
+    fc="none",
+    ec="0.4",
+    lw=0.6
+)
+
+# ==========================================================
+# SHARED FORMATTING
+# ==========================================================
+for ax in axs.flat:
+
+    ax.tick_params(
+        direction='in',
+        which='both',
+        labelsize=TICK_FS
+    )
+
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.8)
+
+# ==========================================================
+# SHARED X LABELS
+# ==========================================================
+ax3.set_xlabel(
+    r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_L)$',
+    fontsize=LABEL_FS
+)
+
+ax4.set_xlabel(
+    r'$J_{0}/(\beta_{\mathrm{ph}}\kappa_L)$',
+    fontsize=LABEL_FS
+)
+
+# ==========================================================
+# GLOBAL LEGEND
+# ==========================================================
+handles, labels = ax1.get_legend_handles_labels()
+
+fig.legend(
+    handles,
+    labels,
+    loc='upper center',
+    ncol=4,
+    fontsize=LEG_FS,
+    frameon=True
+)
+
+# ==========================================================
+# LAYOUT
+# ==========================================================
+plt.tight_layout(
+    pad=0.6,
+    rect=[0, 0, 1, 0.92]
+)
+
+# ==========================================================
+# SAVE
+# ==========================================================
+plt.savefig(
+    'fig_PRB_2x2new.pdf',
+    bbox_inches='tight'
+)
+
+plt.show()
