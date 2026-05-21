@@ -776,8 +776,8 @@ ax_f = fig.add_subplot(gs[2, 1])
 # ===================== Example content =====================
 
 # ---- Small panels ----
-ax_a.plot(gof10, coheveig0y, lw=LINE_W,color='blue', label='partial')
-ax_a.plot(gof12, coheveig2y, lw=LINE_W,color='red', label='global')
+ax_a.plot(gof10, coheveig0y, lw=LINE_W,color='blue', label='semilocal')
+ax_a.plot(gof12, coheveig2y, lw=LINE_W,color='red', label='Global')
 ax_a.plot(gof11, coheveig1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 ax_a.set_ylabel(r'$\mathcal{C}_{l_1}(\mathrm{eig})$', fontsize=LABEL_FS)
 ax_a.set_xscale('log')
@@ -788,8 +788,8 @@ ax_a.text(0.90, 0.84, '(a)', transform=ax_a.transAxes,
 # Text inside plot (2)
 
 
-ax_b.plot(gof10y, coheveig0, lw=LINE_W,color='blue', label='partial')
-ax_b.plot(gof12y, coheveig2, lw=LINE_W,color='red', label='global')
+ax_b.plot(gof10y, coheveig0, lw=LINE_W,color='blue', label='semilocal')
+ax_b.plot(gof12y, coheveig2, lw=LINE_W,color='red', label='Global')
 ax_b.plot(gof11y, coheveig1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 ax_b.set_xscale('log')
 ax_b.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
@@ -797,8 +797,8 @@ ax_b.text(0.90, 0.84, '(b)', transform=ax_b.transAxes,
             fontsize=PANEL_FS, fontweight='bold')
 
 
-ax_c.plot(gof10, cohes0y, lw=LINE_W,color='blue', label='partial')
-ax_c.plot(gof12, cohes2y, lw=LINE_W,color='red', label='global')
+ax_c.plot(gof10, cohes0y, lw=LINE_W,color='blue', label='semilocal')
+ax_c.plot(gof12, cohes2y, lw=LINE_W,color='red', label='Global')
 ax_c.plot(gof11, cohes1y, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 
 ax_c.set_xscale('log')
@@ -812,8 +812,8 @@ ax_c.text(0.05, 0.5,
           transform=ax_c.transAxes,
           fontsize=8)
 
-ax_d.plot(gof10y, cohes0, lw=LINE_W,color='blue', label='partial')
-ax_d.plot(gof12y, cohes2, lw=LINE_W,color='red', label='global')
+ax_d.plot(gof10y, cohes0, lw=LINE_W,color='blue', label='semilocal')
+ax_d.plot(gof12y, cohes2, lw=LINE_W,color='red', label='Global')
 ax_d.plot(gof11y, cohes1, lw=LINE_W,color='black',linestyle='--', label='Redfield')
 ax_d.set_xscale('log')
 ax_d.tick_params(direction='in', which='both', labelbottom=False,labelsize=TICK_FS)
@@ -827,8 +827,8 @@ ax_d.text(0.02, 0.5,
           fontsize=8)            
 
 # ---- Large panels ----
-ax_e.plot(gof10, Nls0fy, lw=LINE_W,color = 'blue', label='partial')
-ax_e.plot(gof12, Nls2fy, lw=LINE_W, color = 'red', label='global')
+ax_e.plot(gof10, Nls0fy, lw=LINE_W,color = 'blue', label='semilocal')
+ax_e.plot(gof12, Nls2fy, lw=LINE_W, color = 'red', label='Global')
 ax_e.plot(gof11, Nls1fy, lw=LINE_W, color = 'black', linestyle='--', label='Redfield')
 ax_e.set_xscale('log')
 ax_e.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
@@ -844,8 +844,8 @@ ax_e.text(0.90, 0.86, '(e)', transform=ax_e.transAxes,
 
 
 # ---- Panel (f)
-ax_f.plot(gof10y, Nls0f, lw=LINE_W, color = 'blue', label='partial')
-ax_f.plot(gof12y, Nls2f, lw=LINE_W, color = 'red', label='global')
+ax_f.plot(gof10y, Nls0f, lw=LINE_W, color = 'blue', label='semilocal')
+ax_f.plot(gof12y, Nls2f, lw=LINE_W, color = 'red', label='Global')
 ax_f.plot(gof11y, Nls1f, lw=LINE_W, color = 'black', linestyle='--', label='Redfield')
 ax_f.set_xlabel(r'$g/\kappa_L$', fontsize=LABEL_FS)
 #ax_f.set_ylabel(r'$\dot{N}_{L}/\kappa_L$', fontsize=LABEL_FS)
@@ -864,7 +864,7 @@ for ax in [ax_a, ax_b, ax_c, ax_d, ax_e, ax_f]:
 
 # ---------------- Layout ----------------
 #plt.tight_layout(pad=0.25)
-plt.savefig("fig_asymmetric_PR.pdf")
+plt.savefig("Figure2.pdf")
 plt.show()
 plt.close()
 
